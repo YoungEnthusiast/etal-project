@@ -54,26 +54,28 @@
 								<div class="card-group mb-0">
 									<div class="card p-4">
 										<div class="card-body">
-                      <p>Please enter the username and password registered on your account</p>
                       <form method="post" class="form-group col-md-12 text-dark-green">
 											<div class="form-group">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-
+                      {% csrf_token %}
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.username|as_crispy_field }}
+                        </div>
+                      </div>
+                      <p style="text-align:right"><a class="text-info" href="#">Forget Password?</a></p>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.password|as_crispy_field }}
+                        </div>
+                      </div>
 											</div>
 											<div class="checkbox text-left mb-2">
 
 											</div>
 											<div class="text-left">
-												<input type="submit"  class="form-group btn btn-info" value="Sign in">
+												<input type="submit"  class="form-group btn-block btn-info" value="Sign in">
 											</div>
                       </form>
-                      <div class="text-left text-muted mt-3">
-												Don't have account yet? <a href=""><span class="text-cylinder">Sign up</span></a>
-											</div>
-											<div class="text-left text-muted mt-3">
-												<i class="fas fa-lock"></i> Forgot Password?<a href=""><span class="text-cylinder"> Reset here</span></a>
-											</div>
 
 										</div>
 									</div>
