@@ -3,7 +3,7 @@ from account import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    # path('join', views.create, name='account'),
+    path('join', views.create, name='account'),
     # path('where-next/', views.loginTo),
     path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
     # path('logout/', auth_views.LogoutView.as_view(template_name='account/login.html'), name='logout'),
