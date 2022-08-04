@@ -1,43 +1,11 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% load static %}
-<!doctype html>
-<html lang="en" dir="ltr">
-  <head>
-		<!-- Meta data -->
-		<meta charset="UTF-8">
-		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta content="Spaner - Simple light Bootstrap Nice Admin Panel Dashboard Design Responsive HTML5 Template" name="description">
-		<meta content="Spruko Technologies Private Limited" name="author">
-		<meta name="keywords" content="bootstrap panel, bootstrap admin template, dashboard template, bootstrap dashboard, dashboard design, best dashboard, html css admin template, html admin template, admin panel template, admin dashbaord template, bootstrap dashbaord template, it dashbaord, hr dashbaord, marketing dashbaord, sales dashbaord, dashboard ui, admin portal, bootstrap 4 admin template, bootstrap 4 admin"/>
+{% block title %}
+  <title>Login</title>
+{% endblock title %}
 
-		<!-- Favicon -->
-		<link rel="shortcut icon" type="image/x-icon" href="{% static '/assets/images/brand/favicon.ico' %}" />
-
-		<!-- Title -->
-		<title>Spaner - Simple light Bootstrap Nice Admin Panel Dashboard Design Responsive HTML5 Template</title>
-
-    <link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" >
-
-		<link href="{% static '/assets/plugins/p-scroll/p-scroll.css' %}" rel="stylesheet" />
-		<link href="{% static '/assets/css/color-styles.css' %}" rel="stylesheet" />
-
-		<link href="{% static '/assets/css/style.css' %}" rel="stylesheet" />
-		<link href="{% static '/assets/css/dark-style.css' %}" rel="stylesheet" />
-
-		<!--Font Awesome css-->
-		<link href="{% static '/assets/plugins/fontawesome-free/css/all.css' %}" rel="stylesheet">
-
-		<!---Font icons css-->
-		<link href="{% static '/assets/plugins/iconfonts/plugin.css' %}" rel="stylesheet" />
-
-		<!-- COLOR-SKINS -->
-		<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static '/assets/skins/color-skins/color15.css' %}" />
-		<link rel="stylesheet" href="{% static '/assets/skins/demo.css' %}"/>
-
-	</head>
-  {% load crispy_forms_tags %}
-
-	<body class="dark-mode">
+{% block content %}
 
 		<!-- Global Loader-->
 		<div id="global-loader"><img src="{% static '/assets/images/svgs/loader.svg' %}" alt="loader"></div>
@@ -103,33 +71,4 @@
 				</div>
 			</div>
 		</div>
-
-		<script src="{% static '/assets/js/jquery.js' %}"></script>
-		<script src="{% static '/assets/js/vendors/jquery.sparkline.min.js' %}"></script>
-		<script src="{% static '/assets/js/vendors/selectize.min.js' %}"></script>
-		<script src="{% static '/assets/js/vendors/jquery.tablesorter.min.js' %}"></script>
-		<script src="{% static '/assets/js/vendors/circle-progress.min.js' %}"></script>
-		<script src="{% static '/assets/plugins/jquery.rating/jquery.rating-stars.js' %}"></script>
-
-		<!--Bootstrap.min js-->
-		<script src="{% static '/assets/plugins/bootstrap/popper.min.js' %}"></script>
-		<script src="{% static '/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-
-		<!-- p-scroll bar Js-->
-		<script src="{% static '/assets/plugins/p-scroll/p-scroll.js' %}"></script>
-
-		<!--Sticky JS -->
-		<script src="{% static '/assets/js/sticky.js' %}"></script>
-
-		<!--Peitychart js-->
-		<script src="{% static '/assets/plugins/peitychart/jquery.peity.min.js' %}"></script>
-
-		<!--Counters js-->
-		<script src="{% static '/assets/plugins/counters/counterup.min.js' %}"></script>
-		<script src="{% static '/assets/plugins/counters/waypoints.min.js' %}"></script>
-
-		<!-- Custom js -->
-		<script src="{% static '/assets/js/custom.js' %}"></script>
-
-	</body>
-</html>
+{% endblock content%}
