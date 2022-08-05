@@ -7,6 +7,7 @@ from .models import Researcher
 # from django.forms.widgets import TextInput
 
 class CustomRegisterForm(UserCreationForm):
+
     # TYPE_CHOICES = [
     #     ('Researcher', 'Researcher'),
     #     ('Collaborator', 'Collaborator'),

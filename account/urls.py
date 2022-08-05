@@ -1,11 +1,14 @@
 from django.urls import path
 from account import views
 from django.contrib.auth import views as auth_views
+from .views import ActivateAccount
 
 urlpatterns = [
     path('join', views.create, name='account'),
     # path('where-next/', views.loginTo),
     path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
+    path('activate/<uidb64>/<token>', ActivateAccount.as_view(), name='activate'),
+
     # path('logout/', auth_views.LogoutView.as_view(template_name='account/login.html'), name='logout'),
 
 
