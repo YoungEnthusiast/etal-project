@@ -26,7 +26,8 @@ class CustomRegisterForm(UserCreationForm):
 
     class Meta:
         model = Researcher
-        fields = ['username', 'first_name', 'last_name', 'affiliation_name', 'affiliation_address', 'city', 'state', 'country', 'password1', 'password2']
+        # fields = ['username', 'first_name', 'last_name', 'affiliation_name', 'affiliation_address', 'city', 'state', 'country', 'password1', 'password2']
+        fields = ['username']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
