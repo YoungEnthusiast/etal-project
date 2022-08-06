@@ -16,6 +16,7 @@ class Researcher(AbstractUser):
     city = models.CharField(max_length=255, null=True,)
     state = models.CharField(max_length=255, null=True,)
     country = models.CharField(max_length=255, null=True)
+    email_confirmed = models.BooleanField(default=False)
 
     type = models.CharField(max_length=12, choices=TYPE_CHOICES, default='Researcher', null=True)
     created = models.DateTimeField(auto_now_add=True, null=True)

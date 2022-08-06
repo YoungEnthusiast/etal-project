@@ -96,33 +96,6 @@ def create(request):
         form = CustomRegisterForm()
     return render(request, 'users/account.html', {'form': form})
 
-# def create(request):
-#     if request.method == "POST":
-#         form = CustomRegisterForm(request.POST)
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             user.is_active = False
-#             user.save()
-#             current_site = get_current_site(request)
-#             subject = 'Activate Your BuildQwik Account'
-#             message = render_to_string('users/account_activation_email0.html', {
-#                 'user': user,
-#                 'domain': current_site.domain,
-#                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-#                 'token': account_activation_token.make_token(user),
-#             })
-#             user.email_user(subject, message)
-#             messages.success(request, ('Please login to your email, you have been sent a message for email verification.'))
-#             return redirect('login')
-#         else:
-#             messages.error(request, 'A user with the supplied username or email already exists')
-#         return redirect('account')
-#     else:
-#         form = CustomRegisterForm()
-#     return render(request, 'users/account.html', {'form': form})
-
-
-
 class ActivateAccount(View):
     def get(self, request, uidb64, token, *args, **kwargs):
         try:
