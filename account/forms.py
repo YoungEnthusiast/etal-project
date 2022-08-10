@@ -17,7 +17,6 @@ class CustomRegisterForm(UserCreationForm):
     # first_name = forms.CharField(max_length=30)
     # last_name = forms.CharField(max_length=30)
 
-
     # def clean_username(self):
     #    username = self.cleaned_data.get('username')
     #    if Researcher.objects.filter(username=username).exists():

@@ -9,13 +9,13 @@ class Researcher(AbstractUser):
         ('SuperAdmin', 'SuperAdmin'),
     ]
     username = models.EmailField(max_length=255, unique=True, verbose_name="Email")
-    first_name = models.CharField(max_length=45, null=True, verbose_name="First Name")
-    last_name = models.CharField(max_length=45, null=True, verbose_name="Last Name")
-    affiliation_name = models.CharField(max_length=255, null=True, verbose_name="Affiliation Name")
-    affiliation_address = models.CharField(max_length=255, null=True, verbose_name="Affiliation Address")
-    city = models.CharField(max_length=255, null=True,)
-    state = models.CharField(max_length=255, null=True,)
-    country = models.CharField(max_length=255, null=True)
+    first_name = models.CharField(max_length=45, null=True, blank=True, verbose_name="First Name")
+    last_name = models.CharField(max_length=45, null=True, blank=True, verbose_name="Last Name")
+    affiliation_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Affiliation Name")
+    affiliation_address = models.CharField(max_length=255, null=True, blank=True, verbose_name="Affiliation Address")
+    city = models.CharField(max_length=255, blank=True, null=True,)
+    state = models.CharField(max_length=255, blank=True, null=True,)
+    country = models.CharField(max_length=255, blank=True, null=True)
     email_confirmed = models.BooleanField(default=False)
 
     type = models.CharField(max_length=12, choices=TYPE_CHOICES, default='Researcher', null=True)

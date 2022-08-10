@@ -47,16 +47,29 @@
                               {{ form.username|as_crispy_field }}
                         </div>
                       </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.password1|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.password2|as_crispy_field }}
+                        </div>
+                      </div>
+
 
 											</div>
 											<div class="checkbox text-left mb-2">
 
 											</div>
-                      <script src='https://www.google.com/recaptcha/api.js'></script>
-                      <div class="g-recaptcha" data-sitekey="6LcmM08hAAAAACLRVdYLA1o-DYfn8nNaWbsDtXXC"></div>
+
+
 											<div class="text-left">
 												<input type="submit"  class="btn btn-block btn-info" value="Join">
 											</div>
+                      <!-- <script src='https://www.google.com/recaptcha/api.js'></script>
+                      <div class="g-recaptcha" data-sitekey="6LfJmFYhAAAAAMe_96HbPy8aLWprxc6M8E1ZBsd-"></div> -->
                       </form>
 
 										</div>

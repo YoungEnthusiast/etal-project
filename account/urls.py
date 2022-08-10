@@ -5,11 +5,12 @@ from .views import ActivateAccount
 
 urlpatterns = [
     path('join', views.create, name='account'),
-    # path('where-next/', views.loginTo),
+    path('where-next/', views.loginTo),
     path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
     path('activate/<uidb64>/<token>', ActivateAccount.as_view(), name='activate'),
+    path('researcher-dashboard', views.showResearcherBoard, name='researcher_board'),
 
-    # path('logout/', auth_views.LogoutView.as_view(template_name='account/login.html'), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='account/login.html'), name='logout'),
 
 
     # path('researcher-dashboard/edit-profile', views.editQwikCust, name='qwikcust_profile'),
@@ -26,7 +27,7 @@ urlpatterns = [
     # path('reset-password-sent', auth_views.PasswordResetDoneView.as_view(template_name='account/password_reset_sent.html'), name='password_reset_done'),
     # path('reset-password/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='account/password_reset_form.html'), name='password_reset_confirm'),
     # path('reset-password-complete', auth_views.PasswordResetCompleteView.as_view(template_name='account/password_reset_done.html'), name='password_reset_complete'),
-    # path('researcher-dashboard', views.showQwikCustBoard, name='qwikcust_board'),
+
     # path('researcher_dashboard', views.showFirstLogin, name='first_login'),
     # path('collaborator-dashboard', views.showcollaboratorBoard, name='collaborator_board'),
     # path('admin-dashboard', views.showadminBoard, name='admin_board'),
