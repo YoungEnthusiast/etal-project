@@ -11,6 +11,7 @@ class Researcher(AbstractUser):
     username = models.EmailField(max_length=255, unique=True, verbose_name="Email")
     first_name = models.CharField(max_length=45, null=True, blank=True, verbose_name="First Name")
     last_name = models.CharField(max_length=45, null=True, blank=True, verbose_name="Last Name")
+    photograph = models.ImageField(upload_to='users_img/%Y/%m/%d', null=True, blank=True)
     affiliation_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Affiliation Name")
     affiliation_address = models.CharField(max_length=255, null=True, blank=True, verbose_name="Affiliation Address")
     city = models.CharField(max_length=255, blank=True, null=True,)
@@ -32,6 +33,14 @@ class Researcher(AbstractUser):
             return str(self.username) + " | " + str(self.first_name) + " " + str(self.last_name)
         except:
             return str(self.id)
+
+    @property
+    def photographURL(self):
+        try:
+            url = self.photograph.url
+        except:
+            url = ''
+        return url
 
 
     # def get_absolute_url(self):

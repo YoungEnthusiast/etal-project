@@ -18,14 +18,14 @@ class ResearcherAdmin(UserAdmin):
             (
                 "Custom Fields",
                 {
-                    'fields': ('type', 'affiliation_name', 'affiliation_address', 'city', 'state', 'country')
+                    'fields': ('type', 'photograph', 'affiliation_name', 'affiliation_address', 'city', 'state', 'country')
                 }
             )
         )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'password1', 'password2', 'first_name', 'last_name', 'type', 'affiliation_name', 'affiliation_address', 'city', 'state', 'country')}
+            'fields': ('username', 'password1', 'password2', 'first_name', 'last_name', 'type', 'photograph', 'affiliation_name', 'affiliation_address', 'city', 'state', 'country')}
         ),
     )
 admin.site.register(Researcher, ResearcherAdmin)

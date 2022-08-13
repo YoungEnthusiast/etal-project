@@ -19692,7 +19692,7 @@ body {
   }
 }
 .navbar-marketing.navbar-lemon.navbar-scrolled {
-  background-color: #D7F267 !important;
+  background-color: #ffffff !important;
 }
 
 .navbar-marketing.navbar-light.navbar-scrolled {
@@ -19702,7 +19702,7 @@ body {
 
 @media (max-width: 991.98px) {
   .navbar-marketing.bg-transparent.navbar-lemon {
-    background-color: #D7F267 !important;
+    background-color: #ffffff !important;
   }
 
   .navbar-marketing.bg-transparent.navbar-light {
@@ -20371,11 +20371,17 @@ section {
 .text-whatsapp {
   color: #12b01f !important; }
 
-.profile-small{
+.profile-small-qg{
   border-radius: 50%;
   border: 4px solid #83C229;
   width: 70px;
   height: 70px
+}
+
+.profile-small{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px
 }
 
 .profile-big{
