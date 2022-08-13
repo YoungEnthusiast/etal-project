@@ -134,7 +134,7 @@
     z-index: 1030;
     padding: 10px 0;
     box-shadow: none;
-    /* background: linear-gradient(89.1deg, #83C229 0.7%, #1396cc 88.4%); */
+    /* background: linear-gradient(89.1deg, #fff 0.7%, #1396cc 88.4%); */
     background: #fff;
 }
 
@@ -491,7 +491,7 @@
 }
 
 .slide.is-expanded [data-toggle='slide'] {
-    color: #83C229;
+    color: #fff;
     font-weight: 400;
 }
 
@@ -543,7 +543,7 @@
 
 .slide-item:hover {
     background: #f1f1ff;
-    color: #83C229;
+    color: #fff;
 }
 
 .slide-item .icon {

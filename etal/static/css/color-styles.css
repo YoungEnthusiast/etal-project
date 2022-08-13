@@ -4,27 +4,27 @@
 /*black variables*/
 /*shadow variables*/
 a {
-    color: #83C229;
+    color: #fff;
 }
 
 a:hover {
-    color: #83C229;
+    color: #fff;
 }
 
 /*------- 2. Forms -------*/
 .form-control:focus {
-    border: 1px solid #83C229;
+    border: 1px solid #fff;
     box-shadow: none;
 }
 
 select.form-control:focus::-ms-value {
-    border: 1px solid #83C229 !important;
+    border: 1px solid #fff !important;
 }
 
 /*--------3. Buttons ------*/
 .btn-primary {
-    border: 1px solid #83C229;
-    background: #83C229;
+    border: 1px solid #fff;
+    background: #fff;
     color: #fff;
 }
 
@@ -50,14 +50,14 @@ select.form-control:focus::-ms-value {
 .btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active {
     color: #fff;
-    background-color: #83C229;
-    border-color: #83C229;
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .show>.btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: #83C229;
-    border-color: #83C229;
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus,
@@ -117,16 +117,16 @@ select.form-control:focus::-ms-value {
 }
 
 .btn-outline-primary {
-    color: #83C229;
+    color: #fff;
     background-color: transparent;
     background-image: none;
-    border-color: #83C229 !important;
+    border-color: #fff !important;
 }
 
 .btn-outline-primary:hover {
     color: #fff;
-    background-color: #83C229;
-    border-color: #83C229;
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .btn-outline-primary:focus,
@@ -136,21 +136,21 @@ select.form-control:focus::-ms-value {
 
 .btn-outline-primary.disabled,
 .btn-outline-primary:disabled {
-    color: #83C229;
+    color: #fff;
     background-color: transparent;
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled):active,
 .btn-outline-primary:not(:disabled):not(.disabled).active {
     color: #fff;
-    background-color: #83C229;
-    border-color: #83C229;
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .show>.btn-outline-primary.dropdown-toggle {
     color: #fff;
-    background-color: #83C229;
-    border-color: #83C229;
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus,
@@ -209,7 +209,7 @@ select.form-control:focus::-ms-value {
 }
 
 .btn-link {
-    color: #83C229;
+    color: #fff;
 }
 
 .btn-link:hover {
@@ -218,7 +218,7 @@ select.form-control:focus::-ms-value {
 
 /*------4. Drop Downs-------*/
 .notifyimg {
-    background: #83C229;
+    background: #fff;
 }
 
 /*------ 5. Tables -----*/
@@ -263,104 +263,104 @@ select.form-control:focus::-ms-value {
 }
 
 .table-primary td {
-    color: #83C229 !important;
+    color: #fff !important;
 }
 
 /*----- 7. Custom control -----*/
 .accordionjs .acc_section.acc_active>.acc_head {
-    background: #83C229;
+    background: #fff;
 }
 
 .sweet-alert button {
-    background-color: #83C229 !important;
+    background-color: #fff !important;
 }
 
 .addui-slider .addui-slider-track {
-    background: #83C229;
+    background: #fff;
 }
 
 .addui-slider .addui-slider-track .addui-slider-handle.addui-slider-handle-active .addui-slider-value,
 .addui-slider .addui-slider-track .addui-slider-handle:after,
 .addui-slider .addui-slider-track .addui-slider-handle.addui-slider-handle-active {
-    background: #83C229;
+    background: #fff;
 }
 
 .addui-slider .addui-slider-track .addui-slider-range {
-    background: #83C229;
+    background: #fff;
 }
 
 .timeline__item:after {
-    border: 6px solid #83C229;
+    border: 6px solid #fff;
 }
 
 .spinLoader {
-    color: #83C229 !important;
-    background: #83C229 !important;
+    color: #fff !important;
+    background: #fff !important;
 }
 
 .spinLoader:before,
 .spinLoader:after {
-    background: #83C229 !important;
+    background: #fff !important;
 }
 
 div.conv-form-wrapper div.options div.option {
-    border: 1px solid #83C229;
-    color: #83C229;
+    border: 1px solid #fff;
+    color: #fff;
 }
 
 div.conv-form-wrapper div#messages div.message.from {
-    background: #83C229;
+    background: #fff;
 }
 
 form.convFormDynamic button.submit {
-    background: #83C229;
+    background: #fff;
 }
 
 form.convFormDynamic button.submit:hover {
-    background: #83C229;
+    background: #fff;
 }
 
 .fc-event,
 .fc-event-dot {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .fc-event {
-    border: 1px solid #83C229;
+    border: 1px solid #fff;
 }
 
 .fc button {
-    background: #83C229;
+    background: #fff;
 }
 
 .cal1 .clndr .clndr-controls .clndr-control-button .clndr-next-button:hover {
-    background: #83C229;
+    background: #fff;
 }
 
 .cal1 .clndr .clndr-table tr .day.today,
 .cal1 .clndr .clndr-table tr .day.my-today {
-    background: #83C229;
+    background: #fff;
 }
 
 .cal1 .clndr .clndr-controls .clndr-control-button .clndr-next-button:hover,
 .cal1 .clndr .clndr-controls .clndr-control-button .clndr-previous-button:hover {
-    background: #83C229;
+    background: #fff;
 }
 
 .cal1 .clndr .clndr-table .header-days {
-    background: #83C229;
+    background: #fff;
 }
 
 .offer-primary {
-    border-color: #83C229;
+    border-color: #fff;
 }
 
 .offer-primary .shape {
-    border-color: transparent #83C229 transparent transparent;
+    border-color: transparent #fff transparent transparent;
 }
 
 .icon-shape-primary {
-    color: #83C229;
+    color: #fff;
     background-color: rgba(8, 58, 96, 0.5);
 }
 
@@ -370,7 +370,7 @@ form.convFormDynamic button.submit:hover {
 }
 
 .bg-gradient-primary {
-    background: linear-gradient(89.1deg, #83C229 0.7%, #1396cc 88.4%) !important;
+    background: linear-gradient(89.1deg, #fff 0.7%, #1396cc 88.4%) !important;
 }
 
 .bg-gradient-secondary {
@@ -379,8 +379,8 @@ form.convFormDynamic button.submit:hover {
 
 .custom-control-input:checked~.custom-control-label::before {
     color: #fff;
-    background-color: #83C229;
-    border-color: #83C229;
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .custom-control-input:focus~.custom-control-label::before {
@@ -389,92 +389,92 @@ form.convFormDynamic button.submit:hover {
 
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before,
 .custom-checkbox .custom-control-input:indeterminate~.custom-control-label::before {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .custom-radio .custom-control-input:checked~.custom-control-label::before {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .custom-select:focus {
-    border-color: #83C229;
+    border-color: #fff;
 }
 
 .custom-file-input:focus~.custom-file-label {
-    border-color: #83C229;
+    border-color: #fff;
 }
 
 .custom-file-input:focus~.custom-file-label::after {
-    border-color: #83C229;
+    border-color: #fff;
 }
 
 .custom-file-label::after {
-    background-color: #83C229;
-    border-left: 1px solid #83C229;
+    background-color: #fff;
+    border-left: 1px solid #fff;
 }
 
 .custom-range::-webkit-slider-thumb,
 .custom-range::-moz-range-thumb,
 .custom-range::-ms-thumb {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 /*------8. Navigation -------*/
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 /*------ Accordion -------*/
 .page-link:hover {
-    color: #83C229;
-    border: 1px solid #83C229;
+    color: #fff;
+    border: 1px solid #fff;
 }
 
 .page-link:focus {
-    border: 1px solid #83C229;
+    border: 1px solid #fff;
 }
 
 .page-item.active .page-link {
-    background-color: #83C229;
-    border: 1px solid #83C229;
+    background-color: #fff;
+    border: 1px solid #fff;
 }
 
 /*------ 11. Email services -------*/
 ul.inbox-nav li a:hover,
 ul.inbox-nav li.active a,
 ul.inbox-nav li a:focus {
-    color: #83C229;
+    color: #fff;
 }
 
 /*----- 12. Range slider -------*/
 .range.range-primary input[type="range"]::-webkit-slider-thumb,
 .range.range-primary input[type="range"]::-moz-slider-thumb {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .range.range-primary output {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .range.range-primary input[type="range"] {
-    outline-color: #83C229;
+    outline-color: #fff;
 }
 
 /*-----13.Pricing tables-----*/
 .pricing-table:hover .price-header {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .nav-tabs .nav-item1 .nav-link:hover:not(.disabled),
 .nav-tabs .nav-item1 .nav-link.active {
-    background: #83C229;
+    background: #fff;
 }
 
 /*-------15. Tooptip &popover------*/
 /*alerts*/
 .pop-primary {
-    color: #83C229;
+    color: #fff;
 }
 
 .popsecondary {
@@ -483,7 +483,7 @@ ul.inbox-nav li a:focus {
 
 /*----- 16. Typography ------*/
 .heading-primary {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .heading-secondary {
@@ -492,11 +492,11 @@ ul.inbox-nav li a:focus {
 
 /*------19. Breadcrumb ------*/
 .breadcrumb-item a {
-    color: #83C229;
+    color: #fff;
 }
 
 .breadcrumb-item1 a {
-    color: #83C229;
+    color: #fff;
 }
 
 .breadcrumb-item1 a:hover {
@@ -505,12 +505,12 @@ ul.inbox-nav li a:focus {
 
 /* ----- v CAN BE DELETED v ----- */
 .panel-title1 a {
-    background: #83C229;
+    background: #fff;
 }
 
 /*-----21. List Of Dropdwons-----*/
 .btn.dropdown-toggle.btn-primary~.dropdown-menu .dropdown-plus-title {
-    border-color: #83C229 !important;
+    border-color: #fff !important;
 }
 
 .btn.dropdown-toggle.btn-secondary~.dropdown-menu .dropdown-plus-title {
@@ -519,12 +519,12 @@ ul.inbox-nav li a:focus {
 
 /*-----22. Badges-----*/
 .badge-primary {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .badge-primary[href]:hover,
 .badge-primary[href]:focus {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .badge-secondary {
@@ -533,13 +533,13 @@ ul.inbox-nav li a:focus {
 
 .badge-secondary[href]:hover,
 .badge-secondary[href]:focus {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 /*-----24. Alerts-----*/
 .alert-primary {
-    background-color: #83C229;
-    border-color: #83C229;
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .alert-primary hr {
@@ -566,29 +566,29 @@ ul.inbox-nav li a:focus {
 
 /*-----25. progress-----*/
 .progress-bar {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 /*-----26. Lists-----*/
 .list-group-item.active {
-    color: #83C229;
+    color: #fff;
 }
 
 .list-group-item-primary {
     color: #fff;
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .list-group-item-primary.list-group-item-action:hover,
 .list-group-item-primary.list-group-item-action:focus {
     color: #fff;
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .list-group-item-primary.list-group-item-action.active {
     color: #fff;
-    background-color: #83C229;
-    border-color: #83C229;
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .list-group-item-secondary {
@@ -610,22 +610,22 @@ ul.inbox-nav li a:focus {
 
 /*------27. Modal -------*/
 .widget-info i {
-    border: 2px solid #83C229;
+    border: 2px solid #fff;
 }
 
 /*------29. Alignments -------*/
 .bg-primary {
-    background-color: #83C229 !important;
+    background-color: #fff !important;
 }
 
 a.bg-primary:hover,
 a.bg-primary:focus {
-    background-color: #83C229 !important;
+    background-color: #fff !important;
 }
 
 button.bg-primary:hover,
 button.bg-primary:focus {
-    background-color: #83C229 !important;
+    background-color: #fff !important;
 }
 
 .bg-secondary {
@@ -643,7 +643,7 @@ button.bg-secondary:focus {
 }
 
 .border-primary {
-    border-color: #83C229 !important;
+    border-color: #fff !important;
 }
 
 .border-secondary {
@@ -652,12 +652,12 @@ button.bg-secondary:focus {
 
 /*------- 31. Alignments & values-------*/
 .text-primary {
-    color: #83C229 !important;
+    color: #fff !important;
 }
 
 a.text-primary:hover,
 a.text-primary:focus {
-    color: #83C229 !important;
+    color: #fff !important;
 }
 
 .text-secondary {
@@ -671,32 +671,32 @@ a.text-secondary:focus {
 
 /*------32. Headers -------*/
 .header-bg {
-    background: #83C229;
+    background: #fff;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #83C229, #83C229);
+    background: -webkit-linear-gradient(to right, #fff, #fff);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #83C229, #83C229);
+    background: linear-gradient(to right, #fff, #fff);
 }
 
 /*------33. Background colors -------*/
 .nav-tabs .nav-link:hover:not(.disabled),
 .nav-tabs .nav-link.active {
-    background: #83C229;
+    background: #fff;
 }
 
 /*---Mega Menu---*/
 .ren-navbar .nav-link:hover,
 .ren-navbar .nav-link:focus,
 .ren-navbar .nav-link.active {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .ren-navbar .mega-dropdown .sub-item .section-label {
-    color: #83C229;
+    color: #fff;
 }
 
 .ren-navbar .sub-item ul a:active {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 /*----- 34. Btn styles------*/
@@ -741,7 +741,7 @@ a.text-secondary:focus {
 */
 /*--------35. panel----------*/
 .expanel-primary {
-    border: #83C229 !important;
+    border: #fff !important;
 }
 
 .expanel-secondary {
@@ -750,8 +750,8 @@ a.text-secondary:focus {
 
 .expanel-primary>.expanel-heading {
     color: #fff !important;
-    background-color: #83C229 !important;
-    border-color: #83C229 !important;
+    background-color: #fff !important;
+    border-color: #fff !important;
 }
 
 .expanel-secondary>.expanel-heading {
@@ -762,67 +762,67 @@ a.text-secondary:focus {
 
 /*----- 38. Avatars -----*/
 .avatar {
-    background: #83C229 no-repeat center/cover;
+    background: #fff no-repeat center/cover;
 }
 
 /*-------- 41. Loaders ---------*/
 .lds-circle>div {
-    background: #83C229;
+    background: #fff;
 }
 
 .lds-dual-ring:after {
-    border: 5px solid #83C229;
-    border-color: #83C229 transparent #83C229 transparent;
+    border: 5px solid #fff;
+    border-color: #fff transparent #fff transparent;
 }
 
 .lds-facebook div {
-    background: #83C229;
+    background: #fff;
 }
 
 .lds-heart div {
-    background: #83C229;
+    background: #fff;
 }
 
 .lds-heart div:after,
 .lds-heart div:before {
-    background: #83C229;
+    background: #fff;
 }
 
 .lds-ring div {
-    border: 6px solid #83C229;
-    border-color: #83C229 transparent transparent transparent;
+    border: 6px solid #fff;
+    border-color: #fff transparent transparent transparent;
 }
 
 .lds-roller div:after,
 .lds-default div,
 .lds-ellipsis div,
 .lds-grid div {
-    background: #83C229;
+    background: #fff;
 }
 
 .lds-hourglass:after {
-    border: 26px solid #83C229;
-    border-color: #83C229 transparent #83C229 transparent;
+    border: 26px solid #fff;
+    border-color: #fff transparent #fff transparent;
 }
 
 .lds-ripple div {
-    border: 4px solid #83C229;
+    border: 4px solid #fff;
 }
 
 .lds-spinner div:after {
-    background: #83C229;
+    background: #fff;
 }
 
 /*----42. Profile----*/
 .mediaicon {
-    border: 1px solid #83C229;
-    background: #83C229;
+    border: 1px solid #fff;
+    background: #fff;
 }
 
 /*-----43. Icon input-----*/
 a.chip:hover,
 .tag-primary {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 /*----44. Tags-----*/
@@ -831,47 +831,47 @@ a.chip:hover,
 }
 
 .selectgroup-input:checked+.selectgroup-button {
-    border-color: #83C229;
-    color: #83C229;
+    border-color: #fff;
+    color: #fff;
     background: #eaeaf9;
 }
 
 .selectgroup-input:focus+.selectgroup-button {
-    border-color: #83C229;
-    color: #83C229;
+    border-color: #fff;
+    color: #fff;
     box-shadow: 0 0 0 2px rgba(242, 242, 242, 0.25);
 }
 
 .custom-switch-input:checked~.custom-switch-indicator {
-    background: #83C229;
+    background: #fff;
 }
 
 /*----- 48. Gallery -----*/
 .demo-gallery>ul>li a {
-    border: 2px solid #83C229;
-    background: #83C229;
+    border: 2px solid #fff;
+    background: #fff;
 }
 
 /*-----51. Back to Top-----*/
 #back-to-top {
-    background: #83C229;
+    background: #fff;
 }
 
 #back-to-top:hover {
-    color: #83C229;
-    border: 2px solid #83C229;
+    color: #fff;
+    border: 2px solid #fff;
 }
 
 .tabs-menu ul li .active {
-    background: #83C229;
+    background: #fff;
 }
 
 .tabs-menu1 ul li .active {
-    border-bottom: 3px solid #83C229;
+    border-bottom: 3px solid #fff;
 }
 
 .feature .border {
-    border: 2px solid #83C229 !important;
+    border: 2px solid #fff !important;
 }
 
 /*-- rating--*/
@@ -881,18 +881,18 @@ a.chip:hover,
 
 /*---Count-down---*/
 #count-down .clock-presenter {
-    background: linear-gradient(89.1deg, #83C229 0.7%, #1396cc 88.4%);
+    background: linear-gradient(89.1deg, #fff 0.7%, #1396cc 88.4%);
 }
 
 /*---Navtab Wizard---*/
 .navtab-wizard.nav-tabs .nav-link.active,
 .navtab-wizard.nav-tabs .nav-link:hover {
-    background: #83C229;
+    background: #fff;
 }
 
 /*--- Ribbon ---*/
 .arrow-ribbon.bg-primary:before {
-    border-left: 15px solid #83C229;
+    border-left: 15px solid #fff;
 }
 
 .arrow-ribbon.bg-secondary:before {
@@ -901,17 +901,17 @@ a.chip:hover,
 
 /*--chat--*/
 .chat .action-header {
-    background: #83C229;
+    background: #fff;
 }
 
 @media (max-width: 767px) {
     .search-show .search-element {
-        background: linear-gradient(125deg, #83C229 35%, #83C229 65%);
+        background: linear-gradient(125deg, #fff 35%, #fff 65%);
     }
 }
 
 .page-headertabs .tabs-menu ul li a {
-    border: 1px solid #83C229;
+    border: 1px solid #fff;
 }
 
 .welcome-image:before {
@@ -920,7 +920,7 @@ a.chip:hover,
 
 .page-header .page-title i {
     background: rgba(8, 158, 96, 0.1);
-    color: #83C229;
+    color: #fff;
 }
 
 /*--bg-transparents--*/
@@ -936,11 +936,11 @@ a.chip:hover,
 .cal1 .clndr .clndr-table tr .adjacent-month:hover,
 .cal1 .clndr .clndr-table tr .my-empty:hover,
 .cal1 .clndr .clndr-table tr .my-adjacent-month:hover {
-    background: #83C229;
+    background: #fff;
 }
 
 .cal1 .clndr .clndr-table tr .day:hover {
-    background: #83C229;
+    background: #fff;
 }
 
 .cal1 .clndr .clndr-table tr .day.today:hover,
@@ -956,36 +956,36 @@ a.chip:hover,
 .side-menu__item.active,
 .side-menu__item:hover,
 .side-menu__item:focus {
-    color: #83C229;
+    color: #fff;
 }
 
 .slide-menu a.active {
-    color: #83C229;
+    color: #fff;
 }
 
 .slide-item.active,
 .slide-item:hover,
 .slide-item:focus {
-    color: #83C229;
+    color: #fff;
 }
 
 .slide.submenu .side-menu__label:hover {
-    color: #83C229;
+    color: #fff;
 }
 
 .side-menu .slide-menu.submenu-list a:hover,
 .side-menu .slide.submenu a.active {
-    color: #83C229;
+    color: #fff;
 }
 
 /*Horizontal*/
 .horizontalMenu>.horizontalMenu-list>li>.horizontal-megamenu .link-list li a:hover {
-    color: #83C229;
+    color: #fff;
 }
 
 @media only screen and (max-width: 991px) {
     .horizontalMenu>.horizontalMenu-list>li>ul.sub-menu>li>a:hover {
-        color: #83C229 !important;
+        color: #fff !important;
     }
 
     .horizontalMenu>.horizontalMenu-list>li>ul.sub-menu li:hover>a {
@@ -993,7 +993,7 @@ a.chip:hover,
     }
 
     .horizontalMenu>.horizontalMenu-list>li:hover>a {
-        background: #83C229;
+        background: #fff;
     }
 
     .hor-menu .horizontalMenu>.horizontalMenu-list>li>a:hover,
@@ -1005,21 +1005,21 @@ a.chip:hover,
 
 /*--- Switcher Checkbox ----*/
 .onoffswitch-checkbox:checked+.onoffswitch-label {
-    background-color: #83C229;
-    border-color: #83C229;
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .onoffswitch-checkbox:checked+.onoffswitch-label:before {
-    border-color: #83C229;
+    border-color: #fff;
 }
 
 .onoffswitch2-checkbox:checked+.onoffswitch2-label {
-    background-color: #83C229;
+    background-color: #fff;
 }
 
 .onoffswitch2-checkbox:checked+.onoffswitch-label2,
 .onoffswitch2-checkbox:checked+.onoffswitch2-label:before {
-    border-color: #83C229;
+    border-color: #fff;
 }
 
 /*# sourceMappingURL=color-styles.css.map */

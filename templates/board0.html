@@ -12,35 +12,31 @@
 	<!-- Title -->
 	<link rel="icon" type="image/x-icon" href="{% static 'img/logo.ico' %}" />
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-		<!--Font Awesome-->
-		<link rel="stylesheet" href="{% static 'css/all.css' %}">
+	<link rel="stylesheet" href="{% static 'css/all.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/dark-style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/color-styles.css' %}">
+	<link rel="stylesheet" href="{% static 'css/skin-modes.css' %}">
 
-		<!-- Dashboard Css -->
-		<link rel="stylesheet" href="{% static 'css/style.css' %}">
-		<link rel="stylesheet" href="{% static 'css/dark-style.css' %}">
-		<link rel="stylesheet" href="{% static 'css/color-styles.css' %}">
-		<link rel="stylesheet" href="{% static 'css/skin-modes.css' %}">
-		<!-- p-scroll bar css-->
-		<link rel="stylesheet" href="{% static 'css/p-scroll.css' %}">
-		<!-- Sidemenu Css -->
-		<link rel="stylesheet" href="{% static 'css/sidemenu-closed.css' %}">
-		<!-- jvectormap CSS -->
-		<link rel="stylesheet" href="{% static 'css/jquery-jvectormap-2.0.2.css' %}">
-		<!---Font icons-->
-		<link rel="stylesheet" href="{% static 'css/plugin.css' %}">
-		<!-- Sidebar css -->
-		<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-		<link rel="stylesheet" href="{% static 'css/sidebar-old.css' %}">
-		<link rel="stylesheet" href="{% static 'css/sidebar2.css' %}">
+	<link rel="stylesheet" href="{% static 'css/morris.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/p-scroll.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/p-scroll.css' %}">
+	<link rel="stylesheet" href="{% static 'css/sidemenu-closed.css' %}">
+	<link rel="stylesheet" href="{% static 'css/jquery-jvectormap-2.0.2.css' %}">
+	<link rel="stylesheet" href="{% static 'css/plugin.css' %}">
+	<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+	<link rel="stylesheet" href="{% static 'css/sidebar-old.css' %}">
+	<link rel="stylesheet" href="{% static 'css/sidebar2.css' %}">
+	<link rel="stylesheet" href="{% static 'css/side-bar.css' %}">
+	<link rel="stylesheet" href="{% static 'css/sidemenu-responsive-tabs.css' %}">
+	<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static 'css/color15.css">
+	<link rel="stylesheet" href="{% static 'css/demo.css' %}">
+	<link rel="stylesheet" href="{% static 'css/mine.css' %}">
+	<link rel="stylesheet" href="{% static 'css/a.css' %}">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-		<link rel="stylesheet" href="{% static 'css/side-bar.css' %}">
-		<link rel="stylesheet" href="{% static 'css/sidemenu-responsive-tabs.css' %}">
-		<!-- COLOR-SKINS -->
-		<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static 'css/color15.css">
-		<link rel="stylesheet" href="{% static 'css/demo.css' %}">
-		<link rel="stylesheet" href="{% static 'css/mine.css' %}">
-		<link rel="stylesheet" href="{% static 'css/a.css' %}">
-		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
 
 	{% block title %}
 	{% endblock title %}
@@ -160,13 +156,13 @@
 					</div>
 					<ul class="side-menu">
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href=""><i class="fas fa-user fa-1x mr-1"></i><span class="side-menu__label"><strong>Profile</strong></span></a>
+							<a class="side-menu__item" data-toggle="slide" href=""><i class="fas fa-user text-white fa-1x mr-1"></i><span class="side-menu__label"><strong class="text-white">Profile</strong></span></a>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'researcher_board' %}"><i class="fas fa-chalkboard-teacher fa-1x mr-1"></i></i><span class="side-menu__label"><strong>Dashboard</strong></span></a>
+							<a class="side-menu__item" data-toggle="slide" href="{% url 'researcher_board' %}"><i class="fas fa-chalkboard-teacher text-white fa-1x mr-1"></i></i><span class="side-menu__label"><strong class="text-white">Dashboard</strong></span></a>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href="#"><i class="fa fa-list fa-1x mr-1"></i><span class="side-menu__label"><strong>My Collab</strong></span><i class="angle fas fa-angle-right"></i></a>
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="fa fa-list text-white fa-1x mr-1"></i><span class="side-menu__label"><strong class="text-white">My Collab</strong></span><i class="angle fas text-white fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a class="slide-item" href="">Initiated Collab</a></li>
 								<li><a class="slide-item" href="">Accepted Collab</a></li>
@@ -174,13 +170,13 @@
 							</ul>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href=""><i class="fas fa-warehouse fa-1x mr-1"></i></i><span class="side-menu__label"><strong>Collab Tools</strong></span></a>
+							<a class="side-menu__item" data-toggle="slide" href=""><i class="fas fa-warehouse fa-1x mr-1"></i></i><span class="side-menu__label"><strong>Collab Tools</strong></span></a>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href=""><i class="fas fa-spinner fa-1x mr-1"></i><span class="side-menu__label"><strong>Templates</strong></span></a>
+							<a class="side-menu__item" data-toggle="slide" href=""><i class="fas fa-spinner fa-1x mr-1"></i><span class="side-menu__label"><strong>Templates</strong></span></a>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt fa-1x mr-1"></i><span class="side-menu__label"><strong>Sign out</strong></span></a>
+							<a class="side-menu__item" data-toggle="slide" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt fa-1x mr-1"></i><span class="side-menu__label"><strong>Sign out</strong></span></a>
 						</li>
 					</ul>
 				</aside>
@@ -213,60 +209,56 @@
 
 		<a href="#top" id="back-to-top"><i class="fas fa-angle-up "></i></a>
 		<script src="{% static 'js/jquery.js' %}"></script>
-		<!--Jquery.sparkline js-->
     <script src="{% static 'js/jquery.sparkline.min.js' %}"></script>
-		<!--Jquery.Sparkline js -->
     <script src="{% static 'js/jquery.sparkline.min0.js' %}"></script>
 		<script src="{% static 'js/selectize.min.js' %}"></script>
 		<script src="{% static 'js/jquery.tablesorter.min.js' %}"></script>
-		<!--Circle-Progress js -->
     <script src="{% static 'js/circle-progress.min.js' %}"></script>
-		<!--Jquery.rating js -->
     <script src="{% static 'js/jquery.rating-stars.js' %}"></script>
-		<!--Bootstrap.min js-->
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-		<!-- Side menu js -->
     <script src="{% static 'js/sidemenu.js' %}"></script>
-		<!-- Sidemenu-responsive-tabs js-->
     <script src="{% static 'js/sidemenu-responsive-tabs.js' %}"></script>
     <script src="{% static 'js/left-menu.js' %}"></script>
-		<!-- p-scroll bar Js-->
     <script src="{% static 'js/p-scroll.js' %}"></script>
     <script src="{% static 'js/p-scroll-1.js' %}"></script>
-		<!-- Input Mask js -->
     <script src="{% static 'js/jquery.mask.min.js' %}"></script>
-		<!-- peitychart -->
     <script src="{% static 'js/jquery.peity.min.js' %}"></script>
-		<!--Jquery.knob js-->
     <script src="{% static 'js/jquery.knob.js' %}"></script>
     <script src="{% static 'js/othercharts.js' %}"></script>
 		<script src="{% static 'js/apexcharts.js' %}"></script>
+
+		<script src="{% static 'js/side-menu.js'  %}"></script>
+		<script src="{% static 'js/horizontal-menu.js'  %}"></script>
+		<script src="{% static 'js/sticky.js'  %}"></script>
+		<script src="{% static 'js/jquery.peity.min.js'  %}"></script>
+		<script src="{% static 'js/chart.min.js'  %}"></script>
+		<script src="{% static 'js/chart.extension.js'  %}"></script>
+		<script src="{% static 'js/morris.min.js'  %}"></script>
+		<script src="{% static 'js/raphael.min.js'  %}"></script>
+		<script src="{% static 'js/index4.js'  %}"></script>
+
 		<script src="{% static 'js/chart.bundle.js' %}"></script>
-		<!-- Vector Plugin -->
 		<script src="{% static 'js/jquery-jvectormap-2.0.2.min.js' %}"></script>
-			<script src="{% static 'js/jquery-jvectormap-world-mill-en.js' %}"></script>
-			<script src="{% static 'js/gdp-data.js' %}"></script>
-			<script src="{% static 'js/jquery-jvectormap-us-aea-en.js' %}"></script>
-			<script src="{% static 'js/jquery-jvectormap-uk-mill-en.js' %}"></script>
-			<script src="{% static 'js/jquery-jvectormap-au-mill.js' %}"></script>
-			<script src="{% static 'js/jquery-jvectormap-ca-lcc.js' %}"></script>
+		<script src="{% static 'js/jquery-jvectormap-world-mill-en.js' %}"></script>
+		<script src="{% static 'js/gdp-data.js' %}"></script>
+		<script src="{% static 'js/jquery-jvectormap-us-aea-en.js' %}"></script>
+		<script src="{% static 'js/jquery-jvectormap-uk-mill-en.js' %}"></script>
+		<script src="{% static 'js/jquery-jvectormap-au-mill.js' %}"></script>
+		<script src="{% static 'js/jquery-jvectormap-ca-lcc.js' %}"></script>
 		<script src="{% static 'js/jvectormap.js' %}"></script>
-		<!--Counters -->
     <script src="{% static 'js/counterup.min.js' %}"></script>
     <script src="{% static 'js/waypoints.min.js' %}"></script>
-		<!-- Sidebar js -->
     <script src="{% static 'js/sidebar.js' %}"></script>
-		<!--Index js -->
     <script src="{% static 'js/index5.js' %}"></script>
 		<script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
-
-		<!-- custom js -->
     <script src="{% static 'js/custom.js' %}"></script>
 		<script src="{% static 'js/scripts.js' %}"></script>
-
 		<script src="{% static 'js/chart.js/jquery-1.6.3.min.js'  %}"></script>
 		<script src="{% static 'js/chart.js/jquery-1.9.1.min.js'  %}"></script>
+		<a href="#top" id="back-to-top"><i class="fas fa-angle-up "></i></a>
+
+
 
 	</body>
 </html>
