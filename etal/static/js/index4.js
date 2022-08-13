@@ -1,6 +1,6 @@
 (function($) {
     "use strict";
-	
+
 	 //bar chart
     var ctx = document.getElementById( "customerChart" );
     var myChart = new Chart( ctx, {
@@ -43,7 +43,7 @@
 						color:'rgba(187, 193, 202,0.3)',
 					}
                 }],
-               
+
 				xAxes: [{
 					ticks: {
 						display: true,
@@ -57,8 +57,8 @@
             }
         }
     } );
-	
-	
+
+
 	/*-----AreaChart2-----*/
     var ctx = document.getElementById( "AreaChart2" );
 	ctx.height = 70;
@@ -70,10 +70,10 @@
             datasets: [ {
                 data: [0, 83, 43, 67, 35, 76, 0],
                 label: 'Total Income',
-                backgroundColor: 'rgba(8, 158, 96,0.3)',
+                backgroundColor: 'rgba(19, 150, 204,0.3)',
 				pointBorderColor: 'transparent',
 				pointBackgroundColor: 'transparent',
-                borderColor: 'rgba(8, 158, 96)',
+                borderColor: 'rgba(19, 150, 204)',
             }, ]
         },
         options: {
@@ -127,8 +127,8 @@
             }
         }
     } );
-	
-	
+
+
 		/*-----AreaChart4-----*/
     var ctx = document.getElementById( "AreaChart4" );
 	ctx.height = 70;
@@ -140,10 +140,10 @@
             datasets: [ {
                 data: [0, 46, 55, 76, 63, 23,0],
                 label: 'Total Balance',
-                backgroundColor: 'rgba(213, 109, 252,0.3)',
+                backgroundColor: 'rgba(19, 150, 204,0.3)',
 				pointBorderColor: 'transparent',
 				pointBackgroundColor: 'transparent',
-                borderColor: 'rgba(213, 109, 252)',
+                borderColor: 'rgba(19, 150, 204)',
             }, ]
         },
         options: {
@@ -197,8 +197,8 @@
             }
         }
     } );
-	
-	
+
+
 	/*-----AreaChart3-----*/
     var ctx = document.getElementById( "AreaChart3" );
 	ctx.height = 70;
@@ -268,4 +268,3 @@
         }
     } );
 })(jQuery);
-
