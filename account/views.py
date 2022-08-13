@@ -99,6 +99,12 @@ def showResearcherBoard(request):
 
     return render(request, 'account/researcher_board.html', {})
 
+@login_required
+# @permission_required('users.view_admin')
+def showHome(request):
+
+    return render(request, 'account/home.html', {})
+
 # @login_required
 # @permission_required('users.view_admin')
 # def showQwikAdminBoard(request):

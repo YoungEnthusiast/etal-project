@@ -1,0 +1,1065 @@
+{% load static %}
+<!doctype html>
+<html lang="en" dir="ltr">
+	<head>
+		<!-- Meta data -->
+		<meta charset="UTF-8">
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="Spaner - Simple light Bootstrap Nice Admin Panel Dashboard Design Responsive HTML5 Template" name="description">
+		<meta content="Spruko Technologies Private Limited" name="author">
+		<meta name="keywords" content="bootstrap panel, bootstrap admin template, dashboard template, bootstrap dashboard, dashboard design, best dashboard, html css admin template, html admin template, admin panel template, admin dashbaord template, bootstrap dashbaord template, it dashbaord, hr dashbaord, marketing dashbaord, sales dashbaord, dashboard ui, admin portal, bootstrap 4 admin template, bootstrap 4 admin"/>
+
+		<!-- Favicon -->
+		<link rel="shortcut icon" type="image/x-icon" href="{% static "assets/images/brand/favicon.ico" %}" />
+
+		<!-- Title -->
+		<!-- <title>Spaner - Simple light Bootstrap Nice Admin Panel Dashboard Design Responsive HTML5 Template</title> -->
+		<link href="{% static "assets/plugins/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" />
+		<link href="{% static "assets/plugins/p-scroll/p-scroll.css" %}" rel="stylesheet" />
+		<link href="{% static "assets/css/color-styles.css" %}" rel="stylesheet" />
+		<link href="{% static "assets/css/style.css" %}" rel="stylesheet' %}" />
+		<link href="{% static "assets/css/dark-style.css" %}" rel="stylesheet" />
+		<link href="{% static "assets/plugins/fontawesome-free/css/all.css" %}" rel="stylesheet">
+		<link href="{% static "assets/plugins/iconfonts/plugin.css" %}" rel="stylesheet" />
+		<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static "assets/skins/color-skins/color15.css" %}" />
+		<link rel="stylesheet" href="{% static "assets/skins/demo.css" %}"/>
+		<link href="{% static "assets/css/skin-modes.css" %}" rel="stylesheet" />
+		<link href="{% static "assets/plugins/p-scroll/p-scroll.css" %}" rel="stylesheet" type="text/css">
+		<link href="{% static "assets/plugins/sidebar/sidebar.css" %}" rel="stylesheet">
+		<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static "assets/skins/color-skins/color15.css" %}" />
+		<link href="{% static "assets/plugins/morris/morris.css" %}" rel="stylesheet" />
+		<link href="{% static "assets/plugins/jvectormap/jquery-jvectormap-2.0.2.css" %}" rel="stylesheet" />
+
+
+		{% block title %}
+    {% endblock title %}
+
+	</head>
+
+	<body class="app dark-mode">
+
+		<!-- Global Loader-->
+		<div id="global-loader"><img src="{% static "assets/images/svgs/loader.svg" alt="loader"></div>
+
+		<div class="page">
+			<div class="page-main">
+
+				<!-- Navbar-->
+				<header class="header top-header">
+					<!-- Navbar Right Menu-->
+					<div class="container">
+						<div class="d-flex">
+							 <a id="horizontal-navtoggle" class="animated-arrow hor-toggle"><span></span></a>
+							<a class="header-brand" href="index.html">
+								<img alt="logo" class="header-brand-img main-logo" src="{% static "assets/images/brand/logo1.png">
+								<img alt="logo" class="header-brand-img mobile-logo" src="{% static "assets/images/brand/icon.png">
+							</a>
+							<!-- Sidebar toggle button-->
+							<div class="dropdown d-sm-flex d-none">
+								<a href="#" class="nav-link icon" data-toggle="dropdown">
+									<i class="fe fe-search"></i>
+								</a>
+								<div class="dropdown-menu header-search dropdown-menu-left dropdown-menu-arrow">
+									<div class="input-group w-100 p-2">
+										<input type="text" class="form-control " placeholder="Search....">
+										<div class="input-group-append ">
+											<button type="button" class="btn btn-primary ">
+												<i class="fas fa-search" aria-hidden="true"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dropdown d-sm-flex d-none header-message">
+								<a class="nav-link icon" data-toggle="dropdown">
+									<i class="fe fe-grid mr-2"></i><span class="lay-outstyle">Menus styles</span>
+									<span class="pulse2 bg-warning" aria-hidden="true"></span>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+									<a class="dropdown-item d-flex pb-3" href="left-menu.html">Icon Menu</a>
+									<a class="dropdown-item d-flex pb-3" href="sidemenu.html">Icon Closed Menu</a>
+									<a class="dropdown-item d-flex pb-3" href="overlay2.html">Icon Overlay Menu</a>
+									<a class="dropdown-item d-flex pb-3" href="overlay.html">Closed Overlay Menu</a>
+									<a class="dropdown-item d-flex pb-3" href="toggle.html">Toggle Menu</a>
+
+								</div>
+							</div>
+							<div class="d-flex order-lg-2 ml-auto">
+								<div class="d-sm-flex d-none">
+									<a href="#" class="nav-link icon full-screen-link">
+										<i class="fe fe-minimize fullscreen-button"></i>
+									</a>
+								</div>
+								<div class="dropdown d-none d-md-flex">
+									<a href="#" class="d-flex nav-link pr-0 country-flag" data-toggle="dropdown">
+										<span class="avatar country-Flag mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/svgs/flags/french_flag.jpg"></span>
+										<div>
+											<span class="text-white mr-3 mt-0">English</span>
+										</div>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<span class="avatar country-Flag mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/svgs/flags/french_flag.jpg"></span>
+											<div class="d-flex">
+												<span class="">French</span>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<span class="avatar country-Flag mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/svgs/flags/germany_flag.jpg"></span>
+											<div class="d-flex">
+												<span class="">Germany</span>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<span class="avatar country-Flag mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/svgs/flags/italy_flag.jpg"></span>
+											<div class="d-flex">
+												<span class="">Italy</span>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<span class="avatar country-Flag  mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/svgs/flags/russia_flag.jpg"></span>
+											<div class="d-flex">
+												<span class="">Russia</span>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<span class="avatar country-Flag mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/svgs/flags/spain_flag.jpg"></span>
+											<div class="d-flex">
+												<span class="">spain</span>
+											</div>
+										</a>
+									</div>
+								</div><!-- flag -->
+								<div class="dropdown d-sm-flex d-none header-message">
+									<a class="nav-link icon" data-toggle="dropdown">
+										<i class="fe fe-mail"></i>
+										<span class=" nav-unread badge badge-danger badge-pill">4</span>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+										<a class="dropdown-item text-center" href="#">2 New Messages</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item d-flex pb-3" href="#">
+											<span class="avatar avatar-md brround mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/users/7.jpg"></span>
+											<div>
+												<strong>Madeleine</strong> Hey! there I' am available....
+												<div class="small text-muted">
+													3 hours ago
+												</div>
+											</div>
+										</a>
+										<a class="dropdown-item d-flex pb-3" href="#"><span class="avatar avatar-md brround mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/users/3.jpg"></span>
+											<div>
+												<strong>Anthony</strong> New product Launching...
+												<div class="small text-muted">
+													5 hour ago
+												</div>
+											</div>
+										</a>
+										<a class="dropdown-item d-flex pb-3" href="#"><span class="avatar avatar-md brround mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/users/8.jpg"></span>
+											<div>
+												<strong>Olivia</strong> New Schedule Realease......
+												<div class="small text-muted">
+													45 mintues ago
+												</div>
+											</div>
+										</a>
+										<a class="dropdown-item d-flex pb-3" href="#"><span class="avatar avatar-md brround mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/users/9.jpg"></span>
+											<div>
+												<strong>Sanderson</strong> New Schedule Realease......
+												<div class="small text-muted">
+													2 days ago
+												</div>
+											</div>
+										</a>
+										<div class="dropdown-divider"></div>
+										<div class="text-center dropdown-btn pb-3">
+											<div class="btn-list">
+												<a href="#" class="btn btn-primary btn-sm"><i class="fe fe-plus mr-1"></i>Add New</a>
+												<a href="#" class=" btn btn-secondary btn-sm"><i class="fe fe-eye mr-1"></i>View All</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="dropdown d-sm-flex d-none header-message">
+									<a class="nav-link icon" data-toggle="dropdown">
+										<i class="fe fe-bell"></i>
+										<span class=" nav-unread badge badge-warning  badge-pill">3</span>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+										<a class="dropdown-item text-center" href="#">Notifications</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item d-flex pb-4" href="#">
+											<span class="avatar brround mr-3 align-self-center avatar-md cover-image bg-primary"><i class="fe fe-mail fs-12"></i></span>
+											<div>
+												<span class="font-weight-bold"> commented on your post </span>
+												<div class="small text-muted d-flex">
+													3 hours ago
+													<div class="ml-auto">
+													<span class="badge badge-primary">New</span>
+													</div>
+												</div>
+												<div class="progress progress-xs mt-1">
+													<div class="progress-bar bg-primary w-30"></div>
+												</div>
+											</div>
+										</a>
+										<a class="dropdown-item d-flex pb-4" href="#">
+											<span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-secondary"><i class="fe fe-download"></i>
+											</span>
+											<div>
+												<span class="font-weight-bold"> New file has been Uploaded </span>
+												<div class="small text-muted d-flex">
+													5 hour ago
+													<div class="ml-auto">
+													<span class="badge badge-secondary">New</span>
+													</div>
+												</div>
+												<div class="progress progress-xs mt-1">
+													<div class="progress-bar bg-secondary w-50"></div>
+												</div>
+											</div>
+										</a>
+										<a class="dropdown-item d-flex pb-4" href="#">
+											<span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-warning"><i class="fe fe-user"></i>
+											</span>
+											<div>
+												<span class="font-weight-bold"> User account has Updated</span>
+												<div class="small text-muted d-flex">
+													5 hour ago
+													<div class="ml-auto">
+													<span class="badge badge-warning">New</span>
+													</div>
+												</div>
+												<div class="progress progress-xs mt-1">
+													<div class="progress-bar bg-warning w-70"></div>
+												</div>
+											</div>
+										</a>
+										<div class="dropdown-divider"></div>
+										<div class="text-center dropdown-btn pb-3">
+											<div class="btn-list">
+												<a href="#" class="btn btn-primary btn-sm"><i class="fe fe-plus mr-1"></i>Add New</a>
+												<a href="#" class=" btn btn-secondary btn-sm"><i class="fe fe-eye mr-1"></i>View All</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button class="navbar-toggler navresponsive-toggler d-sm-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+									aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+									<span class="navbar-toggler-icon fe fe-more-vertical text-white"></span>
+								</button>
+								<!--Navbar -->
+								<div class="dropdown">
+									<a class="nav-link pr-0 leading-none d-flex" data-toggle="dropdown" href="#">
+										<span class="avatar avatar-md brround cover-image" data-image-src="{% static "assets/images/users/5.jpg"></span>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+										<div class="drop-heading">
+											<div class="text-center">
+												<h5 class="text-dark mb-1">Vanessa Dyer</h5>
+												<small class="text-muted">Web Developer</small>
+											</div>
+										</div>
+										<div class="dropdown-divider m-0"></div>
+										<a class="dropdown-item" href="#"><i class="dropdown-icon fe fe-user"></i>Profile</a>
+										<a class="dropdown-item" href="#"><i class="dropdown-icon fe fe-edit"></i>Schedule</a>
+										<a class="dropdown-item" href="#"><i class="dropdown-icon fe fe-mail"></i> Inbox</a>
+										<a class="dropdown-item" href="#"><i class="dropdown-icon fe fe-unlock"></i> Look Screen</a>
+										<a class="dropdown-item" href="#"><i class="dropdown-icon fe fe-power"></i> Log Out</a>
+										<div class="dropdown-divider"></div>
+										<div class="text-center dropdown-btn pb-3">
+											<div class="btn-list">
+												<a href="#" class="btn btn-icon btn-facebook btn-sm"><i class="si si-social-facebook"></i></a>
+												<a href="#" class="btn btn-icon btn-twitter btn-sm"><i class="si si-social-twitter"></i></a>
+												<a href="#" class="btn btn-icon btn-instagram btn-sm"><i class="si si-social-instagram"></i></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="dropdown d-md-flex header-settings">
+									<a href="#" class="nav-link icon" data-toggle="sidebar-right" data-target=".sidebar-right">
+										<i class="fe fe-align-right"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</header>
+				<div class="mb-1 navbar navbar-expand-lg  responsive-navbar navbar-dark d-sm-none bg-white">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+						<div class="d-flex order-lg-2 ml-auto">
+							<div class="dropdown d-md-flex">
+								<a href="#" class="nav-link icon" data-toggle="dropdown">
+									<i class="fe fe-search"></i>
+								</a>
+								<div class="dropdown-menu  dropdown-menu-right dropdown-menu-arrow">
+									<div class="input-group w-100 p-2">
+										<input type="text" class="form-control " placeholder="Search....">
+										<div class="input-group-append ">
+											<button type="button" class="btn btn-primary ">
+												<i class="fas fa-search" aria-hidden="true"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="d-md-flex">
+								<a href="#" class="nav-link icon full-screen-link text-dark">
+									<i class="fe fe-minimize fullscreen-button"></i>
+								</a>
+							</div>
+							<div class="dropdown  d-md-flex header-contact">
+								<a class="nav-link icon text-dark" data-toggle="dropdown">
+									<i class="fe fe-flag"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+									<a href="#" class="dropdown-item d-flex pb-3">
+										<span class="avatar country-Flag mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/svgs/flags/french_flag.jpg"></span>
+										<div class="d-flex">
+											<span class="">French</span>
+										</div>
+									</a>
+									<a href="#" class="dropdown-item d-flex pb-3">
+										<span class="avatar country-Flag mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/svgs/flags/germany_flag.jpg"></span>
+										<div class="d-flex">
+											<span class="">Germany</span>
+										</div>
+									</a>
+									<a href="#" class="dropdown-item d-flex pb-3">
+										<span class="avatar country-Flag mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/svgs/flags/italy_flag.jpg"></span>
+										<div class="d-flex">
+											<span class="">Italy</span>
+										</div>
+									</a>
+									<a href="#" class="dropdown-item d-flex pb-3">
+										<span class="avatar country-Flag  mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/svgs/flags/russia_flag.jpg"></span>
+										<div class="d-flex">
+											<span class="">Russia</span>
+										</div>
+									</a>
+									<a href="#" class="dropdown-item d-flex pb-3">
+										<span class="avatar country-Flag mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/svgs/flags/spain_flag.jpg"></span>
+										<div class="d-flex">
+											<span class="">spain</span>
+										</div>
+									</a>
+								</div>
+							</div>
+							<div class="dropdown  d-md-flex header-contact">
+								<a class="nav-link icon text-dark" data-toggle="dropdown">
+									<i class="fe fe-mail"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+									<a class="dropdown-item text-center" href="#">2 New Messages</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item d-flex pb-3" href="#">
+										<span class="avatar avatar-md brround mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/users/7.jpg"></span>
+										<div>
+											<strong>Madeleine</strong> Hey! there I' am available....
+											<div class="small text-muted">
+												3 hours ago
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item d-flex pb-3" href="#"><span class="avatar avatar-md brround mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/users/3.jpg"></span>
+										<div>
+											<strong>Anthony</strong> New product Launching...
+											<div class="small text-muted">
+												5 hour ago
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item d-flex pb-3" href="#"><span class="avatar avatar-md brround mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/users/8.jpg"></span>
+										<div>
+											<strong>Olivia</strong> New Schedule Realease......
+											<div class="small text-muted">
+												45 mintues ago
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item d-flex pb-3" href="#"><span class="avatar avatar-md brround mr-3 align-self-center cover-image" data-image-src="{% static "assets/images/users/9.jpg"></span>
+										<div>
+											<strong>Sanderson</strong> New Schedule Realease......
+											<div class="small text-muted">
+												2 days ago
+											</div>
+										</div>
+									</a>
+									<div class="dropdown-divider"></div>
+									<div class="text-center dropdown-btn pb-3">
+										<div class="btn-list">
+											<a href="#" class="btn btn-primary btn-sm"><i class="fe fe-plus mr-1"></i>Add New</a>
+											<a href="#" class=" btn btn-secondary btn-sm"><i class="fe fe-eye mr-1"></i>View All</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dropdown d-md-flex header-message">
+								<a class="nav-link icon text-dark" data-toggle="dropdown">
+									<i class="fe fe-bell"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+									<a class="dropdown-item text-center" href="#">Notifications</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item d-flex pb-4" href="#">
+										<span class="avatar brround mr-3 align-self-center avatar-md cover-image bg-primary"><i class="fe fe-mail fs-12"></i></span>
+										<div>
+											<span class="font-weight-bold"> commented on your post </span>
+											<div class="small text-muted d-flex">
+												3 hours ago
+												<div class="ml-auto">
+												<span class="badge badge-primary">New</span>
+												</div>
+											</div>
+											<div class="progress progress-xs mt-1">
+												<div class="progress-bar bg-primary w-30"></div>
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item d-flex pb-4" href="#">
+										<span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-secondary"><i class="fe fe-download"></i>
+										</span>
+										<div>
+											<span class="font-weight-bold"> New file has been Uploaded </span>
+											<div class="small text-muted d-flex">
+												5 hour ago
+												<div class="ml-auto">
+												<span class="badge badge-secondary">New</span>
+												</div>
+											</div>
+											<div class="progress progress-xs mt-1">
+												<div class="progress-bar bg-secondary w-50"></div>
+											</div>
+										</div>
+									</a>
+									<a class="dropdown-item d-flex pb-4" href="#">
+										<span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-warning"><i class="fe fe-user"></i>
+										</span>
+										<div>
+											<span class="font-weight-bold"> User account has Updated</span>
+											<div class="small text-muted d-flex">
+												5 hour ago
+												<div class="ml-auto">
+												<span class="badge badge-warning">New</span>
+												</div>
+											</div>
+											<div class="progress progress-xs mt-1">
+												<div class="progress-bar bg-warning w-70"></div>
+											</div>
+										</div>
+									</a>
+									<div class="dropdown-divider"></div>
+									<div class="text-center dropdown-btn pb-3">
+										<div class="btn-list">
+											<a href="#" class="btn btn-primary btn-sm"><i class="fe fe-plus mr-1"></i>Add New</a>
+											<a href="#" class=" btn btn-secondary btn-sm"><i class="fe fe-eye mr-1"></i>View All</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dropdown d-md-flex header-message">
+								<a class="nav-link icon" data-toggle="dropdown">
+									<i class="fe fe-grid"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+									<a class="dropdown-item d-flex pb-3" href="left-menu.html">Icon Menu</a>
+									<a class="dropdown-item d-flex pb-3" href="sidemenu.html">Icon Closed Menu</a>
+									<a class="dropdown-item d-flex pb-3" href="overlay2.html">Icon Overlay Menu</a>
+									<a class="dropdown-item d-flex pb-3" href="overlay.html">Closed Overlay Menu</a>
+									<a class="dropdown-item d-flex pb-3" href="toggle.html">Toggle Menu</a>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/Navbar -->
+
+					<!-- Horizontal-Menu -->
+					<div class="sticky">
+					<div class="horizontal-main hor-menu clearfix">
+						<div class="horizontal-mainwrapper container clearfix">
+							<nav class="horizontalMenu clearfix">
+								<ul class="horizontalMenu-list">
+									<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fe fe-home"></i> Dashboard <i class="fa fa-angle-down horizontal-icon"></i></a>
+										<ul class="sub-menu">
+											<li aria-haspopup="true"><a href="index.html">Dashboard 01</a></li>
+											<li aria-haspopup="true"><a href="index2.html">Dashboard 02</a></li>
+											<li aria-haspopup="true"><a href="index3.html">Dashboard 03</a></li>
+											<li aria-haspopup="true"><a href="index4.html">Dashboard 04</a></li>
+											<li aria-haspopup="true"><a href="index5.html">Dashboard 05</a></li>
+										</ul>
+									</li>
+									<li aria-haspopup="true"><a href="widgets.html" class=""><i class="fe fe-grid"></i> widgets</a></li>
+									<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fe fe-layers"></i>Components <i class="fa fa-angle-down horizontal-icon"></i></a>
+										<ul class="sub-menu">
+											<li aria-haspopup="true"><a href="maps.html">Maps</a></li>
+											<li aria-haspopup="true"><a href="crypto-currencies.html">Crypto-currencies</a></li>
+											<li aria-haspopup="true"><a href="users-list.html">User List</a></li>
+											<li aria-haspopup="true"><a href="time-line.html">Timeline</a></li>
+											<li aria-haspopup="true"><a href="rating.html">Rating</a></li>
+											<li aria-haspopup="true" class="sub-menu-sub"><span class="horizontalMenu-click02"></span><a href="#">Calendar</a>
+												<ul class="sub-menu">
+													<li aria-haspopup="true"><a href="calendar.html">Default calendar</a></li>
+													<li aria-haspopup="true"><a href="calendar2.html">Full calendar</a></li>
+												</ul>
+											</li>
+											<li aria-haspopup="true" class="sub-menu-sub"><a href="#">Mail</a>
+												<ul class="sub-menu">
+													<li aria-haspopup="true"><a href="email.html">Mail-Compose</a></li>
+													<li aria-haspopup="true"><a href="emailservices.html">Mail-inbox</a></li>
+												</ul>
+											</li>
+											<li aria-haspopup="true" class="sub-menu-sub"><span class="horizontalMenu-click02"></span><a href="#">Tables</a>
+												<ul class="sub-menu">
+													<li aria-haspopup="true"><a href="tables.html">Default table</a></li>
+													<li aria-haspopup="true"><a href="datatable.html">Data Table</a></li>
+												</ul>
+											</li>
+											<li aria-haspopup="true"><a href="search.html">Search page</a></li>
+										</ul>
+									</li>
+									<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fe fe-pie-chart"></i> Charts <i class="fa fa-angle-down horizontal-icon"></i></a>
+										<ul class="sub-menu">
+											<li aria-haspopup="true">
+												<a href="chart-morris.html">Morris Chart </a>
+											</li>
+											<li aria-haspopup="true">
+												<a href="chart-echart.html">Echarts</a>
+											</li>
+											<li aria-haspopup="true">
+												<a href="charts-peity.html">Peity Charts</a>
+											</li>
+											<li aria-haspopup="true">
+												<a href="chart-chartist.html">Chartist Charts</a>
+											</li>
+											<li aria-haspopup="true">
+												<a href="chartjs.html">Chart js</a>
+											</li>
+											<li aria-haspopup="true">
+												<a href="chart-flot.html">Chart flot</a>
+											</li>
+										</ul>
+									</li>
+									<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fe fe-package"></i> Elements  <i class="fa fa-angle-down horizontal-icon"></i></a>
+										<div class="horizontal-megamenu clearfix ">
+											<div class="container ">
+												<div class="mega-menubg ">
+													<div class="row">
+														<div class="col-lg-3 col-md-12 col-xs-12 link-list">
+															<ul>
+																<li aria-haspopup="true"><a href="alerts.html">Alerts</a></li>
+																<li aria-haspopup="true"><a href="buttons.html">Buttons</a></li>
+																<li aria-haspopup="true"><a href="colors.html">Colors</a></li>
+																<li aria-haspopup="true"><a href="avatars.html">Avatars</a></li>
+																<li aria-haspopup="true"><a href="dropdown.html">Drop downs</a></li>
+																<li aria-haspopup="true"><a href="cards.html">Cards design</a></li>
+																<li aria-haspopup="true"><a href="chat.html">Default Chat</a></li>
+																<li aria-haspopup="true"><a href="list.html">List</a></li>
+															</ul>
+														</div>
+														<div class="col-lg-3 col-md-12 col-xs-12 link-list">
+															<ul>
+																<li aria-haspopup="true"><a href="modal.html">Modal</a></li>
+																<li aria-haspopup="true"><a href="pagination.html">Pagination</a></li>
+																<li aria-haspopup="true"><a href="navigation.html">Navigation</a></li>
+																<li aria-haspopup="true"><a href="typography.html">Typography</a></li>
+																<li aria-haspopup="true"><a href="breadcrumbs.html">Breadcrumbs</a></li>
+																<li aria-haspopup="true"><a href="badge.html">Badges</a></li>
+																<li aria-haspopup="true"><a href="notify.html">Notifications</a></li>
+																<li aria-haspopup="true"><a href="sweetalert.html">Sweet alerts</a></li>
+
+															</ul>
+														</div>
+														<div class="col-lg-3 col-md-12 col-xs-12 link-list">
+															<ul>
+																<li aria-haspopup="true"><a href="jumbotron.html">Jumbotron</a></li>
+																<li aria-haspopup="true"><a href="panels.html">Panels</a></li>
+																<li aria-haspopup="true"><a href="thumbnails.html">Thumbnails</a></li>
+																<li aria-haspopup="true"><a href="mediaobject.html">Media Object</a></li>
+																<li aria-haspopup="true"><a href="accordion.html">Accordions</a></li>
+																<li aria-haspopup="true"><a href="tabs.html">Tabs</a></li>
+																<li aria-haspopup="true"><a href="rangeslider.html">Range slider</a></li>
+																<li aria-haspopup="true"><a href="scroll.html">Content Scroll bar</a></li>
+															</ul>
+														</div>
+														<div class="col-lg-3 col-md-12 col-xs-12 link-list">
+															<ul>
+																<li aria-haspopup="true"><a href="tooltipandpopover.html">Tooltip and popover</a></li>
+																<li aria-haspopup="true"><a href="progress.html">Progress</a></li>
+																<li aria-haspopup="true"><a href="carousel.html">Carousels</a></li>
+																<li aria-haspopup="true"><a href="headers.html">Headers</a></li>
+																<li aria-haspopup="true"><a href="footers.html">Footers  </a></li>
+																<li aria-haspopup="true"><a href="loaders.html">Loaders</a></li>
+																<li aria-haspopup="true"><a href="counters.html">Counters</a></li>
+																<li aria-haspopup="true"><a href="tags.html">Tags</a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fe fe-life-buoy"></i> Pages <i class="fa fa-angle-down horizontal-icon"></i></a>
+										<ul class="sub-menu">
+											<li aria-haspopup="true" class="sub-menu-sub"><a href="#">Profile</a>
+												<ul class="sub-menu">
+													<li aria-haspopup="true"><a href="profile.html">Profile</a></li>
+													<li aria-haspopup="true"><a href="editprofile.html">Edit Profile</a></li>
+												</ul>
+											</li>
+											<li aria-haspopup="true" class="sub-menu-sub"><a href="#">E-commerce</a>
+												<ul class="sub-menu">
+													<li aria-haspopup="true"><a href="shop.html">Shop</a></li>
+													<li aria-haspopup="true"><a href="shop-des.html">Product Details</a></li>
+													<li aria-haspopup="true"><a href="cart.html">Shopping Cart</a></li>
+												</ul>
+											</li>
+											<li aria-haspopup="true" class="sub-menu-sub"><a href="#">Custom Pages</a>
+												<ul class="sub-menu">
+													<li aria-haspopup="true"><a href="login.html">Login</a></li>
+													<li aria-haspopup="true"><a href="register.html">Register</a></li>
+													<li aria-haspopup="true"><a href="forgot-password.html">Forgot Password</a></li>
+													<li aria-haspopup="true"><a href="lockscreen.html">Lock screen</a></li>
+													<li aria-haspopup="true"><a href="empty.html">Empty Page</a></li>
+												</ul>
+											</li>
+											<li aria-haspopup="true" class="sub-menu-sub"><a href="#">Error Pages</a>
+												<ul class="sub-menu">
+													<li aria-haspopup="true"><a href="400.html">400</a></li>
+													<li aria-haspopup="true"><a href="401.html">401</a></li>
+													<li aria-haspopup="true"><a href="500.html">500</a></li>
+													<li aria-haspopup="true"><a href="503.html">503</a></li>
+												</ul>
+											</li>
+											<li aria-haspopup="true" ><a href="construction.html">Under Construction</a></li>
+											<li aria-haspopup="true"><a href="gallery.html">Gallery</a></li>
+											<li aria-haspopup="true"><a href="about.html">About Company </a></li>
+											<li aria-haspopup="true"><a href="services.html">Services </a></li>
+											<li aria-haspopup="true"><a href="faq.html">FAQS</a></li>
+											<li aria-haspopup="true"><a href="terms.html">Terms</a></li>
+											<li aria-haspopup="true"><a href="invoice.html">Invoice</a></li>
+											<li aria-haspopup="true"><a href="pricing.html">Pricing Tables</a></li>
+											<li aria-haspopup="true"><a href="blog.html">Blog</a></li>
+										</ul>
+									</li>
+									<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fe fe-file-text"></i> Forms <i class="fa fa-angle-down horizontal-icon"></i></a>
+										<ul class="sub-menu">
+											<li aria-haspopup="true"><a href="form-elements.html">Form Elements</a></li>
+											<li aria-haspopup="true"><a href="form-edior.html">Form Editor</a></li>
+											<li aria-haspopup="true"><a href="form-wizard.html">Form Wizard</a></li>
+										</ul>
+									</li>
+									<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fe fe-stop-circle"></i> Icons <i class="fa fa-angle-down horizontal-icon"></i></a>
+										<ul class="sub-menu">
+											<li aria-haspopup="true"><a href="icons.html">Font Awesome</a></li>
+											<li aria-haspopup="true"><a href="icons2.html">Material Design Icons</a></li>
+											<li aria-haspopup="true"><a href="icons3.html">Simple Line Icons</a></li>
+											<li aria-haspopup="true"><a href="icons4.html">Feather Icons</a></li>
+											<li aria-haspopup="true"><a href="icons5.html">Ionic Icons</a></li>
+											<li aria-haspopup="true"><a href="icons6.html">Flag Icons</a></li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+							<!-- Nav End -->
+						</div>
+					</div>
+	</div>
+				<!-- Horizontal-Menu End -->
+				{% block content %}
+
+        {% endblock content%}
+
+					<!--Sidebar-right-->
+					<div class="sidebar sidebar-right sidebar-animate">
+
+						<div class="panel panel-primary">
+							<div class="tab-menu-heading border-0">
+								<div class="tabs-menu ">
+									<!-- Tabs -->
+									<ul class="nav panel-tabs">
+										<li class=""><a href="#side1" class="active" data-toggle="tab"><i class="fas fa-bell"></i> Notifications</a></li>
+										<li><a href="#side2" data-toggle="tab"><i class="fas fa-comments"></i> Chat</a></li>
+										<li><a href="#side3" data-toggle="tab"><i class="fas fa-user-friends"></i> Friends</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="panel-body tabs-menu-body p-0 border-0">
+								<div class="tab-content">
+									<div class="tab-pane active " id="side1">
+										<div class="list-group list-group-flush ">
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-3">
+													<span class="avatar avatar-lg brround cover-image" data-image-src="{% static "assets/images/users/5.jpg"><span class="avatar-status bg-green"></span></span>
+												</div>
+												<div>
+													<strong>Madeleine</strong> Hey! there I' am available....
+													<div class="small text-muted">
+														3 hours ago
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-3">
+													<span class="avatar avatar-lg brround cover-image" data-image-src="{% static "assets/images/users/4.jpg"></span>
+												</div>
+												<div>
+													<strong>Anthony</strong> New product Launching...
+													<div class="small text-muted">
+														5 hour ago
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-3">
+													<span class="avatar avatar-lg brround cover-image" data-image-src="{% static "assets/images/users/3.jpg"><span class="avatar-status bg-green"></span></span>
+												</div>
+												<div>
+													<strong>Olivia</strong> New Schedule Realease......
+													<div class="small text-muted">
+														45 mintues ago
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-3">
+													<span class="avatar avatar-lg brround cover-image" data-image-src="{% static "assets/images/users/2.jpg"><span class="avatar-status bg-green"></span></span>
+												</div>
+												<div>
+													<strong>Madeleine</strong> Hey! there I' am available....
+													<div class="small text-muted">
+														3 hours ago
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-3">
+													<span class="avatar avatar-lg brround cover-image" data-image-src="{% static "assets/images/users/1.jpg"></span>
+												</div>
+												<div>
+													<strong>Anthony</strong> New product Launching...
+													<div class="small text-muted">
+														5 hour ago
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-3">
+													<span class="avatar avatar-lg brround cover-image" data-image-src="{% static "assets/images/users/9.jpg"><span class="avatar-status bg-green"></span></span>
+												</div>
+												<div>
+													<strong>Olivia</strong> New Schedule Realease......
+													<div class="small text-muted">
+														45 mintues ago
+													</div>
+												</div>
+											</div>
+											<div class="pt-4 text-center">
+												<a href="#" class="btn btn-primary">View more</a>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane  " id="side2">
+										<div class="list d-flex align-items-center border-bottom p-4">
+											<div class="">
+												<span class="avatar bg-primary brround avatar-md">CH</span>
+											</div>
+											<div class="wrapper w-100 ml-3">
+												<p class="mb-0 d-flex">
+													<b>New Websites is Created</b>
+												</p>
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="d-flex align-items-center">
+														<i class="mdi mdi-clock text-muted mr-1"></i>
+														<small class="text-muted ml-auto">30 mins ago</small>
+														<p class="mb-0"></p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="list d-flex align-items-center border-bottom p-4">
+											<div class="">
+												<span class="avatar bg-danger brround avatar-md">N</span>
+											</div>
+											<div class="wrapper w-100 ml-3">
+												<p class="mb-0 d-flex">
+													<b>Prepare For the Next Project</b>
+												</p>
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="d-flex align-items-center">
+														<i class="mdi mdi-clock text-muted mr-1"></i>
+														<small class="text-muted ml-auto">2 hours ago</small>
+														<p class="mb-0"></p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="list d-flex align-items-center border-bottom p-4">
+											<div class="">
+												<span class="avatar bg-info brround avatar-md">S</span>
+											</div>
+											<div class="wrapper w-100 ml-3">
+												<p class="mb-0 d-flex">
+													<b>Decide the live Discussion</b>
+												</p>
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="d-flex align-items-center">
+														<i class="mdi mdi-clock text-muted mr-1"></i>
+														<small class="text-muted ml-auto">3 hours ago</small>
+														<p class="mb-0"></p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="list d-flex align-items-center border-bottom p-4">
+											<div class="">
+												<span class="avatar bg-warning brround avatar-md">K</span>
+											</div>
+											<div class="wrapper w-100 ml-3">
+												<p class="mb-0 d-flex">
+													<b>Meeting at 3:00 pm</b>
+												</p>
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="d-flex align-items-center">
+														<i class="mdi mdi-clock text-muted mr-1"></i>
+														<small class="text-muted ml-auto">4 hours ago</small>
+														<p class="mb-0"></p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="list d-flex align-items-center border-bottom p-4">
+											<div class="">
+												<span class="avatar bg-success brround avatar-md">R</span>
+											</div>
+											<div class="wrapper w-100 ml-3">
+												<p class="mb-0 d-flex">
+													<b>Prepare for Presentation</b>
+												</p>
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="d-flex align-items-center">
+														<i class="mdi mdi-clock text-muted mr-1"></i>
+														<small class="text-muted ml-auto">1 days ago</small>
+														<p class="mb-0"></p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="list d-flex align-items-center border-bottom p-4">
+											<div class="">
+												<span class="avatar bg-pink brround avatar-md">MS</span>
+											</div>
+											<div class="wrapper w-100 ml-3">
+												<p class="mb-0 d-flex">
+													<b>Prepare for Presentation</b>
+												</p>
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="d-flex align-items-center">
+														<i class="mdi mdi-clock text-muted mr-1"></i>
+														<small class="text-muted ml-auto">1 days ago</small>
+														<p class="mb-0"></p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="list d-flex align-items-center border-bottom p-4">
+											<div class="">
+												<span class="avatar bg-purple brround avatar-md">L</span>
+											</div>
+											<div class="wrapper w-100 ml-3">
+												<p class="mb-0 d-flex">
+													<b>Prepare for Presentation</b>
+												</p>
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="d-flex align-items-center">
+														<i class="mdi mdi-clock text-muted mr-1"></i>
+														<small class="text-muted ml-auto">45 mintues ago</small>
+														<p class="mb-0"></p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="list d-flex align-items-center p-4">
+											<div class="">
+												<span class="avatar bg-blue brround avatar-md">U</span>
+											</div>
+											<div class="wrapper w-100 ml-3">
+												<p class="mb-0 d-flex">
+													<b>Prepare for Presentation</b>
+												</p>
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="d-flex align-items-center">
+														<i class="mdi mdi-clock text-muted mr-1"></i>
+														<small class="text-muted ml-auto">2 days ago</small>
+														<p class="mb-0"></p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane  " id="side3">
+										<div class="list-group list-group-flush ">
+											<form class="form-inline p-4">
+												<div class="search-element">
+													<input class="form-control header-search" type="search" placeholder="Search..." aria-label="Search">
+												</div>
+											</form>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-2">
+													<span class="avatar avatar-md brround cover-image" data-image-src="{% static "assets/images/users/2.jpg"><span class="avatar-status bg-green"></span></span>
+												</div>
+												<div class="">
+													<div class="font-weight-semibold">Mozelle Belt</div>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-light"><i class="fab fa-facebook-messenger"></i></a>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-2">
+													<span class="avatar avatar-md brround cover-image" data-image-src="{% static "assets/images/users/1.jpg"></span>
+												</div>
+												<div class="">
+													<div class="font-weight-semibold">Florinda Carasco</div>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-light"><i class="fab fa-facebook-messenger"></i></a>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-2">
+													<span class="avatar avatar-md brround cover-image" data-image-src="{% static "assets/images/users/9.jpg"><span class="avatar-status bg-green"></span></span>
+												</div>
+												<div class="">
+													<div class="font-weight-semibold">Alina Bernier</div>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-light"><i class="fab fa-facebook-messenger"></i></a>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-2">
+													<span class="avatar avatar-md brround cover-image" data-image-src="{% static "assets/images/users/3.jpg"><span class="avatar-status bg-green"></span></span>
+												</div>
+												<div class="">
+													<div class="font-weight-semibold">Zula Mclaughin</div>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-light"><i class="fab fa-facebook-messenger"></i></a>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-2">
+													<span class="avatar avatar-md brround cover-image" data-image-src="{% static "assets/images/users/4.jpg"></span>
+												</div>
+												<div class="">
+													<div class="font-weight-semibold">Isidro Heide</div>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-light"><i class="fab fa-facebook-messenger"></i></a>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-2">
+													<span class="avatar avatar-md brround cover-image" data-image-src="{% static "assets/images/users/5.jpg"><span class="avatar-status bg-green"></span></span>
+												</div>
+												<div class="">
+													<div class="font-weight-semibold">Mozelle Belt</div>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-light"><i class="fab fa-facebook-messenger"></i></a>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-2">
+													<span class="avatar avatar-md brround cover-image" data-image-src="{% static "assets/images/users/6.jpg"></span>
+												</div>
+												<div class="">
+													<div class="font-weight-semibold">Florinda Carasco</div>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-light"><i class="fab fa-facebook-messenger"></i></a>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-2">
+													<span class="avatar avatar-md brround cover-image" data-image-src="{% static "assets/images/users/8.jpg"></span>
+												</div>
+												<div class="">
+													<div class="font-weight-semibold">Alina Bernier</div>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-light"><i class="fab fa-facebook-messenger"></i></a>
+												</div>
+											</div>
+											<div class="list-group-item d-flex  align-items-center">
+												<div class="mr-2">
+													<span class="avatar avatar-md brround cover-image" data-image-src="{% static "assets/images/users/7.jpg" %}"></span>
+												</div>
+												<div class="">
+													<div class="font-weight-semibold">Isidro Heide</div>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-light"><i class="fab fa-facebook-messenger"></i></a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/Sidebar-right-->
+
+					<!--footer-->
+					<footer class="footer">
+						<div class="container">
+							<div class="row align-items-center flex-row-reverse">
+								<div class="col-md-12 col-sm-12 text-center">
+									Copyright © 2019 <a href="#">Spaner</a>. Designed by <a href="https://spruko.com/">Spruko Technologies Pvt.Ltd</a> All rights reserved.
+								</div>
+							</div>
+						</div>
+					</footer>
+					<!-- End Footer-->
+				</div>
+			</div>
+		</div>
+
+		<!-- Back to top-->
+		<a href="#top" id="back-to-top"><i class="fas fa-angle-up "></i></a>
+
+		<script src="{% static "assets/js/jquery.js" %}"></script>
+		<script src="{% static "assets/js/vendors/jquery.sparkline.min.js" %}"></script>
+		<script src="{% static "assets/js/vendors/selectize.min.js" %}"></script>
+		<script src="{% static "assets/js/vendors/jquery.tablesorter.min.js" %}"></script>
+		<script src="{% static "assets/js/vendors/circle-progress.min.js" %}"></script>
+		<script src="{% static "assets/plugins/jquery.rating/jquery.rating-stars.js" %}"></script>
+		<script src="{% static "assets/plugins/bootstrap/popper.min.js" %}"></script>
+		<script src="{% static "assets/plugins/bootstrap/js/bootstrap.min.js" %}"></script>
+		<script src="{% static "assets/plugins/p-scroll/p-scroll.js" %}"></script>
+		<script src="{% static "assets/js/sticky.js" %}"></script>
+		<script src="{% static "assets/plugins/peitychart/jquery.peity.min.js" %}"></script>
+		<script src="{% static "assets/plugins/counters/counterup.min.js" %}"></script>
+		<script src="{% static "assets/plugins/counters/waypoints.min.js" %}"></script>
+		<script src="{% static "assets/js/custom.js" %}"></script>
+		<script src="{% static "assets/plugins/side-menu/side-menu.js" %}"></script>
+		<script src="{% static "assets/plugins/sidemenu-responsive-tabs/js/sidemenu-responsive-tabs.js" %}"></script>
+		<script src="{% static "assets/js/left-menu.js" %}"></script>
+		<script src="{% static "assets/plugins/horizontal-menu/horizontal-menu.js" %}"></script>
+		<script src="{% static "assets/plugins/accordion-Wizard-Form/accordion-Wizard-Form.js" %}"></script>
+		<script src="{% static "assets/plugins/bootstrap-wizard/bootstrap-wizard.js" %}"></script>
+		<script src="{% static "assets/js/wizard.js" %}"></script>
+		<script src="{% static "assets/plugins/sidebar/sidebar.js" %}"></script>
+		<script src="{% static "assets/js/custom.js" %}"></script>
+		<script src="{% static "assets/plugins/jquery.mask/jquery.mask.min.js" %}"></script>
+		<script src="{% static "assets/js/apexcharts.js" %}"></script>
+		<script src="{% static "assets/plugins/chart.js/chart.min.js" %}"></script>
+		<script src="{% static "assets/plugins/chart.js/chart.extension.js" %}"></script>
+		<script src="{% static "assets/plugins/morris/morris.min.js" %}"></script>
+		<script src="{% static "assets/plugins/morris/raphael.min.js" %}"></script>
+		<script src="{% static "assets/js/index4.js" %}"></script>
+	</body>
+</html>
