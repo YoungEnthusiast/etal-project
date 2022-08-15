@@ -2,14 +2,15 @@ import json
 import urllib.request
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CustomRegisterForm
+from .forms import CustomRegisterForm, CollabForm
+from .models import Collab
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash, login
 from django.contrib.auth.decorators import login_required, permission_required
-# from .filters
-# from django.core.paginator import Paginator
+from .filters import CollabFilter
+from django.core.paginator import Paginator
 from django.core.mail import send_mail
 # from django.db.models import Sum
 from django.http import HttpResponseRedirect
@@ -107,7 +108,31 @@ def showHome(request):
 
 @login_required
 def showCollabs(request):
-    return render(request, 'account/collabs.html')
+    context = {}
+    filtered_collabs = CollabFilter(
+        request.GET,
+        queryset = Collab.objects.all()
+    )
+    context['filtered_collabs'] = filtered_collabs
+    paginated_filtered_collabs = Paginator(filtered_collabs.qs, 30)
+    page_number = request.GET.get('page')
+    collabs_page_obj = paginated_filtered_collabs.get_page(page_number)
+    context['collabs_page_obj'] = collabs_page_obj
+    total_collabs = filtered_collabs.qs.count()
+    context['total_collabs'] = total_collabs
+
+    form = CollabForm()
+    if request.method == 'POST':
+        form = CollabForm(request.POST, request.FILES, None)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "The collab has been created successfully")
+            return redirect('collabs')
+        else:
+            messages.error(request, "Please review form input fields below")
+    context['form'] = form
+
+    return render(request, 'account/collabs.html', context=context)
 
 # @login_required
 # @permission_required('users.view_admin')
