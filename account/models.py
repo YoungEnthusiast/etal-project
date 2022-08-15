@@ -47,9 +47,11 @@ class Researcher(AbstractUser):
     #     return reverse('detail', kwargs={'pk': self.pk})
 
 class Collab(models.Model):
-    # PAYMENT_TYPE1 = [
-	# 	('Pay Now','Pay Now'),
-	# ]
+    education_type = [
+		('Bachelor (BSc.)','Bachelor (BSc.)'),
+        ('Masters (MSc.)','Masters (MSc.)'),
+        ('Doctorate (PhD)','Doctorate (PhD)'),
+	]
 
     # user = models.ForeignKey(Person, null=True, blank=True, on_delete=models.SET_NULL)
     # order_Id = models.IntegerField(blank=True, null=True)
