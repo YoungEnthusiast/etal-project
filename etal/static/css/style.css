@@ -11999,6 +11999,7 @@ svg {
 /*-----51. Back to Top-----*/
 #back-to-top {
     color: #fff;
+    background: #5bc0de;
     position: fixed;
     bottom: 20px;
     line-height: 45px;
@@ -12019,7 +12020,7 @@ svg {
 }
 
 #back-to-top:hover {
-    background: #D7F267;
+    background: #1bc0de;
 }
 
 .features {

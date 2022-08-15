@@ -105,6 +105,10 @@ def showHome(request):
 
     return render(request, 'account/home.html', {})
 
+@login_required
+def showCollabs(request):
+    return render(request, 'account/collabs.html')
+
 # @login_required
 # @permission_required('users.view_admin')
 # def showQwikAdminBoard(request):

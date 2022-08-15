@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
-from .models import Researcher
+from .models import Researcher, Collab
 # from django.core.exceptions import ValidationError
 # import datetime
 # from django.forms.widgets import NumberInput
@@ -34,3 +34,8 @@ class CustomRegisterForm(UserCreationForm):
     #     self.fields['last_name'].label = 'Last Name'
     #     self.fields['password1'].help_text = ""
         self.fields['password2'].label = "Password Confirmation"
+
+class CollabForm(forms.ModelForm):
+    class Meta:
+        model = Collab
+        fields = ['title', 'abstract']

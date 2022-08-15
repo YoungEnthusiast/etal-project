@@ -45,3 +45,32 @@ class Researcher(AbstractUser):
 
     # def get_absolute_url(self):
     #     return reverse('detail', kwargs={'pk': self.pk})
+
+class Collab(models.Model):
+    # PAYMENT_TYPE1 = [
+	# 	('Pay Now','Pay Now'),
+	# ]
+
+    # user = models.ForeignKey(Person, null=True, blank=True, on_delete=models.SET_NULL)
+    # order_Id = models.IntegerField(blank=True, null=True)
+    # cylinder = models.ManyToManyField('products.Product', related_name='anti_cylinders')
+    title = models.CharField(max_length=255, null=True)
+    # product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True, related_name='anti_products')
+    abstract = models.TextField(max_length=500, null=True)
+    # outlet_static = models.CharField(max_length=30, blank=True, null=True)
+    # who6_2 = models.CharField(max_length=9, blank=True, null=True)
+    # quantity = models.PositiveIntegerField(default=1)
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-created',)
+        # verbose_name = "Researcher's Profile"
+        # verbose_name_plural = "Researcher's Profiles"
+
+    def __str__(self):
+        try:
+            return str(self.title)
+        except:
+            return str(self.id)
