@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Researcher
+from .models import Researcher, Collab
 from .forms import CustomRegisterForm
 # from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
@@ -29,3 +29,12 @@ class ResearcherAdmin(UserAdmin):
         ),
     )
 admin.site.register(Researcher, ResearcherAdmin)
+
+class CollabAdmin(admin.ModelAdmin):
+    list_display = ['title', 'abstract']
+    search_fields = ['title', 'abstract']
+    # list_filter = ['status']
+    # list_display_links = ['email']
+    list_per_page = 100
+
+admin.site.register(Collab, CollabAdmin)
