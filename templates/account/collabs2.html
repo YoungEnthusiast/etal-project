@@ -106,26 +106,36 @@
                   </div>
               </div>
             </div>
-            <button class="btn btn-outline-info col-md-12" data-toggle="modal" data-target="#add1"><strong><i class="fa fa-upload fa-1x mr-1 text-info"></i>Create Collab</strong></button>
+            <button class="btn btn-outline-info col-md-12" data-toggle="modal" data-target="#add1"><strong><i class="fa fa-upload fa-1x mr-1 text-white"></i>Create Collab</strong></button>
 						<div class="row">
-              {% for collab in collabs %}
+              {% for collab in collabs_page_obj %}
 							<div class="col-xl-4 col-lg-4 col-md-12">
 								<div class="card">
-									<div class="card-body">
-										<h3 class=" mb-1">Title: {{collab.title}}</h3>
-                    <h5 class=" mb-1">{{collab.field}}</h5>
-
-										<p class="text-muted">{{collab.abstract|slice:":200"}}...</p>
-                    <div style=text-align:right>
-                      <a href="#" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> View</a>
-                    </div>
+									<div class="card-body text-center">
+										<h4 class=" mb-1">{{collab.title}}</h4>
+										<!-- <p class="text-muted">{{collab.abstract}}</p> -->
+										<a href="#" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> View</a>
+										<a href="#" class="btn btn-info btn-sm"><i class="fa fa-envelope"></i> Message</a>
+										<a href="#" class="btn btn-info btn-sm"><i class="fa fa-options"></i> More</a>
 									</div>
 								</div>
 							</div>
               {% endfor %}
 						</div>
 
-
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item"><a class="text-black page-link" href="{% my_url 1 'page' request.GET.urlencode %}" tabindex="-1" aria-disabled="true">First</a></li>
+                  {% if collabs_page_obj.has_previous %}
+                    <li class="page-item"><a class="text-black page-link" href="{% my_url collabs_page_obj.previous_page_number 'page' request.GET.urlencode %}">{{collabs_page_obj.previous_page_number}}</a></li>
+                  {% endif %}
+                  <li class="page-item active" aria-current="page"><a class="bg-info page-link" href="{% my_url collabs_page_obj.number 'page' request.GET.urlencode %}">{{collabs_page_obj.number}}<span class="sr-only">(current)</span></a></li>
+                  {% if collabs_page_obj.has_next %}
+                    <li class="page-item"><a class="text-black page-link" href="{% my_url collabs_page_obj.next_page_number 'page' request.GET.urlencode %}">{{collabs_page_obj.next_page_number}}</a></li>
+                  {% endif %}
+                  <li class="page-item"><a class="text-black page-link" href="{% my_url collabs_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
+                </ul>
+              </nav>
 
 					</div>
 

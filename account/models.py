@@ -3,8 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 class Researcher(AbstractUser):
     TYPE_CHOICES = [
-        ('Researcher', 'Researcher'),
-        ('Collaborator', 'Collaborator'),
+        ('Researcher/Collaborator', 'Researcher/Collaborator'),
 		('Admin', 'Admin'),
         ('SuperAdmin', 'SuperAdmin'),
     ]
@@ -18,8 +17,7 @@ class Researcher(AbstractUser):
     state = models.CharField(max_length=255, blank=True, null=True,)
     country = models.CharField(max_length=255, blank=True, null=True)
     email_confirmed = models.BooleanField(default=False)
-
-    type = models.CharField(max_length=12, choices=TYPE_CHOICES, default='Researcher', null=True)
+    type = models.CharField(max_length=12, choices=TYPE_CHOICES, default='Researcher/Collaborator', null=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
 
@@ -30,7 +28,7 @@ class Researcher(AbstractUser):
 
     def __str__(self):
         try:
-            return str(self.username) + " | " + str(self.first_name) + " " + str(self.last_name)
+            return str(self.first_name) + " " + str(self.last_name)
         except:
             return str(self.id)
 
@@ -47,18 +45,34 @@ class Researcher(AbstractUser):
     #     return reverse('detail', kwargs={'pk': self.pk})
 
 class Collab(models.Model):
-    education_type = [
+    education_choices = [
 		('Bachelor (BSc.)','Bachelor (BSc.)'),
         ('Masters (MSc.)','Masters (MSc.)'),
         ('Doctorate (PhD)','Doctorate (PhD)'),
 	]
 
+    collaborators_choices = [
+		('Anyone', 'Anyone'),
+        ('Affiliation', 'Affiliation'),
+        # ('Select','Select'),
+	]
+
     # user = models.ForeignKey(Person, null=True, blank=True, on_delete=models.SET_NULL)
     # order_Id = models.IntegerField(blank=True, null=True)
     # cylinder = models.ManyToManyField('products.Product', related_name='anti_cylinders')
+    collaborators_type = models.CharField(max_length=11, default="Anyone", choices=collaborators_choices, null=True)
+    collaborator = models.ManyToManyField(Researcher, verbose_name="My Selection", blank=True)
     title = models.CharField(max_length=255, null=True)
     # product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True, related_name='anti_products')
     abstract = models.TextField(max_length=500, null=True)
+    proposed_timeline = models.CharField(max_length=255, null=True, verbose_name="Proposed Timeline")
+    education = models.CharField(max_length=15, choices=education_choices, null=True)
+    field = models.CharField(max_length=255, null=True)
+    expertise_required = models.CharField(max_length=255, null=True, verbose_name="Expertise Required")
+    on_premises = models.CharField(max_length=255, null=True, verbose_name="On Premises")
+    funding = models.CharField(max_length=255, null=True)
+    collaborators_no = models.CharField(max_length=255, null=True, verbose_name="Number of Collaborators")
+    ownership = models.CharField(max_length=255, null=True, verbose_name="Research Ownership")
     # outlet_static = models.CharField(max_length=30, blank=True, null=True)
     # who6_2 = models.CharField(max_length=9, blank=True, null=True)
     # quantity = models.PositiveIntegerField(default=1)

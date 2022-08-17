@@ -2,7 +2,7 @@ import json
 import urllib.request
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CustomRegisterForm, CollabForm
+from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher
 from .models import Collab
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
@@ -106,20 +106,37 @@ def showHome(request):
 
     return render(request, 'account/home.html', {})
 
+# @login_required
+# def showCollabs(request):
+#     context = {}
+#     filtered_collabs = CollabFilter(
+#         request.GET,
+#         queryset = Collab.objects.all()
+#     )
+#     context['filtered_collabs'] = filtered_collabs
+#     paginated_filtered_collabs = Paginator(filtered_collabs.qs, 30)
+#     page_number = request.GET.get('page')
+#     collabs_page_obj = paginated_filtered_collabs.get_page(page_number)
+#     context['collabs_page_obj'] = collabs_page_obj
+#     total_collabs = filtered_collabs.qs.count()
+#     context['total_collabs'] = total_collabs
+#
+#     form = CollabForm()
+#     if request.method == 'POST':
+#         form = CollabForm(request.POST, request.FILES, None)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, "The collab has been created successfully")
+#             return redirect('collabs')
+#         else:
+#             messages.error(request, "Please review form input fields below")
+#     context['form'] = form
+#
+#     return render(request, 'account/collabs.html', context=context)
+
 @login_required
 def showCollabs(request):
-    context = {}
-    filtered_collabs = CollabFilter(
-        request.GET,
-        queryset = Collab.objects.all()
-    )
-    context['filtered_collabs'] = filtered_collabs
-    paginated_filtered_collabs = Paginator(filtered_collabs.qs, 30)
-    page_number = request.GET.get('page')
-    collabs_page_obj = paginated_filtered_collabs.get_page(page_number)
-    context['collabs_page_obj'] = collabs_page_obj
-    total_collabs = filtered_collabs.qs.count()
-    context['total_collabs'] = total_collabs
+    collabs = Collab.objects.all()
 
     form = CollabForm()
     if request.method == 'POST':
@@ -130,9 +147,22 @@ def showCollabs(request):
             return redirect('collabs')
         else:
             messages.error(request, "Please review form input fields below")
-    context['form'] = form
 
-    return render(request, 'account/collabs.html', context=context)
+    return render(request, 'account/collabs.html', {'collabs':collabs, 'form':form})
+
+@login_required
+def showResearcherProfile(request, **kwargs):
+    if request.method == "POST":
+        form = CustomRegisterFormResearcher(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your profile has been modified successfully")
+            return redirect('researcher_profile')
+        else:
+            messages.error(request, "Error: Please review form input fields below")
+    else:
+        form = CustomRegisterFormResearcher(instance=request.user)
+    return render(request, 'account/resercher_profile.html', {'form': form})
 
 # @login_required
 # @permission_required('users.view_admin')
