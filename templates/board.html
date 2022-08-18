@@ -17,6 +17,9 @@
 		<link rel="stylesheet" href="{% static 'css/dark-style.css' %}">
 		<link rel="stylesheet" href="{% static 'css/color-styles.css' %}">
 		<link rel="stylesheet" href="{% static 'css/skin-modes.css' %}">
+
+
+
 		<link rel="stylesheet" href="{% static 'css/p-scroll.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/p-scroll.css' %}">
 		<link rel="stylesheet" href="{% static 'css/sidemenu-closed.css' %}">
@@ -152,7 +155,7 @@
 					</div>
 					<ul class="side-menu">
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href=""><i class="fas fa-user fa-1x mr-1"></i><span class="side-menu__label"><strong>Profile</strong></span></a>
+							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'researcher_profile' %}"><i class="fas fa-user fa-1x mr-1"></i><span class="side-menu__label"><strong>Profile</strong></span></a>
 						</li>
 						<li class="slide bg-info">
 							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'researcher_board' %}"><i class="fas fa-chalkboard-teacher fa-1x mr-1"></i></i><span class="side-menu__label"><strong>Dashboard</strong></span></a>

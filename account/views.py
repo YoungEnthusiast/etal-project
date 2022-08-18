@@ -155,6 +155,8 @@ def showResearcherProfile(request, **kwargs):
     if request.method == "POST":
         form = CustomRegisterFormResearcher(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
+            email = form.cleaned_data.get('username')
+            form.save(commit=False).email = email
             form.save()
             messages.success(request, "Your profile has been modified successfully")
             return redirect('researcher_profile')
@@ -162,7 +164,7 @@ def showResearcherProfile(request, **kwargs):
             messages.error(request, "Error: Please review form input fields below")
     else:
         form = CustomRegisterFormResearcher(instance=request.user)
-    return render(request, 'account/resercher_profile.html', {'form': form})
+    return render(request, 'account/researcher_profile.html', {'form': form})
 
 # @login_required
 # @permission_required('users.view_admin')
