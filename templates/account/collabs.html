@@ -14,6 +14,8 @@
 <div class=" app-content">
 					<div class="side-app">
             <br>
+            <div class="container content-area">
+              <div class="horizontal-content">
 
             <!-- Add 1st Form -->
             <div class="modal fade" id="add1" role="dialog">
@@ -116,9 +118,21 @@
                     <h5 class=" mb-1">{{collab.field}}</h5>
 
 										<p class="text-muted">{{collab.abstract|slice:":200"}}...</p>
-                    <div style=text-align:right>
-                      <a href="#" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> View</a>
+                    <div class="row">
+                      <div class="col-md-3">
+                        {% if collab.researcher.photograph %}
+      										<a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-small"></a>
+      									{% else %}
+      										<i class="fa fa-user-circle text-info fa-4x"></i>
+      									{% endif %}
+                      </div>
+                      <div class="col-md-5">
+                      </div>
+                      <div class="col-md-3 mr-1">
+                        <a href="#" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> View</a>
+                      </div>
                     </div>
+
 									</div>
 								</div>
 							</div>

@@ -14,6 +14,9 @@ urlpatterns = [
     path('collabs', views.showCollabs, name='collabs'),
     path('', views.showHome, name='index'),
 
+    path('collabs/<str:email>/', views.showUser, name='show_user'),
+
+
     path('logout/', auth_views.LogoutView.as_view(template_name='account/login.html'), name='logout'),
 
 

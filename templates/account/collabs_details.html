@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% load humanize %}
+{% load home_tags %}
 {% block title %}
   <title>Collabs</title>
   <meta name="description" content="">
@@ -13,6 +14,8 @@
 <div class=" app-content">
 					<div class="side-app">
             <br>
+            <div class="container content-area">
+              <div class="horizontal-content">
 
             <!-- Add 1st Form -->
             <div class="modal fade" id="add1" role="dialog">
@@ -26,8 +29,27 @@
                       </div>
                       <div class="modal-body">
                         <br>
-                        <form method="post" class="form-group col-lg-12 text-dark-green" enctype="multipart/form-data">
+                        <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
                         {% csrf_token %}
+                        <div class="form-row">
+                          <div class="form-group col-sm-4 mb-2">
+                          </div>
+                          <div class="form-group col-sm-4 mb-2">
+                            With Whom?
+                          </div>
+                          <div class="form-group col-sm-4 mb-2">
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.collaborators_type|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.collaborator|as_crispy_field }}
+                          </div>
+                        </div>
                         <div class="form-row">
                           <div class="form-group col-sm-12 mb-2">
                                 {{ form.title|as_crispy_field }}
@@ -38,153 +60,87 @@
                                 {{ form.abstract|as_crispy_field }}
                           </div>
                         </div>
-                        <input type="submit" class="form-group col-md-12 btn btn-info" value="Post">
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.proposed_timeline|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.education|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.field|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.expertise_required|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.on_premises|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.funding|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.collaborators_no|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.ownership|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div style="text-align:left" class="mt-1">
+                          <input type="submit" value="Post" class="btn btn-dark-blue">
+                        </div>
                       </form>
                       </div>
                   </div>
               </div>
             </div>
-            <button class="btn btn-info col-md-12" data-toggle="modal" data-target="#add1"><strong><i class="fa fa-upload fa-1x mr-1 text-white"></i>Create Collab</strong></button>
-
-
+            <button class="btn btn-outline-info col-md-12" data-toggle="modal" data-target="#add1"><strong><i class="fa fa-upload fa-1x mr-1 text-info"></i>Create Collab</strong></button>
 						<div class="row">
+              {% for collab in collabs %}
 							<div class="col-xl-4 col-lg-4 col-md-12">
 								<div class="card">
-									<div class="card-body text-center">
-										<img alt="Profile Picture" class="avatar-xxl mb-2 rounded-circle" src="../assets/images/users/2.jpg">
-										<h4 class=" mb-1">Thomas Gray</h4>
-										<p class="mb-1">Graphic designer</p>
-										<p class="text-muted">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus</p>
-										<a href="#" class="btn btn-primary btn-sm"><i class="si si-feed"></i> Follow</a>
-										<a href="#" class="btn btn-secondary btn-sm"><i class="si si-envelope"></i> Message</a>
-										<a href="#" class="btn btn-danger btn-sm"><i class="si si-options"></i> More</a>
+									<div class="card-body">
+										<h3 class=" mb-1">Title: {{collab.title}}</h3>
+                    <h5 class=" mb-1">{{collab.field}}</h5>
+
+										<p class="text-muted">{{collab.abstract|slice:":200"}}...</p>
+                    <div class="row">
+                      <div class="col-md-3">
+                        {% if collab.researcher.photograph %}
+      										<a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-small"></a>
+      									{% else %}
+      										<i class="fa fa-user-circle text-info fa-4x"></i>
+      									{% endif %}
+                      </div>
+                      <div class="col-md-5">
+                      </div>
+                      <div class="col-md-3 mr-1">
+                        <a href="#" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> View</a>
+                      </div>
+                    </div>
+
 									</div>
 								</div>
 							</div>
-							<div class="col-xl-4 col-lg-4 col-md-12">
-								<div class="card">
-									<div class="card-body text-center">
-										<img alt="Profile Picture" class="avatar-xxl mb-2 rounded-circle" src="../assets/images/users/3.jpg">
-										<h4 class=" mb-1">Anna	Ross</h4>
-										<p class="mb-1">Web designer</p>
-										<p class="text-muted">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus</p>
-										<a href="#" class="btn btn-primary btn-sm"><i class="si si-feed"></i> Follow</a>
-										<a href="#" class="btn btn-secondary btn-sm"><i class="si si-envelope"></i> Message</a>
-										<a href="#" class="btn btn-danger btn-sm"><i class="si si-options"></i> More</a>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-4 col-lg-4 col-md-12">
-								<div class="card">
-									<div class="card-body text-center">
-										<img alt="Profile Picture" class="avatar-xxl mb-2 rounded-circle" src="../assets/images/users/7.jpg">
-										<h4 class=" mb-1">Steven Wallace</h4>
-										<p class="mb-1">App designer</p>
-										<p class="text-muted">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus</p>
-										<a href="#" class="btn btn-primary btn-sm"><i class="si si-feed"></i> Follow</a>
-										<a href="#" class="btn btn-secondary btn-sm"><i class="si si-envelope"></i> Message</a>
-										<a href="#" class="btn btn-danger btn-sm"><i class="si si-options"></i> More</a>
-									</div>
-								</div>
-							</div>
+              {% endfor %}
 						</div>
 
-						<div class="row">
-							<div class="col-xl-4 col-lg-4 col-md-12">
-								<div class="card">
-									<div class="card-body text-center">
-										<img alt="Profile Picture" class="avatar-xxl mb-2 rounded-circle" src="../assets/images/users/9.jpg">
-										<h4 class=" mb-1">Sonia	Skinner</h4>
-										<p class="mb-1">App Developer</p>
-										<p class="text-muted">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus</p>
-										<a href="#" class="btn btn-primary btn-sm"><i class="si si-feed"></i> Follow</a>
-										<a href="#" class="btn btn-secondary btn-sm"><i class="si si-envelope"></i> Message</a>
-										<a href="#" class="btn btn-danger btn-sm"><i class="si si-options"></i> More</a>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-4 col-lg-4 col-md-12">
-								<div class="card">
-									<div class="card-body text-center">
-										<img alt="Profile Picture" class="avatar-xxl mb-2 rounded-circle" src="../assets/images/users/4.jpg">
-										<h4 class=" mb-1">Kevin	Grant</h4>
-										<p class="mb-1">Project Leader</p>
-										<p class="text-muted">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus</p>
-										<a href="#" class="btn btn-primary btn-sm"><i class="si si-feed"></i> Follow</a>
-										<a href="#" class="btn btn-secondary btn-sm"><i class="si si-envelope"></i> Message</a>
-										<a href="#" class="btn btn-danger btn-sm"><i class="si si-options"></i> More</a>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-4 col-lg-4 col-md-12">
-								<div class="card">
-									<div class="card-body text-center">
-										<img alt="Profile Picture" class="avatar-xxl mb-2 rounded-circle" src="../assets/images/users/7.jpg">
-										<h4 class=" mb-1">Robert	Henderson</h4>
-										<p class="mb-1">Sales Manager</p>
-										<p class="text-muted">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus</p>
-										<a href="#" class="btn btn-primary btn-sm"><i class="si si-feed"></i> Follow</a>
-										<a href="#" class="btn btn-secondary btn-sm"><i class="si si-envelope"></i> Message</a>
-										<a href="#" class="btn btn-danger btn-sm"><i class="si si-options"></i> More</a>
-									</div>
-								</div>
-							</div>
-						</div>
 
-						<div class="row">
-							<div class="col-xl-4 col-lg-4 col-md-12">
-								<div class="card">
-									<div class="card-body text-center">
-										<img alt="Profile Picture" class="avatar-xxl mb-2 rounded-circle" src="../assets/images/users/9.jpg">
-										<h4 class=" mb-1">Jacob	Miller</h4>
-										<p class="mb-1">CEO</p>
-										<p class="text-muted">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus</p>
-										<a href="#" class="btn btn-primary btn-sm"><i class="si si-feed"></i> Follow</a>
-										<a href="#" class="btn btn-secondary btn-sm"><i class="si si-envelope"></i> Message</a>
-										<a href="#" class="btn btn-danger btn-sm"><i class="si si-options"></i> More</a>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-4 col-lg-4 col-md-12">
-								<div class="card">
-									<div class="card-body text-center">
-										<img alt="Profile Picture" class="avatar-xxl mb-2 rounded-circle" src="../assets/images/users/1.jpg">
-										<h4 class=" mb-1">Lillian Arnold</h4>
-										<p class="mb-1">Graphic Developer</p>
-										<p class="text-muted">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus</p>
-										<a href="#" class="btn btn-primary btn-sm"><i class="si si-feed"></i> Follow</a>
-										<a href="#" class="btn btn-secondary btn-sm"><i class="si si-envelope"></i> Message</a>
-										<a href="#" class="btn btn-danger btn-sm"><i class="si si-options"></i> More</a>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-4 col-lg-4 col-md-12">
-								<div class="card">
-									<div class="card-body text-center">
-										<img alt="Profile Picture" class="avatar-xxl mb-2 rounded-circle" src="../assets/images/users/10.jpg">
-										<h4 class=" mb-1">Ruth Powell</h4>
-										<p class="mb-1">Web Developer</p>
-										<p class="text-muted">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus</p>
-										<a href="#" class="btn btn-primary btn-sm"><i class="si si-feed"></i> Follow</a>
-										<a href="#" class="btn btn-secondary btn-sm"><i class="si si-envelope"></i> Message</a>
-										<a href="#" class="btn btn-danger btn-sm"><i class="si si-options"></i> More</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<ul class="pagination justify-content-center mb-5">
-							<li class="page-item page-prev disabled">
-								<a class="page-link" href="#" tabindex="-1">Prev</a>
-							</li>
-							<li class="page-item active"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">4</a></li>
-							<li class="page-item"><a class="page-link" href="#">5</a></li>
-							<li class="page-item page-next">
-								<a class="page-link" href="#">Next</a>
-							</li>
-						</ul>
+
 					</div>
 
 					<!--Sidebar-right-->

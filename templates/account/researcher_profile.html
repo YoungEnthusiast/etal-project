@@ -13,10 +13,54 @@
 <div class=" app-content">
 	<div class="side-app">
     <br>
+    <div class="container content-area">
+      <div class="horizontal-content">
     {% include '_alerts.html' %}
 		<!--Page Header-->
     <div class="row">
-      <div class="col-md-12 col-xl-12 col-lg-4">
+      <div class="col-xl-4  col-md-12">
+        <div class="card box-widget widget-user">
+          <div class="widget-user-header bg-gradient-primary"></div>
+          {% if user.photograph %}
+          <div class="text-center"><img alt="User Avatar" class="profile-big" src="{{user.photographURL}}"></div>
+          {% else %}
+          <div class="text-center"><i class="fa fa-user-circle text-info fa-5x"></i></div>
+          {% endif %}
+          <div class="card-body text-center">
+            <div class="pro-user">
+              <h3 class="pro-user-username text-info"><strong>{{user.first_name}} {{user.last_name}}</strong></h3>
+              <!-- <h6 class="pro-user-desc text-muted">Web Developer</h6> -->
+              <div class="badge bg-info text-white rounded-pill badge-marketing badge-sm"><strong>{{user.type}}</strong></div><br>
+              <a href="editprofile.html" class="btn btn-primary btn-sm"><i class="si si-pencil mr-1"></i>Edit</a>
+              <a href="#" class="btn btn-secondary btn-sm"><i class="si si-feed mr-1"></i>Follow</a>
+              <div class="pro-user-icons">
+                <a href="#" class="facebook-bg mt-0"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="twitter-bg"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="google-bg"><i class="fab fa-google"></i></a>
+                <a href="#" class="dribbble-bg"><i class="fab fa-dribbble"></i></a>
+              </div>
+            </div>
+
+          </div>
+          <div class="card-footer p-0">
+            <div class="row">
+              <div class="col-sm-6 border-right ">
+                <div class="description-block">
+                  <h5 class="description-header">689k</h5><span class="text-muted">Followers</span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="description-block">
+                  <h5 class="description-header">3,765</h5><span class="text-muted">Following</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-12 col-xl-8">
         <div class="card">
           <form method="post" class="form-group col-md-12 text-dark" enctype="multipart/form-data">
             <div class="card-header bg-white">
@@ -77,5 +121,8 @@
 	<div class="col-md-12 col-xl-4 col-lg-4">
 
 	</div>
-
+  </div>
+</div>
+</div>
+</div>
 {% endblock content%}

@@ -3,7 +3,7 @@ import urllib.request
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher
-from .models import Collab
+from .models import Collab, Researcher
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.forms import PasswordChangeForm
@@ -137,17 +137,16 @@ def showHome(request):
 @login_required
 def showCollabs(request):
     collabs = Collab.objects.all()
-
     form = CollabForm()
     if request.method == 'POST':
         form = CollabForm(request.POST, request.FILES, None)
         if form.is_valid():
+            form.save(commit=False).researcher=request.user
             form.save()
             messages.success(request, "The collab has been created successfully")
             return redirect('collabs')
         else:
             messages.error(request, "Please review form input fields below")
-
     return render(request, 'account/collabs.html', {'collabs':collabs, 'form':form})
 
 @login_required
@@ -165,6 +164,12 @@ def showResearcherProfile(request, **kwargs):
     else:
         form = CustomRegisterFormResearcher(instance=request.user)
     return render(request, 'account/researcher_profile.html', {'form': form})
+
+@login_required
+def showUser(request, email, **kwargs):
+    researcher = Researcher.objects.get(username=email)
+    context = {'researcher': researcher}
+    return render(request, 'account/user_profile.html', context)
 
 # @login_required
 # @permission_required('users.view_admin')

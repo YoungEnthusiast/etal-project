@@ -57,7 +57,7 @@ class Collab(models.Model):
         # ('Select','Select'),
 	]
 
-    # user = models.ForeignKey(Person, null=True, blank=True, on_delete=models.SET_NULL)
+    researcher = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="researcher")
     # order_Id = models.IntegerField(blank=True, null=True)
     # cylinder = models.ManyToManyField('products.Product', related_name='anti_cylinders')
     collaborators_type = models.CharField(max_length=11, default="Anyone", choices=collaborators_choices, null=True)
