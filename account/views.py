@@ -171,6 +171,12 @@ def showUser(request, email, **kwargs):
     context = {'researcher': researcher}
     return render(request, 'account/user_profile.html', context)
 
+@login_required
+def showCollab(request, id, **kwargs):
+    collab = Collab.objects.get(id=id)
+    context = {'collab': collab}
+    return render(request, 'account/collab.html', context)
+
 # @login_required
 # @permission_required('users.view_admin')
 # def showQwikAdminBoard(request):

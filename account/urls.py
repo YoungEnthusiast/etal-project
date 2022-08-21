@@ -10,13 +10,10 @@ urlpatterns = [
     path('activate/<uidb64>/<token>', ActivateAccount.as_view(), name='activate'),
     path('researcher-dashboard', views.showResearcherBoard, name='researcher_board'),
     path('researcher-dashboard/profile', views.showResearcherProfile, name='researcher_profile'),
-
     path('collabs', views.showCollabs, name='collabs'),
     path('', views.showHome, name='index'),
-
-    path('collabs/<str:email>/', views.showUser, name='show_user'),
-
-
+    path('collabs/view-researcher/<str:email>/', views.showUser, name='show_user'),
+    path('collabs/view-collab/<str:id>/', views.showCollab, name='show_collab'),
     path('logout/', auth_views.LogoutView.as_view(template_name='account/login.html'), name='logout'),
 
 
