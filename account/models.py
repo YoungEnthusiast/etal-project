@@ -61,7 +61,7 @@ class Collab(models.Model):
     # order_Id = models.IntegerField(blank=True, null=True)
     # cylinder = models.ManyToManyField('products.Product', related_name='anti_cylinders')
     collaborators_type = models.CharField(max_length=11, default="Anyone", choices=collaborators_choices, null=True)
-    collaborator = models.ManyToManyField(Researcher, verbose_name="My Selection", blank=True)
+    collaborator = models.ManyToManyField(Researcher, verbose_name="My Selection", blank=True, related_name="collaborator")
     title = models.CharField(max_length=255, null=True)
     # product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True, related_name='anti_products')
     abstract = models.TextField(max_length=500, null=True)
@@ -75,7 +75,11 @@ class Collab(models.Model):
     ownership = models.CharField(max_length=255, null=True, verbose_name="Research Ownership")
     # outlet_static = models.CharField(max_length=30, blank=True, null=True)
     # who6_2 = models.CharField(max_length=9, blank=True, null=True)
-    # quantity = models.PositiveIntegerField(default=1)
+    flag_counts = models.PositiveIntegerField(default=0)
+    interested_people = models.ManyToManyField(Researcher, blank=True, related_name="interested_people")
+    interest = models.BooleanField(max_length=5, default = False)
+    flag = models.BooleanField(max_length=5, default = False)
+
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

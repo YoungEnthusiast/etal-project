@@ -210,6 +210,18 @@ def showCollab(request, id, **kwargs):
 #                                                           'adm':adm})
 
 @login_required
+def interestCollab(request, id):
+    collab = Collab.objects.get(id=id)
+    # collaborator = Collab.objects.get(id=id)
+    # collab.interested_people.set(request.user)
+    collab.interested_people = request.user    
+
+    # cylinder.partner_confirm = True
+    # cylinder.who3 = "Accepted"
+    collab.save()
+    return redirect('show_collab')
+
+@login_required
 def loginTo(request):
     if request.user.type == "Researcher":
         return HttpResponseRedirect(reverse('researcher_board'))

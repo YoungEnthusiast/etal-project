@@ -72,18 +72,16 @@
     									<div class="card-body">
                         <div class="row">
                           <div class="col-md-1">
-
                           </div>
                           <div style="text-align:center" class="col-md-10">
-                            <strong class="text-center text-black"><a class="text-info" href="">Show interest</a>/<a class="text-info" href="">Undo</a></strong>
+                            <strong class="text-center text-black"><a class="text-info" href="{% url 'interest_collab' collab.id %}">Show interest</a>/<a class="text-info" href="">Undo</a></strong>
                           </div>
                           <div class="col-md-1">
-
                           </div>
-
                         </div>
     									</div>
     								</div>
+                    <a class="text-white" href=""><button class="btn btn-info" type="button" name="button"><strong><span class="text-red"><i class="fas fa-flag fa-1x mr-1"></i></span>Flag</strong></button></a>
     							</div>
     						</div>
     					</div>
