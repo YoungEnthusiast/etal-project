@@ -67,22 +67,52 @@
     									</div>
     								</div>
     							</div>
-    							<div class="col-xl-4 col-md-12">
-    								<div class="card">
-    									<div class="card-body">
+                  {% if collab.researcher == request.user %}
+                  <div class="col-xl-4 col-md-12">
+                    <a class="text-white" href=""><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button></a>
+                    <a class="text-white" href=""><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-trash fa-1x mr-1"></i>Delete</strong></button></a>
+                    <br>
+                    <br>
+                    <br>
+                    <h5>Collaborators</h5>
+                    <div class="card">
+                      <div class="card-body">
                         <div class="row">
-                          <div class="col-md-1">
-                          </div>
-                          <div style="text-align:center" class="col-md-10">
-                            <strong class="text-center text-black"><a class="text-info" href="{% url 'interest_collab' collab.id %}">Show interest</a>/<a class="text-info" href="">Undo</a></strong>
-                          </div>
-                          <div class="col-md-1">
-                          </div>
+                          {% for person in collab.interested_people.all %}
+                            {% if person.photograph %}
+                              <a href=""><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
+                            {% else %}
+                              <a href=""><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                            {% endif %}
+                            <p><a class="text-info" href="">Offer</a>/<a class="text-info" href="">Ignore</a></p>
+                            <br>
+                          {% endfor %}
                         </div>
-    									</div>
-    								</div>
-                    <a class="text-white" href=""><button class="btn btn-info" type="button" name="button"><strong><span class="text-red"><i class="fas fa-flag fa-1x mr-1"></i></span>Flag</strong></button></a>
-    							</div>
+                      </div>
+                    </div>
+                    <br>
+                    <br>
+                    <a class="text-white" href=""><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-lock fa-1x mr-1"></i>Lock</strong></button></a>
+
+                  </div>
+                  {% else %}
+                    <div class="col-xl-4 col-md-12">
+      								<div class="card">
+      									<div class="card-body">
+                          <div class="row">
+                            <div class="col-md-1">
+                            </div>
+                            <div style="text-align:center" class="col-md-10">
+                              <strong class="text-center text-black"><a class="text-info" href="{% url 'interest_collab' collab.id %}">Show interest</a>/<a class="text-info" href="">Undo</a></strong>
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                          </div>
+      									</div>
+      								</div>
+                      <a class="text-white" href=""><button class="btn btn-info" type="button" name="button"><strong><span class="text-red"><i class="fas fa-flag fa-1x mr-1"></i></span>Flag</strong></button></a>
+      							</div>
+                  {% endif %}
     						</div>
     					</div>
             </div>

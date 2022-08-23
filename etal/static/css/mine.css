@@ -20391,6 +20391,14 @@ section {
   height: 70px;
 }
 
+.profile-col{
+  border-radius: 50%;
+  border: 4px solid #5bc0de;
+  width: 75px;
+  height: 75px;
+}
+
+
       a.button, input[type="submit"] {
           color:#fff;
           background:#5bc0de;

@@ -9,7 +9,7 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash, login
 from django.contrib.auth.decorators import login_required, permission_required
-from .filters import CollabFilter
+from .filters import InitiatedCollabFilter
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
 # from django.db.models import Sum
@@ -212,18 +212,33 @@ def showCollab(request, id, **kwargs):
 @login_required
 def interestCollab(request, id):
     collab = Collab.objects.get(id=id)
-    # collaborator = Collab.objects.get(id=id)
-    # collab.interested_people.set(request.user)
-    collab.interested_people = request.user    
-
-    # cylinder.partner_confirm = True
-    # cylinder.who3 = "Accepted"
+    # for collaborator in collaborators:
+    #     collab.interested_people.add(collaborator)
+    collab.interested_people.add(request.user)
+    messages.info(request, "The collab has been created successfully")
     collab.save()
-    return redirect('show_collab')
+    return redirect('collabs')
+
+@login_required
+def initiatedCollabs(request):
+    context = {}
+    filtered_initiated_collabs = InitiatedCollabFilter(
+        request.GET,
+        queryset = Collab.objects.filter(researcher=request.user)
+    )
+    context['filtered_initiated_collabs'] = filtered_initiated_collabs
+    paginated_filtered_initiated_collabs = Paginator(filtered_initiated_collabs.qs, 100)
+    page_number = request.GET.get('page')
+    initiated_collabs_page_obj = paginated_filtered_initiated_collabs.get_page(page_number)
+    context['initiated_collabs_page_obj'] = initiated_collabs_page_obj
+    total_initiated_collabs = filtered_initiated_collabs.qs.count()
+    context['total_initiated_collabs'] = total_initiated_collabs
+
+    return render(request, 'account/initiated-collabs.html', context)
 
 @login_required
 def loginTo(request):
-    if request.user.type == "Researcher":
+    if request.user.type == "Researcher/Collaborator":
         return HttpResponseRedirect(reverse('researcher_board'))
     # elif request.user.type == "QwikA--":
     #     return HttpResponseRedirect(reverse('qwikadmin_board'))

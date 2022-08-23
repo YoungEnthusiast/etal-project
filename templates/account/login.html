@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'board.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
 {% block title %}
@@ -22,7 +22,7 @@
 								<div class="card-group mb-0">
 									<div class="card p-4">
 										<div class="card-body">
-                      <form method="post" class="form-group col-md-12 text-dark-green">
+                      <form method="post" class="form-group col-md-12 text-black">
 											<div class="form-group">
                       {% csrf_token %}
                       <div class="form-row">

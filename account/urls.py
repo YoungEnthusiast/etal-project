@@ -14,6 +14,7 @@ urlpatterns = [
     path('', views.showHome, name='index'),
     path('collabs/view-researcher/<str:email>/', views.showUser, name='show_user'),
     path('collabs/view-collab/<str:id>/', views.showCollab, name='show_collab'),
+    path('researcher-dashboard/initiated-collabs', views.initiatedCollabs, name='initiated_collabs'),
 
 
     path('collabs/interested/<int:id>', views.interestCollab, name='interest_collab'),
