@@ -34,4 +34,4 @@ class CollabForm(forms.ModelForm):
     # collaborator = forms.ModelMultipleChoiceField(queryset=Researcher.objects.all(), label="A", widget=forms.SelectMultiple(attrs={'placeholder':'Please type a valid email address'}))
     class Meta:
         model = Collab
-        fields = ['collaborators_type', 'collaborator', 'title', 'abstract', 'education', 'proposed_timeline', 'field', 'expertise_required', 'funding', 'collaborators_no', 'ownership', 'on_premises']
+        fields = ['collaborators_type', 'collaborators', 'title', 'abstract', 'education', 'proposed_timeline', 'field', 'expertise_required', 'funding', 'collaborators_no', 'ownership', 'on_premises']

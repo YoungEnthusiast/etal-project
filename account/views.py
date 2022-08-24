@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .filters import InitiatedCollabFilter
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
-# from django.db.models import Sum
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.views.generic import View
 from django.contrib.auth.models import User
@@ -149,6 +149,19 @@ def showCollabs(request):
             messages.error(request, "Please review form input fields below")
     return render(request, 'account/collabs.html', {'collabs':collabs, 'form':form})
 
+def createCollab(request):
+    form = CollabForm()
+    if request.method == 'POST':
+        form = CollabForm(request.POST, request.FILES, None)
+        if form.is_valid():
+            form.save(commit=False).researcher=request.user
+            form.save()
+            messages.info(request, "The collab has been created successfully")
+            return redirect('create_collab')
+        else:
+            messages.error(request, "Please review form input fields below")
+    return render(request, 'account/create_collab.html', {'form':form})
+
 @login_required
 def showResearcherProfile(request, **kwargs):
     if request.method == "POST":
@@ -215,7 +228,7 @@ def interestCollab(request, id):
     # for collaborator in collaborators:
     #     collab.interested_people.add(collaborator)
     collab.interested_people.add(request.user)
-    messages.info(request, "The collab has been created successfully")
+    messages.info(request, "Your interest has been notified to the researcher")
     collab.save()
     return redirect('collabs')
 
@@ -224,7 +237,7 @@ def initiatedCollabs(request):
     context = {}
     filtered_initiated_collabs = InitiatedCollabFilter(
         request.GET,
-        queryset = Collab.objects.filter(researcher=request.user)
+        queryset = Collab.objects.filter(Q(researcher=request.user) | Q(interested_people=request.user))
     )
     context['filtered_initiated_collabs'] = filtered_initiated_collabs
     paginated_filtered_initiated_collabs = Paginator(filtered_initiated_collabs.qs, 100)
@@ -234,7 +247,7 @@ def initiatedCollabs(request):
     total_initiated_collabs = filtered_initiated_collabs.qs.count()
     context['total_initiated_collabs'] = total_initiated_collabs
 
-    return render(request, 'account/initiated-collabs.html', context)
+    return render(request, 'account/initiated_collabs.html', context)
 
 @login_required
 def loginTo(request):

@@ -452,7 +452,7 @@
     -ms-flex-align: center;
     align-items: center;
     padding: 0.50rem 1.0rem;
-    font-size: 11px;
+    font-size: 18px;
     -webkit-transition: border-left-color 0.3s ease, background-color 0.3s ease;
     -o-transition: border-left-color 0.3s ease, background-color 0.3s ease;
     transition: border-left-color 0.3s ease, background-color 0.3s ease;

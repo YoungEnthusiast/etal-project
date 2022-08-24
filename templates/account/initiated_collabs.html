@@ -17,39 +17,41 @@
             <div class="container content-area">
               <div class="horizontal-content">
 
-                <div class="card-body">
-                  <div class="table-responsive mb-0">
-                    <table class="table table-bordered table-hover mb-0 text-nowrap">
-                      <thead>
-                        <tr>
-                          <th>Product</th>
-                          <th>Cost</th>
-                          <th>Sales Amount</th>
-                          <th>Shipping Cost</th>
-                          <th>Profit Generated</th>
-                          <th>Left in Stock</th>
-                          <th>Returns</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for collab in initiated_collabs_page_obj %}
-                        <tr>
-                          <td>{{collab.created}}</td>
-                          <td class="num-font">425</td>
-                          <td class="num-font">550</td>
-                          <td class="num-font">80</td>
-                          <td class="num-font">86</td>
-                          <td class="num-font">1,567</td>
-                          <td class="num-font">120</td>
-                          <td>
-                            <a href="javascript:void(0)" class="btn btn-info  btn-sm mr-3" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-eye  fs-16"></i></a>
-                            <a href="javascript:void(0)" class="btn btn-danger  btn-sm mr-3" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash  fs-16"></i></a>
-                          </td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
+                <div class="row">
+                  {% for collab in initiated_collabs_page_obj %}
+    							<div class="col-xl-4 col-lg-4 col-md-12">
+    								<div class="card">
+    									<div class="card-body">
+    										<a href="{% url 'show_collab' collab.id %}"><h3 class=" mb-1">Title: <span class="text-info">{{collab.title}}</span></h3></a>
+                        <h5 class=" mb-1">{{collab.field}}</h5>
+
+    										<p class="text-muted">{{collab.abstract|slice:":200"}}...</p>
+                        <div class="row">
+                          <div class="col-md-3">
+                            {% if collab.researcher == request.user %}
+
+                            {% else %}
+                              {% if collab.researcher.photograph %}
+                                <a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-small"></a>
+                              {% else %}
+                                <a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-4x"></i></a>
+                              {% endif %}
+                            {% endif %}
+
+                          </div>
+                          <div class="col-md-5">
+                          </div>
+                          <div class="col-md-3 mr-1">
+                            <a href="{% url 'show_collab' collab.id %}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> View</a>
+                          </div>
+                        </div>
+
+    									</div>
+    								</div>
+    							</div>
+                  {% endfor %}
+    						</div>
+                    {% if initiated_collabs_page_obj %}
                     <nav aria-label="...">
                       <ul class="pagination justify-content-center">
                         <li class="page-item"><a class="text-info page-link" href="{% my_url 1 'page' request.GET.urlencode %}" tabindex="-1" aria-disabled="true">First</a></li>
@@ -63,8 +65,8 @@
                         <li class="page-item"><a class="text-info page-link" href="{% my_url initiated_collabs_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
                       </ul>
                     </nav>
-                  </div>
-                </div>
+                    {% endif %}
+
 								</div>
 							</div>
 						</div>

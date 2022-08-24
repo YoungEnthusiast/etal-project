@@ -1,0 +1,111 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Collabs</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+{% include '_alerts.html' %}
+<div class=" app-content">
+					<div class="side-app">
+            <br>
+            <div class="container content-area">
+              <div class="horizontal-content">
+                {% include '_alerts.html' %}
+
+                <div class="row">
+                  <div class="col-md-12 col-xl-12 col-lg-12">
+                  <div class="card">
+                    <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                      <div class="card-header bg-white">
+                        <h4 class="text-info">
+                          <i class="fas fa-upload"></i> Create Collab</h4>
+                      </div>
+                      <br>
+                      {% csrf_token %}
+                      <div class="form-row">
+                        <div class="form-group col-sm-4 mb-2">
+                          With Whom?
+                        </div>
+                        <div class="form-group col-sm-4 mb-2">
+
+                        </div>
+                        <div class="form-group col-sm-4 mb-2">
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.collaborators_type|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.collaborators|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.title|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.abstract|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.proposed_timeline|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.education|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.field|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.expertise_required|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.on_premises|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.funding|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.collaborators_no|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.ownership|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div style="text-align:left" class="mt-1">
+                      <input type="submit" value="Post" class="btn btn-dark-blue">
+                  </form>
+                  </div>
+                  </div>
+                </div>
+								</div>
+							</div>
+						</div>
+					</div>
+{% endblock content%}

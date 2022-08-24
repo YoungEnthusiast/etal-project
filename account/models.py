@@ -61,7 +61,7 @@ class Collab(models.Model):
     # order_Id = models.IntegerField(blank=True, null=True)
     # cylinder = models.ManyToManyField('products.Product', related_name='anti_cylinders')
     collaborators_type = models.CharField(max_length=11, default="Anyone", choices=collaborators_choices, null=True)
-    collaborator = models.ManyToManyField(Researcher, verbose_name="My Selection", blank=True, related_name="collaborator")
+    collaborators = models.ManyToManyField(Researcher, verbose_name="My Selection", blank=True, related_name="collaborator")
     title = models.CharField(max_length=255, null=True)
     # product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True, related_name='anti_products')
     abstract = models.TextField(max_length=500, null=True)
