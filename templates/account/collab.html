@@ -103,7 +103,11 @@
                             <div class="col-md-1">
                             </div>
                             <div style="text-align:center" class="col-md-10">
+                              {% if request.user in collab.interested_people.all %}
+                              <strong class="text-center text-black">Interested/<a class="text-info" href="">Undo</a></strong>
+                              {% else %}
                               <strong class="text-center text-black"><a class="text-info" href="{% url 'interest_collab' collab.id %}">Show interest</a>/<a class="text-info" href="">Undo</a></strong>
+                              {% endif %}
                             </div>
                             <div class="col-md-1">
                             </div>
