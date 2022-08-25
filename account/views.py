@@ -233,6 +233,26 @@ def interestCollab(request, id):
     return redirect('collabs')
 
 @login_required
+def offerCollab(request, id):
+    collab = Collab.objects.get(id=id)
+    # for collaborator in collaborators:
+    #     collab.interested_people.add(collaborator)
+    collab.interested_people.add(request.user)
+    messages.info(request, "Your interest has been notified to the researcher")
+    collab.save()
+    return redirect('collabs')
+
+@login_required
+def undoInterestCollab(request, id):
+    collab = Collab.objects.get(id=id)
+    # for collaborator in collaborators:
+    #     collab.interested_people.add(collaborator)
+    collab.interested_people.remove(request.user)
+    messages.info(request, "Your interest has been undone successfully")
+    collab.save()
+    return redirect('collabs')
+
+@login_required
 def initiatedCollabs(request):
     context = {}
     filtered_initiated_collabs = InitiatedCollabFilter(

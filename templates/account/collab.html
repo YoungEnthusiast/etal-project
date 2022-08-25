@@ -80,11 +80,11 @@
                         <div class="row">
                           {% for person in collab.interested_people.all %}
                             {% if person.photograph %}
-                              <a href=""><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
+                              <a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
                             {% else %}
                               <a href=""><i class="fa fa-user-circle text-info fa-5x"></i></a>
                             {% endif %}
-                            <p><a class="text-info" href="">Offer</a>/<a class="text-info" href="">Ignore</a></p>
+                            <strong><p><a class="text-info" href="">Offer</a>/<a class="text-info" href="">Ignore</a></p></strong>
                             <br>
                           {% endfor %}
                         </div>
@@ -93,7 +93,6 @@
                     <br>
                     <br>
                     <a class="text-white" href=""><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-lock fa-1x mr-1"></i>Lock</strong></button></a>
-
                   </div>
                   {% else %}
                     <div class="col-xl-4 col-md-12">
@@ -104,7 +103,7 @@
                             </div>
                             <div style="text-align:center" class="col-md-10">
                               {% if request.user in collab.interested_people.all %}
-                              <strong class="text-center text-black">Interested/<a class="text-info" href="">Undo</a></strong>
+                              <strong class="text-center text-black">Interested/<a class="text-info" href="{% url 'undo_interest_collab' collab.id %}">Undo</a></strong>
                               {% else %}
                               <strong class="text-center text-black"><a class="text-info" href="{% url 'interest_collab' collab.id %}">Show interest</a>/<a class="text-info" href="">Undo</a></strong>
                               {% endif %}
