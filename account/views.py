@@ -3,7 +3,7 @@ import urllib.request
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher
-from .models import Collab, Researcher
+from .models import Collab, Researcher, Notification
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.forms import PasswordChangeForm
@@ -230,6 +230,26 @@ def interestCollab(request, id):
     collab.interested_people.add(request.user)
     messages.info(request, "Your interest has been notified to the researcher")
     collab.save()
+
+
+
+
+    entry = Notification()
+    entry.owner = collab.researcher
+    entry.message = "A new collaborator showed interest on " + str(collab.title)
+    try:
+        old_entry = Notification.objects.filter(owner=collab.researcher)[0]
+        entry.unreads = old_entry.unreads + 1
+        placeholder = old_entry.unreads + 1
+    except:
+        entry.unreads = 1
+        placeholder = 1
+    entry.save()
+
+
+    reg = Researcher.objects.get(username=collab.researcher.username)
+    reg.bell_unreads = placeholder
+    reg.save()
     return redirect('collab')
 
 @login_required

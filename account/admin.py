@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Researcher, Collab
+from .models import Researcher, Collab, Notification
 from .forms import CustomRegisterForm
 # from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
@@ -18,14 +18,14 @@ class ResearcherAdmin(UserAdmin):
             (
                 "Custom Fields",
                 {
-                    'fields': ('type', 'photograph', 'affiliation_name', 'affiliation_address', 'city', 'state', 'country')
+                    'fields': ('type', 'photograph', 'affiliation_name', 'affiliation_address', 'bell_unreads', 'city', 'state', 'country')
                 }
             )
         )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'password1', 'password2', 'first_name', 'last_name', 'type', 'photograph', 'affiliation_name', 'affiliation_address', 'city', 'state', 'country')}
+            'fields': ('username', 'password1', 'password2', 'first_name', 'last_name', 'type', 'photograph', 'affiliation_name', 'affiliation_address', 'bell_unreads', 'city', 'state', 'country')}
         ),
     )
 admin.site.register(Researcher, ResearcherAdmin)
@@ -38,3 +38,12 @@ class CollabAdmin(admin.ModelAdmin):
     list_per_page = 100
 
 admin.site.register(Collab, CollabAdmin)
+
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ['owner', 'message', 'unreads']
+    search_fields = ['owner', 'message']
+    # list_filter = ['status']
+    # list_display_links = ['email']
+    list_per_page = 100
+
+admin.site.register(Notification, NotificationAdmin)
