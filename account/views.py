@@ -144,10 +144,10 @@ def showCollabs(request):
             form.save(commit=False).researcher=request.user
             form.save()
             messages.success(request, "The collab has been created successfully")
-            return redirect('collabs')
+            return redirect('collab')
         else:
             messages.error(request, "Please review form input fields below")
-    return render(request, 'account/collabs.html', {'collabs':collabs, 'form':form})
+    return render(request, 'account/all_collabs.html', {'collabs':collabs, 'form':form})
 
 def createCollab(request):
     form = CollabForm()
@@ -230,7 +230,7 @@ def interestCollab(request, id):
     collab.interested_people.add(request.user)
     messages.info(request, "Your interest has been notified to the researcher")
     collab.save()
-    return redirect('collabs')
+    return redirect('collab')
 
 @login_required
 def offerCollab(request, id, username):
@@ -243,7 +243,7 @@ def offerCollab(request, id, username):
 
     messages.info(request, "The collab has been offered successfully")
     collab.save()
-    return redirect('collabs')
+    # return redirect('collab')
 
 @login_required
 def undoInterestCollab(request, id):
@@ -253,10 +253,10 @@ def undoInterestCollab(request, id):
     collab.interested_people.remove(request.user)
     messages.info(request, "Your interest has been undone successfully")
     collab.save()
-    return redirect('collabs')
+    return redirect('collab')
 
 @login_required
-def initiatedCollabs(request):
+def collabs(request):
     context = {}
     filtered_initiated_collabs = InitiatedCollabFilter(
         request.GET,
@@ -270,7 +270,7 @@ def initiatedCollabs(request):
     total_initiated_collabs = filtered_initiated_collabs.qs.count()
     context['total_initiated_collabs'] = total_initiated_collabs
 
-    return render(request, 'account/initiated_collabs.html', context)
+    return render(request, 'account/collabs.html', context)
 
 @login_required
 def loginTo(request):
