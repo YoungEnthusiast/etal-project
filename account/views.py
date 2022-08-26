@@ -233,12 +233,15 @@ def interestCollab(request, id):
     return redirect('collabs')
 
 @login_required
-def offerCollab(request, id):
+def offerCollab(request, id, username):
     collab = Collab.objects.get(id=id)
-    # for collaborator in collaborators:
-    #     collab.interested_people.add(collaborator)
-    collab.interested_people.add(request.user)
-    messages.info(request, "Your interest has been notified to the researcher")
+
+    for person in collab.interested_people.all():
+        if person.username == username:
+            collab.interested_people.remove(person)
+            collab.collaborators.add(person)
+
+    messages.info(request, "The collab has been offered successfully")
     collab.save()
     return redirect('collabs')
 

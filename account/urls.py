@@ -15,9 +15,11 @@ urlpatterns = [
     path('', views.showHome, name='index'),
     path('collabs/view-researcher/<str:email>/', views.showUser, name='show_user'),
     path('collabs/view-collab/<str:id>/', views.showCollab, name='show_collab'),
+
+    path('collabs/view-collab/<str:id>/offered/<str:username>', views.offerCollab, name='offer_collab'),
+
     path('researcher-dashboard/initiated-collabs', views.initiatedCollabs, name='initiated_collabs'),
     path('collabs/interested/<int:id>', views.interestCollab, name='interest_collab'),
-    path('collabs/offered/<int:id>', views.offerCollab, name='offer_collab'),
     path('collabs/undo-interest/<int:id>', views.undoInterestCollab, name='undo_interest_collab'),
     path('logout/', auth_views.LogoutView.as_view(template_name='account/login.html'), name='logout'),
 
