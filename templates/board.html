@@ -102,7 +102,10 @@
 								<div class="dropdown d-sm-flex d-none header-message">
 									<a class="nav-link icon" href="{% url 'bell_notifications' %}">
 										<i class="fa fa-bell text-info fa-2x"></i>
+										{% if user.bell_unreads > 0 %}
 										<span class=" nav-unread badge badge-danger badge-pill">{{user.bell_unreads}}</span>
+										{% else %}
+										{% endif %}
 									</a>
 
 								</div>
@@ -245,10 +248,10 @@
 							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'collabs' %}"><i class="fa fa-comments fa-1x mr-1"></i></i><span class="side-menu__label">Collabs</span></a>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'researcher_board' %}"><i class="fas fa-chalkboard-teacher fa-1x mr-1"></i></i><span class="side-menu__label">Dashboard</span></a>
+							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'initiated_collabs' %}"><i class="fas fa-chalkboard-teacher fa-1x mr-1"></i></i><span class="side-menu__label">Initiated Collabs</span></a>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'researcher_board' %}"><i class="fas fa-chalkboard-teacher fa-1x mr-1"></i></i><span class="side-menu__label">Dashboard</span></a>
+							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'accepted_collabs' %}"><i class="fas fa-chalkboard-teacher fa-1x mr-1"></i></i><span class="side-menu__label">Accepted Collabs</span></a>
 						</li>
 						<li class="slide bg-info">
 							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'researcher_board' %}"><i class="fas fa-chalkboard-teacher fa-1x mr-1"></i></i><span class="side-menu__label">Dashboard</span></a>

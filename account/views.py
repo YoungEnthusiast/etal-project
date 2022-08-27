@@ -2,7 +2,7 @@ import json
 import urllib.request
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher
+from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm
 from .models import Collab, Researcher, Notification
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
@@ -136,18 +136,20 @@ def showHome(request):
 
 @login_required
 def showCollabs(request):
-    collabs = Collab.objects.all()
-    form = CollabForm()
-    if request.method == 'POST':
-        form = CollabForm(request.POST, request.FILES, None)
-        if form.is_valid():
-            form.save(commit=False).researcher=request.user
-            form.save()
-            messages.success(request, "The collab has been created successfully")
-            return redirect('collab')
-        else:
-            messages.error(request, "Please review form input fields below")
-    return render(request, 'account/all_collabs.html', {'collabs':collabs, 'form':form})
+    context = {}
+    filtered_all_collabs = InitiatedCollabFilter(
+        request.GET,
+        queryset = Collab.objects.filter(is_locked=False)
+    )
+    context['filtered_all_collabs'] = filtered_all_collabs
+    paginated_filtered_all_collabs = Paginator(filtered_all_collabs.qs, 9999999)
+    page_number = request.GET.get('page')
+    all_collabs_page_obj = paginated_filtered_all_collabs.get_page(page_number)
+    context['all_collabs_page_obj'] = all_collabs_page_obj
+    total_all_collabs = filtered_all_collabs.qs.count()
+    context['total_all_collabs'] = total_all_collabs
+
+    return render(request, 'account/all_collabs.html', context)
 
 def createCollab(request):
     form = CollabForm()
@@ -187,8 +189,34 @@ def showUser(request, email, **kwargs):
 @login_required
 def showCollab(request, id, **kwargs):
     collab = Collab.objects.get(id=id)
-    context = {'collab': collab}
+    form = FlagForm()
+    if request.method == 'POST':
+        form = FlagForm(request.POST, request.FILES, None)
+        if form.is_valid():
+            form.save(commit=False).complainer=request.user
+            form.save(commit=False).collab=collab
+            form.save(commit=False).is_flagged=True
+            form.save()
+            messages.info(request, "Your flagging reason has been sent for review")
+            return redirect('collab')
+        else:
+            messages.error(request, "Please review form input field")
+
+
+
+    context = {'collab': collab, 'form': form}
     return render(request, 'account/collab.html', context)
+
+@login_required
+def showCollabInitiated(request, id, **kwargs):
+    collab = Collab.objects.get(id=id)
+    counter = 0
+    for person in collab.collaborators.all():
+        counter += 1
+
+
+    context = {'collab': collab, 'counter':counter}
+    return render(request, 'account/collab_initiated.html', context)
 
 # @login_required
 # @permission_required('users.view_admin')
@@ -231,13 +259,11 @@ def interestCollab(request, id):
     messages.info(request, "Your interest has been notified to the researcher")
     collab.save()
 
-
-
-
     entry = Notification()
     entry.owner = collab.researcher
     entry.sender = request.user
-    entry.message = "A new collaborator showed interest on " + str(collab.title)
+    entry.collab = collab
+    entry.message = "A new collaborator showed interest on"
     try:
         old_entry = Notification.objects.filter(owner=collab.researcher)[0]
         entry.unreads = old_entry.unreads + 1
@@ -247,10 +273,18 @@ def interestCollab(request, id):
         placeholder = 1
     entry.save()
 
-
     reg = Researcher.objects.get(username=collab.researcher.username)
     reg.bell_unreads = placeholder
     reg.save()
+    return redirect('collab')
+
+@login_required
+def lockCollab(request, id):
+
+    collab = Collab.objects.get(id=id)
+    collab.is_locked = True
+    collab.save()
+    messages.info(request, "The collab has been locked sucessfully")
     return redirect('collab')
 
 @login_required
@@ -264,7 +298,7 @@ def offerCollab(request, id, username):
 
     messages.info(request, "The collab has been offered successfully")
     collab.save()
-    # return redirect('collab')
+    return redirect('collab')
 
 @login_required
 def undoInterestCollab(request, id):
@@ -281,7 +315,7 @@ def collabs(request):
     context = {}
     filtered_initiated_collabs = InitiatedCollabFilter(
         request.GET,
-        queryset = Collab.objects.filter(Q(researcher=request.user) | Q(interested_people=request.user))
+        queryset = Collab.objects.filter(Q(researcher=request.user) | Q(interested_people=request.user), is_locked=False)
     )
     context['filtered_initiated_collabs'] = filtered_initiated_collabs
     paginated_filtered_initiated_collabs = Paginator(filtered_initiated_collabs.qs, 100)
@@ -292,6 +326,40 @@ def collabs(request):
     context['total_initiated_collabs'] = total_initiated_collabs
 
     return render(request, 'account/collabs.html', context)
+
+@login_required
+def initiatedCollabs(request):
+    context = {}
+    filtered_initiated_collabs = InitiatedCollabFilter(
+        request.GET,
+        queryset = Collab.objects.filter(researcher=request.user, is_locked = True)
+    )
+    context['filtered_initiated_collabs'] = filtered_initiated_collabs
+    paginated_filtered_initiated_collabs = Paginator(filtered_initiated_collabs.qs, 100)
+    page_number = request.GET.get('page')
+    initiated_collabs_page_obj = paginated_filtered_initiated_collabs.get_page(page_number)
+    context['initiated_collabs_page_obj'] = initiated_collabs_page_obj
+    total_initiated_collabs = filtered_initiated_collabs.qs.count()
+    context['total_initiated_collabs'] = total_initiated_collabs
+
+    return render(request, 'account/initiated_collabs.html', context)
+
+@login_required
+def acceptedCollabs(request):
+    context = {}
+    filtered_accepted_collabs = InitiatedCollabFilter(
+        request.GET,
+        queryset = Collab.objects.filter(collaborators=request.user)
+    )
+    context['filtered_accepted_collabs'] = filtered_accepted_collabs
+    paginated_filtered_accepted_collabs = Paginator(filtered_accepted_collabs.qs, 100)
+    page_number = request.GET.get('page')
+    accepted_collabs_page_obj = paginated_filtered_accepted_collabs.get_page(page_number)
+    context['accepted_collabs_page_obj'] = accepted_collabs_page_obj
+    total_accepted_collabs = filtered_accepted_collabs.qs.count()
+    context['total_accepted_collabs'] = total_accepted_collabs
+
+    return render(request, 'account/accepted_collabs.html', context)
 
 @login_required
 def showBellNotifications(request):
@@ -307,6 +375,17 @@ def showBellNotifications(request):
     context['bell_notifications_page_obj'] = bell_notifications_page_obj
     total_bell_notifications = filtered_bell_notifications.qs.count()
     context['total_bell_notifications'] = total_bell_notifications
+
+    try:
+        reg = Notification.objects.filter(owner=request.user)[0]
+        reg.bell_unreads = 0
+        placeholder = 0
+    except:
+        pass
+    reg.save()
+    reg1 = Researcher.objects.get(username=request.user.username)
+    reg1.bell_unreads = placeholder
+    reg1.save()
 
     return render(request, 'account/bell_notifications.html', context)
 

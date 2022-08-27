@@ -1,0 +1,74 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Accepted Collabs</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+{% include '_alerts.html' %}
+<div class=" app-content">
+					<div class="side-app">
+            <br>
+            <div class="container content-area">
+              <div class="horizontal-content">
+
+                <div class="row">
+                  {% for collab in accepted_collabs_page_obj %}
+    							<div class="col-xl-4 col-lg-4 col-md-12">
+    								<div class="card">
+    									<div class="card-body">
+    										<a href="{% url 'show_collab' collab.id %}"><h3 class=" mb-1">Title: <span class="text-info">{{collab.title}}</span></h3></a>
+                        <h5 class=" mb-1">{{collab.field}}</h5>
+
+    										<p class="text-muted">{{collab.abstract|slice:":200"}}...</p>
+                        <div class="row">
+                          <div class="col-md-3">
+                            {% if collab.researcher == request.user %}
+
+                            {% else %}
+                              {% if collab.researcher.photograph %}
+                                <a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-small"></a>
+                              {% else %}
+                                <a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-3x"></i></a>
+                              {% endif %}
+                            {% endif %}
+
+                          </div>
+                          <div class="col-md-5">
+                          </div>
+                          <div class="col-md-3 mr-1">
+                            <a href="{% url 'show_collab' collab.id %}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> View</a>
+                          </div>
+                        </div>
+
+    									</div>
+    								</div>
+    							</div>
+                  {% endfor %}
+    						</div>
+                    {% if accepted_collabs_page_obj %}
+                    <nav aria-label="...">
+                      <ul class="pagination justify-content-center">
+                        <li class="page-item"><a class="text-info page-link" href="{% my_url 1 'page' request.GET.urlencode %}" tabindex="-1" aria-disabled="true">First</a></li>
+                        {% if accepted_collabs_page_obj.has_previous %}
+                          <li class="page-item"><a class="text-info page-link" href="{% my_url accepted_collabs_page_obj.previous_page_number 'page' request.GET.urlencode %}">{{accepted_collabs_page_obj.previous_page_number}}</a></li>
+                        {% endif %}
+                        <li class="page-item active" aria-current="page"><a class="bg-info page-link" href="{% my_url accepted_collabs_page_obj.number 'page' request.GET.urlencode %}">{{accepted_collabs_page_obj.number}}<span class="sr-only">(current)</span></a></li>
+                        {% if accepted_collabs_page_obj.has_next %}
+                          <li class="page-item"><a class="text-info page-link" href="{% my_url accepted_collabs_page_obj.next_page_number 'page' request.GET.urlencode %}">{{accepted_collabs_page_obj.next_page_number}}</a></li>
+                        {% endif %}
+                        <li class="page-item"><a class="text-info page-link" href="{% my_url accepted_collabs_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
+                      </ul>
+                    </nav>
+                    {% endif %}
+
+								</div>
+							</div>
+						</div>
+					</div>
+{% endblock content%}

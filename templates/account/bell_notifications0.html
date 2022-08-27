@@ -3,7 +3,7 @@
 {% load humanize %}
 {% load home_tags %}
 {% block title %}
-  <title>Notifications</title>
+  <title>Bell Notifications</title>
   <meta name="description" content="">
 
 {% endblock title %}
@@ -17,21 +17,18 @@
       <div class="horizontal-content">
         {% include '_alerts.html' %}
         <div class="row">
-          <hr>
-
           {% for notification in bell_notifications_page_obj %}
-          <div class="col-md-1">
+          <span>
             {% if notification.sender.photograph %}
               <a href="{% url 'show_user' notification.sender.username %}"><img href="" src="{{ notification.sender.photographURL }}" alt="Photograph" class="profile-not"></a>
             {% else %}
               <a href=""><i class="fa fa-user-circle text-info fa-2x"></i></a>
             {% endif %}
+          </span>
+          <span class="font-weight-bold">{{notification.message}}</span>
+          <div class="small text-muted d-flex">
+            {{notification.updated|timesince}} ago
           </div>
-          <div class="col-md-9 font-weight-bold">{{notification.message}} <span class="text-info">{{notification.collab}}</span></div>
-          <div class="col-md-2 small text-muted d-flex">
-            {{notification.created|timesince}} ago
-          </div>
-          <hr>
           {% endfor %}
 
         </div>

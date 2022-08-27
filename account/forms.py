@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
-from .models import Researcher, Collab
+from .models import Researcher, Collab, Flag
 # from django.core.exceptions import ValidationError
 # import datetime
 # from django.forms.widgets import NumberInput
@@ -35,3 +35,9 @@ class CollabForm(forms.ModelForm):
     class Meta:
         model = Collab
         fields = ['collaborators_type', 'collaborators', 'title', 'abstract', 'education', 'proposed_timeline', 'field', 'expertise_required', 'funding', 'collaborators_no', 'ownership', 'on_premises']
+
+class FlagForm(forms.ModelForm):
+    reason = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Reason for flagging'}))
+    class Meta:
+        model = Flag
+        fields = ['reason']

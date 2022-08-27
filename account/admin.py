@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Researcher, Collab, Notification
+from .models import Researcher, Collab, Notification, Flag
 from .forms import CustomRegisterForm
 # from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
@@ -47,3 +47,12 @@ class NotificationAdmin(admin.ModelAdmin):
     list_per_page = 100
 
 admin.site.register(Notification, NotificationAdmin)
+
+class FlagAdmin(admin.ModelAdmin):
+    list_display = ['reason']
+    search_fields = ['reason']
+    # list_filter = ['status']
+    # list_display_links = ['email']
+    list_per_page = 100
+
+admin.site.register(Flag, FlagAdmin)

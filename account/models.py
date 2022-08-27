@@ -80,7 +80,8 @@ class Collab(models.Model):
     flag_counts = models.PositiveIntegerField(default=0)
     interested_people = models.ManyToManyField(Researcher, blank=True, related_name="interested_people")
     interest = models.BooleanField(max_length=5, default = False)
-    flag = models.BooleanField(max_length=5, default = False)
+    flag = models.ForeignKey('account.Flag', null=True, blank=True, on_delete=models.SET_NULL, related_name="flag_collab")
+    is_locked = models.BooleanField(max_length=5, default = False)
 
 
     created = models.DateTimeField(auto_now_add=True)
@@ -101,7 +102,25 @@ class Notification(models.Model):
     owner = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="owner")
     message = models.CharField(max_length=255, null=True, blank=True)
     unreads = models.PositiveIntegerField(default=0)
+    collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="notification_collab")
     sender = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="sender")
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        try:
+            return str(self.message)
+        except:
+            return str(self.id)
+
+class Flag(models.Model):
+    is_flagged = models.BooleanField(max_length=5, default = False)
+    complainer = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="complainer")
+    reason = models.CharField(max_length=255, null=True, blank=True, verbose_name="")
+    collab = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="flag_collab")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
