@@ -100,56 +100,12 @@
 									</div>
 								</div>
 								<div class="dropdown d-sm-flex d-none header-message">
-									<a class="nav-link icon" data-toggle="dropdown">
+									<a class="nav-link icon" href="{% url 'bell_notifications' %}">
 										<i class="fa fa-bell text-info fa-2x"></i>
 										<span class=" nav-unread badge badge-danger badge-pill">{{user.bell_unreads}}</span>
 									</a>
-									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-										<a class="dropdown-item text-center" href="#">Notifications</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item d-flex pb-4" href="#">
-											<span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-cylinder"><i class="fa fa-user"></i>
-											</span>
-											<div>
-												{% for each in user.bell %}
-												<span class="font-weight-bold">{{each.bell.message}}</span>
-												<div class="small text-muted d-flex">
-													{{each.updated|timesince}} ago
-													<div class="ml-auto">
-													<span class="badge badge-success">New</span>
-													</div>
-												</div>
-												<div class="progress progress-xs mt-1">
-													<div class="progress-bar bg-cylinder w-70"></div>
-												</div>
-												{% endfor %}
-											</div>
-										</a>
-										<div class="dropdown-divider"></div>
-									</div>
+
 								</div>
-								<div class="dropdown d-sm-flex d-none header-message">
-									{% with total_items=cart|length %}
-				          {% if cart|length > 0 %}
-									<a class="nav-link icon" href="">
-										<img src="{% static 'img/12kg.png' %}" class="logo8" alt="Cart Logo">
-										<span class=" nav-unread badge badge-dark-green badge-pill">{{ total_items }}</span>
-									</a>
-									{% else %}
-									<a class="nav-link icon">
-										<img src="{% static 'img/12kg.png' %}" class="logo8" alt="Cart Logo">
-										<span class=" nav-unread badge badge-dark-green badge-pill">0</span>
-									</a>
-									{% endif %}
-								 	{% endwith %}
-								</div>
-								###
-
-
-
-
-
-
 
 								<div class="dropdown d-sm-flex d-none header-message">
 
@@ -196,7 +152,6 @@
 								</a>
 							</div>
 
-							###
 							<div class="dropdown  d-md-flex header-contact">
 								<a class="nav-link icon text-dark" data-toggle="dropdown">
 									<i class="fa fa-envelope text-info fa-2x"></i>
@@ -256,29 +211,6 @@
 									</div>
 								</div>
 							</div>
-
-							<div class="dropdown d-md-flex header-message">
-								{% with total_items=cart|length %}
-								{% if cart|length > 0 %}
-								<a class="nav-link icon" href="">
-									<img src="{% static 'img/12kg.png' %}" class="logo4" alt="Cart Logo">
-									<span class=" nav-unread badge badge-dark-green badge-pill">{{ total_items }}</span>
-								</a>
-								{% else %}
-								<a class="nav-link icon">
-									<img src="{% static 'img/12kg.png' %}" class="logo4" alt="Cart Logo">
-									<span class=" nav-unread badge badge-dark-green badge-pill">0</span>
-								</a>
-								{% endif %}
-								{% endwith %}
-							</div>
-							##################
-
-
-
-
-
-
 
 							<div class="dropdown d-md-flex header-message">
 								{% if user.is_authenticated %}

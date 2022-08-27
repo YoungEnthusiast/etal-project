@@ -9,7 +9,7 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash, login
 from django.contrib.auth.decorators import login_required, permission_required
-from .filters import InitiatedCollabFilter
+from .filters import InitiatedCollabFilter, BellNotificationFilter
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from django.db.models import Q
@@ -236,6 +236,7 @@ def interestCollab(request, id):
 
     entry = Notification()
     entry.owner = collab.researcher
+    entry.sender = request.user
     entry.message = "A new collaborator showed interest on " + str(collab.title)
     try:
         old_entry = Notification.objects.filter(owner=collab.researcher)[0]
@@ -291,6 +292,23 @@ def collabs(request):
     context['total_initiated_collabs'] = total_initiated_collabs
 
     return render(request, 'account/collabs.html', context)
+
+@login_required
+def showBellNotifications(request):
+    context = {}
+    filtered_bell_notifications = BellNotificationFilter(
+        request.GET,
+        queryset = Notification.objects.filter(owner=request.user)
+    )
+    context['filtered_bell_notifications'] = filtered_bell_notifications
+    paginated_filtered_bell_notifications = Paginator(filtered_bell_notifications.qs, 100)
+    page_number = request.GET.get('page')
+    bell_notifications_page_obj = paginated_filtered_bell_notifications.get_page(page_number)
+    context['bell_notifications_page_obj'] = bell_notifications_page_obj
+    total_bell_notifications = filtered_bell_notifications.qs.count()
+    context['total_bell_notifications'] = total_bell_notifications
+
+    return render(request, 'account/bell_notifications.html', context)
 
 @login_required
 def loginTo(request):

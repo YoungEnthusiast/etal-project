@@ -1,0 +1,39 @@
+{% extends 'board.html' %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Bell Notifications</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+{% include '_alerts.html' %}
+<div class=" app-content">
+	<div class="side-app">
+    <br>
+    <div class="container content-area">
+      <div class="horizontal-content">
+        {% include '_alerts.html' %}
+        <div class="row">
+          {% for notification in bell_notifications_page_obj %}
+          <span>
+            {% if notification.sender.photograph %}
+              <a href="{% url 'show_user' notification.sender.username %}"><img href="" src="{{ notification.sender.photographURL }}" alt="Photograph" class="profile-not"></a>
+            {% else %}
+              <a href=""><i class="fa fa-user-circle text-info fa-2x"></i></a>
+            {% endif %}
+          </span>
+          <span class="font-weight-bold">{{notification.message}}</span>
+          <div class="small text-muted d-flex">
+            {{notification.updated|timesince}} ago
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content%}

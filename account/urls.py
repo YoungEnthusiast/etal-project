@@ -19,6 +19,7 @@ urlpatterns = [
     path('collab/view/<str:id>/offered/<str:username>', views.offerCollab, name='offer_collab'),
 
     path('collabs', views.collabs, name='collabs'),
+    path('bell-notifications', views.showBellNotifications, name='bell_notifications'),
     path('collab/interested/<int:id>', views.interestCollab, name='interest_collab'),
     path('collab/undo-interest/<int:id>', views.undoInterestCollab, name='undo_interest_collab'),
     path('logout/', auth_views.LogoutView.as_view(template_name='account/login.html'), name='logout'),

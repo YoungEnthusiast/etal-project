@@ -18,7 +18,7 @@ class Researcher(AbstractUser):
     country = models.CharField(max_length=255, blank=True, null=True)
     email_confirmed = models.BooleanField(default=False)
     type = models.CharField(max_length=23, choices=TYPE_CHOICES, default='Researcher/Collaborator', null=True)
-    bell = models.ForeignKey('account.Notification', null=True, blank=True, on_delete=models.SET_NULL)
+    # bell = models.ForeignKey('account.Notification', null=True, blank=True, on_delete=models.SET_NULL)
     bell_unreads = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
@@ -101,9 +101,7 @@ class Notification(models.Model):
     owner = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="owner")
     message = models.CharField(max_length=255, null=True, blank=True)
     unreads = models.PositiveIntegerField(default=0)
-
-
-
+    sender = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="sender")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

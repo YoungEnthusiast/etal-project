@@ -20384,6 +20384,12 @@ section {
   height: 40px
 }
 
+.profile-not{
+  border-radius: 50%;
+  width: 30px;
+  height: 30px
+}
+
 .profile-big{
   border-radius: 50%;
   border: 4px solid #5bc0de;
