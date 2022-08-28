@@ -209,15 +209,15 @@ def showCollab(request, id, **kwargs):
 @login_required
 def updateCollab(request, id):
     collab = Collab.objects.get(id=id)
-    form = CollabForm(instance=collab)
+    form = CollabForm(instance=collab, request=request)
     if request.method=='POST':
-        form = CollabForm(request.POST, instance=collab)
+        form = CollabForm(request.POST, instance=collab, request=request)
         if form.is_valid():
             form.save()
 
             messages.success(request, "The collab has been updated successfully")
             return redirect('collab')
-    return render(request, 'update_collab.html', {'form': form, 'collab': collab})
+    return render(request, 'account/update_collab.html', {'form': form, 'collab': collab})
 
 @login_required
 def showCollabInitiated(request, id, **kwargs):
