@@ -15,6 +15,7 @@ urlpatterns = [
     path('', views.showHome, name='index'),
     path('collab/view-researcher/<str:email>/', views.showUser, name='show_user'),
     path('collab/view/<str:id>/', views.showCollab, name='show_collab'),
+    path('collab/update/<str:id>', views.updateCollab, name='update_collab'),
     path('collab/view-initiated/<str:id>/', views.showCollabInitiated, name='show_collab_initiated'),
     path('collab/view-accepted/<str:id>/', views.showCollabAccepted, name='show_collab_accepted'),
     path('collab/view/<str:id>/offered/<str:username>', views.offerCollab, name='offer_collab'),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('bell-notifications', views.showBellNotifications, name='bell_notifications'),
     path('collab/interested/<int:id>', views.interestCollab, name='interest_collab'),
     path('collab/locked/<int:id>', views.lockCollab, name='lock_collab'),
+    path('collab/unlocked/<int:id>', views.unlockCollab, name='unlock_collab'),
     path('collab/undo-interest/<int:id>', views.undoInterestCollab, name='undo_interest_collab'),
     path('logout/', auth_views.LogoutView.as_view(template_name='account/login.html'), name='logout'),
 

@@ -207,6 +207,19 @@ def showCollab(request, id, **kwargs):
     return render(request, 'account/collab.html', context)
 
 @login_required
+def updateCollab(request, id):
+    collab = Collab.objects.get(id=id)
+    form = CollabForm(instance=collab)
+    if request.method=='POST':
+        form = CollabForm(request.POST, instance=collab)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, "The collab has been updated successfully")
+            return redirect('collab')
+    return render(request, 'update_collab.html', {'form': form, 'collab': collab})
+
+@login_required
 def showCollabInitiated(request, id, **kwargs):
     collab = Collab.objects.get(id=id)
     counter = 0
@@ -262,8 +275,6 @@ def showCollabAccepted(request, id, **kwargs):
 @login_required
 def interestCollab(request, id):
     collab = Collab.objects.get(id=id)
-    # for collaborator in collaborators:
-    #     collab.interested_people.add(collaborator)
     collab.interested_people.add(request.user)
     messages.info(request, "Your interest has been notified to the researcher")
     collab.save()
@@ -289,15 +300,19 @@ def interestCollab(request, id):
 
 @login_required
 def lockCollab(request, id):
-
     collab = Collab.objects.get(id=id)
     collab.is_locked = True
     collab.locked_date = datetime.now()
     collab.save()
-    # reg = Collab.obects.get(id=id)
-    # reg.locked_date = reg.updated
-    # reg.save()
     messages.info(request, "The collab has been locked sucessfully")
+    return redirect('collab')
+
+@login_required
+def unlockCollab(request, id):
+    collab = Collab.objects.get(id=id)
+    collab.is_locked = False
+    collab.save()
+    messages.info(request, "The collab has been unlocked sucessfully")
     return redirect('collab')
 
 @login_required
@@ -309,49 +324,29 @@ def offerCollab(request, id, username):
             collab.interested_people.remove(person)
             collab.collaborators.add(person)
 
+            entry = Notification()
+            entry.owner = person
+            entry.sender = request.user
+            entry.collab = collab
+            entry.message = "You have been allowed to collaborate on"
+            try:
+                old_entry = Notification.objects.filter(owner=person)[0]
+                entry.unreads = old_entry.unreads + 1
+                placeholder = old_entry.unreads + 1
+            except:
+                entry.unreads = 1
+                placeholder = 1
+            entry.save()
+
+            reg = Researcher.objects.get(username=person.username)
+            reg.bell_unreads = placeholder
+            reg.save()
+
     messages.info(request, "The collab has been offered successfully")
     collab.accepted_date = datetime.now()
     collab.save()
+
     return redirect('collab')
-
-
-
-
-
-
-    collab = Collab.objects.get(id=id)
-    # for collaborator in collaborators:
-    #     collab.interested_people.add(collaborator)
-    collab.interested_people.add(request.user)
-    messages.info(request, "Your interest has been notified to the researcher")
-    collab.save()
-
-    entry = Notification()
-    entry.owner = collab.researcher
-    entry.sender = request.user
-    entry.collab = collab
-    entry.message = "A new collaborator showed interest on"
-    try:
-        old_entry = Notification.objects.filter(owner=collab.researcher)[0]
-        entry.unreads = old_entry.unreads + 1
-        placeholder = old_entry.unreads + 1
-    except:
-        entry.unreads = 1
-        placeholder = 1
-    entry.save()
-
-    reg = Researcher.objects.get(username=collab.researcher.username)
-    reg.bell_unreads = placeholder
-    reg.save()
-    return redirect('collab')
-
-
-
-
-
-
-
-
 
 @login_required
 def undoInterestCollab(request, id):
@@ -411,7 +406,6 @@ def acceptedCollabs(request):
     context['accepted_collabs_page_obj'] = accepted_collabs_page_obj
     total_accepted_collabs = filtered_accepted_collabs.qs.count()
     context['total_accepted_collabs'] = total_accepted_collabs
-
     return render(request, 'account/accepted_collabs.html', context)
 
 @login_required
@@ -428,17 +422,17 @@ def showBellNotifications(request):
     context['bell_notifications_page_obj'] = bell_notifications_page_obj
     total_bell_notifications = filtered_bell_notifications.qs.count()
     context['total_bell_notifications'] = total_bell_notifications
-
     try:
         reg = Notification.objects.filter(owner=request.user)[0]
-        reg.bell_unreads = 0
+        reg.unreads = 0
+        reg.save()
         placeholder = 0
     except:
         pass
-    reg.save()
     reg1 = Researcher.objects.get(username=request.user.username)
     reg1.bell_unreads = placeholder
     reg1.save()
+    return redirect('bell_notificationss')
 
     return render(request, 'account/bell_notifications.html', context)
 

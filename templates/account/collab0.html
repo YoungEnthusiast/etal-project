@@ -68,23 +68,25 @@
     									</div>
     								</div>
     							</div>
+                  {% if collab.researcher == request.user %}
                   <div class="col-xl-4 col-md-12">
-                    Accepted on {{collab.accepted_date}}
+                    <a class="text-white" href=""><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button></a>
+                    <a class="text-white" href=""><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-trash fa-1x mr-1"></i>Delete</strong></button></a>
                     <br>
                     <br>
                     <br>
-                    {% if collab.collaborators.all %}
-                    <h5>Collaborators <span class="badge badge-info badge-pill">{{counter}}</span></h5>
+                    {% if collab.interested_people.all %}
+                    <h5>Collaborators</h5>
                     <div class="card">
                       <div class="card-body">
                         <div class="row">
-                          {% for person in collab.collaborators.all %}
+                          {% for person in collab.interested_people.all %}
                             {% if person.photograph %}
                               <a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
                             {% else %}
                               <a href=""><i class="fa fa-user-circle text-info fa-5x"></i></a>
                             {% endif %}
-                            <strong><p><a class="text-info" href="">Leave</a>/<a class="text-info" href="">Report</a></p></strong>
+                            <strong><p><a class="text-info" href="offered/{{person.username}}">Offer</a>/<a class="text-info" href="">Decline</a></p></strong>
                             <br>
                           {% endfor %}
                         </div>
@@ -93,11 +95,42 @@
                     {% endif %}
                     <br>
                     <br>
-                    {% if collab.is_locked %}
-                    Locked on {{collab.locked_date}}
-                    {% else %}
-                    {% endif %}
+                    <a class="text-white" href="{% url 'lock_collab' collab.id %}"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-lock fa-1x mr-1"></i>Lock</strong></button></a>
                   </div>
+                  {% else %}
+                    <div class="col-xl-4 col-md-12">
+      								<div class="card">
+      									<div class="card-body">
+                          <div class="row">
+                            <div class="col-md-1">
+                            </div>
+                            <div style="text-align:center" class="col-md-10">
+                              {% if request.user in collab.interested_people.all %}
+                              <strong class="text-center text-black">Interested/<a class="text-info" href="{% url 'undo_interest_collab' collab.id %}">Undo</a></strong>
+                              {% elif request.user in collab.collaborators.all %}
+                              {% else %}
+                              <strong class="text-center text-black"><a class="text-info" href="{% url 'interest_collab' collab.id %}">Show interest</a></strong>
+                              {% endif %}
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                          </div>
+      									</div>
+      								</div>
+
+                      <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                            <strong><i class="fas text-red fa-flag fa-1x mr-1"></i>Flag</strong>
+                        <br>
+                        {% csrf_token %}
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.reason|as_crispy_field }}
+                          </div>
+                        </div>
+                        <input type="submit" value="Send" class="btn btn-info">
+                    </form>
+      							</div>
+                  {% endif %}
     						</div>
     					</div>
             </div>
