@@ -76,28 +76,11 @@
 									</a>
 								</div>
 
-								###
 								<div class="dropdown d-sm-flex d-none header-message">
 									<a class="nav-link icon" data-toggle="dropdown">
 										<i class="fa fa-envelope text-info fa-2x"></i>
-										<span class=" nav-unread badge badge-danger badge-pill">1</span>
+										<span class=" nav-unread badge badge-danger badge-pill"></span>
 									</a>
-									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-										<a class="dropdown-item text-center" href="#">1 New Message</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item d-flex pb-3" href="#">
-											<span class="avatar avatar-md brround mr-3 align-self-center cover-image" data-image-src="../assets/images/users/7.jpg"></span>
-											<div>
-												<strong>{{user.first_name}},</strong> Glad you made it here
-												<div class="small text-muted">
-													{{user.created|timesince}} ago
-												</div>
-											</div>
-										</a>
-										<div class="dropdown-divider"></div>
-										<div class="text-center dropdown-btn pb-3">
-										</div>
-									</div>
 								</div>
 								<div class="dropdown d-sm-flex d-none header-message">
 									<a class="nav-link icon" href="{% url 'bell_notifications' %}">
@@ -113,7 +96,7 @@
 								<div class="dropdown d-sm-flex d-none header-message">
 
 									{% if user.is_authenticated %}
-									<a class="nav-link icon" href="">
+									<a class="nav-link icon" href="{% url 'researcher_profile' %}">
 										{% if user.photograph %}
 											<img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
 										{% else %}
@@ -158,61 +141,18 @@
 							<div class="dropdown  d-md-flex header-contact">
 								<a class="nav-link icon text-dark" data-toggle="dropdown">
 									<i class="fa fa-envelope text-info fa-2x"></i>
-									<span class="nav-unread badge badge-danger badge-pill">1</span>
+									<span class="nav-unread badge badge-danger badge-pill"></span>
 								</a>
-								<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-									<a class="dropdown-item text-center" href="#">1 New Message</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item d-flex pb-3" href="#">
-										<span class="avatar avatar-md brround mr-3 align-self-center cover-image" data-image-src="../assets/images/users/7.jpg"></span>
-										<div>
-											<strong>{{user.first_name}},</strong> Glad you made it here
-											<div class="small text-muted">
-												{{user.created|timesince}} ago
-											</div>
-										</div>
-									</a>
-									<div class="dropdown-divider"></div>
-									<div class="text-center dropdown-btn pb-3">
-										<div class="btn-list">
-											<a href="#" class="btn btn-cylinder btn-sm"><i class="fa fa-plus mr-1"></i>Add New</a>
-											<a href="#" class=" btn btn-cylinder btn-sm"><i class="fa fa-eye mr-1"></i>View All</a>
-										</div>
-									</div>
-								</div>
 							</div>
-							<div class="dropdown d-md-flex header-message">
-								<a class="nav-link icon" data-toggle="dropdown">
+							<div class="dropdown d-sm-flex d-none header-message">
+								<a class="nav-link icon" href="{% url 'bell_notifications' %}">
 									<i class="fa fa-bell text-info fa-2x"></i>
-									<span class="nav-unread badge badge-danger badge-pill">1</span>
+									{% if user.bell_unreads > 0 %}
+									<span class=" nav-unread badge badge-danger badge-pill">{{user.bell_unreads}}</span>
+									{% else %}
+									{% endif %}
 								</a>
-								<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-									<a class="dropdown-item text-center" href="#">Notifications</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item d-flex pb-4" href="#">
-										<span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-cylinder"><i class="fa fa-user"></i>
-										</span>
-										<div>
-											<span class="font-weight-bold"> User account was Updated</span>
-											<div class="small text-muted d-flex">
-												{{user.updated|timesince}} ago
-												<div class="ml-auto">
-												<span class="badge badge-success">New</span>
-												</div>
-											</div>
-											<div class="progress progress-xs mt-1">
-												<div class="progress-bar bg-cylinder w-70"></div>
-											</div>
-										</div>
-									</a>
-									<div class="dropdown-divider"></div>
-									<div class="text-center dropdown-btn pb-3">
-										<div class="btn-list">
-											<a href="#" class="btn btn-cylinder btn-sm"><i class="fa fa-plus mr-1"></i>Add New</a>
-											<a href="#" class=" btn btn-cylinder btn-sm"><i class="fa fa-eye mr-1"></i>View All</a>
-										</div>
-									</div>
-								</div>
+
 							</div>
 
 							<div class="dropdown d-md-flex header-message">
@@ -248,13 +188,13 @@
 							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'collabs' %}"><i class="fa fa-comments fa-1x mr-1"></i></i><span class="side-menu__label">Collabs</span></a>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'initiated_collabs' %}"><i class="fas fa-chalkboard-teacher fa-1x mr-1"></i></i><span class="side-menu__label">Initiated Collabs</span></a>
+							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'initiated_collabs' %}"><i class="fas fa-american-sign-language-interpreting fa-1x mr-1"></i></i><span class="side-menu__label">Initiated Collabs</span></a>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'accepted_collabs' %}"><i class="fas fa-chalkboard-teacher fa-1x mr-1"></i></i><span class="side-menu__label">Accepted Collabs</span></a>
+							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'accepted_collabs' %}"><i class="fas fa-handshake fa-1x mr-1"></i></i><span class="side-menu__label">Accepted Collabs</span></a>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'researcher_board' %}"><i class="fas fa-chalkboard-teacher fa-1x mr-1"></i></i><span class="side-menu__label">Dashboard</span></a>
+							<a class="side-menu__item bg-info" data-toggle="slide" href=""><i class="fas fa-check-circle fa-1x mr-1"></i></i><span class="side-menu__label">Concluded Collabs</span></a>
 						</li>
 						<li class="slide bg-info">
 							<a class="side-menu__item bg-info" data-toggle="slide" href=""><i class="fas fa-tools fa-1x mr-1"></i></i><span class="side-menu__label">Collab Tools</span></a>

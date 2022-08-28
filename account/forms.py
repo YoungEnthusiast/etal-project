@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from .models import Researcher, Collab, Flag
+from django.db.models import Q
 # from django.core.exceptions import ValidationError
 # import datetime
 # from django.forms.widgets import NumberInput
@@ -31,10 +32,30 @@ class CollabForm(forms.ModelForm):
         # ('Select','Select'),
 	]
     collaborators_type = forms.ChoiceField(label="", choices=collaborators_choices, widget=forms.RadioSelect, required = False)
+    # collaborators = forms.ModelMultipleChoiceField(queryset=Researcher.objects.filter(vendor_product_status="Released Filled to QwikPartner", partner_product_status="Unselected"))
     # collaborator = forms.ModelMultipleChoiceField(queryset=Researcher.objects.all(), label="A", widget=forms.SelectMultiple(attrs={'placeholder':'Please type a valid email address'}))
     class Meta:
         model = Collab
         fields = ['collaborators_type', 'collaborators', 'title', 'abstract', 'education', 'proposed_timeline', 'field', 'expertise_required', 'funding', 'collaborators_no', 'ownership', 'on_premises']
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request") # store value of request
+        super().__init__(*args, **kwargs)
+
+        self.fields['collaborators'] = forms.ModelMultipleChoiceField(queryset=Researcher.objects.filter(~Q(username=self.request.user.username)), required=False)
+
+
+# class FirstForm(forms.ModelForm):
+#     class Meta:
+#         model = First
+#         fields = ['session', 'subject', 'ca1', 'ca2', 'exam']
+#     def __init__(self, *args, **kwargs):
+#         self.request = kwargs.pop("request") # store value of request
+#         super().__init__(*args, **kwargs)
+#
+#         self.fields['subject'] = forms.ModelChoiceField(queryset=Subject.objects.filter(teacher=self.request.user))
+#
+#
+#
 
 class FlagForm(forms.ModelForm):
     reason = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Reason for flagging'}))

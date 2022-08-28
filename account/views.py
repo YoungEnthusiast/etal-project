@@ -21,6 +21,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
+from datetime import datetime
 
 def create(request):
     if request.method == "POST":
@@ -152,9 +153,9 @@ def showCollabs(request):
     return render(request, 'account/all_collabs.html', context)
 
 def createCollab(request):
-    form = CollabForm()
+    form = CollabForm(request=request)
     if request.method == 'POST':
-        form = CollabForm(request.POST, request.FILES, None)
+        form = CollabForm(request.POST, request.FILES, None, request=request)
         if form.is_valid():
             form.save(commit=False).researcher=request.user
             form.save()
@@ -202,8 +203,6 @@ def showCollab(request, id, **kwargs):
         else:
             messages.error(request, "Please review form input field")
 
-
-
     context = {'collab': collab, 'form': form}
     return render(request, 'account/collab.html', context)
 
@@ -217,6 +216,16 @@ def showCollabInitiated(request, id, **kwargs):
 
     context = {'collab': collab, 'counter':counter}
     return render(request, 'account/collab_initiated.html', context)
+
+@login_required
+def showCollabAccepted(request, id, **kwargs):
+    collab = Collab.objects.get(id=id)
+    counter = 0
+    for person in collab.collaborators.all():
+        counter += 1
+
+    context = {'collab': collab, 'counter':counter}
+    return render(request, 'account/collab_accepted.html', context)
 
 # @login_required
 # @permission_required('users.view_admin')
@@ -283,7 +292,11 @@ def lockCollab(request, id):
 
     collab = Collab.objects.get(id=id)
     collab.is_locked = True
+    collab.locked_date = datetime.now()
     collab.save()
+    # reg = Collab.obects.get(id=id)
+    # reg.locked_date = reg.updated
+    # reg.save()
     messages.info(request, "The collab has been locked sucessfully")
     return redirect('collab')
 
@@ -297,8 +310,48 @@ def offerCollab(request, id, username):
             collab.collaborators.add(person)
 
     messages.info(request, "The collab has been offered successfully")
+    collab.accepted_date = datetime.now()
     collab.save()
     return redirect('collab')
+
+
+
+
+
+
+    collab = Collab.objects.get(id=id)
+    # for collaborator in collaborators:
+    #     collab.interested_people.add(collaborator)
+    collab.interested_people.add(request.user)
+    messages.info(request, "Your interest has been notified to the researcher")
+    collab.save()
+
+    entry = Notification()
+    entry.owner = collab.researcher
+    entry.sender = request.user
+    entry.collab = collab
+    entry.message = "A new collaborator showed interest on"
+    try:
+        old_entry = Notification.objects.filter(owner=collab.researcher)[0]
+        entry.unreads = old_entry.unreads + 1
+        placeholder = old_entry.unreads + 1
+    except:
+        entry.unreads = 1
+        placeholder = 1
+    entry.save()
+
+    reg = Researcher.objects.get(username=collab.researcher.username)
+    reg.bell_unreads = placeholder
+    reg.save()
+    return redirect('collab')
+
+
+
+
+
+
+
+
 
 @login_required
 def undoInterestCollab(request, id):

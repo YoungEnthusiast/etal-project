@@ -16,7 +16,7 @@ urlpatterns = [
     path('collab/view-researcher/<str:email>/', views.showUser, name='show_user'),
     path('collab/view/<str:id>/', views.showCollab, name='show_collab'),
     path('collab/view-initiated/<str:id>/', views.showCollabInitiated, name='show_collab_initiated'),
-
+    path('collab/view-accepted/<str:id>/', views.showCollabAccepted, name='show_collab_accepted'),
     path('collab/view/<str:id>/offered/<str:username>', views.offerCollab, name='offer_collab'),
 
     path('collabs', views.collabs, name='collabs'),

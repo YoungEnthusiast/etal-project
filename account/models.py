@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 class Researcher(AbstractUser):
     TYPE_CHOICES = [
-        ('Researcher/Collaborator', 'Researcher/Collaborator'),
+        ('Researcher', 'Researcher'),
 		('Admin', 'Admin'),
         ('SuperAdmin', 'SuperAdmin'),
     ]
@@ -17,7 +17,7 @@ class Researcher(AbstractUser):
     state = models.CharField(max_length=255, blank=True, null=True,)
     country = models.CharField(max_length=255, blank=True, null=True)
     email_confirmed = models.BooleanField(default=False)
-    type = models.CharField(max_length=23, choices=TYPE_CHOICES, default='Researcher/Collaborator', null=True)
+    type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='Researcher', null=True)
     # bell = models.ForeignKey('account.Notification', null=True, blank=True, on_delete=models.SET_NULL)
     bell_unreads = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True, null=True)
@@ -82,8 +82,8 @@ class Collab(models.Model):
     interest = models.BooleanField(max_length=5, default = False)
     flag = models.ForeignKey('account.Flag', null=True, blank=True, on_delete=models.SET_NULL, related_name="flag_collab")
     is_locked = models.BooleanField(max_length=5, default = False)
-
-
+    locked_date = models.DateTimeField(null=True, blank=True)
+    accepted_date = models.DateTimeField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
