@@ -86,7 +86,11 @@
                             {% else %}
                               <a href=""><i class="fa fa-user-circle text-info fa-5x"></i></a>
                             {% endif %}
+                            {% if person in collab.collaborators.all %}
+                            <strong><p>Offered/<a class="text-info" href="">Decline</a></p></strong>
+                            {% else %}
                             <strong><p><a class="text-info" href="offered/{{person.username}}">Offer</a>/<a class="text-info" href="">Decline</a></p></strong>
+                            {% endif %}
                             <br>
                           {% endfor %}
                         </div>

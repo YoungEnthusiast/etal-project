@@ -83,7 +83,7 @@
 									</a>
 								</div>
 								<div class="dropdown d-sm-flex d-none header-message">
-									<a class="nav-link icon" href="{% url 'bell_notifications' %}">
+									<a class="nav-link icon" href="{% url 'bell_notification' %}">
 										<i class="fa fa-bell text-info fa-2x"></i>
 										{% if user.bell_unreads > 0 %}
 										<span class=" nav-unread badge badge-danger badge-pill">{{user.bell_unreads}}</span>
@@ -166,7 +166,7 @@
 								</a>
 							</div>
 							<div class="dropdown d-sm-flex d-none header-message">
-								<a class="nav-link icon" href="{% url 'bell_notifications' %}">
+								<a class="nav-link icon" href="{% url 'bell_notification' %}">
 									<i class="fa fa-bell text-info fa-2x"></i>
 									{% if user.bell_unreads > 0 %}
 									<span class=" nav-unread badge badge-danger badge-pill">{{user.bell_unreads}}</span>

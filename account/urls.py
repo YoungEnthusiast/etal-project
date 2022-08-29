@@ -24,6 +24,7 @@ urlpatterns = [
     path('collabs', views.collabs, name='collabs'),
     path('initiated-collabs', views.initiatedCollabs, name='initiated_collabs'),
     path('accepted-collabs', views.acceptedCollabs, name='accepted_collabs'),
+    path('bell-notification', views.clearUnreads, name='bell_notification'),
     path('bell-notifications', views.showBellNotifications, name='bell_notifications'),
     path('collab/interested/<int:id>', views.interestCollab, name='interest_collab'),
     path('collab/locked/<int:id>', views.lockCollab, name='lock_collab'),

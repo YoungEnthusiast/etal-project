@@ -30,7 +30,7 @@ def create(request):
             username = form.cleaned_data.get('username')
             form.save(commit=False).email = username
             form.save()
-            messages.success(request, "Registration was successful!")
+            messages.info(request, "Registration was successful!")
             return redirect('account')
         else:
             messages.error(request, "Please review and correct form input fields")
@@ -328,7 +328,7 @@ def offerCollab(request, id, username):
 
     for person in collab.interested_people.all():
         if person.username == username:
-            collab.interested_people.remove(person)
+            # collab.interested_people.remove(person)
             collab.collaborators.add(person)
 
             entry = Notification()
@@ -416,6 +416,20 @@ def acceptedCollabs(request):
     return render(request, 'account/accepted_collabs.html', context)
 
 @login_required
+def clearUnreads(request):
+    try:
+        reg = Notification.objects.filter(owner=request.user)[0]
+        reg.unreads = 0
+        reg.save()
+        placeholder = 0
+    except:
+        placeholder = 0
+    reg1 = Researcher.objects.get(username=request.user.username)
+    reg1.bell_unreads = placeholder
+    reg1.save()
+    return redirect('bell_notifications')
+
+@login_required
 def showBellNotifications(request):
     context = {}
     filtered_bell_notifications = BellNotificationFilter(
@@ -429,22 +443,12 @@ def showBellNotifications(request):
     context['bell_notifications_page_obj'] = bell_notifications_page_obj
     total_bell_notifications = filtered_bell_notifications.qs.count()
     context['total_bell_notifications'] = total_bell_notifications
-    try:
-        reg = Notification.objects.filter(owner=request.user)[0]
-        reg.unreads = 0
-        reg.save()
-        placeholder = 0
-    except:
-        pass
-    reg1 = Researcher.objects.get(username=request.user.username)
-    reg1.bell_unreads = placeholder
-    reg1.save()
 
     return render(request, 'account/bell_notifications.html', context)
 
 @login_required
 def loginTo(request):
-    if request.user.type == "Researcher/Collaborator":
+    if request.user.type == "Researcher":
         return HttpResponseRedirect(reverse('researcher_board'))
     # elif request.user.type == "QwikA--":
     #     return HttpResponseRedirect(reverse('qwikadmin_board'))
