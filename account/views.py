@@ -214,10 +214,19 @@ def updateCollab(request, id):
         form = CollabForm(request.POST, instance=collab, request=request)
         if form.is_valid():
             form.save()
-
-            messages.success(request, "The collab has been updated successfully")
+            messages.info(request, "The collab has been updated successfully")
             return redirect('collab')
-    return render(request, 'account/update_collab.html', {'form': form, 'collab': collab})
+    return render(request, 'account/update_collab.html', {'form': form, 'collab':collab})
+
+@login_required
+def deleteCollab(request, id):
+    collab = Collab.objects.get(id=id)
+    obj = get_object_or_404(Collab, id=id)
+    if request.method =="POST":
+        obj.delete()
+        messages.info(request, "The collab has been deleted successfully")
+        return redirect('collab')
+    return render(request, 'account/collab_confirm_delete.html', {'collab':collab})
 
 @login_required
 def showCollabInitiated(request, id, **kwargs):
@@ -225,8 +234,6 @@ def showCollabInitiated(request, id, **kwargs):
     counter = 0
     for person in collab.collaborators.all():
         counter += 1
-
-
     context = {'collab': collab, 'counter':counter}
     return render(request, 'account/collab_initiated.html', context)
 
@@ -432,7 +439,6 @@ def showBellNotifications(request):
     reg1 = Researcher.objects.get(username=request.user.username)
     reg1.bell_unreads = placeholder
     reg1.save()
-    return redirect('bell_notificationss')
 
     return render(request, 'account/bell_notifications.html', context)
 

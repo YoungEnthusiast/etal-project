@@ -7,9 +7,7 @@
 
 {% block content %}
 
-		<!-- Global Loader-->
-		<div id="global-loader"><img src="{% static '/assets/images/svgs/loader.svg' %}" alt="loader"></div>
-
+		<br>
 		<div class="page custom-pages">
 			<div class="container">
 				<div class="row">
@@ -41,7 +39,7 @@
 
 											</div>
 											<div class="text-left">
-												<input type="submit"  class="btn btn-block btn-info" value="Sign in">
+												<input type="submit"  class="btn btn-block btn-info" value="Log in">
 											</div>
                       </form>
 
@@ -59,7 +57,7 @@
                         <br>
                         <br>
                         <br>
-                        <p class="text-center"><font size="+3">Not on Et al.?</font> <a class="text-info" href="#"><font size="+3">Join</font></a></p>
+                        <p class="text-center"><font size="+3">Not on Et al.?</font> <a class="text-info" href="{% url 'account' %}"><font size="+3">Join</font></a></p>
 
 											</div>
 										</div>
@@ -71,4 +69,5 @@
 				</div>
 			</div>
 		</div>
+    <br>
 {% endblock content%}

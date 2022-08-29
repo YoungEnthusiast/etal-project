@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'board.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
 {% block title %}
@@ -8,8 +8,7 @@
 {% block content %}
 
 		<!-- Global Loader-->
-		<div id="global-loader"><img src="{% static '/assets/images/svgs/loader.svg' %}" alt="loader"></div>
-
+    <br>
 		<div class="page custom-pages">
 			<div class="container">
 				<div class="row">
@@ -23,8 +22,8 @@
                   <div class="card  py-5 d-md-down-none">
 										<div class="card-body align-items-center">
 											<div>
-												<h1 class="text-center">Log in</h1>
-                        <p class="text-center"><font size="+3">Start collaborating</font></p>
+												<h1 class="text-center">Join, it's free</h1>
+                        <p class="text-center"><font size="+3">Seek and accept collaboration</font></p>
                         <br>
                         <br>
                         <br>
@@ -32,14 +31,14 @@
                         <br>
                         <br>
                         <br>
-                        <p class="text-center"><font size="+3">Not on Et al.?</font> <a class="text-info" href="#"><font size="+3">Join</font></a></p>
+                        <p class="text-center"><font size="+3">Already have an account?</font> <a class="text-info" href="{% url 'login' %}"><font size="+3">Log in</font></a></p>
 
 											</div>
 										</div>
 									</div>
 									<div class="card p-4">
 										<div class="card-body">
-                      <form method="post" class="form-group col-md-12 text-dark-green">
+                      <form method="post" class="form-group col-md-12 text-info">
 											<div class="form-group">
                       {% csrf_token %}
                       <div class="form-row">
@@ -82,4 +81,5 @@
 				</div>
 			</div>
 		</div>
+    <br>
 {% endblock content%}
