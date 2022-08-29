@@ -356,6 +356,40 @@ def offerCollab(request, id, username):
     return redirect('collab')
 
 @login_required
+def declineCollab(request, id, username):
+    collab = Collab.objects.get(id=id)
+
+    for person in collab.interested_people.all():
+        if person.username == username:
+            # collab.interested_people.remove(person)
+            collab.collaborators.add(person)
+
+            entry = Notification()
+            entry.owner = person
+            entry.sender = request.user
+            entry.collab = collab
+            entry.message = "You have been allowed to collaborate on"
+            try:
+                old_entry = Notification.objects.filter(owner=person)[0]
+                entry.unreads = old_entry.unreads + 1
+                placeholder = old_entry.unreads + 1
+            except:
+                entry.unreads = 1
+                placeholder = 1
+            entry.save()
+
+            reg = Researcher.objects.get(username=person.username)
+            reg.bell_unreads = placeholder
+            reg.save()
+
+    messages.info(request, "The collab has been offered successfully")
+    collab.accepted_date = datetime.now()
+    collab.save()
+
+    return redirect('collab')
+
+
+@login_required
 def undoInterestCollab(request, id):
     collab = Collab.objects.get(id=id)
     # for collaborator in collaborators:
