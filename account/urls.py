@@ -19,8 +19,12 @@ urlpatterns = [
     path('collab/view/<str:id>/delete', views.deleteCollab, name='delete_collab'),
 
     path('collab/view-initiated/<str:id>/', views.showCollabInitiated, name='show_collab_initiated'),
+    path('collab/view-initiated/<str:id>/removed/<str:username>', views.removeCollab, name='remove_collab'),
     path('collab/view-accepted/<str:id>/', views.showCollabAccepted, name='show_collab_accepted'),
+    path('collab/view-accepted/<str:id>/left/<str:username>', views.leaveCollab, name='leave_collab'),
     path('collab/view/<str:id>/offered/<str:username>', views.offerCollab, name='offer_collab'),
+    path('collab/view/<str:id>/declined/<str:username>', views.declineCollab, name='decline_collab'),
+
     path('collabs', views.collabs, name='collabs'),
     path('initiated-collabs', views.initiatedCollabs, name='initiated_collabs'),
     path('accepted-collabs', views.acceptedCollabs, name='accepted_collabs'),

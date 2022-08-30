@@ -290,7 +290,7 @@ def interestCollab(request, id):
     entry.owner = collab.researcher
     entry.sender = request.user
     entry.collab = collab
-    entry.message = "A new collaborator showed interest on"
+    entry.message = "showed interest on"
     try:
         old_entry = Notification.objects.filter(owner=collab.researcher)[0]
         entry.unreads = old_entry.unreads + 1
@@ -325,17 +325,15 @@ def unlockCollab(request, id):
 @login_required
 def offerCollab(request, id, username):
     collab = Collab.objects.get(id=id)
-
     for person in collab.interested_people.all():
         if person.username == username:
             # collab.interested_people.remove(person)
             collab.collaborators.add(person)
-
             entry = Notification()
             entry.owner = person
             entry.sender = request.user
             entry.collab = collab
-            entry.message = "You have been allowed to collaborate on"
+            entry.message = "has allowed you to collaborate on"
             try:
                 old_entry = Notification.objects.filter(owner=person)[0]
                 entry.unreads = old_entry.unreads + 1
@@ -344,7 +342,6 @@ def offerCollab(request, id, username):
                 entry.unreads = 1
                 placeholder = 1
             entry.save()
-
             reg = Researcher.objects.get(username=person.username)
             reg.bell_unreads = placeholder
             reg.save()
@@ -352,8 +349,7 @@ def offerCollab(request, id, username):
     messages.info(request, "The collab has been offered successfully")
     collab.accepted_date = datetime.now()
     collab.save()
-
-    return redirect('collab')
+    return redirect('show_collab', id)
 
 @login_required
 def declineCollab(request, id, username):
@@ -361,14 +357,17 @@ def declineCollab(request, id, username):
 
     for person in collab.interested_people.all():
         if person.username == username:
-            # collab.interested_people.remove(person)
-            collab.collaborators.add(person)
+            collab.interested_people.remove(person)
+
+    for person in collab.collaborators.all():
+        if person.username == username:
+            collab.collaborators.remove(person)
 
             entry = Notification()
             entry.owner = person
             entry.sender = request.user
             entry.collab = collab
-            entry.message = "You have been allowed to collaborate on"
+            entry.message = "declined your collaboration on"
             try:
                 old_entry = Notification.objects.filter(owner=person)[0]
                 entry.unreads = old_entry.unreads + 1
@@ -377,17 +376,120 @@ def declineCollab(request, id, username):
                 entry.unreads = 1
                 placeholder = 1
             entry.save()
-
             reg = Researcher.objects.get(username=person.username)
             reg.bell_unreads = placeholder
             reg.save()
 
-    messages.info(request, "The collab has been offered successfully")
-    collab.accepted_date = datetime.now()
+    messages.info(request, "The collab has been declined successfully")
+    collab.save()
+
+    return redirect('show_collab', id)
+
+@login_required
+def removeCollab(request, id, username):
+    collab = Collab.objects.get(id=id)
+
+    # for person in collab.interested_people.all():
+    #     if person.username == username:
+    #         collab.interested_people.remove(person)
+
+    for person in collab.collaborators.all():
+        if person.username == username:
+            collab.removed_people.add(person)
+
+            entry = Notification()
+            entry.owner = person
+            entry.sender = request.user
+            entry.collab = collab
+            entry.message = "sought your removal from"
+            try:
+                old_entry = Notification.objects.filter(owner=person)[0]
+                entry.unreads = old_entry.unreads + 1
+                placeholder = old_entry.unreads + 1
+            except:
+                entry.unreads = 1
+                placeholder = 1
+            entry.save()
+            reg = Researcher.objects.get(username=person.username)
+            reg.bell_unreads = placeholder
+            reg.save()
+
+    messages.info(request, "The collaborator has been notified")
+    collab.save()
+
+    return redirect('show_collab_initiated', id)
+
+@login_required
+def removeCollab(request, id, username):
+    collab = Collab.objects.get(id=id)
+
+    # for person in collab.interested_people.all():
+    #     if person.username == username:
+    #         collab.interested_people.remove(person)
+
+    for person in collab.collaborators.all():
+        if person.username == username:
+            collab.removed_people.add(person)
+
+            entry = Notification()
+            entry.owner = person
+            entry.sender = request.user
+            entry.collab = collab
+            entry.message = "sought your removal from"
+            try:
+                old_entry = Notification.objects.filter(owner=person)[0]
+                entry.unreads = old_entry.unreads + 1
+                placeholder = old_entry.unreads + 1
+            except:
+                entry.unreads = 1
+                placeholder = 1
+            entry.save()
+            reg = Researcher.objects.get(username=person.username)
+            reg.bell_unreads = placeholder
+            reg.save()
+
+    messages.info(request, "The collaborator has been notified")
+    collab.save()
+
+    return redirect('show_collab_initiated', id)
+
+@login_required
+def leaveCollab(request, id, username):
+    collab = Collab.objects.get(id=id)
+
+    for person in collab.interested_people.all():
+        if person.username == username:
+            collab.interested_people.remove(person)
+
+    for person in collab.collaborators.all():
+        if person.username == username:
+            collab.collaborators.remove(person)
+
+    for person in collab.removed_people.all():
+        if person.username == username:
+            collab.removed_people.remove(person)
+
+            entry = Notification()
+            entry.owner = person
+            entry.sender = request.user
+            entry.collab = collab
+            entry.message = "has left"
+            try:
+                old_entry = Notification.objects.filter(owner=person)[0]
+                entry.unreads = old_entry.unreads + 1
+                placeholder = old_entry.unreads + 1
+            except:
+                entry.unreads = 1
+                placeholder = 1
+            entry.save()
+            reg = Researcher.objects.get(username=person.username)
+            reg.bell_unreads = placeholder
+            reg.save()
+
+    messages.info(request, "You have successfully left and the researcher has been notified")
     collab.save()
 
     return redirect('collab')
-
 
 @login_required
 def undoInterestCollab(request, id):

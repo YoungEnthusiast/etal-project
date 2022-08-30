@@ -74,7 +74,6 @@
                     <a class="text-white" href="delete"><button class="btn btn-red" type="button" name="button"><strong><i class="fas fa-trash fa-1x mr-1"></i>Delete</strong></button></a>
                     <br>
                     <br>
-                    <br>
                     {% if collab.interested_people.all %}
                     <h5>Collaborators</h5>
                     <div class="card">
@@ -87,9 +86,9 @@
                               <a href=""><i class="fa fa-user-circle text-info fa-5x"></i></a>
                             {% endif %}
                             {% if person in collab.collaborators.all %}
-                            <strong><p>Offered/<a class="text-info" href="">Decline</a></p></strong>
+                            <strong><p>Offered/<a class="text-info" href="declined/{{person.username}}">Decline</a></p></strong>
                             {% else %}
-                            <strong><p><a class="text-info" href="offered/{{person.username}}">Offer</a>/<a class="text-info" href="">Decline</a></p></strong>
+                            <strong><p><a class="text-info" href="offered/{{person.username}}">Offer</a>/<a class="text-info" href="declined/{{person.username}}">Decline</a></p></strong>
                             {% endif %}
                             <br>
                           {% endfor %}

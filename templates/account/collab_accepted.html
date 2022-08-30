@@ -72,7 +72,6 @@
                     Accepted on {{collab.accepted_date}}
                     <br>
                     <br>
-                    <br>
                     <div class="card">
                       <div class="card-body">
                         <div class="row">
@@ -97,7 +96,7 @@
                               <a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
                             {% endif %}
                             {% if person == request.user %}
-                            <strong><p><a class="text-info" href="">Leave</a>/<a class="text-info" href="">Report</a></p></strong>
+                            <strong><p><a class="text-info" href="left/{{person.username}}">Leave</a>/<a class="text-info" href="">Report</a></p></strong>
                             {% else %}
                             {% endif %}
                             <br>
@@ -106,7 +105,6 @@
                       </div>
                     </div>
                     {% endif %}
-                    <br>
                     <br>
                     {% if collab.is_locked %}
                     Locked on {{collab.locked_date}}

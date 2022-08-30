@@ -21,7 +21,7 @@
             <div class="text-center card bg-info text-white form-group col-md-9">
               <br>
                 {% if collab.researcher == request.user and collab.is_locked == False %}
-                <h4 > <span class="text-danger">CAUTION!</span> Deleting {{product.type}} will affect all the information associated with the collab. Do you still wish to continue?</h4>
+                <h4 > <span class="text-red">CAUTION!</span> Deleting {{product.type}} will affect all the information associated with the collab. Do you still wish to continue?</h4>
                 <br>
                 <form method="post">
                   {% csrf_token %}
