@@ -75,7 +75,7 @@ class StrangerAdmin(admin.ModelAdmin):
 
 admin.site.register(Stranger, StrangerAdmin)
 class CollabDocAdmin(admin.ModelAdmin):
-    list_display = ['name', 'type', 'document']
+    list_display = ['name', 'type', 'document', 'shared_by']
     search_fields = []
     # list_filter = ['status']
     # list_display_links = ['email']

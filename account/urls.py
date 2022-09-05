@@ -33,6 +33,8 @@ urlpatterns = [
 
     path('collabs', views.collabs, name='collabs'),
     path('initiated-collabs', views.initiatedCollabs, name='initiated_collabs'),
+    path('initiated-collabs/collab-docs', views.showCollabDocs, name='collab_docs'),
+    path('initiated-collabs/collab-docs/upload-doc', views.uploadDoc, name='upload_doc'),
     path('accepted-collabs', views.acceptedCollabs, name='accepted_collabs'),
     path('bell-notification', views.clearUnreads, name='bell_notification'),
     path('bell-notifications', views.showBellNotifications, name='bell_notifications'),

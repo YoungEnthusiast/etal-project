@@ -2,14 +2,14 @@ import json
 import urllib.request
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm
-from .models import Collab, Researcher, Notification, Report
+from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm, CollabDocForm
+from .models import Collab, Researcher, Notification, Report, CollabDoc
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.forms import PasswordChangeForm, AuthenticationForm
 from django.contrib.auth import update_session_auth_hash, login, authenticate
 from django.contrib.auth.decorators import login_required, permission_required
-from .filters import InitiatedCollabFilter, BellNotificationFilter
+from .filters import InitiatedCollabFilter, BellNotificationFilter, CollabDocFilter
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from django.db.models import Q
@@ -227,6 +227,23 @@ def showCollabs(request):
 
     return render(request, 'account/all_collabs.html', context)
 
+@login_required
+def showCollabDocs(request):
+    context = {}
+    filtered_collab_docs = CollabDocFilter(
+        request.GET,
+        queryset = CollabDoc.objects.all()
+    )
+    context['filtered_collab_docs'] = filtered_collab_docs
+    paginated_filtered_collab_docs = Paginator(filtered_collab_docs.qs, 99)
+    page_number = request.GET.get('page')
+    collab_docs_page_obj = paginated_filtered_collab_docs.get_page(page_number)
+    context['collab_docs_page_obj'] = collab_docs_page_obj
+    total_collab_docs = filtered_collab_docs.qs.count()
+    context['total_collab_docs'] = total_collab_docs
+
+    return render(request, 'account/collab_docs.html', context)
+
 def createCollab(request):
     form = CollabForm(request=request)
     if request.method == 'POST':
@@ -239,6 +256,19 @@ def createCollab(request):
         else:
             messages.error(request, "Please review form input fields below")
     return render(request, 'account/create_collab.html', {'form':form})
+
+def uploadDoc(request):
+    form = CollabDocForm()
+    if request.method == 'POST':
+        form = CollabDocForm(request.POST, request.FILES, None)
+        if form.is_valid():
+            form.save(commit=False).shared_by=request.user
+            form.save()
+            messages.info(request, "The document has been uploaded successfully")
+            return redirect('upload_doc')
+        else:
+            messages.error(request, "Please review form input fields below")
+    return render(request, 'account/upload_doc.html', {'form':form})
 
 @login_required
 def showResearcherProfile(request, **kwargs):

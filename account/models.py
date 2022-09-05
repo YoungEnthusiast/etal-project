@@ -153,7 +153,7 @@ class Report(models.Model):
 
 class CollabDoc(models.Model):
     shared_by = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL)
-    name = models.CharField(max_length=255, null=True, blank=True)
+    name = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=255, null=True, blank=True)
     document = models.FileField(upload_to='collab_documents/')
     created = models.DateTimeField(auto_now_add=True)

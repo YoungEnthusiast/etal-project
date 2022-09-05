@@ -78,9 +78,7 @@ class StrangerForm(forms.ModelForm):
         model = Stranger
         fields = ['first_username']
 
-
-
 class CollabDocForm(forms.ModelForm):
     class Meta:
         model = CollabDoc
-        fields = ['name', 'type', 'document']
+        fields = ['name', 'document']

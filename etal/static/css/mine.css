@@ -20480,7 +20480,7 @@ section {
 .sidebar {
   margin-top: 90px;
   margin-bottom: 300px;
-  width: 200px;
+  width: 140px;
   background-color: #ffffff;
   position: fixed;
   height: 100%;
@@ -20492,7 +20492,7 @@ section {
 .sidebar a {
   display: block;
   color: #fff;
-  padding: 16px;
+  padding: 10px;
   text-decoration: none;
 }
 
@@ -20510,7 +20510,7 @@ section {
 
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
 div.content {
-  margin-left: 200px;
+  margin-left: 140px;
   padding: 1px 16px;
   height: 1000px;
 }
