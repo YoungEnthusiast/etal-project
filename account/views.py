@@ -171,13 +171,11 @@ class ActivateAccount(View):
 #     return render(request, 'account/join.html', {'form': form})
 
 @login_required
-# @permission_required('users.view_admin')
 def showResearcherBoard(request):
 
     return render(request, 'account/researcher_board.html', {})
 
 @login_required
-# @permission_required('users.view_admin')
 def showHome(request):
 
     return render(request, 'account/home.html', {})
@@ -262,6 +260,19 @@ def uploadDoc(request):
     if request.method == 'POST':
         form = CollabDocForm(request.POST, request.FILES, None)
         if form.is_valid():
+            document = form.cleaned_data.get('document')
+
+            length = len(document)
+            sub3 = length-3
+            last3 = document[sub3:length+1]
+            lower_last3 = last3.lower()
+
+            if lower_last3 == "png" or lower_last3:
+                form.save(commit=False).type=Image
+
+
+
+
             form.save(commit=False).shared_by=request.user
             form.save()
             messages.info(request, "The document has been uploaded successfully")
