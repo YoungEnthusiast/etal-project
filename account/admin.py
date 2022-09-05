@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Researcher, Collab, Notification, Flag
+from .models import Researcher, Collab, Notification, Flag, Report, Stranger, CollabDoc
 from .forms import CustomRegisterForm
 # from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
@@ -56,3 +56,29 @@ class FlagAdmin(admin.ModelAdmin):
     list_per_page = 100
 
 admin.site.register(Flag, FlagAdmin)
+
+class ReportAdmin(admin.ModelAdmin):
+    list_display = ['complainer', 'collab', 'receiver']
+    search_fields = []
+    # list_filter = ['status']
+    # list_display_links = ['email']
+    list_per_page = 100
+
+admin.site.register(Report, ReportAdmin)
+
+class StrangerAdmin(admin.ModelAdmin):
+    list_display = ['first_username']
+    search_fields = []
+    # list_filter = ['status']
+    # list_display_links = ['email']
+    list_per_page = 100
+
+admin.site.register(Stranger, StrangerAdmin)
+class CollabDocAdmin(admin.ModelAdmin):
+    list_display = ['name', 'type', 'document']
+    search_fields = []
+    # list_filter = ['status']
+    # list_display_links = ['email']
+    list_per_page = 100
+
+admin.site.register(CollabDoc, CollabDocAdmin)

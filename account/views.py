@@ -2,12 +2,12 @@ import json
 import urllib.request
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm
-from .models import Collab, Researcher, Notification
+from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm
+from .models import Collab, Researcher, Notification, Report
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash, login
+from django.contrib.auth.forms import PasswordChangeForm, AuthenticationForm
+from django.contrib.auth import update_session_auth_hash, login, authenticate
 from django.contrib.auth.decorators import login_required, permission_required
 from .filters import InitiatedCollabFilter, BellNotificationFilter
 from django.core.paginator import Paginator
@@ -22,22 +22,77 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from datetime import datetime
+from django.core.mail import send_mail
+from django.contrib.auth import logout
 
-def create(request):
+def join(request):
+    form = StrangerForm()
+    if request.method == 'POST':
+        form = StrangerForm(request.POST or None)
+        if form.is_valid():
+            unrefined_first_username = form.cleaned_data.get('first_username')
+            first_username = unrefined_first_username.lower()
+            if "@gmail.com" in first_username or "@yahoo.com" in first_username or "@outlook.com" in first_username or "yahoo.co.uk" in first_username or "@inbox.com" in first_username or "@mail.com" in first_username or "@gmx.com" in first_username or "@icloud.com" in first_username or "@proton.me" in first_username or "protonmail.com" in first_username or "@aol.com" in first_username or "@yandex.com" in first_username:
+                messages.info(request, "Please enter an institution email address")
+            else:
+                form.save()
+
+                send_mail(
+                    'Create Account',
+                    'Please follow the link www.etal.qwikgas.ai/join/' + str(first_username) + ' to create an account',
+                    'admin@qwikgas.ai',
+                    [first_username],
+                    fail_silently=False,
+                    #html_message = render_to_string('home/home1.html')
+                )
+                messages.info(request, "Please check your inbox")
+        else:
+            return redirect('join')
+    return render(request, 'account/join.html', {'form': form})
+
+def create(request, username):
+    username = username
     if request.method == "POST":
         form = CustomRegisterForm(request.POST, request.FILES)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
+            form.save(commit=False).username = username
             form.save(commit=False).email = username
-            form.save()
-            messages.info(request, "Registration was successful!")
-            return redirect('account')
+            try:
+                is_exist = Researcher.objects.get(username=username)
+                messages.error(request, "A user with the email already exists")
+            except:
+                form.save()
+                messages.info(request, "Registration was successful!")
+                return redirect('researcher_board')
         else:
             messages.error(request, "Please review and correct form input fields")
-            #return redirect('account')
     else:
         form = CustomRegisterForm()
-    return render(request, 'account/account.html', {'form': form})
+    return render(request, 'account/account.html', {'form': form, 'username':username})
+
+def logoutRequest(request):
+    logout(request)
+    return redirect('login')
+
+def loginRequest(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                # messages.info(request, f"You are now logged in as {username}")
+                return redirect('researcher_board')
+            else:
+                messages.info(request, "Either your username or password is incorret.")
+        else:
+            messages.info(request, "Either your username or password is incorret.")
+    form = AuthenticationForm()
+    return render(request = request,
+                    template_name = "account/login.html",
+                    context={"form":form})
 
 # def create(request):
 #     if request.method == "POST":
@@ -94,6 +149,26 @@ class ActivateAccount(View):
         else:
             messages.error(request, ('The confirmation link has either been used or expired.'))
             return redirect('login')
+
+# def join(request):
+#     form = StrangerForm()
+#     if request.method == 'POST':
+#         form = StrangerForm(request.POST or None)
+#         if form.is_valid():
+#             form.save()
+#             first_username = form.cleaned_data.get('first_username')
+#             send_mail(
+#                 'Create Account',
+#                 'www.etal.qwikgas.ai/join/' + str(first_username),
+#                 'admin@qwikgas.ai',
+#                 [first_username],
+#                 fail_silently=False,
+#                 #html_message = render_to_string('home/home1.html')
+#             )
+#             messages.info(request, "Please check your inbox")
+#         else:
+#             return redirect('join')
+#     return render(request, 'account/join.html', {'form': form})
 
 @login_required
 # @permission_required('users.view_admin')
@@ -179,7 +254,33 @@ def showResearcherProfile(request, **kwargs):
             messages.error(request, "Error: Please review form input fields below")
     else:
         form = CustomRegisterFormResearcher(instance=request.user)
+
     return render(request, 'account/researcher_profile.html', {'form': form})
+
+@login_required
+def researcherChangePassword(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            user = request.user
+            name = user.first_name
+            email = user.email
+            # send_mail(
+            #     'Password Changed!',
+            #     'Dear ' + str(name) + ', your password has just been changed. If this activity was not carried out by you, please reply to this email',
+            #     'yustaoab@gmail.com',
+            #     [email],
+            #     fail_silently=False,
+            #     html_message = render_to_string('users/change_password_email.html', {'name': str(name)})
+            # )
+            messages.info(request, "Your password has been changed successfully")
+            return redirect('researcher_profile')
+    else:
+        form = PasswordChangeForm(user=request.user)
+
+    return render(request, 'account/researcher_change_password.html', {'form': form})
 
 @login_required
 def showUser(request, email, **kwargs):
@@ -234,6 +335,7 @@ def showCollabInitiated(request, id, **kwargs):
     counter = 0
     for person in collab.collaborators.all():
         counter += 1
+
     context = {'collab': collab, 'counter':counter}
     return render(request, 'account/collab_initiated.html', context)
 
@@ -386,7 +488,7 @@ def declineCollab(request, id, username):
     return redirect('show_collab', id)
 
 @login_required
-def removeCollab(request, id, username):
+def requestRemoveCollab(request, id, username):
     collab = Collab.objects.get(id=id)
 
     # for person in collab.interested_people.all():
@@ -395,29 +497,29 @@ def removeCollab(request, id, username):
 
     for person in collab.collaborators.all():
         if person.username == username:
-            collab.removed_people.add(person)
+            collab.request_removed_people.add(person)
 
             entry = Notification()
-            entry.owner = person
-            entry.sender = request.user
+            entry.owner = collab.researcher
+            entry.sender = person
             entry.collab = collab
-            entry.message = "sought your removal from"
+            entry.message = "wants to be removed from"
             try:
-                old_entry = Notification.objects.filter(owner=person)[0]
+                old_entry = Notification.objects.filter(owner=collab.researcher)[0]
                 entry.unreads = old_entry.unreads + 1
                 placeholder = old_entry.unreads + 1
             except:
                 entry.unreads = 1
                 placeholder = 1
             entry.save()
-            reg = Researcher.objects.get(username=person.username)
+            reg = Researcher.objects.get(username=collab.researcher.username)
             reg.bell_unreads = placeholder
             reg.save()
 
-    messages.info(request, "The collaborator has been notified")
+    messages.info(request, "The researcher has been notified")
     collab.save()
 
-    return redirect('show_collab_initiated', id)
+    return redirect('collab')
 
 @login_required
 def removeCollab(request, id, username):
@@ -452,6 +554,40 @@ def removeCollab(request, id, username):
     collab.save()
 
     return redirect('show_collab_initiated', id)
+
+@login_required
+def reportCollaborator(request, id, username):
+    collab = Collab.objects.get(id=id)
+
+    for person in collab.collaborators.all():
+        if person.username == username:
+            entry = Report()
+            entry.is_reported = True
+            entry.complainer = request.user
+            entry.collab = collab
+            entry.receiver = person
+
+            entry.save()
+
+
+    messages.info(request, "The reporting has been sent to the admins")
+
+    return redirect('collab')
+
+@login_required
+def reportResearcher(request, id):
+    collab = Collab.objects.get(id=id)
+    entry = Report()
+    entry.is_reported = True
+    entry.complainer = request.user
+    entry.collab = collab
+    entry.receiver = collab.researcher
+
+    entry.save()
+
+    messages.info(request, "The reporting has been sent to the admins")
+
+    return redirect('collab')
 
 @login_required
 def leaveCollab(request, id, username):
@@ -467,7 +603,7 @@ def leaveCollab(request, id, username):
 
     for person in collab.removed_people.all():
         if person.username == username:
-            collab.removed_people.remove(person)
+            collab.rollab.removed_people.remove(person)
 
             entry = Notification()
             entry.owner = person
@@ -485,11 +621,47 @@ def leaveCollab(request, id, username):
             reg = Researcher.objects.get(username=person.username)
             reg.bell_unreads = placeholder
             reg.save()
-
     messages.info(request, "You have successfully left and the researcher has been notified")
     collab.save()
-
     return redirect('collab')
+
+@login_required
+def acceptLeaveCollab(request, id, username):
+    collab = Collab.objects.get(id=id)
+
+    for person in collab.interested_people.all():
+        if person.username == username:
+            collab.interested_people.remove(person)
+
+    for person in collab.collaborators.all():
+        if person.username == username:
+            collab.collaborators.remove(person)
+
+    for person in collab.request_removed_people.all():
+        if person.username == username:
+            collab.request_removed_people.remove(person)
+
+            entry = Notification()
+            entry.owner = person
+            entry.sender = request.user
+            entry.collab = collab
+            entry.message = "has granted your exit and removed you from"
+            try:
+                old_entry = Notification.objects.filter(owner=person)[0]
+                entry.unreads = old_entry.unreads + 1
+                placeholder = old_entry.unreads + 1
+            except:
+                entry.unreads = 1
+                placeholder = 1
+            entry.save()
+            reg = Researcher.objects.get(username=person.username)
+            reg.bell_unreads = placeholder
+            reg.save()
+
+    messages.info(request, "The collaborator has been removed successfully")
+    collab.save()
+
+    return redirect('show_collab_initiated', id)
 
 @login_required
 def undoInterestCollab(request, id):

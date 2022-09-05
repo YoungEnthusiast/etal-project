@@ -1,26 +1,31 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
-from .models import Researcher, Collab, Flag
+from .models import Researcher, Collab, Flag, Report, Stranger, CollabDoc, CollabDoc
 from django.db.models import Q
 # from django.core.exceptions import ValidationError
 # import datetime
 # from django.forms.widgets import NumberInput
 # from django.forms.widgets import TextInput
-
 class CustomRegisterForm(UserCreationForm):
+    def clean_username(self):
+       username = self.cleaned_data.get('username')
+       if Researcher.objects.filter(username=username).exists():
+           raise ValidationError("A user with the supplied email already exists")
+       return username
     class Meta:
         model = Researcher
-        # fields = ['username', 'first_name', 'last_name', 'affiliation_name', 'affiliation_address', 'city', 'state', 'country', 'password1', 'password2']
-        fields = ['username']
+        fields = ['first_name', 'last_name', 'affiliation_name', 'password1', 'password2']
+        # fields = ['affiliation_name']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     #     self.fields['first_name'].label = 'First Name'
     #     self.fields['last_name'].label = 'Last Name'
-    #     self.fields['password1'].help_text = ""
+        self.fields['password1'].help_text = ""
         self.fields['password2'].label = "Password Confirmation"
 
 class CustomRegisterFormResearcher(UserChangeForm):
+
     class Meta:
         model = Researcher
         fields = ['first_name', 'last_name', 'username', 'photograph', 'affiliation_name', 'affiliation_address', 'city', 'state', 'country']
@@ -62,3 +67,20 @@ class FlagForm(forms.ModelForm):
     class Meta:
         model = Flag
         fields = ['reason']
+# class ReportForm(forms.ModelForm):
+#     reason = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':''}))
+#     class Meta:
+#         model = Report
+#         fields = ['reason']
+
+class StrangerForm(forms.ModelForm):
+    class Meta:
+        model = Stranger
+        fields = ['first_username']
+
+
+
+class CollabDocForm(forms.ModelForm):
+    class Meta:
+        model = CollabDoc
+        fields = ['name', 'type', 'document']

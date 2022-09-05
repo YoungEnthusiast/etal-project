@@ -31,7 +31,7 @@
               <h3 class="pro-user-username text-info"><strong>{{user.first_name}} {{user.last_name}}</strong></h3>
               <!-- <h6 class="pro-user-desc text-muted">Web Developer</h6> -->
               <div class="badge bg-info text-white rounded-pill badge-marketing badge-sm"><strong>{{user.type}}</strong></div><br>
-              
+
               <div class="pro-user-icons">
                 <a href="#" class="facebook-bg mt-0"><i class="fab fa-facebook"></i></a>
                 <a href="#" class="twitter-bg"><i class="fab fa-twitter"></i></a>
@@ -105,7 +105,7 @@
                     {{ form.country|as_crispy_field }}
                 </div>
             </div>
-            <a href=""><strong class="text-info">Click here</strong></a> <span class="text-dark">to change your password</span>
+            <a href="{% url 'researcher_change_password' %}"><strong class="text-info">Click here</strong></a> <span class="text-dark">to change your password</span>
             <div class="card-footer text-right bg-white">
               <input type="submit" class="form-group btn btn-cylinder" value="Update">
             </div>

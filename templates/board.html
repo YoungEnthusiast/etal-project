@@ -31,8 +31,8 @@
 		<link rel="stylesheet" href="{% static 'css/demo.css' %}">
 		<link rel="stylesheet" href="{% static 'css/mine.css' %}">
 		<link rel="stylesheet" href="{% static 'css/a.css' %}">
+		<link rel="stylesheet" href="{% static 'css/accordion.css' %}">
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-
 	{% block title %}
 	{% endblock title %}
 
@@ -116,7 +116,7 @@
 							<!-- Sidebar toggle button-->
 							<div class="d-flex order-lg-2 ml-auto">
 								<div class="dropdown d-sm-flex d-none header-message">
-											<a class="btn fw-500 ms-lg-4" href="{% url 'account' %}">
+											<a class="btn fw-500 ms-lg-4" href="{% url 'join' %}">
 		                  <strong class="text-dark">Join</strong>
 		              		</a>
 								</div>
@@ -190,7 +190,7 @@
 						{% else %}
 						<div class="d-flex order-lg-2 ml-auto">
 							<div class="dropdown d-sm-flex d-none header-message">
-										<a class="btn fw-500 ms-lg-4" href="{% url 'account' %}">
+										<a class="btn fw-500 ms-lg-4" href="{% url 'join' %}">
 										<strong class="text-dark">Join</strong>
 										</a>
 							</div>
@@ -204,9 +204,10 @@
 					</div>
 				</div>
 				<!--/.Navbar -->
+				{% if 'login' in request.path or 'create-account' in request.path %}
 
 
-				{% if user.is_authenticated %}
+				{% elif user.is_authenticated %}
 				<!-- Sidebar menu-->
 				<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 				<aside class="app-sidebar bg-white">
@@ -303,7 +304,6 @@
     <script src="{% static 'js/waypoints.min.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>
     <script src="{% static 'js/index5.js' %}"></script>
-		<script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     <script src="{% static 'js/custom.js' %}"></script>
 		<script src="{% static 'js/scripts.js' %}"></script>
 		<script src="{% static 'js/select2.js'  %}"></script>
@@ -316,6 +316,11 @@
 		<script src="{% static 'js/morris.min.js'  %}"></script>
 		<script src="{% static 'js/raphael.min.js'  %}"></script>
 		<script src="{% static 'js/index4.js'  %}"></script>
+		<script src="{% static 'js/accordion.js' %}"></script>
+		<script src="{% static 'js/accordion.min.js' %}"></script>
+		<script src="{% static 'js/accordion-Wizard-Form.js' %}"></script>
+		<script src="{% static 'js/wizard.js' %}"></script>
+		<script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
 
 	</body>
 </html>

@@ -1,17 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+class Stranger(models.Model):
+    first_username = models.EmailField(max_length=255, verbose_name="Enter institution email address")
+
 class Researcher(AbstractUser):
     TYPE_CHOICES = [
         ('Researcher', 'Researcher'),
 		('Admin', 'Admin'),
         ('SuperAdmin', 'SuperAdmin'),
     ]
-    username = models.EmailField(max_length=255, unique=True, verbose_name="Email")
+    username = models.EmailField(max_length=255, unique=True, null=True, blank=True, verbose_name="Email")
     first_name = models.CharField(max_length=45, null=True, blank=True, verbose_name="First Name")
     last_name = models.CharField(max_length=45, null=True, blank=True, verbose_name="Last Name")
     photograph = models.ImageField(upload_to='users_img/%Y/%m/%d', null=True, blank=True)
-    affiliation_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Affiliation Name")
+    affiliation_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Affiliation")
     affiliation_address = models.CharField(max_length=255, null=True, blank=True, verbose_name="Affiliation Address")
     city = models.CharField(max_length=255, blank=True, null=True,)
     state = models.CharField(max_length=255, blank=True, null=True,)
@@ -75,10 +78,10 @@ class Collab(models.Model):
     interested_people = models.ManyToManyField(Researcher, blank=True, related_name="interested_people")
     interest = models.BooleanField(max_length=5, default = False)
     flag = models.ForeignKey('account.Flag', null=True, blank=True, on_delete=models.SET_NULL, related_name="flag_collab")
-    researcher_report = models.ForeignKey('account.ResearcherReport', null=True, blank=True, on_delete=models.SET_NULL, related_name="flag_researcher_report")
-    collaborator_report = models.ForeignKey('account.CollaboratorReport', null=True, blank=True, on_delete=models.SET_NULL, related_name="flag_collaborator_report")
+    report = models.ForeignKey('account.Report', null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_report")
     is_locked = models.BooleanField(max_length=5, default = False)
     removed_people = models.ManyToManyField(Researcher, blank=True, related_name="removed_people")
+    request_removed_people = models.ManyToManyField(Researcher, blank=True, related_name="request_removed_people")
     locked_date = models.DateTimeField(null=True, blank=True)
     accepted_date = models.DateTimeField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -130,11 +133,12 @@ class Flag(models.Model):
         except:
             return str(self.id)
 
-class ResearcherReport(models.Model):
+class Report(models.Model):
     is_reported = models.BooleanField(max_length=5, default = False)
-    complainer = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="researcher_complainer")
-    reason = models.CharField(max_length=255, null=True, blank=True, verbose_name="")
+    complainer = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="report_complainer")
+    # reason = models.CharField(max_length=255, null=True, blank=True, verbose_name="")
     collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="researcher_collab")
+    receiver = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -147,19 +151,10 @@ class ResearcherReport(models.Model):
         except:
             return str(self.id)
 
-class CollaboratorReport(models.Model):
-    is_reported = models.BooleanField(max_length=5, default = False)
-    complainer = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="collaborator_complainer")
-    reason = models.CharField(max_length=255, null=True, blank=True, verbose_name="")
-    collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collaborator_collab")
+class CollabDoc(models.Model):
+    shared_by = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    type = models.CharField(max_length=255, null=True, blank=True)
+    document = models.FileField(upload_to='collab_documents/')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ('-created',)
-
-    def __str__(self):
-        try:
-            return str(self.reason)
-        except:
-            return str(self.id)

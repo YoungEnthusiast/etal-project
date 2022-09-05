@@ -1,0 +1,74 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+  <title>Join</title>
+{% endblock title %}
+
+{% block content %}
+
+		<!-- Global Loader-->
+    <br>
+    <br>
+    <br>
+		<div class="page custom-pages">
+			<!-- <div class="container"> -->
+				<div class="row">
+					<div class="col  mx-auto">
+
+						<div class="row justify-content-center">
+							<div class="col-md-10">
+								<div class="card-group mb-0">
+                  <div class="card  py-5 d-md-down-none">
+										<div class="card-body align-items-center">
+											<div>
+												<h1 class="text-center">Join, it's free</h1>
+                        <p class="text-center"><font size="+2">Seek and accept collaboration</font></p>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <p class="text-center"><font size="+3">Already have an account?</font> <a class="text-info" href="{% url 'login' %}"><font size="+3">Log in</font></a></p>
+
+											</div>
+										</div>
+									</div>
+									<div class="card p-4">
+										<div class="card-body">
+                      {% include '_alerts.html' %}
+                      <form method="post" class="form-group col-md-12">
+											<div class="form-group">
+                      {% csrf_token %}
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.first_username|as_crispy_field }}
+                        </div>
+                      </div>
+                      By joining, I agree to the Et al.'s Privacy Policy and Terms of Service
+											<div class="checkbox text-left mb-2">
+
+											</div>
+
+
+											<div class="text-left">
+												<input type="submit"  class="btn btn-block btn-info" value="Join">
+											</div>
+                      <!-- <script src='https://www.google.com/recaptcha/api.js'></script>
+                      <div class="g-recaptcha" data-sitekey="6LfJmFYhAAAAAMe_96HbPy8aLWprxc6M8E1ZBsd-"></div> -->
+                      </form>
+
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- </div> -->
+    <br>
+{% endblock content%}

@@ -4,9 +4,10 @@ from django.contrib.auth import views as auth_views
 from .views import ActivateAccount
 
 urlpatterns = [
-    path('join', views.create, name='account'),
+    path('create-account', views.join, name='join'),
+    path('join/<str:username>', views.create, name='account'),
     path('where-next/', views.loginTo),
-    path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
+    path('profile/change-password', views.researcherChangePassword, name='researcher_change_password'),
     path('activate/<uidb64>/<token>', ActivateAccount.as_view(), name='activate'),
     path('dashboard', views.showResearcherBoard, name='researcher_board'),
     path('profile', views.showResearcherProfile, name='researcher_profile'),
@@ -20,8 +21,13 @@ urlpatterns = [
 
     path('collab/view-initiated/<str:id>/', views.showCollabInitiated, name='show_collab_initiated'),
     path('collab/view-initiated/<str:id>/removed/<str:username>', views.removeCollab, name='remove_collab'),
+    path('collab/view-initiated/<str:id>/reported/<str:username>', views.reportCollaborator, name='report_collaborator'),
+    path('collab/view-accepted/<str:id>/remove-requested/<str:username>', views.requestRemoveCollab, name='request_remove_collab'),
     path('collab/view-accepted/<str:id>/', views.showCollabAccepted, name='show_collab_accepted'),
+    path('collab/view-accepted/<str:id>/reported', views.reportResearcher, name='report_researcher'),
+
     path('collab/view-accepted/<str:id>/left/<str:username>', views.leaveCollab, name='leave_collab'),
+    path('collab/view-initiated/<str:id>/leave-accepted/<str:username>', views.acceptLeaveCollab, name='accept_leave_collab'),
     path('collab/view/<str:id>/offered/<str:username>', views.offerCollab, name='offer_collab'),
     path('collab/view/<str:id>/declined/<str:username>', views.declineCollab, name='decline_collab'),
 
@@ -34,7 +40,12 @@ urlpatterns = [
     path('collab/locked/<int:id>', views.lockCollab, name='lock_collab'),
     path('collab/unlocked/<int:id>', views.unlockCollab, name='unlock_collab'),
     path('collab/undo-interest/<int:id>', views.undoInterestCollab, name='undo_interest_collab'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='account/login.html'), name='logout'),
+    path('logout/', views.logoutRequest, name='logout'),
+    path('login/', views.loginRequest, name='login'),
 
+    path('reset-password', auth_views.PasswordResetView.as_view(template_name='account/reset_password.html'), name='reset_password'),
+    path('reset-password-sent', auth_views.PasswordResetDoneView.as_view(template_name='account/password_reset_sent.html'), name='password_reset_done'),
+    path('reset-password/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='account/password_reset_form.html'), name='password_reset_confirm'),
+    path('reset-password-complete', auth_views.PasswordResetCompleteView.as_view(template_name='account/password_reset_done.html'), name='password_reset_complete'),
 
 ]

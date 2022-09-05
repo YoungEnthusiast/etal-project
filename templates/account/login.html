@@ -16,6 +16,8 @@
 				<div class="row">
 					<div class="col  mx-auto">
 
+
+
 						<div class="row justify-content-center">
 							<div class="col-md-10">
 								<div class="card-group mb-0">
@@ -23,13 +25,14 @@
 										<div class="card-body">
                       <form method="post" class="form-group col-md-12 text-black">
 											<div class="form-group">
+                      {% include '_alerts.html' %}
                       {% csrf_token %}
                       <div class="form-row">
                         <div class="form-group col-sm-12 mb-2">
                               {{ form.username|as_crispy_field }}
                         </div>
                       </div>
-                      <p style="text-align:right"><a class="text-info" href="#">Forget Password?</a></p>
+                      <p style="text-align:right"><a class="text-info" href="{% url 'reset_password' %}">Forget Password?</a></p>
                       <div class="form-row">
                         <div class="form-group col-sm-12 mb-2">
                               {{ form.password|as_crispy_field }}
@@ -50,7 +53,7 @@
 										<div class="card-body align-items-center">
 											<div>
 												<h1 class="text-center">Log in</h1>
-                        <p class="text-center"><font size="+3">Start collaborating</font></p>
+                        <p class="text-center"><font size="+2">Start collaborating</font></p>
                         <br>
                         <br>
                         <br>
@@ -58,7 +61,7 @@
                         <br>
                         <br>
                         <br>
-                        <p class="text-center"><font size="+3">Not on Et al.?</font> <a class="text-info" href="{% url 'account' %}"><font size="+3">Join</font></a></p>
+                        <p class="text-center"><font size="+3">Not on Et al.?</font> <a class="text-info" href="{% url 'join' %}"><font size="+3">Join</font></a></p>
 
 											</div>
 										</div>
