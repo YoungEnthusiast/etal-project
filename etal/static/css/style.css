@@ -16020,6 +16020,8 @@ ul.timeline>li:before {
     font-weight: 400;
     background: transparent;
     border-top: 1px solid #cbcee8;
+    z-index:9999;
+    position:relative;
 }
 
 .footer .social ul li {
