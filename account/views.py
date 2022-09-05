@@ -2,7 +2,7 @@ import json
 import urllib.request
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm, CollabDocForm
+from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm, CollabDocForm, DocUpdateForm
 from .models import Collab, Researcher, Notification, Report, CollabDoc
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
@@ -37,15 +37,18 @@ def join(request):
             else:
                 form.save()
 
-                send_mail(
-                    'Create Account',
-                    'Please follow the link www.etal.qwikgas.ai/join/' + str(first_username) + ' to create an account',
-                    'admin@qwikgas.ai',
-                    [first_username],
-                    fail_silently=False,
-                    #html_message = render_to_string('home/home1.html')
-                )
-                messages.info(request, "Please check your inbox")
+                try:
+                    send_mail(
+                        'Create Account',
+                        'Please follow the link www.etal.qwikgas.ai/join/' + str(first_username) + ' to create an account',
+                        'admin@qwikgas.ai',
+                        [first_username],
+                        fail_silently=False,
+                        #html_message = render_to_string('home/home1.html')
+                    )
+                    messages.info(request, "Please check your inbox")
+                except:
+                    messages.info(request, "Please enter a valid institution email address")
         else:
             return redirect('join')
     return render(request, 'account/join.html', {'form': form})
@@ -260,19 +263,34 @@ def uploadDoc(request):
     if request.method == 'POST':
         form = CollabDocForm(request.POST, request.FILES, None)
         if form.is_valid():
-            document = form.cleaned_data.get('document')
+            raw = form.cleaned_data.get('document')
+            document = str(raw)
 
             length = len(document)
             sub3 = length-3
             last3 = document[sub3:length+1]
             lower_last3 = last3.lower()
 
-            if lower_last3 == "png" or lower_last3:
-                form.save(commit=False).type=Image
-
-
-
-
+            if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
+                form.save(commit=False).type="Image"
+            elif lower_last3=="mp3" or lower_last3=="amr":
+                form.save(commit=False).type="Audio"
+            elif lower_last3=="ocx" or lower_last3=="doc":
+                form.save(commit=False).type="Word"
+            elif lower_last3=="mp4":
+                form.save(commit=False).type="Video"
+            elif lower_last3=="csv":
+                form.save(commit=False).type="CSV"
+            elif lower_last3=="lsx":
+                form.save(commit=False).type="Excel"
+            elif lower_last3=="pdf":
+                form.save(commit=False).type="PDF"
+            elif lower_last3=="svg":
+                form.save(commit=False).type="SVG"
+            elif lower_last3=="zip":
+                form.save(commit=False).type="Zip"
+            else:
+                form.save(commit=False).type=last3.upper()
             form.save(commit=False).shared_by=request.user
             form.save()
             messages.info(request, "The document has been uploaded successfully")
@@ -359,6 +377,18 @@ def updateCollab(request, id):
             messages.info(request, "The collab has been updated successfully")
             return redirect('collab')
     return render(request, 'account/update_collab.html', {'form': form, 'collab':collab})
+
+@login_required
+def updateDoc(request, id):
+    doc = CollabDoc.objects.get(id=id)
+    form = DocUpdateForm(instance=doc)
+    if request.method=='POST':
+        form = DocUpdateForm(request.POST, instance=doc)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "The document has been renamed successfully")
+            return redirect('collab_docs')
+    return render(request, 'account/update_doc.html', {'form': form, 'doc':doc})
 
 @login_required
 def deleteCollab(request, id):

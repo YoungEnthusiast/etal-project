@@ -82,3 +82,8 @@ class CollabDocForm(forms.ModelForm):
     class Meta:
         model = CollabDoc
         fields = ['name', 'document']
+
+class DocUpdateForm(forms.ModelForm):
+    class Meta:
+        model = CollabDoc
+        fields = ['name']
