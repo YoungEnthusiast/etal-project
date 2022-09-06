@@ -229,12 +229,12 @@ def showCollabs(request):
     return render(request, 'account/all_collabs.html', context)
 
 @login_required
-def showCollabDocs(request, id):
-    collab = Collab.objects.get(id=id)
+def showCollabDocs(request, id1):
+    collab = Collab.objects.get(id=id1)
     context = {}
     filtered_collab_docs = CollabDocFilter(
         request.GET,
-        queryset = CollabDoc.objects.filter(doc_collaborators=request.user, collab_id=id)
+        queryset = CollabDoc.objects.filter(doc_collaborators=request.user, collab_id=id1)
     )
     context['filtered_collab_docs'] = filtered_collab_docs
     paginated_filtered_collab_docs = Paginator(filtered_collab_docs.qs, 99)
@@ -259,51 +259,6 @@ def createCollab(request):
         else:
             messages.error(request, "Please review form input fields below")
     return render(request, 'account/create_collab.html', {'form':form})
-
-def uploadDoc(request):
-    form = CollabDocForm()
-    if request.method == 'POST':
-        form = CollabDocForm(request.POST, request.FILES, None)
-        if form.is_valid():
-            raw = form.cleaned_data.get('document')
-            document = str(raw)
-
-            length = len(document)
-            sub3 = length-3
-            last3 = document[sub3:length+1]
-            lower_last3 = last3.lower()
-
-            if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
-                form.save(commit=False).type="Image"
-            elif lower_last3=="mp3" or lower_last3=="amr":
-                form.save(commit=False).type="Audio"
-            elif lower_last3=="ocx" or lower_last3=="doc":
-                form.save(commit=False).type="Word"
-            elif lower_last3=="mp4":
-                form.save(commit=False).type="Video"
-            elif lower_last3=="csv":
-                form.save(commit=False).type="CSV"
-            elif lower_last3=="lsx":
-                form.save(commit=False).type="Excel"
-            elif lower_last3=="pdf":
-                form.save(commit=False).type="PDF"
-            elif lower_last3=="svg":
-                form.save(commit=False).type="SVG"
-            elif lower_last3=="zip":
-                form.save(commit=False).type="Zip"
-            else:
-                form.save(commit=False).type=last3.upper()
-            form.save(commit=False).shared_by=request.user
-            form.save()
-
-
-
-
-            messages.info(request, "The document has been uploaded successfully")
-            return redirect('upload_doc')
-        else:
-            messages.error(request, "Please review form input fields below")
-    return render(request, 'account/upload_doc.html', {'form':form})
 
 @login_required
 def showResearcherProfile(request, **kwargs):
@@ -385,8 +340,108 @@ def updateCollab(request, id):
     return render(request, 'account/update_collab.html', {'form': form, 'collab':collab})
 
 @login_required
-def updateDoc(request, id):
-    doc = CollabDoc.objects.get(id=id)
+def deleteCollab(request, id):
+    collab = Collab.objects.get(id=id)
+    obj = get_object_or_404(Collab, id=id)
+    if request.method =="POST":
+        obj.delete()
+        messages.info(request, "The collab has been deleted successfully")
+        return redirect('collab')
+    return render(request, 'account/collab_confirm_delete.html', {'collab':collab})
+
+# @login_required
+# def deleteDoc(request, id):
+#     doc = CollabDoc.objects.get(id=id)
+#     obj = get_object_or_404(CollabDoc, id=id)
+#     if request.method =="POST":
+#         obj.delete()
+#         messages.info(request, "The document has been deleted successfully")
+#         return redirect('collab_docs')
+#     return render(request, 'account/doc_confirm_delete.html', {'doc':doc})
+
+@login_required
+def deleteAllDocs(request, id1, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    docs = CollabDoc.objects.filter(is_selected=request.user, shared_by=request.user)
+    if request.method =="POST":
+        for each in docs:
+            each.delete()
+        messages.info(request, "Deleted successfully")
+        return redirect('collab_docs', id1)
+
+    return render(request, 'account/docs_confirm_delete.html', {'docs':docs, 'collab':collab})
+
+def uploadDoc(request, id1, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    form = CollabDocForm()
+    if request.method == 'POST':
+        form = CollabDocForm(request.POST, request.FILES, None)
+        if form.is_valid():
+            raw = form.cleaned_data.get('document')
+            document = str(raw)
+
+            length = len(document)
+            sub3 = length-3
+            last3 = document[sub3:length+1]
+            lower_last3 = last3.lower()
+
+            if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
+                form.save(commit=False).type="Image"
+            elif lower_last3=="mp3" or lower_last3=="amr":
+                form.save(commit=False).type="Audio"
+            elif lower_last3=="ocx" or lower_last3=="doc":
+                form.save(commit=False).type="Word"
+            elif lower_last3=="mp4":
+                form.save(commit=False).type="Video"
+            elif lower_last3=="csv":
+                form.save(commit=False).type="CSV"
+            elif lower_last3=="lsx":
+                form.save(commit=False).type="Excel"
+            elif lower_last3=="pdf":
+                form.save(commit=False).type="PDF"
+            elif lower_last3=="svg":
+                form.save(commit=False).type="SVG"
+            elif lower_last3=="zip":
+                form.save(commit=False).type="Zip"
+            else:
+                form.save(commit=False).type=last3.upper()
+            form.save(commit=False).shared_by=request.user
+            form.save(commit=False).collab=collab
+            form.save()
+            reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+            reg.doc_collaborators.add(request.user)
+            for person in collab.collaborators.all():
+                reg.doc_collaborators.add(person)
+            reg.save()
+
+
+
+            messages.info(request, "The document has been uploaded successfully")
+            return redirect('collab_docs', id1)
+        else:
+            messages.error(request, "Please review form input fields below")
+    return render(request, 'account/upload_doc.html', {'form':form, 'collab':collab})
+
+@login_required
+def selectDoc(request, id1, id2, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    doc = CollabDoc.objects.get(id=id2)
+    doc.is_selected.add(request.user)
+    doc.save()
+    return redirect('collab_docs', id1)
+
+@login_required
+def deselectDoc(request, id1, id2, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    doc = CollabDoc.objects.get(id=id2)
+    doc.is_selected.remove(request.user)
+    doc.save()
+    return redirect('collab_docs', id1)
+
+@login_required
+def updateDoc(request, id1, id2, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    doc = CollabDoc.objects.get(id=id2)
     form = DocUpdateForm(instance=doc)
     if request.method=='POST':
         form = DocUpdateForm(request.POST, instance=doc)
@@ -397,68 +452,12 @@ def updateDoc(request, id):
             else:
                 messages.info(request, "You are not authorized to rename the document")
 
-            return redirect('collab_docs')
-    return render(request, 'account/update_doc.html', {'form': form, 'doc':doc})
+            return redirect('collab_docs', id1)
+    return render(request, 'account/update_doc.html', {'form': form, 'doc':doc, 'collab':collab})
 
 @login_required
-def deleteCollab(request, id):
-    collab = Collab.objects.get(id=id)
-    obj = get_object_or_404(Collab, id=id)
-    if request.method =="POST":
-        obj.delete()
-        messages.info(request, "The collab has been deleted successfully")
-        return redirect('collab')
-    return render(request, 'account/collab_confirm_delete.html', {'collab':collab})
-
-@login_required
-def deleteDoc(request, id):
-    doc = CollabDoc.objects.get(id=id)
-    obj = get_object_or_404(CollabDoc, id=id)
-    if request.method =="POST":
-        obj.delete()
-        messages.info(request, "The document has been deleted successfully")
-        return redirect('collab_docs')
-    return render(request, 'account/doc_confirm_delete.html', {'doc':doc})
-
-# @login_required
-# def deleteAllDocs(request):
-#     docs = CollabDoc.objects.filter(is_selected=True)
-#
-#     for each in docs:
-#         each.delete()
-#     messages.info(request, "The documents have been deleted successfully")
-#     return redirect('collab_docs')
-#
-#     return render(request, 'account/docs_confirm_delete.html', {'docs':docs})
-
-@login_required
-def deleteAllDocs(request):
-    docs = CollabDoc.objects.filter(is_selected=request.user, shared_by=request.user)
-    if request.method =="POST":
-        for each in docs:
-            each.delete()
-        messages.info(request, "Deleted successfully")
-        return redirect('collab_docs')
-
-    return render(request, 'account/docs_confirm_delete.html', {'docs':docs})
-
-@login_required
-def selectDoc(request, id):
-    doc = CollabDoc.objects.get(id=id)
-    doc.is_selected.add(request.user)
-    doc.save()
-    return redirect('collab_docs')
-
-@login_required
-def deselectDoc(request, id):
-    doc = CollabDoc.objects.get(id=id)
-    doc.is_selected.remove(request.user)
-    doc.save()
-    return redirect('collab_docs')
-
-@login_required
-def showCollabInitiated(request, id, **kwargs):
-    collab = Collab.objects.get(id=id)
+def showCollabInitiated(request, id1, **kwargs):
+    collab = Collab.objects.get(id=id1)
     counter = 0
     for person in collab.collaborators.all():
         counter += 1

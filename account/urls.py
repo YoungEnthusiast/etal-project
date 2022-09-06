@@ -19,15 +19,18 @@ urlpatterns = [
     path('collab/view/<str:id>/update', views.updateCollab, name='update_collab'),
     path('collab/view/<str:id>/delete', views.deleteCollab, name='delete_collab'),
 
-    path('collab/view-initiated/<str:id>/', views.showCollabInitiated, name='show_collab_initiated'),
-    path('collab/view-initiated/<str:id>/collab-docs', views.showCollabDocs, name='collab_docs'),
+    path('collab/view-initiated/<str:id1>/', views.showCollabInitiated, name='show_collab_initiated'),
+    path('collab/view-initiated/<str:id1>/collab-docs', views.showCollabDocs, name='collab_docs'),
 
-    path('initiated-collabs/collab-docs/select/<str:id>', views.selectDoc, name='select_doc'),
-    path('initiated-collabs/collab-docs/deselect/<str:id>', views.deselectDoc, name='deselect_doc'),
-    path('initiated-collabs/collab-docs/update/<str:id>', views.updateDoc, name='update_doc'),
-    path('initiated-collabs/collab-docs/delete/<str:id>', views.deleteDoc, name='delete_doc'),
-    path('initiated-collabs/collab-docs/delete-all', views.deleteAllDocs, name='delete_all_docs'),
-    path('initiated-collabs/collab-docs/upload-doc', views.uploadDoc, name='upload_doc'),
+    path('collab/view-initiated/<str:id1>/collab-docs/select/<str:id2>', views.selectDoc, name='select_doc'),
+    path('collab/view-initiated/<str:id1>/collab-docs/deselect/<str:id2>', views.deselectDoc, name='deselect_doc'),
+    path('collab/view-initiated/<str:id1>/collab-docs/update/<str:id2>', views.updateDoc, name='update_doc'),
+    path('collab/view-initiated/<str:id1>/collab-docs/delete-all', views.deleteAllDocs, name='delete_all_docs'),
+    path('collab/view-initiated/<str:id1>/upload-doc', views.uploadDoc, name='upload_doc'),
+
+
+    # path('initiated-collabs/collab-docs/delete/<str:id>', views.deleteDoc, name='delete_doc'),
+    # path('initiated-collabs/collab-docs/upload-doc', views.uploadDoc, name='upload_doc'),
 
     path('collab/view-initiated/<str:id>/removed/<str:username>', views.removeCollab, name='remove_collab'),
     path('collab/view-initiated/<str:id>/reported/<str:username>', views.reportCollaborator, name='report_collaborator'),
