@@ -152,9 +152,12 @@ class Report(models.Model):
             return str(self.id)
 
 class CollabDoc(models.Model):
+    collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_collab_doc")
     shared_by = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=255, null=True, blank=True)
     document = models.FileField(upload_to='collab_documents/')
+    is_selected = models.ManyToManyField(Researcher, blank=True, related_name="is_selected")
+    doc_collaborators = models.ManyToManyField(Researcher, blank=True, related_name="doc_collaborators")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

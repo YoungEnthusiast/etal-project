@@ -47,18 +47,16 @@
                             <div class="float-right text-right">
                               <div class="card-options">
                                 <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
+                                {% for doc in collab_docs_page_obj %}
+                                {% if request.user in doc.is_selected.all %}
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                  <li><a href="#"><i class="fa fa-plus mr-2"></i>Add</a></li>
-                                  <li><a href="#"><i class="fa fa-trash mr-2"></i>Remove</a></li>
-                                  <li><a href="#"><i class="fa fa-eye mr-2"></i>View</a></li>
-                                  <li><a href="#"><i class="fa fa-settings mr-2"></i>More</a></li>
+                                  <li><a href="collab-docs/delete-all"><i class="fa fa-trash mr-2"></i>Delete Selected</a></li>
                                 </ul>
+                                {% endif %}
+                                {% endfor %}
                               </div>
                             </div>
                           </div>
-
-
-
 
                         </div>
                         <div class="card-body">
@@ -70,28 +68,47 @@
                                   <th>Date</th>
                                   <th>Type</th>
                                   <th>Shared by</th>
-                                  <th></th>
+                                  <th>Selected</th>
                                   <th></th>
                                 </tr>
                               </thead>
                               <tbody>
                                 {% for doc in collab_docs_page_obj %}
-                                <tr>
-                                  <td>{{doc.name}}</td>
-                                  <td class="num-font">{{doc.created}}</td>
-                                  <td class="num-font">{{doc.type}}</td>
-                                  <td class="num-font">{{doc.shared_by}}</td>
-                                  <td></td>
+                                {% if request.user in doc.is_selected.all %}
+                                <tr class="bg-info">
+                                  <td><a class="text-white" href="collab-docs/deselect/{{doc.id}}">{{doc.name}}</a></td>
+                                  <td class="num-font"><a class="text-white" href="collab-docs/deselect/{{doc.id}}">{{doc.created}}</a></td>
+                                  <td class="num-font"><a class="text-white" href="collab-docs/deselect/{{doc.id}}">{{doc.type}}</a></td>
+                                  <td class="num-font"><a class="text-white" href="collab-docs/deselect/{{doc.id}}">{{doc.shared_by}}</a></td>
+                                  <td class="text-center"><a class="text-white" href="collab-docs/deselect/{{doc.id}}"><i class="fa fa-check-circle"></i></a></td>
                                   <td>
                                     <div class="card-options">
                                       <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
                                       <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <li><a href="collab-docs/update/{{doc.id}}"><i class="fa fa-edit mr-2"></i>Rename</a></li>
+                                        <li>{% if doc.shared_by == request.user %} <a href="collab-docs/update/{{doc.id}}"><i class="fa fa-edit mr-2"></i>Rename</a> {% else %} {% endif %}</li>
                                         <li><a href="{{doc.document.url}}" download><i class="fa fa-download mr-2"></i>Download</a></li>
                                       </ul>
                                     </div>
                                   </td>
                                 </tr>
+                                {% else %}
+                                <tr>
+                                  <td><a href="collab-docs/select/{{doc.id}}">{{doc.name}}</a></td>
+                                  <td class="num-font"><a href="collab-docs/select/{{doc.id}}">{{doc.created}}</a></td>
+                                  <td class="num-font"><a href="collab-docs/select/{{doc.id}}">{{doc.type}}</a></td>
+                                  <td class="num-font"><a href="collab-docs/select/{{doc.id}}">{{doc.shared_by}}</a></td>
+                                  <td class="text-center"></td>
+                                  <td>
+                                    <div class="card-options">
+                                      <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
+                                      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <li>{% if doc.shared_by == request.user %} <a href="collab-docs/update/{{doc.id}}"><i class="fa fa-edit mr-2"></i>Rename</a> {% else %} {% endif %}</li>
+                                        <li><a href="{{doc.document.url}}" download><i class="fa fa-download mr-2"></i>Download</a></li>
+                                      </ul>
+                                    </div>
+                                  </td>
+                                </tr>
+                                {% endif %}
                                 {% endfor %}
                               </tbody>
                             </table>

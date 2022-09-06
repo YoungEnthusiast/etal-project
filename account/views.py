@@ -229,11 +229,12 @@ def showCollabs(request):
     return render(request, 'account/all_collabs.html', context)
 
 @login_required
-def showCollabDocs(request):
+def showCollabDocs(request, id):
+    collab = Collab.objects.get(id=id)
     context = {}
     filtered_collab_docs = CollabDocFilter(
         request.GET,
-        queryset = CollabDoc.objects.all()
+        queryset = CollabDoc.objects.filter(doc_collaborators=request.user, collab_id=id)
     )
     context['filtered_collab_docs'] = filtered_collab_docs
     paginated_filtered_collab_docs = Paginator(filtered_collab_docs.qs, 99)
@@ -242,6 +243,7 @@ def showCollabDocs(request):
     context['collab_docs_page_obj'] = collab_docs_page_obj
     total_collab_docs = filtered_collab_docs.qs.count()
     context['total_collab_docs'] = total_collab_docs
+    context['collab'] = collab
 
     return render(request, 'account/collab_docs.html', context)
 
@@ -293,6 +295,10 @@ def uploadDoc(request):
                 form.save(commit=False).type=last3.upper()
             form.save(commit=False).shared_by=request.user
             form.save()
+
+
+
+
             messages.info(request, "The document has been uploaded successfully")
             return redirect('upload_doc')
         else:
@@ -326,14 +332,14 @@ def researcherChangePassword(request):
             user = request.user
             name = user.first_name
             email = user.email
-            # send_mail(
-            #     'Password Changed!',
-            #     'Dear ' + str(name) + ', your password has just been changed. If this activity was not carried out by you, please reply to this email',
-            #     'yustaoab@gmail.com',
-            #     [email],
-            #     fail_silently=False,
-            #     html_message = render_to_string('users/change_password_email.html', {'name': str(name)})
-            # )
+            send_mail(
+                'Password Changed!',
+                'Dear ' + str(name) + ', your password has just been changed. If this activity was not carried out by you, please reply to this email',
+                'admin@qwikgas.ai',
+                [email],
+                fail_silently=False,
+                # html_message = render_to_string('users/change_password_email.html', {'name': str(name)})
+            )
             messages.info(request, "Your password has been changed successfully")
             return redirect('researcher_profile')
     else:
@@ -385,8 +391,12 @@ def updateDoc(request, id):
     if request.method=='POST':
         form = DocUpdateForm(request.POST, instance=doc)
         if form.is_valid():
-            form.save()
-            messages.info(request, "The document has been renamed successfully")
+            if doc.shared_by==request.user:
+                form.save()
+                messages.info(request, "The document has been renamed successfully")
+            else:
+                messages.info(request, "You are not authorized to rename the document")
+
             return redirect('collab_docs')
     return render(request, 'account/update_doc.html', {'form': form, 'doc':doc})
 
@@ -399,6 +409,52 @@ def deleteCollab(request, id):
         messages.info(request, "The collab has been deleted successfully")
         return redirect('collab')
     return render(request, 'account/collab_confirm_delete.html', {'collab':collab})
+
+@login_required
+def deleteDoc(request, id):
+    doc = CollabDoc.objects.get(id=id)
+    obj = get_object_or_404(CollabDoc, id=id)
+    if request.method =="POST":
+        obj.delete()
+        messages.info(request, "The document has been deleted successfully")
+        return redirect('collab_docs')
+    return render(request, 'account/doc_confirm_delete.html', {'doc':doc})
+
+# @login_required
+# def deleteAllDocs(request):
+#     docs = CollabDoc.objects.filter(is_selected=True)
+#
+#     for each in docs:
+#         each.delete()
+#     messages.info(request, "The documents have been deleted successfully")
+#     return redirect('collab_docs')
+#
+#     return render(request, 'account/docs_confirm_delete.html', {'docs':docs})
+
+@login_required
+def deleteAllDocs(request):
+    docs = CollabDoc.objects.filter(is_selected=request.user, shared_by=request.user)
+    if request.method =="POST":
+        for each in docs:
+            each.delete()
+        messages.info(request, "Deleted successfully")
+        return redirect('collab_docs')
+
+    return render(request, 'account/docs_confirm_delete.html', {'docs':docs})
+
+@login_required
+def selectDoc(request, id):
+    doc = CollabDoc.objects.get(id=id)
+    doc.is_selected.add(request.user)
+    doc.save()
+    return redirect('collab_docs')
+
+@login_required
+def deselectDoc(request, id):
+    doc = CollabDoc.objects.get(id=id)
+    doc.is_selected.remove(request.user)
+    doc.save()
+    return redirect('collab_docs')
 
 @login_required
 def showCollabInitiated(request, id, **kwargs):

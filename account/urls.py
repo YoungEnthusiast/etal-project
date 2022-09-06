@@ -20,22 +20,26 @@ urlpatterns = [
     path('collab/view/<str:id>/delete', views.deleteCollab, name='delete_collab'),
 
     path('collab/view-initiated/<str:id>/', views.showCollabInitiated, name='show_collab_initiated'),
+    path('collab/view-initiated/<str:id>/collab-docs', views.showCollabDocs, name='collab_docs'),
+
+    path('initiated-collabs/collab-docs/select/<str:id>', views.selectDoc, name='select_doc'),
+    path('initiated-collabs/collab-docs/deselect/<str:id>', views.deselectDoc, name='deselect_doc'),
+    path('initiated-collabs/collab-docs/update/<str:id>', views.updateDoc, name='update_doc'),
+    path('initiated-collabs/collab-docs/delete/<str:id>', views.deleteDoc, name='delete_doc'),
+    path('initiated-collabs/collab-docs/delete-all', views.deleteAllDocs, name='delete_all_docs'),
+    path('initiated-collabs/collab-docs/upload-doc', views.uploadDoc, name='upload_doc'),
+
     path('collab/view-initiated/<str:id>/removed/<str:username>', views.removeCollab, name='remove_collab'),
     path('collab/view-initiated/<str:id>/reported/<str:username>', views.reportCollaborator, name='report_collaborator'),
     path('collab/view-accepted/<str:id>/remove-requested/<str:username>', views.requestRemoveCollab, name='request_remove_collab'),
     path('collab/view-accepted/<str:id>/', views.showCollabAccepted, name='show_collab_accepted'),
     path('collab/view-accepted/<str:id>/reported', views.reportResearcher, name='report_researcher'),
-
     path('collab/view-accepted/<str:id>/left/<str:username>', views.leaveCollab, name='leave_collab'),
     path('collab/view-initiated/<str:id>/leave-accepted/<str:username>', views.acceptLeaveCollab, name='accept_leave_collab'),
     path('collab/view/<str:id>/offered/<str:username>', views.offerCollab, name='offer_collab'),
     path('collab/view/<str:id>/declined/<str:username>', views.declineCollab, name='decline_collab'),
-
     path('collabs', views.collabs, name='collabs'),
     path('initiated-collabs', views.initiatedCollabs, name='initiated_collabs'),
-    path('initiated-collabs/collab-docs', views.showCollabDocs, name='collab_docs'),
-    path('initiated-collabs/collab-docs/update/<str:id>', views.updateDoc, name='update_doc'),
-    path('initiated-collabs/collab-docs/upload-doc', views.uploadDoc, name='upload_doc'),
     path('accepted-collabs', views.acceptedCollabs, name='accepted_collabs'),
     path('bell-notification', views.clearUnreads, name='bell_notification'),
     path('bell-notifications', views.showBellNotifications, name='bell_notifications'),
@@ -45,7 +49,6 @@ urlpatterns = [
     path('collab/undo-interest/<int:id>', views.undoInterestCollab, name='undo_interest_collab'),
     path('logout/', views.logoutRequest, name='logout'),
     path('login/', views.loginRequest, name='login'),
-
     path('reset-password', auth_views.PasswordResetView.as_view(template_name='account/reset_password.html'), name='reset_password'),
     path('reset-password-sent', auth_views.PasswordResetDoneView.as_view(template_name='account/password_reset_sent.html'), name='password_reset_done'),
     path('reset-password/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='account/password_reset_form.html'), name='password_reset_confirm'),

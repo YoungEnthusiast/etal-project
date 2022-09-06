@@ -20,13 +20,13 @@
           <div class="d-flex justify-content-center">
             <div class="text-center card bg-info text-white form-group col-md-9">
               <br>
-                {% if collab.researcher == request.user and collab.is_locked == False %}
-                <h4 > <span class="text-red">CAUTION!</span> Deleting {{collab.title}} will affect all the information associated with the collab. Do you still wish to continue?</h4>
+                {% if doc.shared_by == request.user %}
+                <h4 > <span class="text-red">CAUTION!</span> Deleting {{doc.name}} will affect all the information associated with the document. Do you still wish to continue?</h4>
                 <br>
                 <form method="post">
                   {% csrf_token %}
                   {{ form|crispy }}
-                  <input type="submit" class="btn btn-danger" value="Yes, confirm"> <a class="btn btn-outline-light" href="{% url 'collab' %}">No, cancel</a>
+                  <input type="submit" class="btn btn-danger" value="Yes, confirm"> <a class="btn btn-outline-light" href="{% url 'collab_docs' %}">No, cancel</a>
                 </form>
                 {% else %}
                 <h2 class="text-center">Access Restricted</h2>

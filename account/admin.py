@@ -78,7 +78,7 @@ class CollabDocAdmin(admin.ModelAdmin):
     list_display = ['name', 'type', 'document', 'shared_by']
     search_fields = []
     # list_filter = ['status']
-    # list_display_links = ['email']
+    list_editable = []
     list_per_page = 100
 
 admin.site.register(CollabDoc, CollabDocAdmin)

@@ -7,11 +7,6 @@ from django.db.models import Q
 # from django.forms.widgets import NumberInput
 # from django.forms.widgets import TextInput
 class CustomRegisterForm(UserCreationForm):
-    def clean_username(self):
-       username = self.cleaned_data.get('username')
-       if Researcher.objects.filter(username=username).exists():
-           raise ValidationError("A user with the supplied email already exists")
-       return username
     class Meta:
         model = Researcher
         fields = ['first_name', 'last_name', 'affiliation_name', 'password1', 'password2']
