@@ -381,57 +381,76 @@ def deleteAllDocsInitiated(request, id1, **kwargs):
     else:
         return redirect('collab')
 
-
-def uploadDoc(request, id1, **kwargs):
+@login_required
+def deleteAllDocsAccepted(request, id1, **kwargs):
     collab = Collab.objects.get(id=id1)
-    form = CollabDocForm()
-    if request.method == 'POST':
-        form = CollabDocForm(request.POST, request.FILES, None)
-        if form.is_valid():
-            raw = form.cleaned_data.get('document')
-            document = str(raw)
-
-            length = len(document)
-            sub3 = length-3
-            last3 = document[sub3:length+1]
-            lower_last3 = last3.lower()
-
-            if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
-                form.save(commit=False).type="Image"
-            elif lower_last3=="mp3" or lower_last3=="amr":
-                form.save(commit=False).type="Audio"
-            elif lower_last3=="ocx" or lower_last3=="doc":
-                form.save(commit=False).type="Word"
-            elif lower_last3=="mp4":
-                form.save(commit=False).type="Video"
-            elif lower_last3=="csv":
-                form.save(commit=False).type="CSV"
-            elif lower_last3=="lsx":
-                form.save(commit=False).type="Excel"
-            elif lower_last3=="pdf":
-                form.save(commit=False).type="PDF"
-            elif lower_last3=="svg":
-                form.save(commit=False).type="SVG"
-            elif lower_last3=="zip":
-                form.save(commit=False).type="Zip"
-            else:
-                form.save(commit=False).type=last3.upper()
-            form.save(commit=False).shared_by=request.user
-            form.save(commit=False).collab=collab
-            form.save()
-            reg = CollabDoc.objects.filter(shared_by=request.user)[0]
-            reg.doc_collaborators.add(request.user)
-            for person in collab.collaborators.all():
-                reg.doc_collaborators.add(person)
-            reg.save()
-
-
-
-            messages.info(request, "The document has been uploaded successfully")
-            return redirect('collab_docs', id1)
+    if request.user in collab.collaborators.all():
+        docs = CollabDoc.objects.filter(is_selected=request.user, shared_by=request.user, collab=collab)
+        if docs.count() >= 1:
+            if request.method =="POST":
+                for each in docs:
+                    each.delete()
+                messages.info(request, "Deleted successfully")
+                return redirect('collab_docs_accepted', id1)
         else:
-            messages.error(request, "Please review form input fields below")
-    return render(request, 'account/upload_doc.html', {'form':form, 'collab':collab})
+            messages.info(request, "You are not authorised")
+            return redirect('collab_docs_accepted', id1)
+
+        return render(request, 'account/docs_confirm_delete_accepted.html', {'docs':docs, 'collab':collab})
+    else:
+        return redirect('collab')
+
+def uploadDocInitiated(request, id1, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    if collab.researcher == request.user:
+        form = CollabDocForm()
+        if request.method == 'POST':
+            form = CollabDocForm(request.POST, request.FILES, None)
+            if form.is_valid():
+                raw = form.cleaned_data.get('document')
+                document = str(raw)
+
+                length = len(document)
+                sub3 = length-3
+                last3 = document[sub3:length+1]
+                lower_last3 = last3.lower()
+
+                if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
+                    form.save(commit=False).type="Image"
+                elif lower_last3=="mp3" or lower_last3=="amr":
+                    form.save(commit=False).type="Audio"
+                elif lower_last3=="ocx" or lower_last3=="doc":
+                    form.save(commit=False).type="Word"
+                elif lower_last3=="mp4":
+                    form.save(commit=False).type="Video"
+                elif lower_last3=="csv":
+                    form.save(commit=False).type="CSV"
+                elif lower_last3=="lsx":
+                    form.save(commit=False).type="Excel"
+                elif lower_last3=="pdf":
+                    form.save(commit=False).type="PDF"
+                elif lower_last3=="svg":
+                    form.save(commit=False).type="SVG"
+                elif lower_last3=="zip":
+                    form.save(commit=False).type="Zip"
+                else:
+                    form.save(commit=False).type=last3.upper()
+                form.save(commit=False).shared_by=request.user
+                form.save(commit=False).collab=collab
+                form.save()
+                reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+                reg.doc_collaborators.add(request.user)
+                for person in collab.collaborators.all():
+                    reg.doc_collaborators.add(person)
+                reg.save()
+
+                messages.info(request, "The document has been uploaded successfully")
+                return redirect('collab_docs_initiated', id1)
+            else:
+                messages.error(request, "Please review form input fields below")
+        return render(request, 'account/upload_doc.html', {'form':form, 'collab':collab})
+    else:
+        return redirect('collab')
 
 @login_required
 def selectDocInitiated(request, id1, id2, **kwargs):
@@ -445,6 +464,17 @@ def selectDocInitiated(request, id1, id2, **kwargs):
         return('redirect')
 
 @login_required
+def selectDocAccepted(request, id1, id2, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    if request.user in collab.collaborators.all():
+        doc = CollabDoc.objects.get(id=id2)
+        doc.is_selected.add(request.user)
+        doc.save()
+        return redirect('collab_docs_accepted', id1)
+    else:
+        return('redirect')
+
+@login_required
 def deselectDocInitiated(request, id1, id2, **kwargs):
     collab = Collab.objects.get(id=id1)
     if collab.researcher == request.user:
@@ -452,6 +482,17 @@ def deselectDocInitiated(request, id1, id2, **kwargs):
         doc.is_selected.remove(request.user)
         doc.save()
         return redirect('collab_docs_initiated', id1)
+    else:
+        return('redirect')
+
+@login_required
+def deselectDocAccepted(request, id1, id2, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    if request.user in collab.collaborators.all():
+        doc = CollabDoc.objects.get(id=id2)
+        doc.is_selected.remove(request.user)
+        doc.save()
+        return redirect('collab_docs_accepted', id1)
     else:
         return('redirect')
 
@@ -564,258 +605,277 @@ def interestCollab(request, id):
 @login_required
 def lockCollab(request, id):
     collab = Collab.objects.get(id=id)
-    collab.is_locked = True
-    collab.locked_date = datetime.now()
-    collab.save()
-    messages.info(request, "The collab has been locked sucessfully")
-    return redirect('collab')
+    if collab.researcher == request.user:
+        collab.is_locked = True
+        collab.locked_date = datetime.now()
+        collab.save()
+        messages.info(request, "The collab has been locked sucessfully")
+        return redirect('collab')
+    else:
+        return redirect('collab')
+
 
 @login_required
 def unlockCollab(request, id):
     collab = Collab.objects.get(id=id)
-    collab.is_locked = False
-    collab.save()
-    messages.info(request, "The collab has been unlocked sucessfully")
-    return redirect('collab')
+    if collab.researcher:
+        collab.is_locked = False
+        collab.save()
+        messages.info(request, "The collab has been unlocked sucessfully")
+        return redirect('collab')
+    else:
+        return redirect('collab')
+
 
 @login_required
 def offerCollab(request, id, username):
     collab = Collab.objects.get(id=id)
-    for person in collab.interested_people.all():
-        if person.username == username:
-            # collab.interested_people.remove(person)
-            collab.collaborators.add(person)
-            entry = Notification()
-            entry.owner = person
-            entry.sender = request.user
-            entry.collab = collab
-            entry.message = "has allowed you to collaborate on"
-            try:
-                old_entry = Notification.objects.filter(owner=person)[0]
-                entry.unreads = old_entry.unreads + 1
-                placeholder = old_entry.unreads + 1
-            except:
-                entry.unreads = 1
-                placeholder = 1
-            entry.save()
-            reg = Researcher.objects.get(username=person.username)
-            reg.bell_unreads = placeholder
-            reg.save()
+    if collab.researcher == request.user:
+        for person in collab.interested_people.all():
+            if person.username == username:
+                # collab.interested_people.remove(person)
+                collab.collaborators.add(person)
+                entry = Notification()
+                entry.owner = person
+                entry.sender = request.user
+                entry.collab = collab
+                entry.message = "has allowed you to collaborate on"
+                try:
+                    old_entry = Notification.objects.filter(owner=person)[0]
+                    entry.unreads = old_entry.unreads + 1
+                    placeholder = old_entry.unreads + 1
+                except:
+                    entry.unreads = 1
+                    placeholder = 1
+                entry.save()
+                reg = Researcher.objects.get(username=person.username)
+                reg.bell_unreads = placeholder
+                reg.save()
 
-    messages.info(request, "The collab has been offered successfully")
-    collab.accepted_date = datetime.now()
-    collab.save()
-    return redirect('show_collab', id)
+        messages.info(request, "The collab has been offered successfully")
+        collab.accepted_date = datetime.now()
+        collab.save()
+        return redirect('show_collab', id)
+    else:
+        return redirect('collab')
 
 @login_required
 def declineCollab(request, id, username):
     collab = Collab.objects.get(id=id)
 
-    for person in collab.interested_people.all():
-        if person.username == username:
-            collab.interested_people.remove(person)
+    if collab.researcher == request.user:
+        for person in collab.interested_people.all():
+            if person.username == username:
+                collab.interested_people.remove(person)
 
-    for person in collab.collaborators.all():
-        if person.username == username:
-            collab.collaborators.remove(person)
+        for person in collab.collaborators.all():
+            if person.username == username:
+                collab.collaborators.remove(person)
 
-            entry = Notification()
-            entry.owner = person
-            entry.sender = request.user
-            entry.collab = collab
-            entry.message = "declined your collaboration on"
-            try:
-                old_entry = Notification.objects.filter(owner=person)[0]
-                entry.unreads = old_entry.unreads + 1
-                placeholder = old_entry.unreads + 1
-            except:
-                entry.unreads = 1
-                placeholder = 1
-            entry.save()
-            reg = Researcher.objects.get(username=person.username)
-            reg.bell_unreads = placeholder
-            reg.save()
+                entry = Notification()
+                entry.owner = person
+                entry.sender = request.user
+                entry.collab = collab
+                entry.message = "declined your collaboration on"
+                try:
+                    old_entry = Notification.objects.filter(owner=person)[0]
+                    entry.unreads = old_entry.unreads + 1
+                    placeholder = old_entry.unreads + 1
+                except:
+                    entry.unreads = 1
+                    placeholder = 1
+                entry.save()
+                reg = Researcher.objects.get(username=person.username)
+                reg.bell_unreads = placeholder
+                reg.save()
 
-    messages.info(request, "The collab has been declined successfully")
-    collab.save()
+        messages.info(request, "The collab has been declined successfully")
+        collab.save()
 
-    return redirect('show_collab', id)
+        return redirect('show_collab', id)
+    else:
+        return redirect('collab')
 
 @login_required
 def requestRemoveCollab(request, id, username):
     collab = Collab.objects.get(id=id)
 
-    # for person in collab.interested_people.all():
-    #     if person.username == username:
-    #         collab.interested_people.remove(person)
+    if request.user in collab.collaborators.all():
+        for person in collab.collaborators.all():
+            if person.username == username:
+                collab.request_removed_people.add(person)
 
-    for person in collab.collaborators.all():
-        if person.username == username:
-            collab.request_removed_people.add(person)
+                entry = Notification()
+                entry.owner = collab.researcher
+                entry.sender = person
+                entry.collab = collab
+                entry.message = "wants to be removed from"
+                try:
+                    old_entry = Notification.objects.filter(owner=collab.researcher)[0]
+                    entry.unreads = old_entry.unreads + 1
+                    placeholder = old_entry.unreads + 1
+                except:
+                    entry.unreads = 1
+                    placeholder = 1
+                entry.save()
+                reg = Researcher.objects.get(username=collab.researcher.username)
+                reg.bell_unreads = placeholder
+                reg.save()
 
-            entry = Notification()
-            entry.owner = collab.researcher
-            entry.sender = person
-            entry.collab = collab
-            entry.message = "wants to be removed from"
-            try:
-                old_entry = Notification.objects.filter(owner=collab.researcher)[0]
-                entry.unreads = old_entry.unreads + 1
-                placeholder = old_entry.unreads + 1
-            except:
-                entry.unreads = 1
-                placeholder = 1
-            entry.save()
-            reg = Researcher.objects.get(username=collab.researcher.username)
-            reg.bell_unreads = placeholder
-            reg.save()
+        messages.info(request, "The researcher has been notified")
+        collab.save()
 
-    messages.info(request, "The researcher has been notified")
-    collab.save()
-
-    return redirect('collab')
+        return redirect('collab')
+    else:
+        return redirect('collab')
 
 @login_required
 def removeCollab(request, id, username):
     collab = Collab.objects.get(id=id)
 
-    # for person in collab.interested_people.all():
-    #     if person.username == username:
-    #         collab.interested_people.remove(person)
+    if collab.researcher == request.user:
+        for person in collab.collaborators.all():
+            if person.username == username:
+                collab.removed_people.add(person)
 
-    for person in collab.collaborators.all():
-        if person.username == username:
-            collab.removed_people.add(person)
+                entry = Notification()
+                entry.owner = person
+                entry.sender = request.user
+                entry.collab = collab
+                entry.message = "sought your removal from"
+                try:
+                    old_entry = Notification.objects.filter(owner=person)[0]
+                    entry.unreads = old_entry.unreads + 1
+                    placeholder = old_entry.unreads + 1
+                except:
+                    entry.unreads = 1
+                    placeholder = 1
+                entry.save()
+                reg = Researcher.objects.get(username=person.username)
+                reg.bell_unreads = placeholder
+                reg.save()
 
-            entry = Notification()
-            entry.owner = person
-            entry.sender = request.user
-            entry.collab = collab
-            entry.message = "sought your removal from"
-            try:
-                old_entry = Notification.objects.filter(owner=person)[0]
-                entry.unreads = old_entry.unreads + 1
-                placeholder = old_entry.unreads + 1
-            except:
-                entry.unreads = 1
-                placeholder = 1
-            entry.save()
-            reg = Researcher.objects.get(username=person.username)
-            reg.bell_unreads = placeholder
-            reg.save()
+        messages.info(request, "The collaborator has been notified")
+        collab.save()
 
-    messages.info(request, "The collaborator has been notified")
-    collab.save()
-
-    return redirect('show_collab_initiated', id)
+        return redirect('show_collab_initiated', id)
+    else:
+        return redirect('collab')
 
 @login_required
 def reportCollaborator(request, id, username):
     collab = Collab.objects.get(id=id)
 
-    for person in collab.collaborators.all():
-        if person.username == username:
-            entry = Report()
-            entry.is_reported = True
-            entry.complainer = request.user
-            entry.collab = collab
-            entry.receiver = person
+    if collab.researcher == request.user:
+        for person in collab.collaborators.all():
+            if person.username == username:
+                entry = Report()
+                entry.is_reported = True
+                entry.complainer = request.user
+                entry.collab = collab
+                entry.receiver = person
+                entry.save()
+        messages.info(request, "The reporting has been sent to the admins")
 
-            entry.save()
-
-
-    messages.info(request, "The reporting has been sent to the admins")
-
-    return redirect('collab')
+        return redirect('collab')
+    else:
+        return redirect('collab')
 
 @login_required
 def reportResearcher(request, id):
     collab = Collab.objects.get(id=id)
-    entry = Report()
-    entry.is_reported = True
-    entry.complainer = request.user
-    entry.collab = collab
-    entry.receiver = collab.researcher
+    if request.user in collab.collaborators.all():
+        entry = Report()
+        entry.is_reported = True
+        entry.complainer = request.user
+        entry.collab = collab
+        entry.receiver = collab.researcher
 
-    entry.save()
+        entry.save()
 
-    messages.info(request, "The reporting has been sent to the admins")
+        messages.info(request, "The reporting has been sent to the admins")
 
-    return redirect('collab')
+        return redirect('collab')
+    else:
+        return redirect('collab')
 
 @login_required
 def leaveCollab(request, id, username):
     collab = Collab.objects.get(id=id)
+    if request.user in collab.collaborators.all():
+        for person in collab.interested_people.all():
+            if person.username == username:
+                collab.interested_people.remove(person)
 
-    for person in collab.interested_people.all():
-        if person.username == username:
-            collab.interested_people.remove(person)
+        for person in collab.collaborators.all():
+            if person.username == username:
+                collab.collaborators.remove(person)
 
-    for person in collab.collaborators.all():
-        if person.username == username:
-            collab.collaborators.remove(person)
+        for person in collab.removed_people.all():
+            if person.username == username:
+                collab.rollab.removed_people.remove(person)
 
-    for person in collab.removed_people.all():
-        if person.username == username:
-            collab.rollab.removed_people.remove(person)
-
-            entry = Notification()
-            entry.owner = person
-            entry.sender = request.user
-            entry.collab = collab
-            entry.message = "has left"
-            try:
-                old_entry = Notification.objects.filter(owner=person)[0]
-                entry.unreads = old_entry.unreads + 1
-                placeholder = old_entry.unreads + 1
-            except:
-                entry.unreads = 1
-                placeholder = 1
-            entry.save()
-            reg = Researcher.objects.get(username=person.username)
-            reg.bell_unreads = placeholder
-            reg.save()
-    messages.info(request, "You have successfully left and the researcher has been notified")
-    collab.save()
-    return redirect('collab')
+                entry = Notification()
+                entry.owner = person
+                entry.sender = request.user
+                entry.collab = collab
+                entry.message = "has left"
+                try:
+                    old_entry = Notification.objects.filter(owner=person)[0]
+                    entry.unreads = old_entry.unreads + 1
+                    placeholder = old_entry.unreads + 1
+                except:
+                    entry.unreads = 1
+                    placeholder = 1
+                entry.save()
+                reg = Researcher.objects.get(username=person.username)
+                reg.bell_unreads = placeholder
+                reg.save()
+        messages.info(request, "You have successfully left and the researcher has been notified")
+        collab.save()
+        return redirect('collab')
+    else:
+        return redirect('collab')
 
 @login_required
 def acceptLeaveCollab(request, id, username):
     collab = Collab.objects.get(id=id)
+    if collab.researcher == request.user:
+        for person in collab.interested_people.all():
+            if person.username == username:
+                collab.interested_people.remove(person)
 
-    for person in collab.interested_people.all():
-        if person.username == username:
-            collab.interested_people.remove(person)
+        for person in collab.collaborators.all():
+            if person.username == username:
+                collab.collaborators.remove(person)
 
-    for person in collab.collaborators.all():
-        if person.username == username:
-            collab.collaborators.remove(person)
+        for person in collab.request_removed_people.all():
+            if person.username == username:
+                collab.request_removed_people.remove(person)
 
-    for person in collab.request_removed_people.all():
-        if person.username == username:
-            collab.request_removed_people.remove(person)
+                entry = Notification()
+                entry.owner = person
+                entry.sender = request.user
+                entry.collab = collab
+                entry.message = "has granted your exit and removed you from"
+                try:
+                    old_entry = Notification.objects.filter(owner=person)[0]
+                    entry.unreads = old_entry.unreads + 1
+                    placeholder = old_entry.unreads + 1
+                except:
+                    entry.unreads = 1
+                    placeholder = 1
+                entry.save()
+                reg = Researcher.objects.get(username=person.username)
+                reg.bell_unreads = placeholder
+                reg.save()
 
-            entry = Notification()
-            entry.owner = person
-            entry.sender = request.user
-            entry.collab = collab
-            entry.message = "has granted your exit and removed you from"
-            try:
-                old_entry = Notification.objects.filter(owner=person)[0]
-                entry.unreads = old_entry.unreads + 1
-                placeholder = old_entry.unreads + 1
-            except:
-                entry.unreads = 1
-                placeholder = 1
-            entry.save()
-            reg = Researcher.objects.get(username=person.username)
-            reg.bell_unreads = placeholder
-            reg.save()
+        messages.info(request, "The collaborator has been removed successfully")
+        collab.save()
 
-    messages.info(request, "The collaborator has been removed successfully")
-    collab.save()
-
-    return redirect('show_collab_initiated', id)
+        return redirect('show_collab_initiated', id)
+    else:
+        return redirect('collab')
 
 @login_required
 def undoInterestCollab(request, id):

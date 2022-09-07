@@ -26,17 +26,20 @@ urlpatterns = [
     path('collab/view-initiated/<str:id1>/collab-docs/deselect/<str:id2>', views.deselectDocInitiated, name='deselect_doc_initiated'),
     path('collab/view-initiated/<str:id1>/collab-docs/update/<str:id2>', views.updateDocInitiated, name='update_doc_initiated'),
     path('collab/view-initiated/<str:id1>/collab-docs/delete-all', views.deleteAllDocsInitiated, name='delete_all_docs_initiated'),
-    path('collab/view-initiated/<str:id1>/upload-doc', views.uploadDoc, name='upload_doc'),
+    path('collab/view-initiated/<str:id1>/upload-doc', views.uploadDocInitiated, name='upload_doc_initiated'),
+
 
     path('collab/view-initiated/<str:id>/removed/<str:username>', views.removeCollab, name='remove_collab'),
     path('collab/view-initiated/<str:id>/reported/<str:username>', views.reportCollaborator, name='report_collaborator'),
+
     path('collab/view-accepted/<str:id>/remove-requested/<str:username>', views.requestRemoveCollab, name='request_remove_collab'),
     path('collab/view-accepted/<str:id>/', views.showCollabAccepted, name='show_collab_accepted'),
     path('collab/view-accepted/<str:id1>/collab-docs', views.showCollabDocsAccepted, name='collab_docs_accepted'),
-    # path('collab/view-accepted/<str:id1>/collab-docs/select/<str:id2>', views.selectDocAccepted, name='select_doc'),
-    # path('collab/view-accepted/<str:id1>/collab-docs/deselect/<str:id2>', views.deselectDocAccepted, name='deselect_doc'),
 
-    # path('collab/view-accepted/<str:id1>/collab-docs/delete-all', views.deleteAllDocs, name='delete_all_docs'),
+    path('collab/view-accepted/<str:id1>/collab-docs/select/<str:id2>', views.selectDocAccepted, name='select_doc_accepted'),
+    path('collab/view-accepted/<str:id1>/collab-docs/deselect/<str:id2>', views.deselectDocAccepted, name='deselect_doc_accepted'),
+
+    path('collab/view-accepted/<str:id1>/collab-docs/delete-all', views.deleteAllDocsAccepted, name='delete_all_docs_accepted'),
 
     path('collab/view-accepted/<str:id>/reported', views.reportResearcher, name='report_researcher'),
     path('collab/view-accepted/<str:id>/left/<str:username>', views.leaveCollab, name='leave_collab'),

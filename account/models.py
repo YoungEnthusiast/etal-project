@@ -161,3 +161,12 @@ class CollabDoc(models.Model):
     doc_collaborators = models.ManyToManyField(Researcher, blank=True, related_name="doc_collaborators")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        try:
+            return str(self.name)
+        except:
+            return str(self.id)
