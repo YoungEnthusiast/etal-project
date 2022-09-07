@@ -14,106 +14,121 @@
 <div class=" app-content">
 					<div class="side-app">
             <br>
-            <div class="container content-area">
-              <div class="horizontal-content">
 
-                <div class="row">
-    							<div class="col-xl-8 col-lg-12 col-md-12">
-    								<div class="card">
-    									<div class="card-body">
-    										<div class="mt-4 mb-4">
-    											<h3 class="text-info">{{collab.title}}</h3>
-    											<h5 class="mb-3 mt-2">Abstract</h5>
-    											<p>{{collab.abstract|linebreaks}}</p>
-    										</div>
-    										<div class="mt-4 product-spec">
-    											<div class="pro_detail">
-    												<ul class="list-unstyled mb-0">
-    													<li class="row border-bottom-0">
-    														<div class="col-sm-3 text-muted mb-2">Proposed Timeline</div>
-    														<div class="col-sm-9 mb-2">{{collab.proposed_timeline}}</div>
-    													</li>
-    													<li class=" row border-bottom-0">
-    														<div class="col-sm-3 text-muted mb-2">Education</div>
-    														<div class="col-sm-3 mb-2">{{collab.education}}</div>
-    													</li>
-    													<li class="border-bottom-0 row">
-    														<div class="col-sm-3 text-muted mb-2">Field</div>
-    														<div class="col-sm-3 mb-2">{{collab.field}}</div>
-    													</li>
-    													<li class="border-bottom-0 row">
-    														<div class="col-sm-3 text-muted mb-2">Expertise Required</div>
-    														<div class="col-sm-3 mb-2">{{collab.expertise_required}}</div>
-    													</li>
-    													<li class="border-bottom-0 row">
-    														<div class="col-sm-3 text-muted mb-2">On Premises</div>
-    														<div class="col-sm-6 mb-2">{{collab.on_premises}}</div>
-    													</li>
-    													<li class="border-bottom-0 row">
-    														<div class="col-sm-3 text-muted mb-2">funding</div>
-    														<div class="col-sm-3 mb-2">{{collab.funding}}</div>
-    													</li>
-    													<li class="border-bottom-0 row">
-    														<div class="col-sm-3 text-muted mb-2">Number of Collaborators</div>
-    														<div class="col-sm-3 mb-2">{{collab.collaborators_no}}</div>
-    													</li>
-    													<li class="border-bottom-0 row">
-    														<div class="col-sm-3 text-muted mb-2">Research Ownership</div>
-    														<div class="col-sm-3 mb-2">{{collab.ownership}}</div>
-    													</li>
-    												</ul>
-    											</div>
-    										</div>
-
-    									</div>
-    								</div>
-    							</div>
-                  <div class="col-xl-4 col-md-12">
-                    Accepted on {{collab.accepted_date}}
-                    <br>
-                    <br>
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="row">
-                            {% if collab.researcher.photograph %}
-                              <strong>Initiator</strong> <a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-col"></a>
-                            {% else %}
-                              <strong>Initiator</strong><a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
-                            {% endif %}
-                            <br>
-                        </div>
-                      </div>
-                    </div>
-                    {% if collab.collaborators.all %}
-                    <h5>Collaborators <span class="badge badge-info badge-pill">{{counter}}</span></h5>
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="row">
-                          {% for person in collab.collaborators.all %}
-                            {% if person.photograph %}
-                              <a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
-                            {% else %}
-                              <a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
-                            {% endif %}
-                            {% if person == request.user %}
-                            <strong><p><a class="text-info" href="left/{{person.username}}">Leave</a>/<a class="text-info" href="">Report</a></p></strong>
-                            {% else %}
-                            {% endif %}
-                            <br>
-                          {% endfor %}
-                        </div>
-                      </div>
-                    </div>
-                    {% endif %}
-                    <br>
-                    {% if collab.is_locked %}
-                    Locked on {{collab.locked_date}}
-                    {% else %}
-                    {% endif %}
-                  </div>
-    						</div>
-    					</div>
+            <div class="sidebar">
+              <a class="bg-info" href="collab-docs">CollabDoc</a>
+              <a class="bg-info" href="">Meeting</a>
+              <a class="bg-info" href="">Scheduler</a>
+              <a class="bg-info" href="">Task</a>
+              <a class="bg-info" href="">Chat</a>
+              <a class="bg-info" href="">Whiteboard</a>
+              <a class="bg-info" href="">Research note</a>
             </div>
+
+            <div class="content">
+              <div class="container content-area">
+                <div class="horizontal-content">
+
+                  <div class="row">
+      							<div class="col-xl-8 col-lg-12 col-md-12">
+      								<div class="card">
+      									<div class="card-body">
+      										<div class="mt-4 mb-4">
+      											<h3 class="text-info">{{collab.title}}</h3>
+      											<h5 class="mb-3 mt-2">Abstract</h5>
+      											<p>{{collab.abstract|linebreaks}}</p>
+      										</div>
+      										<div class="mt-4 product-spec">
+      											<div class="pro_detail">
+      												<ul class="list-unstyled mb-0">
+      													<li class="row border-bottom-0">
+      														<div class="col-sm-3 text-muted mb-2">Proposed Timeline</div>
+      														<div class="col-sm-9 mb-2">{{collab.proposed_timeline}}</div>
+      													</li>
+      													<li class=" row border-bottom-0">
+      														<div class="col-sm-3 text-muted mb-2">Education</div>
+      														<div class="col-sm-3 mb-2">{{collab.education}}</div>
+      													</li>
+      													<li class="border-bottom-0 row">
+      														<div class="col-sm-3 text-muted mb-2">Field</div>
+      														<div class="col-sm-3 mb-2">{{collab.field}}</div>
+      													</li>
+      													<li class="border-bottom-0 row">
+      														<div class="col-sm-3 text-muted mb-2">Expertise Required</div>
+      														<div class="col-sm-3 mb-2">{{collab.expertise_required}}</div>
+      													</li>
+      													<li class="border-bottom-0 row">
+      														<div class="col-sm-3 text-muted mb-2">On Premises</div>
+      														<div class="col-sm-6 mb-2">{{collab.on_premises}}</div>
+      													</li>
+      													<li class="border-bottom-0 row">
+      														<div class="col-sm-3 text-muted mb-2">funding</div>
+      														<div class="col-sm-3 mb-2">{{collab.funding}}</div>
+      													</li>
+      													<li class="border-bottom-0 row">
+      														<div class="col-sm-3 text-muted mb-2">Number of Collaborators</div>
+      														<div class="col-sm-3 mb-2">{{collab.collaborators_no}}</div>
+      													</li>
+      													<li class="border-bottom-0 row">
+      														<div class="col-sm-3 text-muted mb-2">Research Ownership</div>
+      														<div class="col-sm-3 mb-2">{{collab.ownership}}</div>
+      													</li>
+      												</ul>
+      											</div>
+      										</div>
+
+      									</div>
+      								</div>
+      							</div>
+                    <div class="col-xl-4 col-md-12">
+                      Accepted on {{collab.accepted_date}}
+                      <br>
+                      <br>
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                              {% if collab.researcher.photograph %}
+                                <strong>Initiator</strong> <a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-col"></a>
+                              {% else %}
+                                <strong>Initiator</strong><a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                              {% endif %}
+                              <br>
+                          </div>
+                        </div>
+                      </div>
+                      {% if collab.collaborators.all %}
+                      <h5>Collaborators <span class="badge badge-info badge-pill">{{counter}}</span></h5>
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            {% for person in collab.collaborators.all %}
+                              {% if person.photograph %}
+                                <a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
+                              {% else %}
+                                <a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                              {% endif %}
+                              {% if person == request.user %}
+                              <strong><p><a class="text-info" href="left/{{person.username}}">Leave</a>/<a class="text-info" href="">Report</a></p></strong>
+                              {% else %}
+                              {% endif %}
+                              <br>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                      {% endif %}
+                      <br>
+                      {% if collab.is_locked %}
+                      Locked on {{collab.locked_date}}
+                      {% else %}
+                      {% endif %}
+                    </div>
+      						</div>
+      					</div>
+              </div>
+            </div>
+
+
           </div>
         </div>
 

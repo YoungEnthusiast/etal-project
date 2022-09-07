@@ -183,34 +183,6 @@ def showHome(request):
 
     return render(request, 'account/home.html', {})
 
-# @login_required
-# def showCollabs(request):
-#     context = {}
-#     filtered_collabs = CollabFilter(
-#         request.GET,
-#         queryset = Collab.objects.all()
-#     )
-#     context['filtered_collabs'] = filtered_collabs
-#     paginated_filtered_collabs = Paginator(filtered_collabs.qs, 30)
-#     page_number = request.GET.get('page')
-#     collabs_page_obj = paginated_filtered_collabs.get_page(page_number)
-#     context['collabs_page_obj'] = collabs_page_obj
-#     total_collabs = filtered_collabs.qs.count()
-#     context['total_collabs'] = total_collabs
-#
-#     form = CollabForm()
-#     if request.method == 'POST':
-#         form = CollabForm(request.POST, request.FILES, None)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "The collab has been created successfully")
-#             return redirect('collabs')
-#         else:
-#             messages.error(request, "Please review form input fields below")
-#     context['form'] = form
-#
-#     return render(request, 'account/collabs.html', context=context)
-
 @login_required
 def showCollabs(request):
     context = {}
@@ -229,23 +201,49 @@ def showCollabs(request):
     return render(request, 'account/all_collabs.html', context)
 
 @login_required
-def showCollabDocs(request, id1):
+def showCollabDocsInitiated(request, id1):
     collab = Collab.objects.get(id=id1)
-    context = {}
-    filtered_collab_docs = CollabDocFilter(
-        request.GET,
-        queryset = CollabDoc.objects.filter(doc_collaborators=request.user, collab_id=id1)
-    )
-    context['filtered_collab_docs'] = filtered_collab_docs
-    paginated_filtered_collab_docs = Paginator(filtered_collab_docs.qs, 99)
-    page_number = request.GET.get('page')
-    collab_docs_page_obj = paginated_filtered_collab_docs.get_page(page_number)
-    context['collab_docs_page_obj'] = collab_docs_page_obj
-    total_collab_docs = filtered_collab_docs.qs.count()
-    context['total_collab_docs'] = total_collab_docs
-    context['collab'] = collab
+    if collab.researcher == request.user:
+        context = {}
+        filtered_collab_docs = CollabDocFilter(
+            request.GET,
+            queryset = CollabDoc.objects.filter(doc_collaborators=request.user, collab_id=id1)
+        )
+        context['filtered_collab_docs'] = filtered_collab_docs
+        paginated_filtered_collab_docs = Paginator(filtered_collab_docs.qs, 99)
+        page_number = request.GET.get('page')
+        collab_docs_page_obj = paginated_filtered_collab_docs.get_page(page_number)
+        context['collab_docs_page_obj'] = collab_docs_page_obj
+        total_collab_docs = filtered_collab_docs.qs.count()
+        context['total_collab_docs'] = total_collab_docs
+        context['collab'] = collab
 
-    return render(request, 'account/collab_docs.html', context)
+        return render(request, 'account/collab_docs.html', context)
+    else:
+        return redirect('collab')
+
+@login_required
+def showCollabDocsAccepted(request, id1):
+    collab = Collab.objects.get(id=id1)
+    if request.user in collab.collaborators.all():
+        context = {}
+        filtered_collab_docs = CollabDocFilter(
+            request.GET,
+            queryset = CollabDoc.objects.filter(doc_collaborators=request.user, collab_id=id1)
+        )
+        context['filtered_collab_docs'] = filtered_collab_docs
+        paginated_filtered_collab_docs = Paginator(filtered_collab_docs.qs, 99)
+        page_number = request.GET.get('page')
+        collab_docs_page_obj = paginated_filtered_collab_docs.get_page(page_number)
+        context['collab_docs_page_obj'] = collab_docs_page_obj
+        total_collab_docs = filtered_collab_docs.qs.count()
+        context['total_collab_docs'] = total_collab_docs
+        context['collab'] = collab
+
+        return render(request, 'account/collab_docs.html', context)
+    else:
+        return redirect('collab')
+
 
 def createCollab(request):
     form = CollabForm(request=request)
@@ -330,13 +328,18 @@ def showCollab(request, id, **kwargs):
 @login_required
 def updateCollab(request, id):
     collab = Collab.objects.get(id=id)
-    form = CollabForm(instance=collab, request=request)
-    if request.method=='POST':
-        form = CollabForm(request.POST, instance=collab, request=request)
-        if form.is_valid():
-            form.save()
-            messages.info(request, "The collab has been updated successfully")
-            return redirect('collab')
+    if collab.researcher == request.user:
+        form = CollabForm(instance=collab, request=request)
+        if request.method=='POST':
+            form = CollabForm(request.POST, instance=collab, request=request)
+            if form.is_valid():
+                form.save()
+                messages.info(request, "The collab has been updated successfully")
+                return redirect('collab')
+    else:
+        messages.info(request, "You are not authorised")
+        return redirect('collab')
+
     return render(request, 'account/update_collab.html', {'form': form, 'collab':collab})
 
 @login_required
@@ -360,16 +363,24 @@ def deleteCollab(request, id):
 #     return render(request, 'account/doc_confirm_delete.html', {'doc':doc})
 
 @login_required
-def deleteAllDocs(request, id1, **kwargs):
+def deleteAllDocsInitiated(request, id1, **kwargs):
     collab = Collab.objects.get(id=id1)
-    docs = CollabDoc.objects.filter(is_selected=request.user, shared_by=request.user)
-    if request.method =="POST":
-        for each in docs:
-            each.delete()
-        messages.info(request, "Deleted successfully")
-        return redirect('collab_docs', id1)
+    if collab.researcher == request.user:
+        docs = CollabDoc.objects.filter(is_selected=request.user, shared_by=request.user, collab=collab)
+        if docs.count() >= 1:
+            if request.method =="POST":
+                for each in docs:
+                    each.delete()
+                messages.info(request, "Deleted successfully")
+                return redirect('collab_docs_initiated', id1)
+        else:
+            messages.info(request, "You are not authorised")
+            return redirect('collab_docs_initiated', id1)
 
-    return render(request, 'account/docs_confirm_delete.html', {'docs':docs, 'collab':collab})
+        return render(request, 'account/docs_confirm_delete_initiated.html', {'docs':docs, 'collab':collab})
+    else:
+        return redirect('collab')
+
 
 def uploadDoc(request, id1, **kwargs):
     collab = Collab.objects.get(id=id1)
@@ -423,57 +434,74 @@ def uploadDoc(request, id1, **kwargs):
     return render(request, 'account/upload_doc.html', {'form':form, 'collab':collab})
 
 @login_required
-def selectDoc(request, id1, id2, **kwargs):
+def selectDocInitiated(request, id1, id2, **kwargs):
     collab = Collab.objects.get(id=id1)
-    doc = CollabDoc.objects.get(id=id2)
-    doc.is_selected.add(request.user)
-    doc.save()
-    return redirect('collab_docs', id1)
+    if collab.researcher == request.user:
+        doc = CollabDoc.objects.get(id=id2)
+        doc.is_selected.add(request.user)
+        doc.save()
+        return redirect('collab_docs_initiated', id1)
+    else:
+        return('redirect')
 
 @login_required
-def deselectDoc(request, id1, id2, **kwargs):
+def deselectDocInitiated(request, id1, id2, **kwargs):
     collab = Collab.objects.get(id=id1)
-    doc = CollabDoc.objects.get(id=id2)
-    doc.is_selected.remove(request.user)
-    doc.save()
-    return redirect('collab_docs', id1)
+    if collab.researcher == request.user:
+        doc = CollabDoc.objects.get(id=id2)
+        doc.is_selected.remove(request.user)
+        doc.save()
+        return redirect('collab_docs_initiated', id1)
+    else:
+        return('redirect')
 
 @login_required
-def updateDoc(request, id1, id2, **kwargs):
+def updateDocInitiated(request, id1, id2, **kwargs):
     collab = Collab.objects.get(id=id1)
-    doc = CollabDoc.objects.get(id=id2)
-    form = DocUpdateForm(instance=doc)
-    if request.method=='POST':
-        form = DocUpdateForm(request.POST, instance=doc)
-        if form.is_valid():
-            if doc.shared_by==request.user:
-                form.save()
-                messages.info(request, "The document has been renamed successfully")
-            else:
-                messages.info(request, "You are not authorized to rename the document")
+    if collab.researcher == request.user:
+        doc = CollabDoc.objects.get(id=id2)
+        form = DocUpdateForm(instance=doc)
+        if request.method=='POST':
+            form = DocUpdateForm(request.POST, instance=doc)
+            if form.is_valid():
+                if doc.shared_by==request.user:
+                    form.save()
+                    messages.info(request, "The document has been renamed successfully")
+                else:
+                    messages.info(request, "You are not authorised to rename the document")
 
-            return redirect('collab_docs', id1)
-    return render(request, 'account/update_doc.html', {'form': form, 'doc':doc, 'collab':collab})
+                return redirect('collab_docs_initiated', id1)
+        return render(request, 'account/update_doc.html', {'form': form, 'doc':doc, 'collab':collab})
+    else:
+        return redirect('collab')
 
 @login_required
 def showCollabInitiated(request, id1, **kwargs):
     collab = Collab.objects.get(id=id1)
-    counter = 0
-    for person in collab.collaborators.all():
-        counter += 1
+    if collab.researcher == request.user:
+        counter = 0
+        for person in collab.collaborators.all():
+            counter += 1
 
-    context = {'collab': collab, 'counter':counter}
-    return render(request, 'account/collab_initiated.html', context)
+        context = {'collab': collab, 'counter':counter}
+
+        return render(request, 'account/collab_initiated.html', context)
+    else:
+        return redirect('collab')
 
 @login_required
 def showCollabAccepted(request, id, **kwargs):
     collab = Collab.objects.get(id=id)
-    counter = 0
-    for person in collab.collaborators.all():
-        counter += 1
+    if request.user in collab.collaborators.all():
+        counter = 0
+        for person in collab.collaborators.all():
+            counter += 1
 
-    context = {'collab': collab, 'counter':counter}
-    return render(request, 'account/collab_accepted.html', context)
+        context = {'collab': collab, 'counter':counter}
+        return render(request, 'account/collab_accepted.html', context)
+    else:
+        return redirect('collab')
+
 
 # @login_required
 # @permission_required('users.view_admin')

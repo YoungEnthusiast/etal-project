@@ -20,22 +20,24 @@ urlpatterns = [
     path('collab/view/<str:id>/delete', views.deleteCollab, name='delete_collab'),
 
     path('collab/view-initiated/<str:id1>/', views.showCollabInitiated, name='show_collab_initiated'),
-    path('collab/view-initiated/<str:id1>/collab-docs', views.showCollabDocs, name='collab_docs'),
+    path('collab/view-initiated/<str:id1>/collab-docs', views.showCollabDocsInitiated, name='collab_docs_initiated'),
 
-    path('collab/view-initiated/<str:id1>/collab-docs/select/<str:id2>', views.selectDoc, name='select_doc'),
-    path('collab/view-initiated/<str:id1>/collab-docs/deselect/<str:id2>', views.deselectDoc, name='deselect_doc'),
-    path('collab/view-initiated/<str:id1>/collab-docs/update/<str:id2>', views.updateDoc, name='update_doc'),
-    path('collab/view-initiated/<str:id1>/collab-docs/delete-all', views.deleteAllDocs, name='delete_all_docs'),
+    path('collab/view-initiated/<str:id1>/collab-docs/select/<str:id2>', views.selectDocInitiated, name='select_doc_initiated'),
+    path('collab/view-initiated/<str:id1>/collab-docs/deselect/<str:id2>', views.deselectDocInitiated, name='deselect_doc_initiated'),
+    path('collab/view-initiated/<str:id1>/collab-docs/update/<str:id2>', views.updateDocInitiated, name='update_doc_initiated'),
+    path('collab/view-initiated/<str:id1>/collab-docs/delete-all', views.deleteAllDocsInitiated, name='delete_all_docs_initiated'),
     path('collab/view-initiated/<str:id1>/upload-doc', views.uploadDoc, name='upload_doc'),
-
-
-    # path('initiated-collabs/collab-docs/delete/<str:id>', views.deleteDoc, name='delete_doc'),
-    # path('initiated-collabs/collab-docs/upload-doc', views.uploadDoc, name='upload_doc'),
 
     path('collab/view-initiated/<str:id>/removed/<str:username>', views.removeCollab, name='remove_collab'),
     path('collab/view-initiated/<str:id>/reported/<str:username>', views.reportCollaborator, name='report_collaborator'),
     path('collab/view-accepted/<str:id>/remove-requested/<str:username>', views.requestRemoveCollab, name='request_remove_collab'),
     path('collab/view-accepted/<str:id>/', views.showCollabAccepted, name='show_collab_accepted'),
+    path('collab/view-accepted/<str:id1>/collab-docs', views.showCollabDocsAccepted, name='collab_docs_accepted'),
+    # path('collab/view-accepted/<str:id1>/collab-docs/select/<str:id2>', views.selectDocAccepted, name='select_doc'),
+    # path('collab/view-accepted/<str:id1>/collab-docs/deselect/<str:id2>', views.deselectDocAccepted, name='deselect_doc'),
+
+    # path('collab/view-accepted/<str:id1>/collab-docs/delete-all', views.deleteAllDocs, name='delete_all_docs'),
+
     path('collab/view-accepted/<str:id>/reported', views.reportResearcher, name='report_researcher'),
     path('collab/view-accepted/<str:id>/left/<str:username>', views.leaveCollab, name='leave_collab'),
     path('collab/view-initiated/<str:id>/leave-accepted/<str:username>', views.acceptLeaveCollab, name='accept_leave_collab'),
