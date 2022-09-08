@@ -35,6 +35,7 @@ GOOGLE_RECAPTCHA_SECRET_KEY = '6LfJmFYhAAAAAOAKIMENfxk9B8iXri1KwDOb7oSH'
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -47,8 +48,11 @@ INSTALLED_APPS = [
     'django_filters',
     'account',
     'crispy_forms',
+    'chat',
+
     # 'notification',
 ]
+ASGI_APPLICATION = 'etal.asgi.application'
 SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
