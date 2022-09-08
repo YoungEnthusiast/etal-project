@@ -53,6 +53,14 @@ INSTALLED_APPS = [
     # 'notification',
 ]
 ASGI_APPLICATION = 'etal.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels.layers.InMemoryChannelLayer'
+    }
+}
+
+
 SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
