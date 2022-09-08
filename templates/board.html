@@ -204,7 +204,7 @@
 					</div>
 				</div>
 				<!--/.Navbar -->
-				{% if 'login' in request.path or 'create-account' in request.path or 'reset-password' in request.path %}
+				{% if 'login' in request.path or 'create-account' in request.path or 'reset-password' in request.path or '/join' in request.path %}
 
 
 				{% elif user.is_authenticated %}

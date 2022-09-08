@@ -4,8 +4,8 @@
 	//accordion-wizard
 	var options = {
 		mode: 'wizard',
-		autoButtonsNextClass: 'btn btn-cylinder float-right',
-		autoButtonsPrevClass: 'btn btn-cylinder float-left',
+		autoButtonsNextClass: 'btn btn-info float-right',
+		autoButtonsPrevClass: 'btn btn-info float-left',
 		// stepNumberClass: 'badge badge-pill badge-primary mr-1',
     stepNumberClass: '',
 

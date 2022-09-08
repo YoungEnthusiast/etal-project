@@ -20538,3 +20538,7 @@ div.content {
   z-index: 999999;
   position: absolute;
 }
+
+li{
+  display: inline
+}
