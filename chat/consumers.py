@@ -4,7 +4,7 @@ from asgiref.sync import async_to_sync
 
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
-        felf.room_group_name = 'test'
+        self.room_group_name = 'test'
 
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
@@ -35,7 +35,7 @@ class ChatConsumer(WebsocketConsumer):
                 'message':message
             }
         )
-    def chat_message(seld, event):
+    def chat_message(self, event):
         message = event['message']
 
         self.send(text_data=json.dumps({
