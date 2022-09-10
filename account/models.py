@@ -104,6 +104,7 @@ class Notification(models.Model):
     unreads = models.PositiveIntegerField(default=0)
     collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="notification_collab")
     sender = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="sender")
+    room = models.CharField(max_length=255, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

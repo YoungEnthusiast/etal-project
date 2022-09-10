@@ -19,12 +19,18 @@
 
                 <div class="row">
     							<div class="col-xl-12 col-lg-12 col-md-12">
-                    <textarea id="chat-log" cols="100" rows="20" readonly></textarea><br>
-                      <input id="chat-message-input" type="text" size="100"><br>
-                      <input id="chat-message-submit" type="button" value="Send">
+                    <div class="row">
+                      <div id="messages" class="col-md-6 alert alert-info alert-dismissible" role="alert">
+
+                      </div>
+                    </div>
+
+                      <input id="chat-message-input" type="text" size="50">
+                      <input id="chat-message-submit" class="btn btn-sm btn-info" type="button" value="Send">
                       {{ room_name|json_script:"room-name" }}
                       <script>
                           const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
 
                           const chatSocket = new WebSocket(
                               'ws://'
@@ -36,7 +42,11 @@
 
                           chatSocket.onmessage = function(e) {
                               const data = JSON.parse(e.data);
-                              document.querySelector('#chat-log').value += (data.message + '\n');
+                              let messages = document.getElementById('messages')
+
+                              messages.insertAdjacentHTML('beforeend', `<div>
+                                                      <p>${data.message}</p>
+                                                  </div>`)
                           };
 
                           chatSocket.onclose = function(e) {
@@ -51,10 +61,18 @@
                           };
 
                           document.querySelector('#chat-message-submit').onclick = function(e) {
+
                               const messageInputDom = document.querySelector('#chat-message-input');
                               const message = messageInputDom.value;
+                              const someone = "{{user}}"
+
+                              var today = new Date()
+                              var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear()
+                              var time = today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()
+                              var dateTime = date+' '+time
+
                               chatSocket.send(JSON.stringify({
-                                  'message': message
+                                  'message': someone + ": " + message + " " + dateTime
                               }));
                               messageInputDom.value = '';
                           };
