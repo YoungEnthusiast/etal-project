@@ -152,9 +152,8 @@ dmypy.json
 .prof
 
 venv
-/media
-/static
-/staticfiles
+
+
 # End of https://www.toptal.com/developers/gitignore/api/django
 
 # Created by https://www.toptal.com/developers/gitignore/api/django
@@ -310,9 +309,8 @@ dmypy.json
 .prof
 
 venv
-/media
-/static
-/staticfiles
+
+
 # End of https://www.toptal.com/developers/gitignore/api/django
 
 # Created by https://www.toptal.com/developers/gitignore/api/django
@@ -467,7 +465,5 @@ dmypy.json
 .prof
 
 venv
-/media
-/static
-/staticfiles
+
 # End of https://www.toptal.com/developers/gitignore/api/django
