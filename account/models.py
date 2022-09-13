@@ -171,3 +171,18 @@ class CollabDoc(models.Model):
             return str(self.name)
         except:
             return str(self.id)
+
+class ChatMessage(models.Model):
+    sender = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL)
+    message = models.CharField(max_length=2000, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        try:
+            return str(self.sender)
+        except:
+            return str(self.id)

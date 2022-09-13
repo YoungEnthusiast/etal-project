@@ -6,9 +6,9 @@
     var myChart = new Chart( ctx, {
         type: 'line',
         data: {
-            labels: [ "2012", "2013", "2014", "2015", "2016", "2017", "2018" ],
+            labels: [ "2016", "2017", "2018", "2019", "2020", "2021", "2022" ],
             datasets: [ {
-                label: "New Customers",
+                label: "Initiated Collabs",
                 data: [ 0, 30, 10, 120, 50, 63, 10 ],
                 backgroundColor: 'transparent',
                 borderColor: 'rgba(8, 158, 96,0.75)',
@@ -18,7 +18,7 @@
                 pointBorderColor: 'transparent',
                 pointBackgroundColor: 'rgba(8, 158, 96,0.75)',
                     }, {
-                label: "Visiting Customers",
+                label: "Accepted Collabs",
                 data: [ 0, 50, 40, 80, 40, 79, 120 ],
                 backgroundColor: 'transparent',
                 borderColor: 'rgba(19, 150, 204,0.75)',
@@ -68,7 +68,7 @@
             labels: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
             type: 'line',
             datasets: [ {
-                data: [0, 83, 43, 67, 35, 76, 0],
+                data: [0, 150, 0],
                 label: 'Total Income',
                 backgroundColor: 'rgba(19, 150, 204,0.3)',
 				pointBorderColor: 'transparent',
@@ -138,7 +138,7 @@
             labels: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
             type: 'line',
             datasets: [ {
-                data: [0, 46, 55, 76, 63, 23,0],
+                data: [],
                 label: 'Total Balance',
                 backgroundColor: 'rgba(19, 150, 204,0.3)',
 				pointBorderColor: 'transparent',
@@ -208,7 +208,7 @@
             labels: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
             type: 'line',
             datasets: [ {
-                data: [0, 67, 76, 83 ,35, 43, 0],
+                data: [0, 50, 0],
                 label: 'Total Earnings',
                 backgroundColor: 'rgba(19, 150, 204,0.3)',
 				pointBorderColor: 'transparent',
