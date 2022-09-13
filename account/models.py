@@ -103,7 +103,7 @@ class Notification(models.Model):
     message = models.CharField(max_length=255, null=True, blank=True)
     unreads = models.PositiveIntegerField(default=0)
     collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="notification_collab")
-    sender = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="sender")
+    sender = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="notification_sender")
     room = models.CharField(max_length=255, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -173,7 +173,7 @@ class CollabDoc(models.Model):
             return str(self.id)
 
 class ChatMessage(models.Model):
-    sender = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL)
+    sender = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="sender")
     message = models.CharField(max_length=2000, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

@@ -52,6 +52,13 @@ INSTALLED_APPS = [
 
     # 'notification',
 ]
+
+EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'taoheed.yusuf@etal.ac'
+EMAIL_HOST_PASSWORD = 'Quayers8_'
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'Et al Tech. Ltd. <taoheed.yusuf@etal.ac>'
 ASGI_APPLICATION = 'etal.asgi.application'
 
 CHANNEL_LAYERS = {
@@ -172,3 +179,8 @@ MESSAGE_TAGS = {
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass

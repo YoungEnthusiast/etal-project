@@ -40,8 +40,8 @@ def join(request):
                 try:
                     send_mail(
                         'Create Account',
-                        'Please follow the link www.etal.qwikgas.ai/join/' + str(first_username) + ' to create an account',
-                        'admin@qwikgas.ai',
+                        'Please follow the link https://etal.ac/join/' + str(first_username) + ' to create an account',
+                        'taoheed.yusuf@etal.ac',
                         [first_username],
                         fail_silently=False,
                         #html_message = render_to_string('home/home1.html')
