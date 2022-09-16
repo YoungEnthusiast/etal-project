@@ -53,9 +53,6 @@
 							<a class="header-brand">
 								<a href="{% url 'index' %}"><img src="" class="logo2" alt="Logo"> <strong class="text-dark-green"></strong></a>
 							</a>
-
-
-
 							{% if user.is_authenticated %}
 							<!-- Sidebar toggle button-->
 							<div class="d-flex order-lg-2 ml-auto">
@@ -77,9 +74,12 @@
 								</div>
 
 								<div class="dropdown d-sm-flex d-none header-message">
-									<a class="nav-link icon" data-toggle="dropdown">
+									<a class="nav-link icon" href="{% url 'envelope_notification' %}">
 										<i class="fa fa-envelope text-info fa-2x"></i>
-										<span class=" nav-unread badge badge-danger badge-pill"></span>
+										{% if user.envelope_unreads > 0 %}
+										<span class=" nav-unread badge badge-danger badge-pill">{{user.envelope_unreads}}</span>
+										{% else %}
+										{% endif %}
 									</a>
 								</div>
 								<div class="dropdown d-sm-flex d-none header-message">
@@ -94,8 +94,6 @@
 								</div>
 
 								<div class="dropdown d-sm-flex d-none header-message">
-
-
 									<a class="nav-link icon" href="{% url 'researcher_profile' %}">
 										{% if user.photograph %}
 											<img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
@@ -103,7 +101,6 @@
 											<i class="fa fa-user-circle text-info fa-2x"></i>
 										{% endif %}
 									</a>
-
 								</div>
 								<button class="navbar-toggler navresponsive-toggler d-sm-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
 									aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
@@ -160,9 +157,12 @@
 							</div>
 
 							<div class="dropdown  d-md-flex header-contact">
-								<a class="nav-link icon text-dark" data-toggle="dropdown">
+								<a class="nav-link icon" href="{% url 'envelope_notification' %}">
 									<i class="fa fa-envelope text-info fa-2x"></i>
-									<span class="nav-unread badge badge-danger badge-pill"></span>
+									{% if user.envelope_unreads > 0 %}
+									<span class="nav-unread badge badge-danger badge-pill">{{user.envelope_unreads}}</span>
+									{% else %}
+									{% endif %}
 								</a>
 							</div>
 							<div class="dropdown d-sm-flex d-none header-message">

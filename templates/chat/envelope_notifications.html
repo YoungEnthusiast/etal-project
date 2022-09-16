@@ -1,0 +1,42 @@
+{% extends 'board.html' %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Notifications</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+<div class=" app-content">
+	<div class="side-app">
+    <br>
+    <div class="container content-area">
+      <div class="horizontal-content">
+        <div class="row">
+          {% if envelope_notifications_page_obj %}
+          <hr>
+
+          {% for notification in envelope_notifications_page_obj %}
+          <div class="col-md-1">
+            {% if notification.sender.photograph %}
+              <a href="{% url 'show_user' notification.sender.username %}"><img href="" src="{{ notification.sender.photographURL }}" alt="Photograph" class="profile-not"></a>
+            {% else %}
+              <a href=""><i class="fa fa-user-circle text-info fa-2x"></i></a>
+            {% endif %}
+          </div>
+          <div class="col-md-8 font-weight-bold"><span class="text-info">{{notification.sender}}</span> {{notification.message}} <span class="text-info">{{notification.collab}}</span></div>
+          <div class="col-md-3 small text-muted d-flex">
+            {{notification.created|timesince}} ago
+          </div>
+          <hr>
+          {% endfor %}
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content%}

@@ -23,6 +23,7 @@ class Researcher(AbstractUser):
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='Researcher', null=True)
     # bell = models.ForeignKey('account.Notification', null=True, blank=True, on_delete=models.SET_NULL)
     bell_unreads = models.PositiveIntegerField(default=0)
+    envelope_unreads = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
 
@@ -65,7 +66,7 @@ class Collab(models.Model):
     collaborators_type = models.CharField(max_length=11, default="Anyone", choices=collaborators_choices, null=True)
     collaborators = models.ManyToManyField(Researcher, verbose_name="My Selection", blank=True, related_name="collaborator")
     title = models.CharField(max_length=255, null=True)
-    abstract = models.TextField(max_length=500, null=True)
+    abstract = models.TextField(max_length=2000, null=True)
     proposed_timeline = models.CharField(max_length=255, null=True, verbose_name="Proposed Timeline")
     education = models.CharField(max_length=15, choices=education_choices, null=True)
     field = models.CharField(max_length=255, null=True)

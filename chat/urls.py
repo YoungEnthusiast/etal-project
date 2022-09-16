@@ -5,7 +5,9 @@ urlpatterns = [
     # path('lobby', views.lobby, name='lobby'),
     path('<str:id>/chat/', views.index, name='chat'),
     # path('chat/<str:room_name>/<str:someone>/', views.room, name='room'),
-    path('<str:id>/chat/<str:room_name>/', views.room, name='room'),
-
+    # path('<str:id>/chat/<str:room_name>/', views.room, name='room'),
+    path('chat/<str:room_name>/', views.room, name='room'),
+    path('envelope-notification', views.clearEnvelopeUnreads, name='envelope_notification'),
+    path('envelope-notifications', views.showChatNotifications, name='envelope_notifications'),
 
 ]

@@ -126,7 +126,7 @@ def loginRequest(request):
 #                     'token': account_activation_token.make_token(user),
 #                 })
 #                 user.email_user(subject, message)
-#                 messages.success(request, ('Please login to your email, you have been sent a message for email verification.'))
+#                 messages.info(request, ('Please login to your email, you have been sent a message for email verification.'))
 #                 return redirect('login')
 #             else:
 #                 messages.error(request, "Please ensure you pass reCAPTCHA so as to ascertain that you are human")
@@ -147,7 +147,7 @@ class ActivateAccount(View):
             user.email_confirmed = True
             user.save()
             login(request, user)
-            messages.success(request, ('Your account has been confirmed! Please complete registration by supplying location information'))
+            messages.info(request, ('Your account has been confirmed! Please complete registration by supplying location information'))
             return redirect('edit_profile')
         else:
             messages.error(request, ('The confirmation link has either been used or expired.'))
@@ -266,7 +266,7 @@ def showResearcherProfile(request, **kwargs):
             email = form.cleaned_data.get('username')
             form.save(commit=False).email = email
             form.save()
-            messages.success(request, "Your profile has been modified successfully")
+            messages.info(request, "Your profile has been modified successfully")
             return redirect('researcher_profile')
         else:
             messages.error(request, "Error: Please review form input fields below")
