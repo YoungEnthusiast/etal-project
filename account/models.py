@@ -174,6 +174,7 @@ class CollabDoc(models.Model):
             return str(self.id)
 
 class ChatMessage(models.Model):
+    collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_chat")
     sender = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="sender")
     message = models.CharField(max_length=2000, null=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -185,5 +186,32 @@ class ChatMessage(models.Model):
     def __str__(self):
         try:
             return str(self.sender)
+        except:
+            return str(self.id)
+
+class Task(models.Model):
+    STATUS_CHOICES = [
+        ('Ongoing','Ongoing'),
+        ('Completed', 'Completed'),
+        ('Stopped', 'Stopped')
+    ]
+    serial = models.IntegerField(default=0)
+    collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_task")
+    assigned_to = models.ManyToManyField(Researcher, blank=True, related_name="assigned_to")
+    title = models.CharField(max_length=50, null=True)
+    description = models.CharField(max_length=255, null=True)
+    is_selected = models.ManyToManyField(Researcher, blank=True, related_name="is_selected_task")
+    due_date = models.DateField(blank=True, null=True, verbose_name="Due Date")
+    status = models.CharField(max_length=9, choices=STATUS_CHOICES, default='Ongoing', null=True)
+    updated_by = models.ForeignKey(Researcher, null=True, on_delete=models.SET_NULL, verbose_name="Updated By")
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('serial',)
+
+    def __str__(self):
+        try:
+            return str(self.title)
         except:
             return str(self.id)

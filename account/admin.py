@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Researcher, Collab, Notification, Flag, Report, Stranger, CollabDoc
+from .models import Researcher, Collab, Notification, Flag, Report, Stranger, CollabDoc, Task
 from .forms import CustomRegisterForm
 # from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
@@ -82,3 +82,12 @@ class CollabDocAdmin(admin.ModelAdmin):
     list_per_page = 100
 
 admin.site.register(CollabDoc, CollabDocAdmin)
+
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ['created', 'serial', 'title']
+    search_fields = []
+    # list_filter = ['status']
+    list_editable = []
+    list_per_page = 100
+
+admin.site.register(Task, TaskAdmin)

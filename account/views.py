@@ -2,14 +2,14 @@ import json
 import urllib.request
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm, CollabDocForm, DocUpdateForm
-from .models import Collab, Researcher, Notification, Report, CollabDoc
+from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm, CollabDocForm, DocUpdateForm, TaskForm
+from .models import Collab, Researcher, Notification, Report, CollabDoc, Task
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.forms import PasswordChangeForm, AuthenticationForm
 from django.contrib.auth import update_session_auth_hash, login, authenticate
 from django.contrib.auth.decorators import login_required, permission_required
-from .filters import InitiatedCollabFilter, BellNotificationFilter, CollabDocFilter
+from .filters import InitiatedCollabFilter, BellNotificationFilter, CollabDocFilter, TaskFilter
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from django.db.models import Q
@@ -223,13 +223,35 @@ def showCollabDocsInitiated(request, id1):
         return redirect('collab')
 
 @login_required
+def showTasksInitiated(request, id1):
+    collab = Collab.objects.get(id=id1)
+    if collab.researcher == request.user:
+        context = {}
+        filtered_tasks = TaskFilter(
+            request.GET,
+            queryset = Task.objects.filter(collab__id=id1)
+        )
+        context['filtered_tasks'] = filtered_tasks
+        paginated_filtered_tasks = Paginator(filtered_tasks.qs, 99)
+        page_number = request.GET.get('page')
+        tasks_page_obj = paginated_filtered_tasks.get_page(page_number)
+        context['tasks_page_obj'] = tasks_page_obj
+        total_tasks = filtered_tasks.qs.count()
+        context['total_tasks'] = total_tasks
+        context['collab'] = collab
+
+        return render(request, 'account/tasks.html', context)
+    else:
+        return redirect('collab')
+
+@login_required
 def showCollabDocsAccepted(request, id1):
     collab = Collab.objects.get(id=id1)
     if request.user in collab.collaborators.all():
         context = {}
         filtered_collab_docs = CollabDocFilter(
             request.GET,
-            queryset = CollabDoc.objects.filter(doc_collaborators=request.user, collab_id=id1)
+            queryset = CollabDoc.objects.filter(doc_collaborators=request.user, collab__id=id1)
         )
         context['filtered_collab_docs'] = filtered_collab_docs
         paginated_filtered_collab_docs = Paginator(filtered_collab_docs.qs, 99)
@@ -451,6 +473,37 @@ def uploadDocInitiated(request, id1, **kwargs):
         return render(request, 'account/upload_doc.html', {'form':form, 'collab':collab})
     else:
         return redirect('collab')
+
+# def addTaskInitiated(request, id1, **kwargs):
+#     collab = Collab.objects.get(id=id1)
+#     if collab.researcher == request.user:
+#         form = TaskForm()
+#         if request.method == 'POST':
+#             form = TaskForm(request.POST, request.FILES, None)
+#
+#             if form.is_valid():
+#                 document = form.cleaned_data.get('document')
+#                 document = str(raw)
+#
+#
+#
+#                     form.save(commit=False).type=last3.upper()
+#                 form.save(commit=False).shared_by=request.user
+#                 form.save(commit=False).collab=collab
+#                 form.save()
+#                 reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+#                 reg.doc_collaborators.add(request.user)
+#                 for person in collab.collaborators.all():
+#                     reg.doc_collaborators.add(person)
+#                 reg.save()
+#
+#                 messages.info(request, "The document has been uploaded successfully")
+#                 return redirect('collab_docs_initiated', id1)
+#             else:
+#                 messages.error(request, "Please review form input fields below")
+#         return render(request, 'account/upload_doc.html', {'form':form, 'collab':collab})
+#     else:
+#         return redirect('collab')
 
 @login_required
 def selectDocInitiated(request, id1, id2, **kwargs):
