@@ -76,7 +76,8 @@
                               var dateTime = date+' '+time;
 
                               chatSocket.send(JSON.stringify({
-                                  'message': someone + ": " + message
+                                  'message': someone + ": " + message,
+                                  'command': 'fetch_messages'
 
 
                               }));

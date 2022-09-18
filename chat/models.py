@@ -18,3 +18,21 @@ class ChatNotification(models.Model):
             return str(self.message)
         except:
             return str(self.id)
+
+class Message(models.Model):
+    author = models.ForeignKey('account.Researcher', null=True, blank=True, on_delete=models.SET_NULL, related_name="author_messages")
+    content = models.TextField(max_length=255, null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-timestamp',)
+
+    def __str__(self):
+        try:
+            return str(self.content)
+        except:
+            return str(self.id)
+
+    def last_10_messages(self):
+        return Message.objects.order_by('-timestamp').all[:10]
