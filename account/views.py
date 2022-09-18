@@ -229,7 +229,7 @@ def showTasksInitiated(request, id1):
         context = {}
         filtered_tasks = TaskFilter(
             request.GET,
-            queryset = Task.objects.filter(collab__id=id1)
+            queryset = Task.objects.filter(collab__id=id1, status="Ongoing")
         )
         context['filtered_tasks'] = filtered_tasks
         paginated_filtered_tasks = Paginator(filtered_tasks.qs, 99)
@@ -238,6 +238,20 @@ def showTasksInitiated(request, id1):
         context['tasks_page_obj'] = tasks_page_obj
         total_tasks = filtered_tasks.qs.count()
         context['total_tasks'] = total_tasks
+
+        #Completed
+        filtered_tasks_completed = TaskFilter(
+            request.GET,
+            queryset = Task.objects.filter(collab__id=id1, status="Completed")
+        )
+        context['filtered_tasks_completed'] = filtered_tasks_completed
+        paginated_filtered_tasks_completed = Paginator(filtered_tasks_completed.qs, 99)
+        page_number = request.GET.get('page')
+        tasks_completed_page_obj = paginated_filtered_tasks_completed.get_page(page_number)
+        context['tasks_completed_page_obj'] = tasks_completed_page_obj
+        total_tasks_completed = filtered_tasks_completed.qs.count()
+        context['total_tasks_completed'] = total_tasks_completed
+
         context['collab'] = collab
 
         return render(request, 'account/tasks.html', context)
