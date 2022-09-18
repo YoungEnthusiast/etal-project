@@ -203,7 +203,7 @@ class Task(models.Model):
     is_selected = models.ManyToManyField(Researcher, blank=True, related_name="is_selected_task")
     due_date = models.DateField(blank=True, null=True, verbose_name="Due Date")
     status = models.CharField(max_length=9, choices=STATUS_CHOICES, default='Ongoing', null=True)
-    updated_by = models.ForeignKey(Researcher, null=True, on_delete=models.SET_NULL, verbose_name="Updated By")
+    updated_by = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Updated By")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
