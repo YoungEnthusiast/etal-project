@@ -169,7 +169,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'www.etal.ac/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'etal.ac/static')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static', '/var/www/etal.ac/static/')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static', '/var/www/static/')
 
