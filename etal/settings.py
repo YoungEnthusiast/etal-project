@@ -174,7 +174,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static', '/var/www/static/')
 
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'etal/static')]
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'www.etal.ac/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'etal.ac/static')]
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",
 #     '/var/www/static/',
