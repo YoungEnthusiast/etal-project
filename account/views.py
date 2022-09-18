@@ -252,6 +252,19 @@ def showTasksInitiated(request, id1):
         total_tasks_completed = filtered_tasks_completed.qs.count()
         context['total_tasks_completed'] = total_tasks_completed
 
+        #Stopped
+        filtered_tasks_stopped = TaskFilter(
+            request.GET,
+            queryset = Task.objects.filter(collab__id=id1, status="Stopped")
+        )
+        context['filtered_tasks_stopped'] = filtered_tasks_stopped
+        paginated_filtered_tasks_stopped = Paginator(filtered_tasks_stopped.qs, 99)
+        page_number = request.GET.get('page')
+        tasks_stopped_page_obj = paginated_filtered_tasks_stopped.get_page(page_number)
+        context['tasks_stopped_page_obj'] = tasks_stopped_page_obj
+        total_tasks_stopped = filtered_tasks_stopped.qs.count()
+        context['total_tasks_stopped'] = total_tasks_stopped
+
         context['collab'] = collab
 
         return render(request, 'account/tasks.html', context)

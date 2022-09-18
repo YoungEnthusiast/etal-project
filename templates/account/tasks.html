@@ -128,7 +128,7 @@
                                   {% endif %}
                                 {% else %}
                                   {% if task.assigned_to %}
-                                  <a href="{% url 'show_user' task.assigned_to.username %}"><i class="fa fa-user-circle text-success fa-3x"></i></a>
+                                  <a href="{% url 'show_user' task.assigned_to.username %}"><i class="fa fa-user-circle text-info fa-3x"></i></a>
                                   {% else %}
                                   {% endif %}
                                 {% endif %}
@@ -174,7 +174,7 @@
                                   {% endif %}
                                 {% else %}
                                   {% if task.assigned_to %}
-                                  <a href="{% url 'show_user' task.assigned_to.username %}"><i class="fa fa-user-circle text-danger fa-3x"></i></a>
+                                  <a href="{% url 'show_user' task.assigned_to.username %}"><i class="fa fa-user-circle text-info fa-3x"></i></a>
                                   {% else %}
                                   {% endif %}
                                 {% endif %}
