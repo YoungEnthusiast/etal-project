@@ -169,8 +169,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = '/home/yustaoab/pyapps/etal-project/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, '/home/yustaoab/pyapps/etal-project/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, '/home/yustaoab/pyapps/etal-project/static/')
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static', '/var/www/etal.ac/static/')
