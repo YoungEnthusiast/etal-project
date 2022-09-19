@@ -4,7 +4,7 @@
 {% load humanize %}
 {% load home_tags %}
 {% block title %}
-  <title>Collab documents</title>
+  <title>Tasks</title>
   <meta name="description" content="">
 
 {% endblock title %}
@@ -15,7 +15,7 @@
 					<div class="side-app">
             <br>
             <ul>
-              <li><a title="Collabtask" href="collab-tasks"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Task" href="task"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
               <li><a href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
               <li><a href=""><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
               <li><a href=""><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
@@ -27,104 +27,62 @@
               {% include '_alerts.html' %}
               <div class="container content-area">
                 <div class="horizontal-content">
-
                   <div class="row">
-                    <div class="col-md-12">
-                      <div class="card">
-                        <div class="card-header">
-                          <div class="col-md-4">
-                            <a href="upload-task"><button type="button" class="btn btn-outline-info col-md-12"><strong>Upload</strong></button></a>
+                    <div class="col-md-1">
+                      <a href=""><button type="button" class="btn btn-info"><strong><i class="fas fa-plus-circle text-white mr-1"></i>New</strong></button></a>
+                    </div>
+                    <div class="col-md-11">
 
-                          </div>
-                          <div class="col-md-4">
-                            <a href=""><button type="button" class="btn btn-outline-info col-md-12"><strong>Create</strong></button></a>
-
-                          </div>
-                          <div class="col-md-4">
-                            <div class="float-right text-right">
-                              <div class="card-options">
-                                <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
-                                {% for task in tasks_page_obj %}
-                                {% if request.user in task.is_selected.all %}
-                                <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                  <li><a href="collab-tasks/delete-all"><i class="fa fa-trash mr-2"></i>Delete Selected</a></li>
-                                </ul>
-                                {% endif %}
-                                {% endfor %}
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                        <div class="card-body">
-                          <div class="table-responsive mb-0">
-                            <table class="table table-bordered table-hover mb-0 text-nowrap">
-                              <thead>
-                                <tr>
-                                  <th>Title</th>
-                                  <th>Description</th>
-                                  <th>Date Created</th>
-                                  <th>Assigned To</th>
-                                  <th>Due Date</th>
-                                  <th>Status</th>
-                                  <th>Updated By</th>
-                                  <th>Selected</th>
-                                  <th></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {% for task in tasks_page_obj %}
-                                {% if request.user in task.is_selected.all %}
-                                <tr class="bg-info">
-                                  <td><a class="text-white" href="collab-tasks/deselect/{{task.id}}">{{task.title}}</a></td>
-                                  <td class="num-font"><a class="text-white" href="collab-tasks/deselect/{{task.id}}">{{task.description}}</a></td>
-                                  <td class="num-font"><a class="text-white" href="collab-tasks/deselect/{{task.id}}">{{task.created}}</a></td>
-                                  <td class="num-font"><a class="text-white" href="collab-tasks/deselect/{{task.id}}">{{task.assigned_to}}</a></td>
-                                  <td class="num-font"><a class="text-white" href="collab-tasks/deselect/{{task.id}}">{{task.due_date}}</a></td>
-                                  <td class="num-font"><a class="text-white" href="collab-tasks/deselect/{{task.id}}">{{task.status}}</a></td>
-                                  <td class="num-font"><a class="text-white" href="collab-tasks/deselect/{{task.id}}">{{task.updated_by}}</a></td>
-                                  <td class="text-center"><a class="text-white" href="collab-tasks/deselect/{{task.id}}"><i class="fa fa-check-circle"></i></a></td>
-                                  <td>
-                                    <div class="card-options">
-                                      <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
-                                      <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <li>{% if task.shared_by == request.user %} <a href="collab-tasks/update/{{task.id}}"><i class="fa fa-edit mr-2"></i>Rename</a> {% else %} {% endif %}</li>
-                                        <li><a href="{{task.document.url}}" download><i class="fa fa-download mr-2"></i>Download</a></li>
-                                      </ul>
-                                    </div>
-                                  </td>
-                                </tr>
-                                {% else %}
-                                <tr>
-                                  <td><a href="collab-tasks/select/{{task.id}}">{{task.title}}</a></td>
-                                  <td class="num-font"><a href="collab-tasks/select/{{task.id}}">{{task.description}}</a></td>
-                                  <td class="num-font"><a href="collab-tasks/select/{{task.id}}">{{task.created}}</a></td>
-                                  <td class="num-font"><a href="collab-tasks/select/{{task.id}}">{% for task in task.assigned_to.all %}{{task}}<br>{% endfor %}</a></td>
-                                  <td class="num-font"><a href="collab-tasks/select/{{task.id}}">{{task.due_date}}</a></td>
-                                  <td class="num-font"><a href="collab-tasks/select/{{task.id}}">{{task.status}}</a></td>
-                                  <td class="num-font"><a href="collab-tasks/deselect/{{task.id}}">{{task.updated_by}}</a></td>
-                                  <td class="text-center"></td>
-                                  <td>
-                                    <div class="card-options">
-                                      <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
-                                      <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <li>{% if task.shared_by == request.user %} <a href="collab-tasks/update/{{task.id}}"><i class="fa fa-edit mr-2"></i>Rename</a> {% else %} {% endif %}</li>
-                                        <li><a href="{{task.document.url}}" download><i class="fa fa-download mr-2"></i>Download</a></li>
-                                      </ul>
-                                    </div>
-                                  </td>
-                                </tr>
-                                {% endif %}
-                                {% endfor %}
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
-                </div>
-                      {% if tasks_page_obj %}
+                  <br>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-8">
+                          <a href=""><button type="button" class="btn btn-outline-info col-md-12"><strong>Ongoing</strong></button></a>
+                        </div>
+                        <div class="col-md-2">
+
+                        </div>
+                      </div>
+                      <br>
+
+                      {% for task in tasks_page_obj %}
+                      <div class="col-xl-12 col-lg-4 col-md-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <h3 class="mb-1"><span class="text-info">{{task.title}}</span></h3>
+                            <p class="text-muted">{{task.description}}</p>
+                            <div class="row">
+                              <div class="col-md-3">
+                                {% if task.assigned_to.photograph %}
+                                  {% if task.assigned_to %}
+                                  <a href="{% url 'show_user' task.assigned_to.username %}"><img href="" src="{{ task.assigned_to.photographURL }}" alt="Photograph" class="profile-small"></a>
+                                  {% else %}
+                                  {% endif %}
+                                {% else %}
+                                  {% if task.assigned_to %}
+                                  <a href="{% url 'show_user' task.assigned_to.username %}"><i class="fa fa-user-circle text-info fa-3x"></i></a>
+                                  {% else %}
+                                  {% endif %}
+                                {% endif %}
+                              </div>
+                              <div class="col-md-9 text-right">
+                                <br>
+                                Due on <strong class="text-info">{{task.due_date}}</strong>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>                      
+                      {% endfor %}
+                      <!-- {% if tasks_page_obj %}
                       <nav aria-label="...">
                         <ul class="pagination justify-content-center">
                           <li class="page-item"><a class="text-info page-link" href="{% my_url 1 'page' request.GET.urlencode %}" tabindex="-1" aria-disabled="true">First</a></li>
@@ -138,14 +96,106 @@
                           <li class="page-item"><a class="text-info page-link" href="{% my_url tasks_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
                         </ul>
                       </nav>
-                      {% endif %}
+                      {% endif %} -->
+                    </div>
+                    <div class="col-md-4">
+                      <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-8">
+                          <a href=""><button type="button" class="btn btn-outline-success col-md-12"><strong>Completed</strong></button></a>
+                        </div>
+                        <div class="col-md-2">
+
+                        </div>
+                      </div>
+                      <br>
+
+                      {% for task in tasks_completed_page_obj %}
+                      <div class="col-xl-12 col-lg-4 col-md-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <h3 class="mb-1"><span class="text-success">{{task.title}}</span></h3>
+                            <p class="text-muted">{{task.description}}</p>
+                            <div class="row">
+                              <div class="col-md-3">
+                                {% if task.assigned_to.photograph %}
+                                  {% if task.assigned_to %}
+                                  <a href="{% url 'show_user' task.assigned_to.username %}"><img href="" src="{{ task.assigned_to.photographURL }}" alt="Photograph" class="profile-small"></a>
+                                  {% else %}
+                                  {% endif %}
+                                {% else %}
+                                  {% if task.assigned_to %}
+                                  <a href="{% url 'show_user' task.assigned_to.username %}"><i class="fa fa-user-circle text-success fa-3x"></i></a>
+                                  {% else %}
+                                  {% endif %}
+                                {% endif %}
+                              </div>
+                              <div class="col-md-9 text-right">
+                                <br>
+                                Completed on <strong class="text-info">{{task.completed_date}}</strong>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                    </div>
+                    <div class="col-md-4">
+                      <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-8">
+                          <a href=""><button type="button" class="btn btn-outline-danger col-md-12"><strong>Stopped</strong></button></a>
+                        </div>
+                        <div class="col-md-2">
+
+                        </div>
+                      </div>
+                      <br>
+
+                      {% for task in tasks_stopped_page_obj %}
+                      <div class="col-xl-12 col-lg-4 col-md-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <h3 class="mb-1"><span class="text-danger">{{task.title}}</span></h3>
+                            <p class="text-muted">{{task.description}}</p>
+                            <div class="row">
+                              <div class="col-md-3">
+                                {% if task.assigned_to.photograph %}
+                                  {% if task.assigned_to %}
+                                  <a href="{% url 'show_user' task.assigned_to.username %}"><img href="" src="{{ task.assigned_to.photographURL }}" alt="Photograph" class="profile-small"></a>
+                                  {% else %}
+                                  {% endif %}
+                                {% else %}
+                                  {% if task.assigned_to %}
+                                  <a href="{% url 'show_user' task.assigned_to.username %}"><i class="fa fa-user-circle text-info fa-3x"></i></a>
+                                  {% else %}
+                                  {% endif %}
+                                {% endif %}
+                              </div>
+                              <div class="col-md-9 text-right">
+                                <br>
+                                Stopped on <strong class="text-red">{{task.stopped_date}}</strong>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+
+
+
+
 
   								</div>
   							</div>
             </div>
-
-
-
-						</div>
 					</div>
 {% endblock content%}

@@ -60,26 +60,29 @@
                             <p class="text-muted">{{task.description}}</p>
                             <div class="row">
                               <div class="col-md-3">
-                                {% if task.assigned_to.photograph %}
-                                  {% if task.assigned_to %}
-                                  <a href="{% url 'show_user' task.assigned_to.username %}"><img href="" src="{{ task.assigned_to.photographURL }}" alt="Photograph" class="profile-small"></a>
+                                {% for person in task.assigned_to %}
+                                  {% if task.assigned_to.photograph %}
+                                    {% if task.assigned_to %}
+                                    <a href="{% url 'show_user' task.assigned_to.username %}"><img href="" src="{{ task.assigned_to.photographURL }}" alt="Photograph" class="profile-small"></a>
+                                    {% else %}
+                                    {% endif %}
                                   {% else %}
+                                    {% if task.assigned_to %}
+                                    <a href="{% url 'show_user' task.assigned_to.username %}"><i class="fa fa-user-circle text-info fa-3x"></i></a>
+                                    {% else %}
+                                    {% endif %}
                                   {% endif %}
-                                {% else %}
-                                  {% if task.assigned_to %}
-                                  <a href="{% url 'show_user' task.assigned_to.username %}"><i class="fa fa-user-circle text-info fa-3x"></i></a>
-                                  {% else %}
-                                  {% endif %}
-                                {% endif %}
+
                               </div>
-                              <div class="col-md-9">
-                                Due on {{task.due_date}}
+                              <div class="col-md-9 text-right">
+                                <br>
+                                Due on <strong class="text-info">{{task.due_date}}</strong>
                               </div>
                             </div>
 
                           </div>
                         </div>
-                      </div>
+                      </div>                      
                       {% endfor %}
                       <!-- {% if tasks_page_obj %}
                       <nav aria-label="...">
@@ -111,37 +114,7 @@
                       </div>
                       <br>
 
-                      {% for task in tasks_completed_page_obj %}
-                      <div class="col-xl-12 col-lg-4 col-md-12">
-                        <div class="card">
-                          <div class="card-body">
-                            <h3 class="mb-1"><span class="text-success">{{task.title}}</span></h3>
-                            <p class="text-muted">{{task.description}}</p>
-                            <div class="row">
-                              <div class="col-md-3">
-                                {% if task.assigned_to.photograph %}
-                                  {% if task.assigned_to %}
-                                  <a href="{% url 'show_user' task.assigned_to.username %}"><img href="" src="{{ task.assigned_to.photographURL }}" alt="Photograph" class="profile-small"></a>
-                                  {% else %}
-                                  {% endif %}
-                                {% else %}
-                                  {% if task.assigned_to %}
-                                  <a href="{% url 'show_user' task.assigned_to.username %}"><i class="fa fa-user-circle text-info fa-3x"></i></a>
-                                  {% else %}
-                                  {% endif %}
-                                {% endif %}
-                              </div>
-                              <div class="col-md-5">
-                              </div>
-                              <div class="col-md-3 mr-1">
-                                <a href="" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> View</a>
-                              </div>
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-                      {% endfor %}
+                      
                     </div>
                     <div class="col-md-4">
                       <div class="row">
@@ -157,37 +130,7 @@
                       </div>
                       <br>
 
-                      {% for task in tasks_stopped_page_obj %}
-                      <div class="col-xl-12 col-lg-4 col-md-12">
-                        <div class="card">
-                          <div class="card-body">
-                            <h3 class="mb-1"><span class="text-danger">{{task.title}}</span></h3>
-                            <p class="text-muted">{{task.description}}</p>
-                            <div class="row">
-                              <div class="col-md-3">
-                                {% if task.assigned_to.photograph %}
-                                  {% if task.assigned_to %}
-                                  <a href="{% url 'show_user' task.assigned_to.username %}"><img href="" src="{{ task.assigned_to.photographURL }}" alt="Photograph" class="profile-small"></a>
-                                  {% else %}
-                                  {% endif %}
-                                {% else %}
-                                  {% if task.assigned_to %}
-                                  <a href="{% url 'show_user' task.assigned_to.username %}"><i class="fa fa-user-circle text-info fa-3x"></i></a>
-                                  {% else %}
-                                  {% endif %}
-                                {% endif %}
-                              </div>
-                              <div class="col-md-5">
-                              </div>
-                              <div class="col-md-3 mr-1">
-                                <a href="" class="btn btn-danger btn-sm"><i class="fa fa-eye"></i> View</a>
-                              </div>
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-                      {% endfor %}
+                      
                     </div>
                   </div>
 
