@@ -20384,6 +20384,12 @@ section {
   height: 40px
 }
 
+.profile-task{
+  border-radius: 50%;
+  width: 24px;
+  height: 24px
+}
+
 .profile-not{
   border-radius: 50%;
   width: 30px;
