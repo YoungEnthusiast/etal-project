@@ -4,7 +4,7 @@
 {% load humanize %}
 {% load home_tags %}
 {% block title %}
-  <title>taskdocuments</title>
+  <title>Tasks</title>
   <meta name="description" content="">
 
 {% endblock title %}
@@ -15,7 +15,7 @@
 					<div class="side-app">
             <br>
             <ul>
-              <li><a title="tasktask" href="task-tasks"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Task" href="task"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
               <li><a href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
               <li><a href=""><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
               <li><a href=""><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
@@ -72,10 +72,8 @@
                                   {% endif %}
                                 {% endif %}
                               </div>
-                              <div class="col-md-5">
-                              </div>
-                              <div class="col-md-3 mr-1">
-                                <a href="" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> View</a>
+                              <div class="col-md-9">
+                                Due on {{task.due_date}}
                               </div>
                             </div>
 
@@ -159,7 +157,7 @@
                       </div>
                       <br>
 
-                      {% for task in tasks_completed_page_obj %}
+                      {% for task in tasks_stopped_page_obj %}
                       <div class="col-xl-12 col-lg-4 col-md-12">
                         <div class="card">
                           <div class="card-body">
