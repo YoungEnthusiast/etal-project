@@ -197,7 +197,6 @@ class Task(models.Model):
     ]
     serial = models.IntegerField(default=0)
     collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_task")
-    poster = models.ForeignKey(Researcher, null=True, blank=True,  on_delete=models.SET_NULL, related_name="poster_task")
     # assigned_to = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="assigned_to")
 
     assigned_to = models.ManyToManyField(Researcher, blank=True, related_name="assigned_to")

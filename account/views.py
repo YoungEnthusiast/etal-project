@@ -89,9 +89,9 @@ def loginRequest(request):
                 # messages.info(request, f"You are now logged in as {username}")
                 return redirect('researcher_board')
             else:
-                messages.info(request, "Either your username or password is incorret.")
+                messages.info(request, "Either your username or password is incorrect.")
         else:
-            messages.info(request, "Either your username or password is incorret.")
+            messages.info(request, "Either your username or password is incorrect.")
     form = AuthenticationForm()
     return render(request = request,
                     template_name = "account/login.html",
