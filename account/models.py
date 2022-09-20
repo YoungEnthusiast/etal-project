@@ -197,6 +197,7 @@ class Task(models.Model):
     ]
     serial = models.IntegerField(default=0)
     collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_task")
+    poster = models.ForeignKey(Researcher, null=True, blank=True,  on_delete=models.SET_NULL, related_name="poster_task")
     # assigned_to = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="assigned_to")
 
     assigned_to = models.ManyToManyField(Researcher, blank=True, related_name="assigned_to")
@@ -206,7 +207,7 @@ class Task(models.Model):
     due_date = models.DateField(blank=True, null=True, verbose_name="Due Date")
     completed_date = models.DateField(blank=True, null=True, verbose_name="Completed Date")
     stopped_date = models.DateField(blank=True, null=True, verbose_name="Stopped Date")
-    
+
     status = models.CharField(max_length=9, choices=STATUS_CHOICES, default='Ongoing', null=True)
     updated_by = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Updated By")
     created = models.DateTimeField(auto_now_add=True)
