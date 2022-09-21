@@ -1,0 +1,43 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Collab</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+{% include '_alerts.html' %}
+<div class=" app-content">
+	<div class="side-app">
+  <br>
+    <div class="container content-area">
+      <div class="horizontal-content">
+        <div class="row">
+          <div class="d-flex justify-content-center">
+            <div class="text-center card bg-info text-white form-group col-md-9">
+              <br>
+                {% if task.collab.researcher == request.user %}
+                <h4 > <span class="text-red">CAUTION!</span> Deleting {{task.title}} will affect all the information associated with the task. Do you still wish to continue?</h4>
+                <br>
+                <form method="post">
+                  {% csrf_token %}
+                  {{ form|crispy }}
+                  <input type="submit" class="btn btn-danger" value="Yes, confirm"> <a class="btn btn-outline-light" href="{% url 'tasks_initiated' task.collab.id %}">No, cancel</a>
+                </form>
+                {% else %}
+                <h2 class="text-center">Access Denied!</h2>
+                <br>
+                {% endif %}
+                <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content%}

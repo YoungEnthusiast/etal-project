@@ -46,8 +46,7 @@ class FlagForm(forms.ModelForm):
         fields = ['reason']
 
 class TaskForm(forms.ModelForm):
-    assigned_to = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Reason for flagging'}))
-    schedule_delivery = forms.DateField(widget=NumberInput(attrs={'type': 'date'}))
+    due_date = forms.DateField(label="Due Date", widget=NumberInput(attrs={'type': 'date'}))
     class Meta:
         model = Task
         fields = ['assigned_to', 'title', 'description', 'due_date']
@@ -68,6 +67,7 @@ class DocUpdateForm(forms.ModelForm):
         fields = ['name']
 
 class TaskEditForm(forms.ModelForm):
+    due_date = forms.DateField(widget=NumberInput(attrs={'type': 'date'}))
     class Meta:
         model = Task
         fields = ['assigned_to', 'title', 'description', 'due_date']

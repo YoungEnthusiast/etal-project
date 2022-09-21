@@ -20,16 +20,23 @@ urlpatterns = [
     path('collab/view-initiated/<str:id1>/', views.showCollabInitiated, name='show_collab_initiated'),
     path('collab/view-initiated/<str:id1>/collab-docs', views.showCollabDocsInitiated, name='collab_docs_initiated'),
     path('collab/view-initiated/<str:id1>/tasks', views.showTasksInitiated, name='tasks_initiated'),
+    path('collab/view-accepted/<str:id1>/tasks', views.showTasksAccepted, name='tasks_accepted'),
 
     path('collab/view-initiated/<str:id1>/collab-docs/select/<str:id2>', views.selectDocInitiated, name='select_doc_initiated'),
     path('collab/view-initiated/<str:id1>/collab-docs/deselect/<str:id2>', views.deselectDocInitiated, name='deselect_doc_initiated'),
     path('collab/view-initiated/<str:id1>/collab-docs/update/<str:id2>', views.updateDocInitiated, name='update_doc_initiated'),
 
     path('collab/view-initiated/<str:id1>/tasks/edit/<str:id2>', views.editTaskInitiated, name='edit_task_initiated'),
+    path('collab/view-initiated/<str:id1>/tasks/delete/<str:id2>', views.deleteTaskInitiated, name='delete_task_initiated'),
+
+    path('collab/view-initiated/<str:id1>/tasks/pin/<str:id2>', views.pinTask, name='pin_task'),
+    path('collab/view-accepted/<str:id1>/tasks/pin/<str:id2>', views.pinTask, name='pin_task'),
 
     path('collab/view-initiated/<str:id1>/collab-docs/delete-all', views.deleteAllDocsInitiated, name='delete_all_docs_initiated'),
-    path('collab/view-initiated/<str:id1>/upload-doc', views.uploadDocInitiated, name='upload_doc_initiated'),
-    # path('collab/view-initiated/<str:id1>/add-task', views.addTaskInitiated, name='task_initiated'),
+    path('collab/view-initiated/<str:id1>/upload-doc', views.uploadDoc, name='upload_doc'),
+    path('collab/view-accepted/<str:id1>/upload-doc', views.uploadDoc, name='upload_doc'),
+    path('collab/view-initiated/<str:id1>/add-task', views.addTask, name='task'),
+    path('collab/view-accepted/<str:id1>/add-task', views.addTask, name='task'),
 
     path('collab/view-initiated/<str:id>/removed/<str:username>', views.removeCollab, name='remove_collab'),
     path('collab/view-initiated/<str:id>/reported/<str:username>', views.reportCollaborator, name='report_collaborator'),

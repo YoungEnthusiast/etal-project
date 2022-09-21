@@ -29,7 +29,7 @@
                 <div class="horizontal-content">
                   <div class="row">
                     <div class="col-md-1">
-                      <a href=""><button type="button" class="btn btn-info"><strong><i class="fas fa-plus-circle text-white mr-1"></i>New</strong></button></a>
+                      <a href="add-task"><button type="button" class="btn btn-info"><strong><i class="fas fa-plus-circle text-white mr-1"></i>New</strong></button></a>
                     </div>
                     <div class="col-md-11">
 
@@ -51,7 +51,6 @@
                         </div>
                       </div>
                       <br>
-
                       {% for task in tasks_page_obj %}
                       <div class="col-xl-12 col-lg-4 col-md-12">
                         <div class="card">
@@ -66,7 +65,13 @@
                                     <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
 
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                      {% if task.collab.researcher == request.user %}
                                       <li><a href="tasks/edit/{{task.id}}"><i class="fa fa-edit mr-2"></i>Edit</a></li>
+                                      <li><a href="tasks/delete/{{task.id}}"><i class="fa fa-trash mr-2"></i>Delete</a></li>
+                                      {% elif request.user in task.collab.collaborators.all %}
+                                      <li><a href=""><i class="fa fa-edit mr-2"></i>Update</a></li>
+                                      {% endif %}
+                                      <li><a href="tasks/pin/{{task.id}}"><i class="fa fa-map-pin mr-2"></i>Pin</a></li>
                                     </ul>
                                   </div>
                                 </div>

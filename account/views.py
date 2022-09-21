@@ -129,7 +129,7 @@ def showCollabDocsInitiated(request, id1):
         context = {}
         filtered_collab_docs = CollabDocFilter(
             request.GET,
-            queryset = CollabDoc.objects.filter(doc_collaborators=request.user, collab_id=id1)
+            queryset = CollabDoc.objects.filter(collab_id=id1)
         )
         context['filtered_collab_docs'] = filtered_collab_docs
         paginated_filtered_collab_docs = Paginator(filtered_collab_docs.qs, 99)
@@ -194,13 +194,62 @@ def showTasksInitiated(request, id1):
         return redirect('collab')
 
 @login_required
+def showTasksAccepted(request, id1):
+    collab = Collab.objects.get(id=id1)
+    if request.user in collab.collaborators.all():
+        context = {}
+        filtered_tasks = TaskFilter(
+            request.GET,
+            queryset = Task.objects.filter(collab__id=id1, status="Ongoing")
+        )
+        context['filtered_tasks'] = filtered_tasks
+        paginated_filtered_tasks = Paginator(filtered_tasks.qs, 99)
+        page_number = request.GET.get('page')
+        tasks_page_obj = paginated_filtered_tasks.get_page(page_number)
+        context['tasks_page_obj'] = tasks_page_obj
+        total_tasks = filtered_tasks.qs.count()
+        context['total_tasks'] = total_tasks
+
+        #Completed
+        filtered_tasks_completed = TaskFilter(
+            request.GET,
+            queryset = Task.objects.filter(collab__id=id1, status="Completed")
+        )
+        context['filtered_tasks_completed'] = filtered_tasks_completed
+        paginated_filtered_tasks_completed = Paginator(filtered_tasks_completed.qs, 99)
+        page_number = request.GET.get('page')
+        tasks_completed_page_obj = paginated_filtered_tasks_completed.get_page(page_number)
+        context['tasks_completed_page_obj'] = tasks_completed_page_obj
+        total_tasks_completed = filtered_tasks_completed.qs.count()
+        context['total_tasks_completed'] = total_tasks_completed
+
+        #Stopped
+        filtered_tasks_stopped = TaskFilter(
+            request.GET,
+            queryset = Task.objects.filter(collab__id=id1, status="Stopped")
+        )
+        context['filtered_tasks_stopped'] = filtered_tasks_stopped
+        paginated_filtered_tasks_stopped = Paginator(filtered_tasks_stopped.qs, 99)
+        page_number = request.GET.get('page')
+        tasks_stopped_page_obj = paginated_filtered_tasks_stopped.get_page(page_number)
+        context['tasks_stopped_page_obj'] = tasks_stopped_page_obj
+        total_tasks_stopped = filtered_tasks_stopped.qs.count()
+        context['total_tasks_stopped'] = total_tasks_stopped
+
+        context['collab'] = collab
+
+        return render(request, 'account/tasks.html', context)
+    else:
+        return redirect('collab')
+
+@login_required
 def showCollabDocsAccepted(request, id1):
     collab = Collab.objects.get(id=id1)
     if request.user in collab.collaborators.all():
         context = {}
         filtered_collab_docs = CollabDocFilter(
             request.GET,
-            queryset = CollabDoc.objects.filter(doc_collaborators=request.user, collab__id=id1)
+            queryset = CollabDoc.objects.filter(collab__id=id1)
         )
         context['filtered_collab_docs'] = filtered_collab_docs
         paginated_filtered_collab_docs = Paginator(filtered_collab_docs.qs, 99)
@@ -371,7 +420,7 @@ def deleteAllDocsAccepted(request, id1, **kwargs):
     else:
         return redirect('collab')
 
-def uploadDocInitiated(request, id1, **kwargs):
+def uploadDoc(request, id1, **kwargs):
     collab = Collab.objects.get(id=id1)
     if collab.researcher == request.user:
         form = CollabDocForm()
@@ -409,50 +458,107 @@ def uploadDocInitiated(request, id1, **kwargs):
                 form.save(commit=False).shared_by=request.user
                 form.save(commit=False).collab=collab
                 form.save()
-                reg = CollabDoc.objects.filter(shared_by=request.user)[0]
-                reg.doc_collaborators.add(request.user)
-                for person in collab.collaborators.all():
-                    reg.doc_collaborators.add(person)
-                reg.save()
+                # reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+                # reg.doc_collaborators.add(request.user)
+                # for person in collab.collaborators.all():
+                #     reg.doc_collaborators.add(person)
+                # reg.save()
 
                 messages.info(request, "The document has been uploaded successfully")
                 return redirect('collab_docs_initiated', id1)
             else:
                 messages.error(request, "Please review form input fields below")
         return render(request, 'account/upload_doc.html', {'form':form, 'collab':collab})
+
+    elif request.user in collab.collaborators.all():
+        form = CollabDocForm()
+        if request.method == 'POST':
+            form = CollabDocForm(request.POST, request.FILES, None)
+            if form.is_valid():
+                raw = form.cleaned_data.get('document')
+                document = str(raw)
+
+                length = len(document)
+                sub3 = length-3
+                last3 = document[sub3:length+1]
+                lower_last3 = last3.lower()
+
+                if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
+                    form.save(commit=False).type="Image"
+                elif lower_last3=="mp3" or lower_last3=="amr":
+                    form.save(commit=False).type="Audio"
+                elif lower_last3=="ocx" or lower_last3=="doc":
+                    form.save(commit=False).type="Word"
+                elif lower_last3=="mp4":
+                    form.save(commit=False).type="Video"
+                elif lower_last3=="csv":
+                    form.save(commit=False).type="CSV"
+                elif lower_last3=="lsx":
+                    form.save(commit=False).type="Excel"
+                elif lower_last3=="pdf":
+                    form.save(commit=False).type="PDF"
+                elif lower_last3=="svg":
+                    form.save(commit=False).type="SVG"
+                elif lower_last3=="zip":
+                    form.save(commit=False).type="Zip"
+                else:
+                    form.save(commit=False).type=last3.upper()
+                form.save(commit=False).shared_by=request.user
+                form.save(commit=False).collab=collab
+                form.save()
+                # reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+                # reg.doc_collaborators.add(request.user)
+                # for person in collab.collaborators.all():
+                #     reg.doc_collaborators.add(person)
+                # reg.save()
+
+                messages.info(request, "The document has been uploaded successfully")
+                return redirect('collab_docs_accepted', id1)
+            else:
+                messages.error(request, "Please review form input fields below")
+        return render(request, 'account/upload_doc.html', {'form':form, 'collab':collab})
+
     else:
         return redirect('collab')
 
-# def addTaskInitiated(request, id1, **kwargs):
-#     collab = Collab.objects.get(id=id1)
-#     if collab.researcher == request.user:
-#         form = TaskForm()
-#         if request.method == 'POST':
-#             form = TaskForm(request.POST, request.FILES, None)
-#
-#             if form.is_valid():
-#                 document = form.cleaned_data.get('document')
-#                 document = str(raw)
-#
-#
-#
-#                     form.save(commit=False).type=last3.upper()
-#                 form.save(commit=False).shared_by=request.user
-#                 form.save(commit=False).collab=collab
-#                 form.save()
-#                 reg = CollabDoc.objects.filter(shared_by=request.user)[0]
-#                 reg.doc_collaborators.add(request.user)
-#                 for person in collab.collaborators.all():
-#                     reg.doc_collaborators.add(person)
-#                 reg.save()
-#
-#                 messages.info(request, "The document has been uploaded successfully")
-#                 return redirect('collab_docs_initiated', id1)
-#             else:
-#                 messages.error(request, "Please review form input fields below")
-#         return render(request, 'account/upload_doc.html', {'form':form, 'collab':collab})
-#     else:
-#         return redirect('collab')
+def addTask(request, id1, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    if collab.researcher == request.user:
+        form = TaskForm()
+        if request.method == 'POST':
+            form = TaskForm(request.POST, request.FILES, None)
+            if form.is_valid():
+                form.save(commit=False).collab=collab
+                form.save()
+                reg = Task.objects.all()[0]
+                reg.serial = reg.id
+                reg.save()
+
+                messages.info(request, "The task has been added successfully")
+                return redirect('tasks_initiated', id1)
+            else:
+                messages.error(request, "Please review form input fields below")
+        return render(request, 'account/add_task.html', {'form':form, 'collab':collab})
+    elif request.user in collab.collaborators.all():
+        form = TaskForm()
+        if request.method == 'POST':
+            form = TaskForm(request.POST, request.FILES, None)
+            if form.is_valid():
+                form.save(commit=False).collab=collab
+                form.save()
+                reg = Task.objects.all()[0]
+                reg.serial = reg.id
+                reg.save()
+
+                messages.info(request, "The task has been added successfully")
+                return redirect('tasks_accepted', id1)
+            else:
+                messages.error(request, "Please review form input fields below")
+        return render(request, 'account/add_task.html', {'form':form, 'collab':collab})
+
+    else:
+        return redirect('collab')
+
 
 @login_required
 def selectDocInitiated(request, id1, id2, **kwargs):
@@ -534,6 +640,39 @@ def editTaskInitiated(request, id1, id2, **kwargs):
         return render(request, 'account/edit_task.html', {'form': form, 'task':task, 'collab':collab})
     else:
         return redirect('collab')
+
+@login_required
+def pinTask(request, id1, id2, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    if collab.researcher == request.user:
+        task = Task.objects.get(id=id2)
+        reg = Task.objects.all()[0]
+        serial = int(reg.serial) - 1
+        task.serial = serial
+        task.save()
+        messages.info(request, "The task has been pinned successfully")
+        return redirect('tasks_initiated', id1)
+    elif request.user in collaborators:
+        task = Task.objects.get(id=id2)
+        reg = Task.objects.all()[0]
+        serial = int(reg.serial) - 1
+        task.serial = serial
+        task.save()
+        messages.info(request, "The task has been pinned successfully")
+        return redirect('tasks_accepted', id1)
+    else:
+        return redirect('collab')
+
+@login_required
+def deleteTaskInitiated(request, id1, id2, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    task = Task.objects.get(id=id2)
+    obj = get_object_or_404(Task, id=id2)
+    if request.method =="POST":
+        obj.delete()
+        messages.info(request, "The task has been deleted successfully")
+        return redirect('tasks_initiated', id1)
+    return render(request, 'account/task_confirm_delete.html', {'task':task, 'collab':collab})
 
 @login_required
 def showCollabInitiated(request, id1, **kwargs):

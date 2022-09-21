@@ -195,11 +195,11 @@ class Task(models.Model):
         ('Completed', 'Completed'),
         ('Stopped', 'Stopped')
     ]
-    serial = models.IntegerField(default=0)
+    serial = models.CharField(max_length=4, null=True)
     collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_task")
     # assigned_to = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="assigned_to")
 
-    assigned_to = models.ManyToManyField(Researcher, blank=True, related_name="assigned_to")
+    assigned_to = models.ManyToManyField(Researcher, blank=True, verbose_name="Assign", related_name="assigned_to")
     title = models.CharField(max_length=30, null=True)
     description = models.CharField(max_length=150, null=True)
     is_selected = models.ManyToManyField(Researcher, blank=True, related_name="is_selected_task")
