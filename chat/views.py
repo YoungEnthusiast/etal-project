@@ -4,6 +4,8 @@ from .models import ChatNotification
 from .filters import ChatNotificationFilter
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.utils.safestring import mark_safe
+import json
 
 # Create your views here.
 def lobby(request):
@@ -84,7 +86,8 @@ def room(request, room_name):
             reg.save()
 
     return render(request, 'chat/room.html', {
-        'room_name': room_name, 'collab':collab})
+        'room_name': room_name, 'collab':collab,
+        'username':mark_safe(json.dumps(request.user.username))})
 
 @login_required
 def clearEnvelopeUnreads(request):
