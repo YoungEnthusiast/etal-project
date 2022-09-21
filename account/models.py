@@ -195,20 +195,19 @@ class Task(models.Model):
         ('Completed', 'Completed'),
         ('Stopped', 'Stopped')
     ]
+    poster = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="task_poster")
     serial = models.CharField(max_length=4, null=True)
     collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_task")
-    # assigned_to = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="assigned_to")
+    is_pinned = models.BooleanField(max_length=5, default = False)
 
     assigned_to = models.ManyToManyField(Researcher, blank=True, verbose_name="Assign", related_name="assigned_to")
     title = models.CharField(max_length=30, null=True)
     description = models.CharField(max_length=150, null=True)
     is_selected = models.ManyToManyField(Researcher, blank=True, related_name="is_selected_task")
     due_date = models.DateField(blank=True, null=True, verbose_name="Due Date")
-    completed_date = models.DateField(blank=True, null=True, verbose_name="Completed Date")
-    stopped_date = models.DateField(blank=True, null=True, verbose_name="Stopped Date")
-
+    updated_date = models.DateField(blank=True, null=True)
+    updated_by = models.CharField(max_length=90, blank=True, null=True)
     status = models.CharField(max_length=9, choices=STATUS_CHOICES, default='Ongoing', null=True)
-    updated_by = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Updated By")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

@@ -27,6 +27,7 @@ urlpatterns = [
     path('collab/view-initiated/<str:id1>/collab-docs/update/<str:id2>', views.updateDocInitiated, name='update_doc_initiated'),
 
     path('collab/view-initiated/<str:id1>/tasks/edit/<str:id2>', views.editTaskInitiated, name='edit_task_initiated'),
+    path('collab/view-accepted/<str:id1>/tasks/update/<str:id2>', views.updateTaskAccepted, name='update_task_accepted'),
     path('collab/view-initiated/<str:id1>/tasks/delete/<str:id2>', views.deleteTaskInitiated, name='delete_task_initiated'),
 
     path('collab/view-initiated/<str:id1>/tasks/pin/<str:id2>', views.pinTask, name='pin_task'),

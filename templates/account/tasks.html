@@ -54,6 +54,10 @@
                       {% for task in tasks_page_obj %}
                       <div class="col-xl-12 col-lg-4 col-md-12">
                         <div class="card">
+                          {% if task.is_pinned %}
+                          <i class="fa fa-bookmark fa-2x text-info"></i>
+                          {% else %}
+                          {% endif %}
                           <div class="card-body">
                             <div class="row">
                               <div class="col-md-10">
@@ -69,7 +73,7 @@
                                       <li><a href="tasks/edit/{{task.id}}"><i class="fa fa-edit mr-2"></i>Edit</a></li>
                                       <li><a href="tasks/delete/{{task.id}}"><i class="fa fa-trash mr-2"></i>Delete</a></li>
                                       {% elif request.user in task.collab.collaborators.all %}
-                                      <li><a href=""><i class="fa fa-edit mr-2"></i>Update</a></li>
+                                      <li><a href="tasks/update/{{task.id}}"><i class="fa fa-edit mr-2"></i>Update</a></li>
                                       {% endif %}
                                       <li><a href="tasks/pin/{{task.id}}"><i class="fa fa-map-pin mr-2"></i>Pin</a></li>
                                     </ul>
@@ -197,7 +201,7 @@
                                 </tr>
                               </div>
                               <div class="col-md-7 text-right">
-                                <span class="text-red"><i class="fa fa-calendar mr-1"></i>{{task.stopped_date}}</span>
+                                <span class="text-red"><i class="fa fa-calendar mr-1"></i>{{task.updated_date}}</span>
                               </div>
                             </div>
 

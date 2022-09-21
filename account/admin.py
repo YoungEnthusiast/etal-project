@@ -84,7 +84,7 @@ class CollabDocAdmin(admin.ModelAdmin):
 admin.site.register(CollabDoc, CollabDocAdmin)
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ['created', 'serial', 'title', 'collab', 'status']
+    list_display = ['created', 'serial', 'is_pinned', 'title', 'collab', 'status']
     search_fields = []
     # list_filter = ['status']
     list_editable = []

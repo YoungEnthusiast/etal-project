@@ -2,7 +2,7 @@ import json
 import urllib.request
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm, CollabDocForm, DocUpdateForm, TaskForm, TaskEditForm
+from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm, CollabDocForm, DocUpdateForm, TaskForm, TaskEditForm, TaskUpdateForm
 from .models import Collab, Researcher, Notification, Report, CollabDoc, Task
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
@@ -569,7 +569,7 @@ def selectDocInitiated(request, id1, id2, **kwargs):
         doc.save()
         return redirect('collab_docs_initiated', id1)
     else:
-        return('redirect')
+        return redirect('collab')
 
 @login_required
 def selectDocAccepted(request, id1, id2, **kwargs):
@@ -580,7 +580,7 @@ def selectDocAccepted(request, id1, id2, **kwargs):
         doc.save()
         return redirect('collab_docs_accepted', id1)
     else:
-        return('redirect')
+        return redirect('collab')
 
 @login_required
 def deselectDocInitiated(request, id1, id2, **kwargs):
@@ -591,7 +591,7 @@ def deselectDocInitiated(request, id1, id2, **kwargs):
         doc.save()
         return redirect('collab_docs_initiated', id1)
     else:
-        return('redirect')
+        return redirect('collab')
 
 @login_required
 def deselectDocAccepted(request, id1, id2, **kwargs):
@@ -602,7 +602,7 @@ def deselectDocAccepted(request, id1, id2, **kwargs):
         doc.save()
         return redirect('collab_docs_accepted', id1)
     else:
-        return('redirect')
+        return redirect('collab')
 
 @login_required
 def updateDocInitiated(request, id1, id2, **kwargs):
@@ -642,21 +642,48 @@ def editTaskInitiated(request, id1, id2, **kwargs):
         return redirect('collab')
 
 @login_required
+def updateTaskAccepted(request, id1, id2, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    if request.user in collab.collaborators.all():
+        task = Task.objects.get(id=id2)
+        form = TaskUpdateForm(instance=task)
+        if request.method=='POST':
+            form = TaskUpdateForm(request.POST, instance=task)
+            if form.is_valid():
+                form.save(commit=False).updated_by = str(request.user)
+                form.save(commit=False).updated_date = datetime.now()
+                form.save()
+                messages.info(request, "The task has been updated successfully")
+
+                return redirect('tasks_accepted', id1)
+        return render(request, 'account/update_task.html', {'form': form, 'task':task, 'collab':collab})
+    else:
+        return redirect('collab')
+
+@login_required
 def pinTask(request, id1, id2, **kwargs):
     collab = Collab.objects.get(id=id1)
     if collab.researcher == request.user:
         task = Task.objects.get(id=id2)
-        reg = Task.objects.all()[0]
-        serial = int(reg.serial) - 1
-        task.serial = serial
+        reg = Task.objects.filter(collab__id=id1)[0]
+        serial_new = int(reg.serial) + 1
+        serial_old = serial_new - 1
+        reg.serial = serial_new
+        task.serial = serial_old
+        task.is_pinned = True
+        reg.save()
         task.save()
         messages.info(request, "The task has been pinned successfully")
         return redirect('tasks_initiated', id1)
-    elif request.user in collaborators:
+    elif request.user in collab.collaborators.all():
         task = Task.objects.get(id=id2)
-        reg = Task.objects.all()[0]
-        serial = int(reg.serial) - 1
-        task.serial = serial
+        reg = Task.objects.filter(collab__id=id1)[0]
+        serial_new = int(reg.serial) + 1
+        serial_old = serial_new - 1
+        reg.serial = serial_new
+        task.serial = serial_old
+        task.is_pinned = True
+        reg.save()
         task.save()
         messages.info(request, "The task has been pinned successfully")
         return redirect('tasks_accepted', id1)

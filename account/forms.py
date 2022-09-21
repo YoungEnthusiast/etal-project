@@ -71,3 +71,8 @@ class TaskEditForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['assigned_to', 'title', 'description', 'due_date']
+
+class TaskUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['status']
