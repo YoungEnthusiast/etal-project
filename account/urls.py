@@ -1,14 +1,12 @@
 from django.urls import path
 from account import views
 from django.contrib.auth import views as auth_views
-from .views import ActivateAccount
 
 urlpatterns = [
     path('create-account', views.join, name='join'),
     path('join/<str:username>', views.create, name='account'),
     path('where-next/', views.loginTo),
     path('profile/change-password', views.researcherChangePassword, name='researcher_change_password'),
-    path('activate/<uidb64>/<token>', ActivateAccount.as_view(), name='activate'),
     path('dashboard', views.showResearcherBoard, name='researcher_board'),
     path('profile', views.showResearcherProfile, name='researcher_profile'),
     path('collab', views.showCollabs, name='collab'),
@@ -26,6 +24,9 @@ urlpatterns = [
     path('collab/view-initiated/<str:id1>/collab-docs/select/<str:id2>', views.selectDocInitiated, name='select_doc_initiated'),
     path('collab/view-initiated/<str:id1>/collab-docs/deselect/<str:id2>', views.deselectDocInitiated, name='deselect_doc_initiated'),
     path('collab/view-initiated/<str:id1>/collab-docs/update/<str:id2>', views.updateDocInitiated, name='update_doc_initiated'),
+
+    path('collab/view-initiated/<str:id1>/tasks/edit/<str:id2>', views.editTaskInitiated, name='edit_task_initiated'),
+
     path('collab/view-initiated/<str:id1>/collab-docs/delete-all', views.deleteAllDocsInitiated, name='delete_all_docs_initiated'),
     path('collab/view-initiated/<str:id1>/upload-doc', views.uploadDocInitiated, name='upload_doc_initiated'),
     # path('collab/view-initiated/<str:id1>/add-task', views.addTaskInitiated, name='task_initiated'),

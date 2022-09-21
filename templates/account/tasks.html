@@ -64,18 +64,15 @@
                                 <div class="float-right text-right">
                                   <div class="card-options text-info">
                                     <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
-                                    {% for doc in collab_docs_page_obj %}
-                                    {% if request.user in doc.is_selected.all %}
+
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                      <li><a href="collab-docs/delete-all"><i class="fa fa-trash mr-2"></i>Delete Selected</a></li>
+                                      <li><a href="tasks/edit/{{task.id}}"><i class="fa fa-edit mr-2"></i>Edit</a></li>
                                     </ul>
-                                    {% endif %}
-                                    {% endfor %}
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            
+
                             <p class="text-muted">{{task.description}}</p>
                             <div class="row">
                               <div class="col-md-5">
@@ -98,7 +95,7 @@
 
                           </div>
                         </div>
-                      </div>                      
+                      </div>
                       {% endfor %}
                       <!-- {% if tasks_page_obj %}
                       <nav aria-label="...">
@@ -189,7 +186,7 @@
                                       <a href="{% url 'show_user' person.username %}"><img src="{{person.photographURL}}" alt="Photograph" class="profile-task"></a>
                                     {% else %}
                                       <sub><a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></sub>
-                                    {% endif %} 
+                                    {% endif %}
                                   {% endfor %}
                                   </td>
                                 </tr>
