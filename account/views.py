@@ -102,9 +102,6 @@ def showResearcherBoard(request):
 
     return render(request, 'account/researcher_board.html', {})
 
-def showHome(request):
-
-    return render(request, 'account/home.html', {})
 
 def showCollabs(request):
     context = {}

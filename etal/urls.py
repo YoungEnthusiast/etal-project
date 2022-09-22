@@ -4,9 +4,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('adm/', admin.site.urls),
     path('', include('account.urls')),
     path('', include('chat.urls')),
+    path('adm/', admin.site.urls),
+    path('', include('home.urls')),
 
 # ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ]

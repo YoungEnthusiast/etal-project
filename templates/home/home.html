@@ -1,0 +1,74 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Collab Details</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+
+<div class=" app-content">
+					<div class="side-app">
+            <br>
+            <div class="container content-area">
+              <div class="horizontal-content">
+
+                <div class="row">
+    							<div class="col-md-12">
+    								<div class="card">
+    									<div class="card-body">
+    										 <div id='calendar1'></div>
+    									</div>
+    								</div>
+    							</div>
+    						</div>
+    						<div class="row">
+    							<div class="col-md-12">
+    								<div class="card">
+    									<div class="card-body">
+    										 <div id='calendar'></div>
+    									</div>
+    								</div>
+    							</div>
+    						</div>
+
+
+                <div class="row">
+							<div class="col-md-12 col-lg-12">
+								<div class="card">
+									<div class="card-header">
+											<h3 class="card-title">Default Calender</h3>
+										</div>
+									<div class="card-body">
+										<div id="calendar1"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12 col-lg-12">
+								<div class="card">
+									<div class="card-header">
+											<h3 class="card-title">Calender</h3>
+										</div>
+									<div class="card-body">
+										<div class="cal1"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+    					</div>
+            </div>
+          </div>
+        </div>
+
+{% endblock content%}

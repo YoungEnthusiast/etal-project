@@ -31,11 +31,15 @@
                       <script>
                           const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
+                          const id = "{{collab.id}}";
+
 
                           const chatSocket = new WebSocket(
                               'ws://'
                               + window.location.host
-                              + '/ws/chat/'
+                              + '/ws/'
+                              + id
+                              + '/chat/'
                               + roomName
                               + '/'
                           );
@@ -45,7 +49,7 @@
                               let messages = document.getElementById('messages')
 
                               messages.insertAdjacentHTML('beforeend', `<div>
-                                                      <p>${data.message}</p>
+                                                      <strong><p>${data.message}</p></strong>
                                                   </div>`)
                           };
 
@@ -66,13 +70,13 @@
                               const message = messageInputDom.value;
                               const someone = "{{user}}"
 
-                              var today = new Date()
-                              var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear()
-                              var time = today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()
-                              var dateTime = date+' '+time
+                              var today = new Date();
+                              var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+                              var time = today.getHours()+':'+today.getMinutes()+':'+today.getSeconds();
+                              var dateTime = date+' '+time;
 
                               chatSocket.send(JSON.stringify({
-                                  'message': someone + ": " + message + " " + dateTime
+                                  'message': someone + ": " + message
                               }));
                               messageInputDom.value = '';
                           };

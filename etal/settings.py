@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'account',
     'crispy_forms',
     'chat',
+    'home',
 
     # 'notification',
 ]

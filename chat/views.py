@@ -1,11 +1,24 @@
 from django.shortcuts import render, redirect
 from account.models import Collab, Researcher
-from .models import ChatNotification
+from .models import ChatNotification, Chat, ChatRoom
 from .filters import ChatNotificationFilter
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.utils.safestring import mark_safe
 import json
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class Room(LoginRequiredMixin, View):
+    def get(self, request, room_name):
+        room = ChatRoom.objects.filter(name=room_name).first()
+        chats = []
+        if room:
+            chats = Chat.objects.filter(room=room)
+        else:
+            room = ChatRoom(name=room_name)
+            room.save()
+        return render(request, 'chat/room.html', {'room_name': room_name, 'chats':chats})
 
 # Create your views here.
 def lobby(request):
@@ -86,8 +99,9 @@ def room(request, room_name):
             reg.save()
 
     return render(request, 'chat/room.html', {
-        'room_name': room_name, 'collab':collab,
-        'username':mark_safe(json.dumps(request.user.username))})
+        'room_name': room_name, 'collab':collab})
+
+
 
 @login_required
 def clearEnvelopeUnreads(request):

@@ -12,7 +12,6 @@
 	<link rel="icon" type="image/x-icon" href="{% static 'img/logo.ico' %}" />
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 		<link rel="stylesheet" href="{% static 'css/all.css' %}">
-		<link rel="stylesheet" href="{% static 'css/all2.css' %}">
 		<link rel="stylesheet" href="{% static 'css/morris.css' %}">
 		<link rel="stylesheet" href="{% static 'css/style.css' %}">
 		<link rel="stylesheet" href="{% static 'css/dark-style.css' %}">
@@ -33,9 +32,7 @@
 		<link rel="stylesheet" href="{% static 'css/mine.css' %}">
 		<link rel="stylesheet" href="{% static 'css/a.css' %}">
 		<link rel="stylesheet" href="{% static 'css/accordion.css' %}">
-		<link rel="stylesheet" href="{% static 'css/fullcalendar.css' %}">
-		<link rel="stylesheet" href="{% static 'css/fullcalendar.print.min.css' %}">
-		<link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+		<link rel="stylesheet" href="{% static 'css/chat.css' %}">
 
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	{% block title %}
@@ -45,6 +42,7 @@
 
 
 	<body class="app sidebar-mini">
+		{{ form.media }}
 		<!-- Global Loader-->
 
 		<div class="page">
@@ -324,10 +322,11 @@
 		<script src="{% static 'js/accordion.min.js' %}"></script>
 		<script src="{% static 'js/accordion-Wizard-Form.js' %}"></script>
 		<script src="{% static 'js/wizard.js' %}"></script>
-		<script src="{% static 'js/moment.min.js' %}"></script>
-		<script src="{% static 'js/fullcalendar.js' %}"></script>
-		<script src="{% static 'js/fullcalendar.min.js' %}"></script>
-		<script src="{% static 'js/switcher.js' %}"></script>
+		<script src="{% static 'js/reconnecting-websocket.js' %}"></script>
+		<script src="{% static 'js/chat.js' %}"></script>
+
+
+
 		<script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
 
 	</body>
