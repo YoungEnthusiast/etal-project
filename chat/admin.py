@@ -14,7 +14,7 @@ class ChatNotificationAdmin(admin.ModelAdmin):
 admin.site.register(ChatNotification, ChatNotificationAdmin)
 
 class ChatAdmin(admin.ModelAdmin):
-    list_display = ['user']
+    list_display = ['user', 'content']
     # search_fields = ['owner', 'message']
     # list_filter = ['status']
     # list_display_links = ['email']

@@ -73,6 +73,7 @@
                               const loggedInUserId = JSON.parse(document.getElementById('user_id').textContent)
                               messageElement.innerText = data.message
 
+                              messageElement.className = 'message'
                               chatLog.appendChild(messageElement)
 
                               if (document.querySelector('#emptyText')){
