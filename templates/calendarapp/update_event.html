@@ -1,0 +1,81 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+<title>Schedule</title>
+{% endblock %}
+{% block content %}
+<div class="app-content bg-white">
+          <div class="side-app">
+            <br>
+            <ul>
+              <li><a title="CollabDoc" href="collab-docs"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Video Meeting" href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Scheduler" href="scheduler"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
+            </ul>
+
+              <div class="container content-area">
+                <div class="horizontal-content">
+                  {% include '_alerts.html' %}
+
+                  <div class="row">
+                    <div class="col-md-12 col-xl-12 col-lg-12">
+                    <div class="card">
+                      <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                        <div class="card-header bg-white">
+                          <h4 class="text-info">
+                            <i class="fas fa-calendar-check"></i> Schedule</h4>
+                        </div>
+                        <br>
+                        {% csrf_token %}
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.title|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.start_time|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.end_time|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.location|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.description|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.link|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
+                                {{ form.reminder|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div style="text-align:left" class="mt-1">
+                        <input type="submit" value="OK" class="btn btn-dark-blue">
+                    </form>
+                    </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+{% endblock %}

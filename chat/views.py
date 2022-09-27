@@ -20,86 +20,92 @@ class Room(LoginRequiredMixin, View):
             room.save()
         return render(request, 'chat/room.html', {'room_name': room_name, 'chats':chats})
 
-# Create your views here.
 def lobby(request):
     return render(request, 'chat/lobby.html')
 
+@login_required
 def index(request, id):
     collab = Collab.objects.get(id=id)
     room_name = collab.id
     return redirect('room', room_name)
-    # return render(request, 'chat/index.html', {'collab':collab})
 
-def room(request, room_name):
-    collab = Collab.objects.get(id=room_name)
-
-    if collab.researcher != request.user:
-        entry = ChatNotification()
-        entry.owner = collab.researcher
-        entry.sender = request.user
-        entry.collab = collab
-        entry.room = room_name
-        entry.message = "has entered the chatroom for the project: "
-
-        try:
-            old_entry = ChatNotification.objects.filter(owner=collab.researcher)[0]
-            entry.unreads = old_entry.unreads + 1
-            placeholder = old_entry.unreads + 1
-        except:
-            entry.unreads = 1
-            placeholder = 1
-        entry.save()
-
-        reg = Researcher.objects.get(username=collab.researcher.username)
-        reg.envelope_unreads = placeholder
-        reg.save()
-
-        for person in collab.collaborators.all():
-            if person != request.user:
-                entry = ChatNotification()
-                entry.owner = person
-                entry.sender = request.user
-                entry.collab = collab
-                entry.room = room_name
-                entry.message = "has entered the chatroom for the project: "
-
-                try:
-                    old_entry = ChatNotification.objects.filter(owner=person)[0]
-                    entry.unreads = old_entry.unreads + 1
-                    placeholder = old_entry.unreads + 1
-                except:
-                    entry.unreads = 1
-                    placeholder = 1
-                entry.save()
-
-                reg = Researcher.objects.get(username=person.username)
-                reg.envelope_unreads = placeholder
-                reg.save()
-
-    elif collab.researcher == request.user:
-        for person in collab.collaborators.all():
-            entry = ChatNotification()
-            entry.owner = person
-            entry.sender = request.user
-            entry.collab = collab
-            entry.room = room_name
-            entry.message = "has entered the chatroom for the project: "
-
-            try:
-                old_entry = ChatNotification.objects.filter(owner=person)[0]
-                entry.unreads = old_entry.unreads + 1
-                placeholder = old_entry.unreads + 1
-            except:
-                entry.unreads = 1
-                placeholder = 1
-            entry.save()
-
-            reg = Researcher.objects.get(username=person.username)
-            reg.envelope_unreads = placeholder
-            reg.save()
-
-    return render(request, 'chat/room.html', {
-        'room_name': room_name, 'collab':collab})
+# @login_required
+# def room(request, room_name):
+#     collab = Collab.objects.get(id=room_name)
+#     if collab.researcher != request.user:
+#         entry = ChatNotification()
+#         entry.owner = collab.researcher
+#         entry.sender = request.user
+#         entry.collab = collab
+#         entry.room = room_name
+#         entry.message = "has entered the chatroom for the project: "
+#
+#         try:
+#             old_entry = ChatNotification.objects.filter(owner=collab.researcher)[0]
+#             entry.unreads = old_entry.unreads + 1
+#             placeholder = old_entry.unreads + 1
+#         except:
+#             entry.unreads = 1
+#             placeholder = 1
+#         entry.save()
+#
+#         reg = Researcher.objects.get(username=collab.researcher.username)
+#         reg.envelope_unreads = placeholder
+#         reg.save()
+#
+#         for person in collab.collaborators.all():
+#             if person != request.user:
+#                 entry = ChatNotification()
+#                 entry.owner = person
+#                 entry.sender = request.user
+#                 entry.collab = collab
+#                 entry.room = room_name
+#                 entry.message = "has entered the chatroom for the project: "
+#
+#                 try:
+#                     old_entry = ChatNotification.objects.filter(owner=person)[0]
+#                     entry.unreads = old_entry.unreads + 1
+#                     placeholder = old_entry.unreads + 1
+#                 except:
+#                     entry.unreads = 1
+#                     placeholder = 1
+#                 entry.save()
+#
+#                 reg = Researcher.objects.get(username=person.username)
+#                 reg.envelope_unreads = placeholder
+#                 reg.save()
+#
+#     elif collab.researcher == request.user:
+#         for person in collab.collaborators.all():
+#             entry = ChatNotification()
+#             entry.owner = person
+#             entry.sender = request.user
+#             entry.collab = collab
+#             entry.room = room_name
+#             entry.message = "has entered the chatroom for the project: "
+#
+#             try:
+#                 old_entry = ChatNotification.objects.filter(owner=person)[0]
+#                 entry.unreads = old_entry.unreads + 1
+#                 placeholder = old_entry.unreads + 1
+#             except:
+#                 entry.unreads = 1
+#                 placeholder = 1
+#             entry.save()
+#
+#             reg = Researcher.objects.get(username=person.username)
+#             reg.envelope_unreads = placeholder
+#             reg.save()
+#     room = ChatRoom.objects.filter(name=room_name).first()
+#     chats = []
+#     if room:
+#         chats = Chat.objects.filter(room=room)
+#     else:
+#         room = ChatRoom(name=room_name)
+#         room.save()
+#
+#     return render(request, 'chat/room.html', {
+#         'room_name': room_name, 'collab':collab, 'chats':chats})
 
 
 

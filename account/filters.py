@@ -3,6 +3,8 @@ import django_filters as filters
 from .models import Collab, Notification, CollabDoc, Task
 # from django.forms.widgets import NumberInput
 # from django.db.models import Q
+from calendarapp.models import Event
+
 
 class InitiatedCollabFilter(filters.FilterSet):
     # start_date = DateFilter(input_formats=['%Y-%m-%d', '%d-%m-%Y', '%Y/%m/%d', '%d/%m/%Y'], field_name="created", lookup_expr='gte', label='Dates Above', widget=NumberInput(attrs={'type': 'date'}))
@@ -40,4 +42,14 @@ class TaskFilter(filters.FilterSet):
 
     class Meta:
         model = Task
+        fields = []
+
+
+class InitiatedAllEventsFilter(filters.FilterSet):
+    # start_date = DateFilter(input_formats=['%Y-%m-%d', '%d-%m-%Y', '%Y/%m/%d', '%d/%m/%Y'], field_name="created", lookup_expr='gte', label='Dates Above', widget=NumberInput(attrs={'type': 'date'}))
+    # start_date2 = DateFilter(input_formats=['%Y-%m-%d', '%d-%m-%Y', '%Y/%m/%d', '%d/%m/%Y'], field_name="created", lookup_expr='lte', label='Dates Below', widget=NumberInput(attrs={'type': 'date'}))
+    # q = CharFilter(method='my_custom_filter',label="Others")
+
+    class Meta:
+        model = Event
         fields = []

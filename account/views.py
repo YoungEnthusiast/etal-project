@@ -391,7 +391,6 @@ def deleteAllDocsInitiated(request, id1, **kwargs):
                 messages.info(request, "Deleted successfully")
                 return redirect('collab_docs_initiated', id1)
         else:
-            messages.info(request, "You are not authorised")
             return redirect('collab_docs_initiated', id1)
 
         return render(request, 'account/docs_confirm_delete_initiated.html', {'docs':docs, 'collab':collab})
@@ -410,7 +409,6 @@ def deleteAllDocsAccepted(request, id1, **kwargs):
                 messages.info(request, "Deleted successfully")
                 return redirect('collab_docs_accepted', id1)
         else:
-            messages.info(request, "You are not authorised")
             return redirect('collab_docs_accepted', id1)
 
         return render(request, 'account/docs_confirm_delete_accepted.html', {'docs':docs, 'collab':collab})

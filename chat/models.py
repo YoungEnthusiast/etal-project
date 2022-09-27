@@ -27,7 +27,7 @@ class Chat(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('-timestamp',)
+        ordering = ('timestamp',)
 
     def __str__(self):
         try:

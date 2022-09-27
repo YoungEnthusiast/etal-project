@@ -35,7 +35,7 @@ GOOGLE_RECAPTCHA_SECRET_KEY = '6LfJmFYhAAAAAOAKIMENfxk9B8iXri1KwDOb7oSH'
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',
+    # 'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'chat',
     'home',
+    'calendarapp',
+    # 'scheduler'
 
     # 'notification',
 ]
@@ -157,7 +159,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Africa/Lagos'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -195,11 +197,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'etal/static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

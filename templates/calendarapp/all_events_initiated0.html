@@ -1,0 +1,220 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+{% block extracss %}
+  <link href="{% static 'calender/main.css' %}" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css2/main.css' %}" />
+{% endblock extracss %}
+
+{% block title %}
+<title>Schedules</title>
+{% endblock title %}
+
+{% block content %}
+<div class="app-content bg-white">
+					<div class="side-app">
+            {% include '_alerts.html' %}
+            <br>
+            <ul>
+              <li><a title="Collabevent" href="collab-events"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Video Meeting" href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Scheduler" href="scheduler"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
+            </ul>
+
+              <div class="container content-area">
+                <div class="horizontal-content">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <div class="col-md-12">
+                              <div class="float-right text-right">
+                                <div class="card-options">
+                                  <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
+                                  {% for event in all_events_page_obj %}
+                                  {% if request.user in event.is_selected.all %}
+                                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <li><a href="collab-events/delete-all"><i class="fa fa-trash mr-2"></i>Delete Selected</a></li>
+                                  </ul>
+                                  {% endif %}
+                                  {% endfor %}
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="card-body">
+                            <div class="table-responsive mb-0">
+                              <table class="table table-bordered table-hover mb-0 text-nowrap">
+                                <thead>
+                                  <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Shared by</th>
+                                    <th>Selected</th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for event in all_events_page_obj %}
+                                  {% if request.user in event.is_selected.all %}
+                                  <tr class="bg-info">
+                                    <td><a class="text-white" href="collab-events/deselect/{{event.id}}">{{event.title}}</a></td>
+                                    <td class="num-font"><a class="text-white" href="collab-events/deselect/{{event.id}}">{{event.created}}</a></td>
+                                    <td class="num-font"><a class="text-white" href="collab-events/deselect/{{event.id}}">{{event.type}}</a></td>
+                                    <td class="num-font"><a class="text-white" href="collab-events/deselect/{{event.id}}">{{event.shared_by}}</a></td>
+                                    <td class="text-center"><a class="text-white" href="collab-events/deselect/{{event.id}}"><i class="fa fa-check-circle"></i></a></td>
+                                    <td>
+                                      <div class="card-options">
+                                        <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                          <li>{% if event.shared_by == request.user %} <a href="collab-events/update/{{event.id}}"><i class="fa fa-edit mr-2"></i>Rename</a> {% else %} {% endif %}</li>
+                                          <li><a href="{{event.eventument.url}}" download><i class="fa fa-download mr-2"></i>Download</a></li>
+                                        </ul>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  {% else %}
+                                  <tr>
+                                    <td><a href="collab-events/select/{{event.id}}">{{event.title}}</a></td>
+                                    <td class="num-font"><a href="collab-events/select/{{event.id}}">{{event.created}}</a></td>
+                                    <td class="num-font"><a href="collab-events/select/{{event.id}}">{{event.type}}</a></td>
+                                    <td class="num-font"><a href="collab-events/select/{{event.id}}">{{event.shared_by}}</a></td>
+                                    <td class="text-center"></td>
+                                    <td>
+                                      <div class="card-options">
+                                        <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                          <li>{% if event.shared_by == request.user %} <a href="collab-events/update/{{event.id}}"><i class="fa fa-edit mr-2"></i>Rename</a> {% else %} {% endif %}</li>
+                                          <li><a href="{{event.eventument.url}}" download><i class="fa fa-download mr-2"></i>Download</a></li>
+                                        </ul>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  {% endif %}
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+{% endblock content %}
+
+    {% block extrascripts %}
+      <script src="{% static 'calender/main.js' %}"></script>
+
+      <script src="{% static 'js2/js/jquery-3.3.1.min.js' %}"></script>
+      <script src="{% static 'js2/popper.js' %}"></script>
+      <script src="{% static 'js2/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'js2/main.js' %}"></script>
+      <!-- The javascript plugin to display page loading on top-->
+      <script src="{% static 'js2/plugins/pace.min.js'%}"></script>
+      <script>
+          eventument.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = eventument.getElementById('calendar');
+            var today = new Date();
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+              headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+
+              },
+
+              initialDate: today,
+              navLinks: true, // can click day/week names to navigate views
+              selectable: true,
+              selectMirror: true,
+              initialView: 'timeGridWeek',
+              // select: function(arg) {
+
+              //   console.log('clicked')
+              //   var modal = eventument.getElementById('eventModal')
+              //   modal.style.display = 'block'
+              //   calendar.unselect()
+              // },
+
+              dateClick: function(info) {
+                window.open("{% url 'calendarapp:event_new' collab.id %}?startdate=" + encodeURIComponent(info.dateStr),"_parent");
+              },
+              // THIS KEY WON'T WORK IN PRODUCTION!!!
+              // To make your own Google API key, follow the directions here:
+              // http://fullcalendar.io/events/google_calendar/
+              // googleCalendarApiKey: 'AIzaSyCqCxjjLtjbtkX37aOtWB8OfwBLy_6QuYk',
+
+              // bangladesh Holidays
+              // events: 'bn.bd#holiday@group.v.calendar.google.com',
+              eventClick: function(arg) {
+                if (confirm('Are you sure you want to delete this event?')) {
+                  arg.event.remove()
+                }
+              },
+
+              eventClick: function(arg) {
+                if (confirm('Are you sure you want to delete this event?')) {
+                  arg.event.remove()
+                }
+              },
+
+
+              editable: true,
+              dayMaxEvents: true, // allow "more" link when too many events
+              events: {{ events|safe }},
+              // events: [
+              //   {
+              //     title: 'All Day Event',
+              //     start: '2021-06-26'
+              //   },
+              //   {
+              //     groupId: 999,
+              //     title: 'Repeating Event',
+              //     start: '2020-09-16T16:00:00'
+              //   },
+              //   {
+              //     title: 'Conference',
+              //     start: '2020-09-11',
+              //     end: '2020-09-13'
+              //   },
+              //   {
+              //     title: 'Click for Google',
+              //     url: 'http://google.com/',
+              //     start: '2020-09-28'
+              //   }
+              // ]
+            });
+
+            calendar.render();
+
+
+
+
+
+          });
+
+          const closeBtn1 = eventument.getElementById('modalClose1');
+          const closeBtn2 = eventument.getElementById('modalClose2');
+          closeBtn1.addEventListener('click',()=>{
+            const eventModal = eventument.getElementById('eventModal')
+            eventModal.style.display = 'none';
+          });
+          closeBtn2.addEventListener('click',()=>{
+            const eventModal = eventument.getElementById('eventModal')
+            eventModal.style.display = 'none';
+          });
+
+
+      </script>
+    {% endblock extrascripts %}

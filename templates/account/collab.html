@@ -83,7 +83,7 @@
                             {% if person.photograph %}
                               <a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
                             {% else %}
-                              <a href=""><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                              <a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
                             {% endif %}
                             {% if person in collab.collaborators.all %}
                             <strong><p>Offered/<a class="text-info" href="declined/{{person.username}}">Decline</a></p></strong>

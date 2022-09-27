@@ -1,0 +1,100 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Event Details</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+
+<div class=" app-content">
+					<div class="side-app">
+            <br>
+            <ul>
+              <li><a title="eventDoc" href="event-docs"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Video Meeting" href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Scheduler" href="schedules"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Whiteboard" href=""><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
+              <li><a href="{% url 'chat' collab.id %}"><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
+            </ul>
+
+              <div class="container content-area">
+                <div class="horizontal-content">
+
+                  <div class="row">
+      							<div class="col-xl-9 col-lg-12 col-md-12">
+      								<div class="card">
+      									<div class="card-body">
+      										<div class="mt-4 mb-4">
+      											<h3 class="text-info">{{event.title}}</h3>
+      										</div>
+      										<div class="mt-4 product-spec">
+      											<div class="pro_detail">
+      												<ul class="list-unstyled mb-0">
+      													<li class="row border-bottom-0">
+                                  <div class="col-sm-3 text-muted mb-2">Start Time</div>
+      														<div class="col-sm-9 mb-2">{{event.start_time}}</div>
+      													</li>
+      													<li class=" row border-bottom-0">
+      														<div class="col-sm-3 text-muted mb-2">End Time</div>
+      														<div class="col-sm-3 mb-2">{{event.end_time}}</div>
+      													</li>
+      													<li class="border-bottom-0 row">
+      														<div class="col-sm-3 text-muted mb-2">Location</div>
+      														<div class="col-sm-3 mb-2">{{event.location}}</div>
+      													</li>
+      													<li class="border-bottom-0 row">
+      														<div class="col-sm-3 text-muted mb-2">Description</div>
+      														<div class="col-sm-3 mb-2">{{event.description}}</div>
+      													</li>
+      													<li class="border-bottom-0 row">
+      														<div class="col-sm-3 text-muted mb-2">Link</div>
+      														<div class="col-sm-6 mb-2">{{event.link}}</div>
+      													</li>
+      													<li class="border-bottom-0 row">
+      														<div class="col-sm-3 text-muted mb-2">Reminder</div>
+      														<div class="col-sm-3 mb-2">{{event.reminder}}</div>
+      													</li>
+                                <div class="pull-right">
+                                  <div class="">Created by</div>
+                                  {% if event.user.photograph %}
+                                    <a href="{% url 'show_user' user.username %}"><img href="" src="{{ user.photographURL }}" alt="Photograph" class="profile-col"></a>
+                                  {% else %}
+                                    <a href="{% url 'show_user' user.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                                  {% endif %}
+                                </div>
+
+      												</ul>
+      											</div>
+      										</div>
+
+      									</div>
+      								</div>
+      							</div>
+                    {% if collab.researcher == request.user %}
+                    <div class="col-xl-3 col-md-12">
+                      <a class="text-white" href="{{event.id}}/update"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button></a>
+                      <a class="text-white" href="{{event.id}}/delete"><button class="btn btn-red" type="button" name="button"><strong><i class="fas fa-trash fa-1x mr-1"></i>Delete</strong></button></a>
+                      <br>
+                    </div>
+                    {% else %}
+                    <div class="col-xl-4 col-md-12">
+
+                    </div>
+                    {% endif %}
+      						</div>
+      					</div>
+              </div>
+
+
+          </div>
+        </div>
+
+{% endblock content%}

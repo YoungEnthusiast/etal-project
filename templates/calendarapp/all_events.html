@@ -1,0 +1,117 @@
+{% extends 'board.html' %}
+
+
+{% block title %}
+<title>Schedules</title>
+{% endblock title %}
+
+{% block content %}
+<div class="app-content bg-white">
+					<div class="side-app">
+            {% include '_alerts.html' %}
+            <br>
+            <ul>
+              <li><a title="Collabevent" href="all-schedules"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Video Meeting" href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Scheduler" href="scheduler"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+              <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
+            </ul>
+
+              <div class="container content-area">
+                <div class="horizontal-content">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <div class="col-md-12">
+                              <div class="float-right text-right">
+                                <div class="card-options">
+                                  <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
+                                  {% for event in all_events_page_obj %}
+                                  {% if request.user in event.is_selected.all %}
+                                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <li><a href="delete-all"><i class="fa fa-trash mr-2"></i>Delete Selected</a></li>
+                                  </ul>
+                                  {% endif %}
+                                  {% endfor %}
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="card-body">
+                            <div class="table-responsive mb-0">
+                              <table class="table table-bordered table-hover mb-0 text-nowrap">
+                                <thead>
+                                  <tr>
+                                    <th>Title</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <!-- <th>Created by</th>
+                                    <th>Description</th>
+                                    <th>Link</th>
+                                    <th>Location</th> -->
+                                    <th>Selected</th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for event in all_events_page_obj %}
+                                  {% if request.user in event.is_selected.all %}
+                                  <tr class="bg-info">
+                                    <td><a class="text-white" href="deselect/{{event.id}}">{{event.title}}</a></td>
+                                    <td class="num-font"><a class="text-white" href="deselect/{{event.id}}">{{event.start_time}}</a></td>
+                                    <td class="num-font"><a class="text-white" href="deselect/{{event.id}}">{{event.end_time}}</a></td>
+                                    <!-- <td class="num-font"><a class="text-white" href="deselect/{{event.id}}">{{event.user}}</a></td>
+                                    <td class="num-font"><a class="text-white" href="deselect/{{event.id}}">{{event.description}}</a></td>
+                                    <td class="num-font"><a class="text-white" href="deselect/{{event.id}}">{{event.link}}</a></td>
+                                    <td class="num-font"><a class="text-white" href="deselect/{{event.id}}">{{event.location}}</a></td> -->
+                                    <td class="text-center"><a class="text-white" href="deselect/{{event.id}}"><i class="fa fa-check-circle"></i></a></td>
+                                    <td>
+                                      <div class="card-options">
+                                        <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                          <li><a href="{%url 'calendarapp:show_event_initiated' event.id %}"><i class="fa fa-eye mr-2"></i>View</a></li>
+                                          <li>{% if event.user == request.user %} <a href="all-schedules/update/{{event.id}}"><i class="fa fa-edit mr-2"></i>Edit</a> {% else %} {% endif %}</li>
+                                        </ul>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  {% else %}
+                                  <tr>
+                                    <td><a href="all-schedules/deselect/{{event.id}}">{{event.title}}</a></td>
+                                    <td class="num-font"><a href="select/{{event.id}}">{{event.start_time}}</a></td>
+                                    <td class="num-font"><a href="select/{{event.id}}">{{event.end_time}}</a></td>
+                                    <!-- <td class="num-font"><a href="select/{{event.id}}">{{event.user}}</a></td>
+                                    <td class="num-font"><a href="select/{{event.id}}">{{event.description}}</a></td>
+                                    <td class="num-font"><a href="select/{{event.id}}">{{event.link}}</a></td>
+                                    <td class="num-font"><a href="select/{{event.id}}">{{event.location}}</a></td> -->
+                                    <td class="text-center"></td>
+                                    <td>
+                                      <div class="card-options">
+                                        <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                          <li><a href="{%url 'calendarapp:show_event_initiated' collab.id event.id %}"><i class="fa fa-eye mr-2"></i>View</a></li>
+                                          <li>{% if event.user == request.user %} <a href="all-schedules/update/{{event.id}}"><i class="fa fa-edit mr-2"></i>Edit</a> {% else %} {% endif %}</li>
+                                        </ul>
+
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  {% endif %}
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+{% endblock content %}

@@ -20548,3 +20548,27 @@ div.content {
 li{
   display: inline
 }
+
+.emptyText{
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1.5rem;
+}
+
+.message{
+  color: #ffffff;
+  width: 35%;
+  padding: 8px;
+  border-radius: 0.5em;
+  margin: 15px 0px;
+  font-family: 'Poppins',sans-serif;
+}
+
+.sender{
+  background-color: #5bc0de;
+
+}
+
+.receiver{
+  background-color: #5cb85c;
+  margin-left: auto;
+}
