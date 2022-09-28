@@ -196,7 +196,7 @@ class Task(models.Model):
         ('Stopped', 'Stopped')
     ]
     poster = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="task_poster")
-    serial = models.CharField(max_length=4, null=True)
+    serial = models.CharField(max_length=4, null=True, blank=True)
     collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_task")
     is_pinned = models.BooleanField(max_length=5, default = False)
 

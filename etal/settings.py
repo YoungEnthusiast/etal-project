@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'chat',
     'home',
     'calendarapp',
-    # 'scheduler'
+    'researchnote',
 
     # 'notification',
 ]

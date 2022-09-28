@@ -9,6 +9,7 @@ urlpatterns = [
     path('adm/', admin.site.urls),
     path('', include('home.urls')),
     path("", include("calendarapp.urls")),
+    path("", include("researchnote.urls")),
 
 # ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ]

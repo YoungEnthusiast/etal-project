@@ -1,0 +1,116 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Notes</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+{% include '_alerts.html' %}
+<div class=" app-content">
+					<div class="side-app">
+            <br>
+            <ul>
+              <li><a title="note" href="note"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-notes text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
+            </ul>
+
+              {% include '_alerts.html' %}
+              <div class="container content-area">
+                <div class="horizontal-content">
+                  <div class="row">
+                    <div class="col-md-1">
+                      <a href="add-task"><button type="button" class="btn btn-info"><strong><i class="fas fa-plus-circle text-white mr-1"></i>New</strong></button></a>
+                    </div>
+                    <div class="col-md-11">
+
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                      {% for note in notes_page_obj %}
+                      <div class="col-xl-4 col-lg-4 col-md-12">
+                        <div class="card">
+                          {% if note.is_pinned %}
+                          <i class="fa fa-bookmark text-info"></i>
+                          {% else %}
+                          {% endif %}
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-10">
+                                <a href="{% url 'show_collab' collab.id %}"><h3 class=" mb-1"><span class="text-info">{{note.title|slice:":27"}}...</span></h3></a>
+            										<p class="text-muted">{{note.method|slice:":200"}}...</p>
+                              </div>
+                              <div class="col-md-2">
+                                <div class="float-right text-right">
+                                  <div class="card-options text-info">
+                                    <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
+
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                      {% if note.collab.researcher == request.user %}
+                                      <li><a href="notes/edit/{{note.id}}"><i class="fa fa-edit mr-2"></i>Edit</a></li>
+                                      <li><a href="notes/delete/{{note.id}}"><i class="fa fa-trash mr-2"></i>Delete</a></li>
+                                      {% elif request.user in note.collab.collaborators.all %}
+                                      <li><a href="notes/update/{{note.id}}"><i class="fa fa-edit mr-2"></i>Update</a></li>
+                                      {% endif %}
+                                      <li><a href="notes/pin/{{note.id}}"><i class="fa fa-map-pin mr-2"></i>Pin</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <p class="text-muted">{{note.description}}</p>
+                            <div class="row">
+                              <div class="col-md-5">
+                                <tr>
+                                  <td>
+                                    {% for person in note.assigned_to.all %}
+                                      {% if person.photograph %}
+                                        <a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-note"></a>
+                                      {% else %}
+                                        <sub><a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></sub>
+                                      {% endif %}
+                                    {% endfor %}
+                                  </td>
+                                </tr>
+                              </div>
+                              <div class="col-md-7 text-right">
+                                <span class="text-info"><i class="fa fa-calendar mr-1"></i>{{note.due_date}}</span>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      <!-- {% if notes_page_obj %}
+                      <nav aria-label="...">
+                        <ul class="pagination justify-content-center">
+                          <li class="page-item"><a class="text-info page-link" href="{% my_url 1 'page' request.GET.urlencode %}" tabindex="-1" aria-disabled="true">First</a></li>
+                          {% if notes_page_obj.has_previous %}
+                            <li class="page-item"><a class="text-info page-link" href="{% my_url notes_page_obj.previous_page_number 'page' request.GET.urlencode %}">{{notes_page_obj.previous_page_number}}</a></li>
+                          {% endif %}
+                          <li class="page-item active" aria-current="page"><a class="bg-info page-link" href="{% my_url notes_page_obj.number 'page' request.GET.urlencode %}">{{notes_page_obj.number}}<span class="sr-only">(current)</span></a></li>
+                          {% if notes_page_obj.has_next %}
+                            <li class="page-item"><a class="text-info page-link" href="{% my_url notes_page_obj.next_page_number 'page' request.GET.urlencode %}">{{notes_page_obj.next_page_number}}</a></li>
+                          {% endif %}
+                          <li class="page-item"><a class="text-info page-link" href="{% my_url notes_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
+                        </ul>
+                      </nav>
+                      {% endif %} -->
+                    </div>
+  								</div>
+  							</div>
+            </div>
+					</div>
+{% endblock content%}

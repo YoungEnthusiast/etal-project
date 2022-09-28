@@ -23,7 +23,6 @@
               <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
               <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
             </ul>
-
               {% include '_alerts.html' %}
               <div class="container content-area">
                 <div class="horizontal-content">
@@ -55,7 +54,7 @@
                       <div class="col-xl-12 col-lg-4 col-md-12">
                         <div class="card">
                           {% if task.is_pinned %}
-                          <i class="fa fa-bookmark fa-2x text-info"></i>
+                          <i class="fa fa-bookmark text-info"></i>
                           {% else %}
                           {% endif %}
                           <div class="card-body">
@@ -139,6 +138,10 @@
                       {% for task in tasks_completed_page_obj %}
                       <div class="col-xl-12 col-lg-4 col-md-12">
                         <div class="card">
+                          {% if task.is_pinned %}
+                          <i class="fa fa-bookmark fa-2x text-success"></i>
+                          {% else %}
+                          {% endif %}
                           <div class="card-body">
                             <h3 class="mb-1"><span class="text-success">{{task.title}}</span></h3>
                             <p class="text-muted">{{task.description}}</p>
@@ -179,10 +182,13 @@
                         </div>
                       </div>
                       <br>
-
                       {% for task in tasks_stopped_page_obj %}
                       <div class="col-xl-12 col-lg-4 col-md-12">
                         <div class="card">
+                          {% if task.is_pinned %}
+                          <i class="fa fa-bookmark fa-2x text-danger"></i>
+                          {% else %}
+                          {% endif %}
                           <div class="card-body">
                             <h3 class="mb-1"><span class="text-danger">{{task.title}}</span></h3>
                             <p class="text-muted">{{task.description}}</p>

@@ -38,11 +38,13 @@
                                       <br>
                                         <P class="mb-4 h4">Ongoing Schedules</P>
                                         {% for event in events_month %}
+                                        <a href="{% url 'calendarapp:show_event_initiated' collab.id event.id %}">
                                           <div class="fc-event">
                                               <h5>{{ event.title }}</h5>
                                               <p>From: {{ event.start_time }}</p>
                                               <p>To: {{ event.end_time }}</p>
                                           </div>
+                                        </a>
                                         {% empty %}
                                           <p>No Ongoing Schedule</p>
                                         {% endfor %}

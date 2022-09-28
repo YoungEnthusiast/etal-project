@@ -24,11 +24,11 @@
                         {% for chat in chats.all %}
                           {% if chat.user.id == request.user.id %}
                             <div class="message sender">
-                              <strong class="text-light">Me:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-purple">{{chat.timestamp}}</i>
+                              <strong class="text-light">Me:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-dark">{{chat.timestamp}}</i>
                             </div>
                           {% else %}
                             <div class="message receiver">
-                              <strong class="text-light">{{chat.user}}:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-purple">{{chat.timestamp}}</i>
+                              <strong class="text-light">{{chat.user}}:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-dark">{{chat.timestamp}}</i>
                             </div>
                           {% endif %}
                         {% endfor %}
