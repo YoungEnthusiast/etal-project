@@ -24,11 +24,11 @@
                         {% for chat in chats.all %}
                           {% if chat.user.id == request.user.id %}
                             <div class="message sender">
-                              <strong class="text-light">Me:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-dark">{{chat.timestamp}}</i>
+                              <a href="{% url 'show_user' chat.user.username %}"><img href="" src="{{ chat.user.photographURL }}" alt="Photograph" class="profile-small"></a><strong class="text-light">Me:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-dark">{{chat.timestamp}}</i>
                             </div>
                           {% else %}
                             <div class="message receiver">
-                              <strong class="text-light">{{chat.user}}:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-dark">{{chat.timestamp}}</i>
+                              <a href="{% url 'show_user' chat.user.username %}"><img href="" src="{{ chat.user.photographURL }}" alt="Photograph" class="profile-small"></a><strong class="text-light">{{chat.user}}:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-dark">{{chat.timestamp}}</i>
                             </div>
                           {% endif %}
                         {% endfor %}
@@ -74,7 +74,7 @@
                                   messageElement.classList.add('message', 'sender')
                               }
                               else {
-                                  messageElement.classList.add('message', 'sender')
+                                  messageElement.classList.add('message', 'receiver')
                               }
                               chatLog.appendChild(messageElement)
                               if (document.querySelector('#emptyText')){
