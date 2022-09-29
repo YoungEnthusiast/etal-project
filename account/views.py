@@ -102,7 +102,6 @@ def showResearcherBoard(request):
 
     return render(request, 'account/researcher_board.html', {})
 
-
 def showCollabs(request):
     context = {}
     filtered_all_collabs = InitiatedCollabFilter(
