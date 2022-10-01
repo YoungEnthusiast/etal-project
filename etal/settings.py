@@ -131,17 +131,17 @@ DATABASES = {
         'USER': config("DB_USER"),
         'PASSWORD': config("DB_PASSWORD"),
         'HOST': 'localhost',
-        'PORT': '443',
+        'PORT': '',
     }
 }
 
 
 
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
 
 AUTH_USER_MODEL = 'account.Researcher'
 
