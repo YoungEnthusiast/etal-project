@@ -11,10 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+
 import sys
 from pathlib import Path
-from decouple import config
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,25 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-c#9k=6fdfie!r3#1s^uk#_-_4ryiyc*xdl&8wyt6o5e*f_o_(t'
+SECRET_KEY = 'django-insecure-c#9k=6fdfie!r3#1s^uk#_-_4ryiyc*xdl&8wyt6o5e*f_o_(t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-SECRET_KEY = config('SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
-
-ALLOWED_HOSTS = ["68.183.101.227",]
-
-ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
-
-WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
-
-ASGI_APPLICATION = f'{config("PROJECT_NAME")}.asgi.application'
+ALLOWED_HOSTS = []
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LfJmFYhAAAAAOAKIMENfxk9B8iXri1KwDOb7oSH'
-
 
 # Application definition
 
@@ -68,8 +56,14 @@ INSTALLED_APPS = [
     # 'notification',
 ]
 
+EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'taoheed.yusuf@etal.ac'
+EMAIL_HOST_PASSWORD = 'Quayers8_'
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'Et al Tech. Ltd. <taoheed.yusuf@etal.ac>'
 
-
+ASGI_APPLICATION = 'etal.asgi.application'
 
 # CHANNEL_LAYERS = {
 #     'default': {
@@ -101,6 +95,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+ROOT_URLCONF = 'etal.urls'
 
 TEMPLATES = [
     {
@@ -118,6 +113,8 @@ TEMPLATES = [
         },
     },
 ]
+
+WSGI_APPLICATION = 'etal.wsgi.application'
 
 
 # Database
@@ -221,43 +218,3 @@ MESSAGE_TAGS = {
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
-
-
-DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760 # 10mb = 10 * 1024 *1024
-
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-AWS_LOCATION = config('AWS_LOCATION')
-AWS_S3_SIGNATURE_VERSION='s3v4'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
-TEMP = os.path.join(BASE_DIR, 'temp')
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-
-EMAIL_HOST = 'smtp.zoho.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = 'Et al Tech. Ltd. <taoheed.yusuf@etal.ac>'
-
-
-BASE_URL = "http://68.183.101.227"
