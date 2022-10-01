@@ -33,7 +33,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ["68.183.101.227",]
+ALLOWED_HOSTS = ["68.183.101.227", 'etal.ac', 'www.etal.ac']
 
 ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
 
@@ -131,7 +131,7 @@ DATABASES = {
         'USER': config("DB_USER"),
         'PASSWORD': config("DB_PASSWORD"),
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '443',
     }
 }
 
