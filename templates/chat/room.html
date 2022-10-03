@@ -55,11 +55,11 @@
                           }
 
                           const chatSocket = new WebSocket(
-                              'ws://'
+                              'wss://'
                               + window.location.host
                               + '/ws/chat/'
                               + roomName
-                              + '/'
+                              + ':8001/'
                           );
 
                           chatSocket.onmessage = function(e) {
