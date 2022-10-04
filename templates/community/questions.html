@@ -1,0 +1,43 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Collab Details</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+
+<div class=" app-content">
+					<div class="side-app">
+            <br>
+            <div class="container content-area">
+              <div class="horizontal-content">
+
+                <div class="row">
+                  <body>
+                    <div class="main">
+                  {% for question in questions %}
+                  <div class="question-list-item">
+                    <a href="">
+                      <p class="question-list-item-title">
+                        {{question.title}}
+                      </p>
+                      <p class="question-list-item-author">
+                        by {{question.author.username}}
+                      </p>
+                    </a>
+                  </div>
+                  {% endfor %}
+                  </div>
+                  </body>
+                  </div>
+    						</div>
+    					</div>
+            </div>
+          </div>
+
+{% endblock content%}
