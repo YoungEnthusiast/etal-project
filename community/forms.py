@@ -3,13 +3,18 @@ from .models import Question, Response
 from django import forms
 
 class NewQuestionForm(forms.ModelForm):
+    question_choices = [
+		('Anyone', 'Anyone'),
+        ('Affiliation', 'Affiliation'),
+	]
+    question_type = forms.ChoiceField(label="", choices=question_choices, widget=forms.RadioSelect, required = False)
     class Meta:
         model = Question
         fields = ['title', 'body']
         widgets = {
             'title': forms.TextInput(attrs={
                 'autofocus': True,
-                'placeholder': 'How to create a Q&A website with Django?'
+                'placeholder': ''
             })
         }
 

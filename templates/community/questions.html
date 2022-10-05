@@ -12,26 +12,25 @@
           <nav class="navbar">
             <div class="main-menu">
               <ul>
-                <li><a href="">Questions</a></li>
+                <li><a class="h4" href="">All Questions</a></li>
               </ul>
             </div>
             <div class="user-menu">
               <ul>
-                <li><a href="">Ask question</a></li>
+                <li><a class="btn btn-sm btn-info" href="{% url 'new-question' %}">Ask a research question</a></li>
               </ul>
             </div>
           </nav>
           <div class="page">
-          <h1 class="title">All questions</h1>
 
           {% for question in questions %}
           <div class="question-list-item">
-            <a href="">
-              <p class="question-list-item-title">
+            <a href="{% url 'question' question.id %}">
+              <p class="question-list-item-title text-info h5">
                 {{question.title}}
               </p>
-              <p class="question-list-item-author">
-                by {{question.author.username}}
+              <p class="question-list-item-author text-gray">
+                <span class="text-dark">asked by</span> {{question.author.first_name}} {{question.author.last_name}}
               </p>
             </a>
           </div>
