@@ -1,43 +1,46 @@
 {% extends 'board.html' %}
-{% load crispy_forms_tags %}
-{% load static %}
-{% load humanize %}
-{% load home_tags %}
-{% block title %}
-  <title>Collab Details</title>
-  <meta name="description" content="">
-
-{% endblock title %}
 
 {% block content %}
-
 <div class=" app-content">
-					<div class="side-app">
-            <br>
-            <div class="container content-area">
-              <div class="horizontal-content">
+  <div class="side-app">
+    <br>
+    <div class="container content-area">
+      <div class="horizontal-content">
+        {% include '_alerts.html' %}
+        <div class="main">
 
-                <div class="row">
-                  <body>
-                    <div class="main">
-                  {% for question in questions %}
-                  <div class="question-list-item">
-                    <a href="">
-                      <p class="question-list-item-title">
-                        {{question.title}}
-                      </p>
-                      <p class="question-list-item-author">
-                        by {{question.author.username}}
-                      </p>
-                    </a>
-                  </div>
-                  {% endfor %}
-                  </div>
-                  </body>
-                  </div>
-    						</div>
-    					</div>
+          <nav class="navbar">
+            <div class="main-menu">
+              <ul>
+                <li><a href="">Questions</a></li>
+              </ul>
             </div>
-          </div>
+            <div class="user-menu">
+              <ul>
+                <li><a href="">Ask question</a></li>
+              </ul>
+            </div>
+          </nav>
+          <div class="page">
+          <h1 class="title">All questions</h1>
 
-{% endblock content%}
+          {% for question in questions %}
+          <div class="question-list-item">
+            <a href="">
+              <p class="question-list-item-title">
+                {{question.title}}
+              </p>
+              <p class="question-list-item-author">
+                by {{question.author.username}}
+              </p>
+            </a>
+          </div>
+          {% endfor %}
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

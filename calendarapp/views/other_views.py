@@ -81,7 +81,7 @@ def create_event(request, id1, **kwargs):
             return redirect("calendarapp:schedules-initiated", id1)
         # else:
         #     messages.error(request, "Please review form input fields below")
-        return render(request, "event.html", {"form": form, 'collab': collab, 'collab_id': collab_id})
+        return render(request, "calendarapp/event.html", {"form": form, 'collab': collab, 'collab_id': collab_id})
     elif request.user in collab.collaborators.all():
         form = EventForm(request.POST or None)
         if request.POST and form.is_valid():
@@ -107,7 +107,7 @@ def create_event(request, id1, **kwargs):
             return redirect("calendarapp:schedules-initiated", id1)
         else:
             messages.error(request, "Please review form input fields below")
-        return render(request, "event.html", {"form": form, 'collab': collab, 'collab_id': collab_id})
+        return render(request, "calendarapp/event.html", {"form": form, 'collab': collab, 'collab_id': collab_id})
     else:
         return redirect('collab')
 
