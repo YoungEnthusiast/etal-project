@@ -11,6 +11,7 @@ urlpatterns = [
     path("", include("calendarapp.urls")),
     path("", include("researchnote.urls")),
     path("", include("community.urls")),
+    path("", include("discover.urls")),
 
 # ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ]

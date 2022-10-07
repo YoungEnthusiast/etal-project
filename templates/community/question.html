@@ -1,6 +1,14 @@
 {% extends 'board.html' %}
 
 {% block content %}
+
+<style media="screen">
+  .inline-container {
+  display: flex;
+  flex-direction: row;
+ }
+</style>
+
 <div class=" app-content">
   <div class="side-app">
     <br>
@@ -25,17 +33,25 @@
 
 
           <div class="page question-page">
-
-              <h2 class="question-title">{{question.title}}</h2>
-              <p class="question-body">{{question.body}}</p>
-              <span class="question-author">author: {{question.author.first_name}} {{question.author.last_name}}</span>
-
+            {% if request.user == question.author %}
+            <div class="inline-container">
+              <h3 class="question-title text-info mr-2">{{question.title}}</h3>
+              <a class="text-white" href="{{question.id}}/update"><button class="btn btn-sm btn-info mr-1" type="button" name="button"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button></a>
+              <a class="text-white" href="{{question.id}}/delete"><button class="btn btn-sm btn-red" type="button" name="button"><strong><i class="fas fa-trash fa-1x mr-1"></i>Delete</strong></button></a>
+            </div>
+            {% else %}
+            <h3 class="question-title text-info">{{question.title}}</h3>
+            {% endif %}
+            <p class="question-body">{{question.body}}</p>
+            <div class="inline-container">
+              <i class="question-author">asked {{question.created_at|timesince}} ago by <span class="text-gray">{{question.author.first_name}} {{question.author.last_name}}</span></i>
+            </div>
+              <br>
               <div class="responses-container">
-                <h4 class="responses-container-heading">Responses</h4>
-
                 {% if not question.responses.all %}
-                  <p class="no-responses-text">No responses yet</p>
+                  <p class="no-responses-text">Be the first to respond</p>
                 {% else %}
+                <h5 class="responses-container-heading">Responses</h5>
                   {% for response in question.get_responses %}
                     {% include 'components/response.html' with response=response %}
                   {% endfor %}
@@ -46,10 +62,13 @@
               <form method="POST" action="" class="response-form">
               {% csrf_token %}
               <div class="fieldWrapper">
-                <label for="{{response_form.body.id_for_label}}">Your answer:</label>
                 {{response_form.body}}
+                <br>
+                <input type="submit" value="Send" class="submit-button"/>
               </div>
-              <input type="submit" value="Send" class="submit-button"/>
+
+
+
               </form>
               {% endif %}
 

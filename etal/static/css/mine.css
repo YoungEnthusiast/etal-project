@@ -20575,30 +20575,10 @@ li{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 html,
 body {
   font-family: Segoe UI;
-  background-color: #7ef29d;
+  /* background-color: #7ef29d; */
 }
 
 *, *::after, *::before {

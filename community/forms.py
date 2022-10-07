@@ -22,6 +22,12 @@ class NewResponseForm(forms.ModelForm):
     class Meta:
         model = Response
         fields = ['body']
+        widgets = {
+            'body': forms.Textarea(attrs={
+                'rows': 5,
+                'placeholder': 'You have a response to the question?'
+            })
+        }
 
 class NewReplyForm(forms.ModelForm):
     class Meta:
@@ -30,6 +36,6 @@ class NewReplyForm(forms.ModelForm):
         widgets = {
             'body': forms.Textarea(attrs={
                 'rows': 2,
-                'placeholder': 'What are your thoughts?'
+                'placeholder': 'You have a reply to the response?'
             })
         }
