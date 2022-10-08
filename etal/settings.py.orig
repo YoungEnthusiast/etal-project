@@ -84,18 +84,22 @@ CHANNEL_LAYERS = {
     },
 }
 
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/blog'
-    },
-}
 
 # CHANNEL_LAYERS = {
 #     'default':{
 #         'BACKEND':'channels.layers.InMemoryChannelLayer'
 #     }
 # }
+
+
+
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr/blog'
+    },
+}
 
 
 SITE_ID = 1
