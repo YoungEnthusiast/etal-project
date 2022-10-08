@@ -85,6 +85,7 @@ CHANNEL_LAYERS = {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
@@ -92,11 +93,17 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 =======
+=======
+>>>>>>> 2ff40f3d21dd47c02579dafd230a30c13c01c02b
 # CHANNEL_LAYERS = {
 #     'default':{
 #         'BACKEND':'channels.layers.InMemoryChannelLayer'
 #     }
 # }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2ff40f3d21dd47c02579dafd230a30c13c01c02b
 
 
 
