@@ -53,7 +53,7 @@
 					<div class="container-fluid">
 						<div class="d-flex">
 							<a class="header-brand">
-								<a href="{% url 'index' %}"><img src="" class="logo2" alt="Logo"> <strong class="text-dark-green"></strong></a>
+								<a href="{% url 'index' %}"><img src="{% static 'img/logo.png' %}" class="logo2" alt="Logo"> <strong class="text-dark-green"></strong></a>
 							</a>
 							{% if user.is_authenticated %}
 							<!-- Sidebar toggle button-->
@@ -64,7 +64,7 @@
 									</a>
 								</div>
 								<div class="dropdown d-sm-flex d-none header-message">
-									<a class="nav-link icon" data-toggle="dropdown">
+									<a class="nav-link icon" href="{% url 'discover:post_list' %}">
 										<strong class="text-black">Discover</strong>
 									</a>
 								</div>
@@ -148,7 +148,7 @@
 								</a>
 							</div>
 							<div class="dropdown d-md-flex header-message">
-								<a class="nav-link icon" data-toggle="dropdown">
+								<a class="nav-link icon" href="discover:post_list">
 									<strong class="text-black">Discover</strong>
 								</a>
 							</div>
@@ -206,7 +206,7 @@
 					</div>
 				</div>
 				<!--/.Navbar -->
-				{% if 'login' in request.path or 'create-account' in request.path or 'reset-password' in request.path or '/join' in request.path %}
+				{% if 'login' in request.path or 'create-account' in request.path or 'reset-password' in request.path or '/join' in request.path or 'post' in request.path %}
 
 
 				{% elif user.is_authenticated %}

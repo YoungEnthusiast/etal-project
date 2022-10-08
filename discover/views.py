@@ -1,14 +1,15 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.core.mail import send_mail
 from django.db.models import Count
-
+from django.utils.text import slugify
 from taggit.models import Tag
 from .filters import PostFilter
 from .models import Post, Comment
 from .forms import EmailPostForm, CommentForm, SearchForm, PostForm
 from haystack.query import SearchQuerySet
+from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
 
@@ -20,7 +21,7 @@ def post_list(request, tag_slug=None):
         tag = get_object_or_404(Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
 
-    paginator = Paginator(object_list, 1) # 3 posts in each page
+    paginator = Paginator(object_list, 30) # 3 posts in each page
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -144,3 +145,19 @@ def post_search(request):
                                                      'cd': cd,
                                                      'results': results,
                                                      'total_results': total_results})
+
+@login_required
+def post(request):
+    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, None)
+        if form.is_valid():
+            body = form.cleaned_data.get('body')
+            form.save(commit=False).author=request.user
+            form.save(commit=False).slug=slugify(body)
+            form.save()
+            messages.info(request, "The post has been created successfully")
+            return redirect('discover:post')
+        else:
+            messages.error(request, "Please review form input fields below")
+    return render(request, 'discover/post.html', {'form':form})

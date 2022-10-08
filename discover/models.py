@@ -11,10 +11,14 @@ class PublishedManager(models.Manager):
 
 
 class Post(models.Model):
-
+    post_choices = [
+		('Anyone', 'Anyone'),
+        ('Affiliation', 'Affiliation'),
+	]
     author = models.ForeignKey('account.Researcher', null=True, on_delete=models.SET_NULL, related_name='blog_posts')
+    post_type = models.CharField(max_length=11, default="Anyone", choices=post_choices, null=True, verbose_name="To")
     body = models.TextField()
-    slug = models.SlugField(max_length=250, unique_for_date='publish')
+    slug = models.SlugField(max_length=250, null=True, unique_for_date='publish')
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

@@ -102,6 +102,7 @@ def showResearcherBoard(request):
 
     return render(request, 'account/researcher_board.html', {})
 
+@login_required
 def showCollabs(request):
     context = {}
     filtered_all_collabs = InitiatedCollabFilter(
@@ -260,7 +261,7 @@ def showCollabDocsAccepted(request, id1):
     else:
         return redirect('collab')
 
-
+@login_required
 def createCollab(request):
     form = CollabForm(request=request)
     if request.method == 'POST':

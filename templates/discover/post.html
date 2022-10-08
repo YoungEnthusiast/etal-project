@@ -1,0 +1,53 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Post</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+<div class=" app-content">
+					<div class="side-app">
+            <br>
+            <div class="container content-area">
+              <div class="horizontal-content">
+
+                <div class="row">
+                  <div class="col-md-12 col-xl-9 col-lg-12">
+                    {% include '_alerts.html' %}
+
+                  <div class="card">
+                    <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                      <div class="card-header bg-white">
+                        <h4 class="text-info">
+                          <i class="fas fa-bullhorn"></i> Post</h4>
+                      </div>
+                      <br>
+                      {% csrf_token %}
+
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.post_type|as_crispy_field }}
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                              {{ form.body|as_crispy_field }}
+                        </div>
+                      </div>
+
+                      <div style="text-align:left" class="mt-1">
+                      <input type="submit" value="Post" class="btn btn-dark-blue">
+                  </form>
+                  </div>
+                  </div>
+                </div>
+								</div>
+							</div>
+						</div>
+					</div>
+{% endblock content%}
