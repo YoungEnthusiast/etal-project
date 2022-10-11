@@ -52,29 +52,32 @@ class Researcher(AbstractUser):
 
 class Collab(models.Model):
     education_choices = [
-		('Bachelor (BSc.)','Bachelor (BSc.)'),
-        ('Masters (MSc.)','Masters (MSc.)'),
-        ('Doctorate (PhD)','Doctorate (PhD)'),
+		('0-2 years','0-2 years'),
+        ('3-5 years','3-5 years'),
+        ('6-10 years','6-10 years'),
+        ('10+ years','10+ years'),
 	]
-
     collaborators_choices = [
 		('Anyone', 'Anyone'),
-        ('Affiliation', 'Affiliation'),
 	]
-
+    model_choices = [
+		('On premise','On premise'),
+        ('Remote','Remote'),
+        ('Field','Field'),
+        ('Remote (Field)','Remote (Field)'),
+        ('Others','Others'),
+	]
     researcher = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="researcher")
     collaborators_type = models.CharField(max_length=11, default="Anyone", choices=collaborators_choices, null=True)
     collaborators = models.ManyToManyField(Researcher, verbose_name="My Selection", blank=True, related_name="collaborator")
     title = models.CharField(max_length=255, null=True)
-    abstract = models.TextField(max_length=2000, null=True)
+    abstract = models.TextField(max_length=2000, null=True, verbose_name="Reearch Description")
     proposed_timeline = models.CharField(max_length=255, null=True, verbose_name="Proposed Timeline")
-    education = models.CharField(max_length=15, choices=education_choices, null=True)
+    education = models.CharField(max_length=10, choices=education_choices, null=True, verbose_name="Collaborators Research Experience")
     field = models.CharField(max_length=255, null=True)
-    expertise_required = models.CharField(max_length=255, null=True, verbose_name="Expertise Required")
-    on_premises = models.CharField(max_length=255, null=True, verbose_name="On Premises")
-    funding = models.CharField(max_length=255, null=True)
+    expertise_required = models.CharField(max_length=255, null=True, verbose_name="Collaborator's Expertise")
     collaborators_no = models.CharField(max_length=255, null=True, verbose_name="Number of Collaborators")
-    ownership = models.CharField(max_length=255, null=True, verbose_name="Research Ownership")
+    model = models.CharField(max_length=14, choices=model_choices, null=True, verbose_name="Collaboration Model")
 
     interested_people = models.ManyToManyField(Researcher, blank=True, related_name="interested_people")
     interest = models.BooleanField(max_length=5, default = False)

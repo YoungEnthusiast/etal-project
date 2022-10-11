@@ -4,13 +4,12 @@
 {% load humanize %}
 {% load home_tags %}
 {% block title %}
-  <title>Collabs</title>
+  <title>Create Collab</title>
   <meta name="description" content="">
 
 {% endblock title %}
 
 {% block content %}
-{% include '_alerts.html' %}
 <div class=" app-content">
 					<div class="side-app">
             <br>
@@ -80,22 +79,7 @@
                       </div>
                       <div class="form-row">
                         <div class="form-group col-sm-12 mb-2">
-                              {{ form.on_premises|as_crispy_field }}
-                        </div>
-                      </div>
-                      <div class="form-row">
-                        <div class="form-group col-sm-12 mb-2">
-                              {{ form.funding|as_crispy_field }}
-                        </div>
-                      </div>
-                      <div class="form-row">
-                        <div class="form-group col-sm-12 mb-2">
                               {{ form.collaborators_no|as_crispy_field }}
-                        </div>
-                      </div>
-                      <div class="form-row">
-                        <div class="form-group col-sm-12 mb-2">
-                              {{ form.ownership|as_crispy_field }}
                         </div>
                       </div>
                       <div style="text-align:left" class="mt-1">

@@ -1,6 +1,6 @@
 (function($) {
     "use strict";
-	
+
 	// ______________ PAGE LOADING
 	$(window).on("load", function(e) {
 		$("#global-loader").fadeOut("slow");
@@ -54,7 +54,7 @@
 			$('.header').removeClass('fixed-header');
 		}
     });
-	
+
 
 	// ______________ Chart Circle
 	if ($('.chart-circle').length) {
@@ -81,9 +81,9 @@
 		}
 	});
 
-	
 
-	
+
+
 	// ______________ CountUp
 	$('.counter').countUp();
 
@@ -133,7 +133,7 @@
 		}
 	});
 
-	
+
 
 	//horizontalmenu
 	$("a[data-theme]").on("click", function(e) {
@@ -185,9 +185,9 @@
             });
         });
 	});
-	
+
 	/*Defalut Switcher*/
-	$('#myonoffswitch').click(function () {    
+	$('#myonoffswitch').click(function () {
 		if (this.checked) {
 			$('body').addClass('default-menu');
 			$('body').removeClass('light-menu');
@@ -200,7 +200,7 @@
 			localStorage.setItem("default-menu", "false");
 		}
 	});
-	$('#myonoffswitch1').click(function () {    
+	$('#myonoffswitch1').click(function () {
 		if (this.checked) {
 			$('body').addClass('light-menu');
 			$('body').removeClass('default-menu');
@@ -212,8 +212,8 @@
 			$('body').removeClass('light-menu');
 			localStorage.setItem("light-menu", "false");
 		}
-	});	
-	$('#myonoffswitch2').click(function () {    
+	});
+	$('#myonoffswitch2').click(function () {
 		if (this.checked) {
 			$('body').addClass('image-menu');
 			$('body').removeClass('default-menu');
@@ -225,8 +225,8 @@
 			$('body').removeClass('image-menu');
 			localStorage.setItem("image-menu", "false");
 		}
-	});	
-	$('#myonoffswitch3').click(function () {    
+	});
+	$('#myonoffswitch3').click(function () {
 		if (this.checked) {
 			$('body').addClass('image-menu1');
 			$('body').removeClass('default-menu');
@@ -238,10 +238,10 @@
 			$('body').removeClass('image-menu1');
 			localStorage.setItem("image-menu1", "false");
 		}
-	});	
-	
+	});
+
 	/*Left-menu Styles*/
-	$('#myonoffswitch').click(function () {    
+	$('#myonoffswitch').click(function () {
 		if (this.checked) {
 			$('body').addClass('default-menu');
 			$('body').removeClass('light-leftmenu');
@@ -254,7 +254,7 @@
 			localStorage.setItem("default-menu", "false");
 		}
 	});
-	$('#myonoffswitch4').click(function () {    
+	$('#myonoffswitch4').click(function () {
 		if (this.checked) {
 			$('body').addClass('light-leftmenu');
 			$('body').removeClass('default-menu');
@@ -267,7 +267,7 @@
 			localStorage.setItem("light-leftmenu", "false");
 		}
 	});
-	$('#myonoffswitch5').click(function () {    
+	$('#myonoffswitch5').click(function () {
 		if (this.checked) {
 			$('body').addClass('image-leftmenu');
 			$('body').removeClass('default-menu');
@@ -280,7 +280,7 @@
 			localStorage.setItem("image-leftmenu", "false");
 		}
 	});
-	$('#myonoffswitch6').click(function () {    
+	$('#myonoffswitch6').click(function () {
 		if (this.checked) {
 			$('body').addClass('image-leftmenu1');
 			$('body').removeClass('default-menu');
@@ -293,9 +293,9 @@
 			localStorage.setItem("image-leftmenu1", "false");
 		}
 	});
-	
+
 	/*Horizontal-menu */
-	$('#myonoffswitch7').click(function () {    
+	$('#myonoffswitch7').click(function () {
 		if (this.checked) {
 			$('body').addClass('hor-default');
 			$('body').removeClass('hor-light');
@@ -308,7 +308,7 @@
 			localStorage.setItem("hor-default", "false");
 		}
 	});
-	$('#myonoffswitch8').click(function () {    
+	$('#myonoffswitch8').click(function () {
 		if (this.checked) {
 			$('body').addClass('hor-light');
 			$('body').removeClass('hor-default');
@@ -321,7 +321,7 @@
 			localStorage.setItem("hor-light", "false");
 		}
 	});
-	$('#myonoffswitch9').click(function () {    
+	$('#myonoffswitch9').click(function () {
 		if (this.checked) {
 			$('body').addClass('hor-image');
 			$('body').removeClass('hor-light');
@@ -334,7 +334,7 @@
 			localStorage.setItem("hor-image", "false");
 		}
 	});
-	$('#myonoffswitch10').click(function () {    
+	$('#myonoffswitch10').click(function () {
 		if (this.checked) {
 			$('body').addClass('hor-image1');
 			$('body').removeClass('hor-light');
@@ -347,7 +347,7 @@
 			localStorage.setItem("hor-image", "false");
 		}
 	});
-	
+
 	// ______________Light Mode
 	$(document).on('click', '#myonoffswitch11', function(e){
 		if (this.checked) {
@@ -359,7 +359,7 @@
 			localStorage.setItem("light-mode", "false");
 		}
 	});
-	
+
 	// ______________Dark Mode
 	$(document).on('click', '#myonoffswitch12', function(e){
 		if (this.checked) {
@@ -371,8 +371,8 @@
 			localStorage.setItem("dark-mode", "false");
 		}
 	});
-	
-	
+
+
 	// ______________Boxed
 	$(document).on('click', '#myonoffswitch14', function(e){
 		if (this.checked) {
@@ -384,7 +384,7 @@
 			localStorage.setItem("boxed", "false");
 		}
 	});
-	
+
 	// ______________Boxed
 	$(document).on('click', '#myonoffswitch15', function(e){
 		if (this.checked) {
@@ -396,40 +396,40 @@
 			localStorage.setItem("default", "false");
 		}
 	});
-	
+
 	// ______________Skins
-	
+
 	/*//////////////////// Default-left skins  //////////////////////*/
-	
-	//$('body').addClass("default-menu"); // 
-	
+
+	//$('body').addClass("default-menu"); //
+
 	// $('body').addClass("light-menu"); //
-	
+
 	// $('body').addClass("image-menu"); //
-	
+
 	// $('body').addClass("image-menu1"); //
-	
-	
+
+
 	/*//////////////////// Left-menu Style1 skins //////////////////////*/
-	
+
 	//$('body').addClass("default-menu");  //
-	
+
 	//$('body').addClass("light-leftmenu");  //
-	
+
 	//$('body').addClass("image-leftmenu");  //
-	
+
 	//$('body').addClass("image-leftmenu1");  //
-	
-	
+
+
 	/*//////////////////// Horizontal-menu skins  //////////////////////*/
-	
-	//$('body').addClass("hor-default"); // 
-	
-	//$('body').addClass("hor-light"); // 
-	
-	//$('body').addClass("hor-image"); // 
-	
-	//$('body').addClass("hor-image1"); // 
+
+	//$('body').addClass("hor-default"); //
+
+	//$('body').addClass("hor-light"); //
+
+	//$('body').addClass("hor-image"); //
+
+	//$('body').addClass("hor-image1"); //
 
 
 })(jQuery);
@@ -472,5 +472,3 @@ $(function(e) {
 		return false;
 	  });
   });
-
-

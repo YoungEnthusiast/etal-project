@@ -6,6 +6,8 @@ from django.db.models import Q
 # import datetime
 from django.forms.widgets import NumberInput
 # from django.forms.widgets import TextInput
+
+
 class CustomRegisterForm(UserCreationForm):
     class Meta:
         model = Researcher
@@ -24,20 +26,30 @@ class CustomRegisterFormResearcher(UserChangeForm):
         fields = ['first_name', 'last_name', 'username', 'photograph', 'affiliation_name', 'affiliation_address', 'city', 'state', 'country']
 
 class CollabForm(forms.ModelForm):
+    title = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Title'}))
+    abstract = forms.CharField(label='', widget=forms.Textarea(attrs={'placeholder':'Research Description'}))
+    proposed_timeline = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Proposed Timeline'}))
+    field = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Research Field'}))
+    expertise_required = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':"Collaborator's Expertise"}))
+    collaborators_no = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':"Number of Collaborators Required"}))
     collaborators_choices = [
 		('Anyone', 'Anyone'),
-        ('Affiliation', 'Affiliation'),
 	]
     collaborators_type = forms.ChoiceField(label="", choices=collaborators_choices, widget=forms.RadioSelect, required = False)
+    # collaborators = forms.ModelChoiceField(label="", queryset=ScenarioArea.objects.distinct('scenarioAreaName'), empty_label="Placeholder")
+    # collaborators = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Select'}))
+
+
 
     class Meta:
         model = Collab
-        fields = ['collaborators_type', 'collaborators', 'title', 'abstract', 'education', 'proposed_timeline', 'field', 'expertise_required', 'funding', 'collaborators_no', 'ownership', 'on_premises']
+        fields = ['collaborators_type', 'collaborators', 'title', 'abstract', 'education', 'proposed_timeline', 'field', 'expertise_required', 'collaborators_no']
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request") # store value of request
         super().__init__(*args, **kwargs)
 
-        self.fields['collaborators'] = forms.ModelMultipleChoiceField(queryset=Researcher.objects.filter(~Q(username=self.request.user.username)), required=False)
+        self.fields['collaborators'] = forms.ModelMultipleChoiceField(queryset=Researcher.objects.filter(~Q(username=self.request.user.username)), required=False, label="My Selection")
+
 
 class FlagForm(forms.ModelForm):
     reason = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Reason for flagging'}))

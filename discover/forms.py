@@ -8,7 +8,7 @@ class EmailPostForm(forms.Form):
     comments = forms.CharField(required=False, widget=forms.Textarea)
 
 class PostForm(forms.ModelForm):
-    
+
     class Meta:
         model = Post
         fields = ('post_type', 'body',)
@@ -16,7 +16,7 @@ class PostForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'email', 'body')
+        fields = ('body',)
 
 
 class SearchForm(forms.Form):

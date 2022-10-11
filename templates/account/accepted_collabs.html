@@ -10,7 +10,7 @@
 {% endblock title %}
 
 {% block content %}
-{% include '_alerts.html' %}
+
 <div class=" app-content">
 					<div class="side-app">
             <br>
@@ -18,6 +18,7 @@
               <div class="horizontal-content">
 
                 <div class="row">
+                  {% include '_alerts.html' %}
                   {% for collab in accepted_collabs_page_obj %}
     							<div class="col-xl-4 col-lg-4 col-md-12">
     								<div class="card">

@@ -270,7 +270,7 @@ def createCollab(request):
             form.save(commit=False).researcher=request.user
             form.save()
             messages.info(request, "The collab has been created successfully")
-            return redirect('create_collab')
+            return redirect('collab')
         else:
             messages.error(request, "Please review form input fields below")
     return render(request, 'account/create_collab.html', {'form':form})
@@ -1072,7 +1072,7 @@ def collabs(request):
     context = {}
     filtered_initiated_collabs = InitiatedCollabFilter(
         request.GET,
-        queryset = Collab.objects.filter(Q(researcher=request.user) | Q(interested_people=request.user), is_locked=False)
+        queryset = Collab.objects.filter(researcher=request.user, is_locked=False)
     )
     context['filtered_initiated_collabs'] = filtered_initiated_collabs
     paginated_filtered_initiated_collabs = Paginator(filtered_initiated_collabs.qs, 100)
@@ -1081,6 +1081,18 @@ def collabs(request):
     context['initiated_collabs_page_obj'] = initiated_collabs_page_obj
     total_initiated_collabs = filtered_initiated_collabs.qs.count()
     context['total_initiated_collabs'] = total_initiated_collabs
+
+    filtered_accepted_collabs = InitiatedCollabFilter(
+        request.GET,
+        queryset = Collab.objects.filter(interested_people=request.user, is_locked=False)
+    )
+    context['filtered_accepted_collabs'] = filtered_accepted_collabs
+    paginated_filtered_accepted_collabs = Paginator(filtered_accepted_collabs.qs, 100)
+    page_number = request.GET.get('page')
+    accepted_collabs_page_obj = paginated_filtered_accepted_collabs.get_page(page_number)
+    context['accepted_collabs_page_obj'] = accepted_collabs_page_obj
+    total_accepted_collabs = filtered_accepted_collabs.qs.count()
+    context['total_accepted_collabs'] = total_accepted_collabs
 
     return render(request, 'account/collabs.html', context)
 

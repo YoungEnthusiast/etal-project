@@ -10,7 +10,6 @@
 {% endblock title %}
 
 {% block content %}
-{% include '_alerts.html' %}
 <div class=" app-content">
 					<div class="side-app">
             <br>
@@ -26,10 +25,11 @@
 
               <div class="container content-area">
                 <div class="horizontal-content">
-                  {% include '_alerts.html' %}
 
 
                   <div class="row">
+                    {% include '_alerts.html' %}
+
                     <div class="col-md-12 col-xl-12 col-lg-12">
                     <div class="card">
                       <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
