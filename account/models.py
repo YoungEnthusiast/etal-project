@@ -73,7 +73,7 @@ class Collab(models.Model):
     title = models.CharField(max_length=255, null=True)
     abstract = models.TextField(max_length=2000, null=True, verbose_name="Reearch Description")
     proposed_timeline = models.CharField(max_length=255, null=True, verbose_name="Proposed Timeline")
-    education = models.CharField(max_length=10, choices=education_choices, null=True, verbose_name="Collaborators Research Experience")
+    education = models.CharField(max_length=20, choices=education_choices, null=True, verbose_name="Collaborators Research Experience")
     field = models.CharField(max_length=255, null=True)
     expertise_required = models.CharField(max_length=255, null=True, verbose_name="Collaborator's Expertise")
     collaborators_no = models.CharField(max_length=255, null=True, verbose_name="Number of Collaborators")
