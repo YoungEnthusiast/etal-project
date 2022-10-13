@@ -10422,11 +10422,11 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 
 .offer-info {
-    border-color: #5bc0de;
+    border-color: #4072c4;
 }
 
 .offer-info .shape {
-    border-color: transparent #5bc0de transparent transparent;
+    border-color: transparent #4072c4 transparent transparent;
 }
 
 .offer-warning {
@@ -11999,7 +11999,7 @@ svg {
 /*-----51. Back to Top-----*/
 #back-to-top {
     color: #fff;
-    background: #5bc0de;
+    background: #4072c4;
     position: fixed;
     bottom: 20px;
     line-height: 45px;

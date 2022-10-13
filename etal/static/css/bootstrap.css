@@ -2739,8 +2739,8 @@ fieldset[disabled] a.btn {
 
 .btn-info {
   color: #fff;
-  background-color: #5bc0de;
-  border-color: #5bc0de;
+  background-color: #4072c4;
+  border-color: #4072c4;
 }
 
 .btn-info:hover {
@@ -2750,13 +2750,13 @@ fieldset[disabled] a.btn {
 }
 
 .btn-info:focus, .btn-info.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(91, 192, 222, 0.5);
-          box-shadow: 0 0 0 2px rgba(91, 192, 222, 0.5);
+  -webkit-box-shadow: 0 0 0 2px rgba(64, 114, 196, 0.5);
+          box-shadow: 0 0 0 2px rgba(64, 114, 196, 0.5);
 }
 
 .btn-info.disabled, .btn-info:disabled {
-  background-color: #5bc0de;
-  border-color: #5bc0de;
+  background-color: #4072c4;
+  border-color: #4072c4;
 }
 
 .btn-info:active, .btn-info.active,
@@ -2918,33 +2918,33 @@ fieldset[disabled] a.btn {
 }
 
 .btn-outline-info {
-  color: #5bc0de;
+  color: #4072c4;
   background-image: none;
   background-color: transparent;
-  border-color: #5bc0de;
+  border-color: #4072c4;
 }
 
 .btn-outline-info:hover {
   color: #fff;
-  background-color: #5bc0de;
-  border-color: #5bc0de;
+  background-color: #4072c4;
+  border-color: #4072c4;
 }
 
 .btn-outline-info:focus, .btn-outline-info.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(91, 192, 222, 0.5);
-          box-shadow: 0 0 0 2px rgba(91, 192, 222, 0.5);
+  -webkit-box-shadow: 0 0 0 2px rgba(64, 114, 196, 0.5);
+          box-shadow: 0 0 0 2px rgba(64, 114, 196, 0.5);
 }
 
 .btn-outline-info.disabled, .btn-outline-info:disabled {
-  color: #5bc0de;
+  color: #4072c4;
   background-color: transparent;
 }
 
 .btn-outline-info:active, .btn-outline-info.active,
 .show > .btn-outline-info.dropdown-toggle {
   color: #fff;
-  background-color: #5bc0de;
-  border-color: #5bc0de;
+  background-color: #4072c4;
+  border-color: #4072c4;
 }
 
 .btn-outline-success {
@@ -4507,8 +4507,8 @@ tbody.collapse.show {
 }
 
 .card-info {
-  background-color: #5bc0de;
-  border-color: #5bc0de;
+  background-color: #4072c4;
+  border-color: #4072c4;
 }
 
 .card-info .card-header,
@@ -4548,7 +4548,7 @@ tbody.collapse.show {
 
 .card-outline-info {
   background-color: transparent;
-  border-color: #5bc0de;
+  border-color: #4072c4;
 }
 
 .card-outline-success {
@@ -4902,7 +4902,7 @@ a.badge:focus, a.badge:hover {
 }
 
 .badge-info {
-  background-color: #5bc0de;
+  background-color: #4072c4;
 }
 
 .badge-info[href]:focus, .badge-info[href]:hover {
@@ -6097,7 +6097,7 @@ a.bg-success:focus, a.bg-success:hover {
 }
 
 .bg-info {
-  background-color: #5bc0de !important;
+  background-color: #4072c4 !important;
 }
 
 a.bg-info:focus, a.bg-info:hover {
@@ -9183,7 +9183,7 @@ a.text-success:focus, a.text-success:hover {
 }
 
 .text-info {
-  color: #5bc0de !important;
+  color: #4072c4 !important;
 }
 
 a.text-info:focus, a.text-info:hover {

@@ -492,7 +492,7 @@ ul.inbox-nav li a:focus {
 
 /*------19. Breadcrumb ------*/
 .breadcrumb-item a {
-    color: #5bc0de;
+    color: #4072c4;
 }
 
 .breadcrumb-item1 a {
@@ -854,7 +854,7 @@ a.chip:hover,
 
 /*-----51. Back to Top-----*/
 #back-to-top {
-    background: #5bc0de;
+    background: #4072c4;
 }
 
 #back-to-top:hover {

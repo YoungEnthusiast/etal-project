@@ -697,11 +697,11 @@ body.dark-mode {
 }
 
 .dark-mode .offer-info {
-    border-color: #5bc0de;
+    border-color: #4072c4;
 }
 
 .dark-mode .offer-info .shape {
-    border-color: transparent #5bc0de transparent transparent;
+    border-color: transparent #4072c4 transparent transparent;
 }
 
 .dark-mode .offer-warning {

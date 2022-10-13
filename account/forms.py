@@ -32,6 +32,7 @@ class CollabForm(forms.ModelForm):
     field = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Research Field'}))
     expertise_required = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':"Collaborator's Expertise"}))
     collaborators_no = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':"Number of Collaborators Required"}))
+    funding = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':"Funding"}))
     collaborators_choices = [
 		('Anyone', 'Anyone'),
 	]
@@ -43,7 +44,7 @@ class CollabForm(forms.ModelForm):
 
     class Meta:
         model = Collab
-        fields = ['collaborators_type', 'collaborators', 'title', 'abstract', 'education', 'proposed_timeline', 'field', 'expertise_required', 'collaborators_no']
+        fields = ['collaborators_type', 'collaborators', 'title', 'funding', 'abstract', 'education', 'proposed_timeline', 'field', 'expertise_required', 'collaborators_no']
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request") # store value of request
         super().__init__(*args, **kwargs)
