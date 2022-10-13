@@ -20,7 +20,7 @@ class Researcher(AbstractUser):
     state = models.CharField(max_length=255, blank=True, null=True,)
     country = models.CharField(max_length=255, blank=True, null=True)
     email_confirmed = models.BooleanField(default=False)
-    type = models.CharField(max_length=100, choices=TYPE_CHOICES, default='Researcher', null=True)
+    type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='Researcher', null=True)
     # bell = models.ForeignKey('account.Notification', null=True, blank=True, on_delete=models.SET_NULL)
     bell_unreads = models.PositiveIntegerField(default=0)
     envelope_unreads = models.PositiveIntegerField(default=0)
