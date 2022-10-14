@@ -914,7 +914,7 @@ input[type="button"].btn-block {
 
 .avatar-azure {
     background-color: #c7e6fb;
-    color: #45aaf2;
+    color: #4072c4;
 }
 
 .avatar-lime {
@@ -952,7 +952,7 @@ input[type="button"].btn-block {
 
 .badge-info {
     color: #fff;
-    background-color: #45aaf2;
+    background-color: #4072c4;
 }
 
 .badge-cylinder {
@@ -1306,8 +1306,8 @@ fieldset:disabled a.btn {
 
 .btn-info {
     color: #fff;
-    background-color: #45aaf2;
-    border-color: #45aaf2;
+    background-color: #4072c4;
+    border-color: #4072c4;
 }
 
 .btn-info:hover {
@@ -1324,8 +1324,8 @@ fieldset:disabled a.btn {
 .btn-info.disabled,
 .btn-info:disabled {
     color: #fff;
-    background-color: #45aaf2;
-    border-color: #45aaf2;
+    background-color: #4072c4;
+    border-color: #4072c4;
 }
 
 .btn-info:not(:disabled):not(.disabled):active,
@@ -1581,16 +1581,16 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-info {
-    color: #45aaf2;
+    color: #4072c4;
     background-color: transparent;
     background-image: none;
-    border-color: #45aaf2 !important;
+    border-color: #4072c4 !important;
 }
 
 .btn-outline-info:hover {
     color: #fff;
-    background-color: #45aaf2;
-    border-color: #45aaf2;
+    background-color: #4072c4;
+    border-color: #4072c4;
 }
 
 .btn-outline-info:focus,
@@ -1600,21 +1600,21 @@ fieldset:disabled a.btn {
 
 .btn-outline-info.disabled,
 .btn-outline-info:disabled {
-    color: #45aaf2;
+    color: #4072c4;
     background-color: transparent;
 }
 
 .btn-outline-info:not(:disabled):not(.disabled):active,
 .btn-outline-info:not(:disabled):not(.disabled).active {
     color: #fff;
-    background-color: #45aaf2;
-    border-color: #45aaf2;
+    background-color: #4072c4;
+    border-color: #4072c4;
 }
 
 .show>.btn-outline-info.dropdown-toggle {
     color: #fff;
-    background-color: #45aaf2;
-    border-color: #45aaf2;
+    background-color: #4072c4;
+    border-color: #4072c4;
 }
 
 .btn-outline-info:not(:disabled):not(.disabled):active:focus,
@@ -3329,8 +3329,8 @@ button.close {
 
 .btn-azure {
     color: #fff;
-    background-color: #45aaf2;
-    border-color: #45aaf2;
+    background-color: #4072c4;
+    border-color: #4072c4;
 }
 
 .btn-azure:hover {
@@ -3347,8 +3347,8 @@ button.close {
 .btn-azure.disabled,
 .btn-azure:disabled {
     color: #fff;
-    background-color: #45aaf2;
-    border-color: #45aaf2;
+    background-color: #4072c4;
+    border-color: #4072c4;
 }
 
 .btn-azure:not(:disabled):not(.disabled):active,
@@ -8043,7 +8043,7 @@ a.tag-addon:hover {
 }
 
 .tag-azure {
-    background-color: #45aaf2;
+    background-color: #4072c4;
     color: #fff;
 }
 
@@ -8058,7 +8058,7 @@ a.tag-addon:hover {
 }
 
 .tag-info {
-    background-color: #45aaf2;
+    background-color: #4072c4;
     color: #fff;
 }
 
@@ -23662,15 +23662,15 @@ div.online-status .status.online {
 
 .range.range-info input[type="range"]::-webkit-slider-thumb,
 .range.range-info input[type="range"]::-moz-slider-thumb {
-    background-color: #45aaf2;
+    background-color: #4072c4;
 }
 
 .range.range-info output {
-    background-color: #45aaf2;
+    background-color: #4072c4;
 }
 
 .range.range-info input[type="range"] {
-    outline-color: #45aaf2;
+    outline-color: #4072c4;
 }
 
 .range.range-warning input[type="range"]::-webkit-slider-thumb,
@@ -23782,7 +23782,7 @@ div.online-status .status.online {
     content: "";
     right: -15px;
     border-top: 15px solid transparent;
-    border-left: 15px solid #45aaf2;
+    border-left: 15px solid #4072c4;
     border-bottom: 15px solid transparent;
     width: 0;
 }
@@ -24048,7 +24048,7 @@ button.bg-success:focus {
 }
 
 .bg-info {
-    background-color: #45aaf2 !important;
+    background-color: #4072c4 !important;
     color: #fff;
 }
 
@@ -25605,7 +25605,7 @@ button.bg-gray-dark:focus {
 }
 
 .bg-azure {
-    background-color: #45aaf2 !important;
+    background-color: #4072c4 !important;
 }
 
 a.bg-azure:hover,
@@ -27277,7 +27277,7 @@ button.bg-lime:focus {
 }
 
 .border-info {
-    border-color: #45aaf2 !important;
+    border-color: #4072c4 !important;
 }
 
 .border-warning {
@@ -30516,7 +30516,7 @@ textarea {
 }
 
 .heading-info {
-    background-color: #45aaf2;
+    background-color: #4072c4;
     color: #fff;
     padding: 5px;
 }
@@ -30666,7 +30666,7 @@ a.text-success:focus {
 }
 
 .text-info {
-    color: #45aaf2 !important;
+    color: #4072c4 !important;
 }
 
 a.text-info:hover,
@@ -30836,7 +30836,7 @@ a.text-dark:focus {
 }
 
 .text-azure {
-    color: #45aaf2 !important;
+    color: #4072c4 !important;
 }
 
 .text-lime {
