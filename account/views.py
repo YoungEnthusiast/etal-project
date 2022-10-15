@@ -2,14 +2,14 @@ import json
 import urllib.request
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm, CollabDocForm, DocUpdateForm, TaskForm, TaskEditForm, TaskUpdateForm
-from .models import Collab, Researcher, Notification, Report, CollabDoc, Task
+from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm, CollabDocForm, DocUpdateForm, TaskForm, TaskEditForm, TaskUpdateForm, FolderForm
+from .models import Collab, Researcher, Notification, Report, CollabDoc, Task, Folder
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.forms import PasswordChangeForm, AuthenticationForm
 from django.contrib.auth import update_session_auth_hash, login, authenticate
 from django.contrib.auth.decorators import login_required, permission_required
-from .filters import InitiatedCollabFilter, BellNotificationFilter, CollabDocFilter, TaskFilter
+from .filters import InitiatedCollabFilter, BellNotificationFilter, CollabDocFilter, TaskFilter, FolderFilter
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from django.db.models import Q
@@ -119,14 +119,126 @@ def showCollabs(request):
 
     return render(request, 'account/all_collabs.html', context)
 
+# @login_required
+# def showCollabDocsInitiated(request, id1):
+#     collab = Collab.objects.get(id=id1)
+#     if collab.researcher == request.user:
+#         context = {}
+#         filtered_collab_docs = CollabDocFilter(
+#             request.GET,
+#             queryset = CollabDoc.objects.filter(collab_id=id1)
+#         )
+#         context['filtered_collab_docs'] = filtered_collab_docs
+#         paginated_filtered_collab_docs = Paginator(filtered_collab_docs.qs, 99)
+#         page_number = request.GET.get('page')
+#         collab_docs_page_obj = paginated_filtered_collab_docs.get_page(page_number)
+#         context['collab_docs_page_obj'] = collab_docs_page_obj
+#         total_collab_docs = filtered_collab_docs.qs.count()
+#         context['total_collab_docs'] = total_collab_docs
+#         context['collab'] = collab
+#
+#         form = CollabDocForm()
+#         if request.method == 'POST':
+#             form = CollabDocForm(request.POST, request.FILES, None)
+#             if form.is_valid():
+#                 raw = form.cleaned_data.get('document')
+#                 document = str(raw)
+#
+#                 length = len(document)
+#                 sub3 = length-3
+#                 last3 = document[sub3:length+1]
+#                 lower_last3 = last3.lower()
+#
+#                 if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
+#                     form.save(commit=False).type="Image"
+#                 elif lower_last3=="mp3" or lower_last3=="amr":
+#                     form.save(commit=False).type="Audio"
+#                 elif lower_last3=="ocx" or lower_last3=="doc":
+#                     form.save(commit=False).type="Word"
+#                 elif lower_last3=="mp4":
+#                     form.save(commit=False).type="Video"
+#                 elif lower_last3=="csv":
+#                     form.save(commit=False).type="CSV"
+#                 elif lower_last3=="lsx":
+#                     form.save(commit=False).type="Excel"
+#                 elif lower_last3=="pdf":
+#                     form.save(commit=False).type="PDF"
+#                 elif lower_last3=="svg":
+#                     form.save(commit=False).type="SVG"
+#                 elif lower_last3=="zip":
+#                     form.save(commit=False).type="Zip"
+#                 else:
+#                     form.save(commit=False).type=last3.upper()
+#                 form.save(commit=False).shared_by=request.user
+#                 form.save(commit=False).collab=collab
+#                 form.save()
+#                 # reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+#                 # reg.doc_collaborators.add(request.user)
+#                 # for person in collab.collaborators.all():
+#                 #     reg.doc_collaborators.add(person)
+#                 # reg.save()
+#
+#                 messages.info(request, "The document has been uploaded successfully")
+#                 return redirect('collab_docs_initiated', id1)
+#             else:
+#                 messages.error(request, "Please review form input fields below")
+#         context['form'] = form
+#         return render(request, 'account/collab_docs.html', context)
+#
+#
+#
+#     else:
+#         return redirect('collab')
+
 @login_required
-def showCollabDocsInitiated(request, id1):
+def showFoldersInitiated(request, id1):
     collab = Collab.objects.get(id=id1)
+    if collab.researcher == request.user:
+        context = {}
+        filtered_folders = FolderFilter(
+            request.GET,
+            queryset = Folder.objects.filter(collab_id=id1)
+        )
+        context['filtered_folders'] = filtered_folders
+        paginated_filtered_folders = Paginator(filtered_folders.qs, 99)
+        page_number = request.GET.get('page')
+        folders_page_obj = paginated_filtered_folders.get_page(page_number)
+        context['folders_page_obj'] = folders_page_obj
+        total_folders = filtered_folders.qs.count()
+        context['total_folders'] = total_folders
+        context['collab'] = collab
+
+        form = FolderForm()
+        if request.method == 'POST':
+            form = FolderForm(request.POST, request.FILES, None)
+            if form.is_valid():
+                form.save(commit=False).created_by=request.user
+                form.save(commit=False).collab=collab
+                form.save()
+                # reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+                # reg.doc_collaborators.add(request.user)
+                # for person in collab.collaborators.all():
+                #     reg.doc_collaborators.add(person)
+                # reg.save()
+
+                messages.info(request, "The folder has been created successfully")
+                return redirect('folders_initiated', id1)
+            else:
+                messages.error(request, "Please review form input fields below")
+        context['form'] = form
+        return render(request, 'account/folders.html', context)
+    else:
+        return redirect('collab')
+
+@login_required
+def showCollabDocsInitiated(request, id1, id2):
+    collab = Collab.objects.get(id=id1)
+    folder = Folder.objects.get(id=id2)
     if collab.researcher == request.user:
         context = {}
         filtered_collab_docs = CollabDocFilter(
             request.GET,
-            queryset = CollabDoc.objects.filter(collab_id=id1)
+            queryset = CollabDoc.objects.filter(collab_id=id1, folder_id=id2)
         )
         context['filtered_collab_docs'] = filtered_collab_docs
         paginated_filtered_collab_docs = Paginator(filtered_collab_docs.qs, 99)
@@ -137,9 +249,164 @@ def showCollabDocsInitiated(request, id1):
         context['total_collab_docs'] = total_collab_docs
         context['collab'] = collab
 
+        form = CollabDocForm()
+        if request.method == 'POST':
+            form = CollabDocForm(request.POST, request.FILES, None)
+            if form.is_valid():
+                raw = form.cleaned_data.get('document')
+                document = str(raw)
+
+                length = len(document)
+                sub3 = length-3
+                last3 = document[sub3:length+1]
+                lower_last3 = last3.lower()
+
+                if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
+                    form.save(commit=False).type="Image"
+                elif lower_last3=="mp3" or lower_last3=="amr":
+                    form.save(commit=False).type="Audio"
+                elif lower_last3=="ocx" or lower_last3=="doc":
+                    form.save(commit=False).type="Word"
+                elif lower_last3=="mp4":
+                    form.save(commit=False).type="Video"
+                elif lower_last3=="csv":
+                    form.save(commit=False).type="CSV"
+                elif lower_last3=="lsx":
+                    form.save(commit=False).type="Excel"
+                elif lower_last3=="pdf":
+                    form.save(commit=False).type="PDF"
+                elif lower_last3=="svg":
+                    form.save(commit=False).type="SVG"
+                elif lower_last3=="zip":
+                    form.save(commit=False).type="Zip"
+                else:
+                    form.save(commit=False).type=last3.upper()
+                form.save(commit=False).shared_by=request.user
+                form.save(commit=False).collab=collab
+                form.save(commit=False).folder=folder
+                form.save()
+                # reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+                # reg.doc_collaborators.add(request.user)
+                # for person in collab.collaborators.all():
+                #     reg.doc_collaborators.add(person)
+                # reg.save()
+
+                messages.info(request, "The document has been uploaded successfully")
+                return redirect('collab_docs_initiated', id1, id2)
+            else:
+                messages.error(request, "Please review form input fields below")
+        context['form'] = form
         return render(request, 'account/collab_docs.html', context)
+
+
+
     else:
         return redirect('collab')
+
+
+def uploadDoc(request, id1, **kwargs):
+    collab = Collab.objects.get(id=id1)
+    if collab.researcher == request.user:
+        form = CollabDocForm()
+        if request.method == 'POST':
+            form = CollabDocForm(request.POST, request.FILES, None)
+            if form.is_valid():
+                raw = form.cleaned_data.get('document')
+                document = str(raw)
+
+                length = len(document)
+                sub3 = length-3
+                last3 = document[sub3:length+1]
+                lower_last3 = last3.lower()
+
+                if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
+                    form.save(commit=False).type="Image"
+                elif lower_last3=="mp3" or lower_last3=="amr":
+                    form.save(commit=False).type="Audio"
+                elif lower_last3=="ocx" or lower_last3=="doc":
+                    form.save(commit=False).type="Word"
+                elif lower_last3=="mp4":
+                    form.save(commit=False).type="Video"
+                elif lower_last3=="csv":
+                    form.save(commit=False).type="CSV"
+                elif lower_last3=="lsx":
+                    form.save(commit=False).type="Excel"
+                elif lower_last3=="pdf":
+                    form.save(commit=False).type="PDF"
+                elif lower_last3=="svg":
+                    form.save(commit=False).type="SVG"
+                elif lower_last3=="zip":
+                    form.save(commit=False).type="Zip"
+                else:
+                    form.save(commit=False).type=last3.upper()
+                form.save(commit=False).shared_by=request.user
+                form.save(commit=False).collab=collab
+                form.save()
+                # reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+                # reg.doc_collaborators.add(request.user)
+                # for person in collab.collaborators.all():
+                #     reg.doc_collaborators.add(person)
+                # reg.save()
+
+                messages.info(request, "The document has been uploaded successfully")
+                return redirect('collab_docs_initiated', id1)
+            else:
+                messages.error(request, "Please review form input fields below")
+        return render(request, 'account/upload_doc.html', {'form':form, 'collab':collab})
+
+
+    elif request.user in collab.collaborators.all():
+        form = CollabDocForm()
+        if request.method == 'POST':
+            form = CollabDocForm(request.POST, request.FILES, None)
+            if form.is_valid():
+                raw = form.cleaned_data.get('document')
+                document = str(raw)
+
+                length = len(document)
+                sub3 = length-3
+                last3 = document[sub3:length+1]
+                lower_last3 = last3.lower()
+
+                if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
+                    form.save(commit=False).type="Image"
+                elif lower_last3=="mp3" or lower_last3=="amr":
+                    form.save(commit=False).type="Audio"
+                elif lower_last3=="ocx" or lower_last3=="doc":
+                    form.save(commit=False).type="Word"
+                elif lower_last3=="mp4":
+                    form.save(commit=False).type="Video"
+                elif lower_last3=="csv":
+                    form.save(commit=False).type="CSV"
+                elif lower_last3=="lsx":
+                    form.save(commit=False).type="Excel"
+                elif lower_last3=="pdf":
+                    form.save(commit=False).type="PDF"
+                elif lower_last3=="svg":
+                    form.save(commit=False).type="SVG"
+                elif lower_last3=="zip":
+                    form.save(commit=False).type="Zip"
+                else:
+                    form.save(commit=False).type=last3.upper()
+                form.save(commit=False).shared_by=request.user
+                form.save(commit=False).collab=collab
+                form.save()
+                # reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+                # reg.doc_collaborators.add(request.user)
+                # for person in collab.collaborators.all():
+                #     reg.doc_collaborators.add(person)
+                # reg.save()
+
+                messages.info(request, "The document has been uploaded successfully")
+                return redirect('collab_docs_accepted', id1)
+            else:
+                messages.error(request, "Please review form input fields below")
+        return render(request, 'account/upload_doc.html', {'form':form, 'collab':collab})
+
+    else:
+        return redirect('collab')
+
+
 
 @login_required
 def showTasksInitiated(request, id1):
@@ -415,6 +682,7 @@ def deleteAllDocsAccepted(request, id1, **kwargs):
     else:
         return redirect('collab')
 
+@login_required
 def uploadDoc(request, id1, **kwargs):
     collab = Collab.objects.get(id=id1)
     if collab.researcher == request.user:
@@ -464,6 +732,7 @@ def uploadDoc(request, id1, **kwargs):
             else:
                 messages.error(request, "Please review form input fields below")
         return render(request, 'account/upload_doc.html', {'form':form, 'collab':collab})
+
 
     elif request.user in collab.collaborators.all():
         form = CollabDocForm()
@@ -516,6 +785,7 @@ def uploadDoc(request, id1, **kwargs):
     else:
         return redirect('collab')
 
+@login_required
 def addTask(request, id1, **kwargs):
     collab = Collab.objects.get(id=id1)
     if collab.researcher == request.user:

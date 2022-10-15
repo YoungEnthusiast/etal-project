@@ -157,8 +157,26 @@ class Report(models.Model):
         except:
             return str(self.id)
 
+class Folder(models.Model):
+    name = name = models.CharField(max_length=255, null=True)
+    created_by = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL)
+    collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_folder")
+    is_selected = models.ManyToManyField(Researcher, blank=True, related_name="is_selected_folder")
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        try:
+            return str(self.reason)
+        except:
+            return str(self.id)
+
 class CollabDoc(models.Model):
     collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_collab_doc")
+    folder = models.ForeignKey(Folder, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_collab_folder")
     shared_by = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=255, null=True, blank=True)

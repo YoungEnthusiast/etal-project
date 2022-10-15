@@ -1,4 +1,4 @@
-/*!
+\/*!
     * Start Bootstrap - SB UI Kit Pro v2.0.2 (https://shop.startbootstrap.com/product/sb-ui-kit-pro)
     * Copyright 2013-2021 Start Bootstrap
     * Licensed under SEE_LICENSE (https://github.com/BlackrockDigital/sb-ui-kit-pro/blob/master/LICENSE)
@@ -56,19 +56,3 @@ document.querySelector('.year').innerHTML = date.getFullYear();
 setTimeout(function(){
   $('#message').fadeOut('slow');
 }, 7000);
-
-
-
-function handleReplyButton(responseId) {
-  const replyFormContainer = document.getElementById(`reply-form-container-${responseId}`);
-  if (replyFormContainer) {
-    replyFormContainer.className = 'reply-form-container enabled'
-  }
-}
-
-function handleCancelReply(responseId) {
-  const replyFormContainer = document.getElementById(`reply-form-container-${responseId}`);
-  if (replyFormContainer) {
-    replyFormContainer.className = 'reply-form-container'
-  }
-}

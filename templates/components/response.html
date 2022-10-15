@@ -1,6 +1,6 @@
 <blockquote id="{{response.id}}">
   <p class="response-body">{{response.body}}</p>
-  <small class="response-author">by <span class="text-gray">{{response.user.first_name}} {{response.user.last_name}}</span></small>
+  <small class="response-author">by {{response.user.first_name}} {{response.user.first_name}}</small>
 
   <blockquote id="reply-form-container-{{response.id}}" class="reply-form-container">
     <form method="POST" action="/reply" class="reply-form">

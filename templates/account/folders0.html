@@ -4,7 +4,7 @@
 {% load humanize %}
 {% load home_tags %}
 {% block title %}
-  <title>Collab Documents</title>
+  <title>Folders</title>
   <meta name="description" content="">
 
 {% endblock title %}
@@ -38,7 +38,7 @@
                               <div class="modal-dialog">
                                   <div class="modal-content">
                                       <div class="modal-header">
-                                          <h4 class="modal-title text-info" id="inquiryModalLabel"><i class="fas fa-upload"></i> Upload</h4>
+                                          <h4 class="modal-title text-info" id="inquiryModalLabel"><i class="fas fa-plus-circle"></i> Add Folder</h4>
                                           <button type="button" class="close" data-dismiss="modal">
                                               <span>&times;</span>
                                           </button>
@@ -52,11 +52,6 @@
                                                 {{ form.name|as_crispy_field }}
                                             </div>
                                         </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-sm-12 mb-2">
-                                                {{ form.document|as_crispy_field }}
-                                            </div>
-                                        </div>
 
                                         <input type="submit" class="form-group col-md-12 btn btn-info" value="OK">
                                       </form>
@@ -64,16 +59,18 @@
                                   </div>
                               </div>
                             </div>
-                            <button class="btn btn-outline-info col-md-12" data-toggle="modal" data-target="#add1"><strong>Upload</strong></button>
+                            <button class="btn btn-outline-info col-md-12" data-toggle="modal" data-target="#add1"><strong>Create Folder</strong></button>
 
                           </div>
                           <div class="col-md-4">
+                            <a href=""><button type="button" class="btn btn-outline-info col-md-12"><strong>Create</strong></button></a>
+
                           </div>
                           <div class="col-md-4">
                             <div class="float-right text-right">
                               <div class="card-options">
                                 <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
-                                {% for doc in collab_docs_page_obj %}
+                                {% for doc in folders_page_obj %}
                                 {% if request.user in doc.is_selected.all %}
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                   <li><a href="collab-docs/delete-all"><i class="fa fa-trash mr-2"></i>Delete Selected</a></li>
@@ -92,26 +89,24 @@
                                 <tr>
                                   <th>Name</th>
                                   <th>Date</th>
-                                  <th>Type</th>
-                                  <th>Shared by</th>
+                                  <th>Created by</th>
                                   <th>Selected</th>
                                   <th></th>
                                 </tr>
                               </thead>
                               <tbody>
-                                {% for doc in collab_docs_page_obj %}
+                                {% for doc in folders_page_obj %}
                                 {% if request.user in doc.is_selected.all %}
                                 <tr class="bg-info">
                                   <td><a class="text-white" href="collab-docs/deselect/{{doc.id}}">{{doc.name}}</a></td>
                                   <td class="num-font"><a class="text-white" href="collab-docs/deselect/{{doc.id}}">{{doc.created}}</a></td>
-                                  <td class="num-font"><a class="text-white" href="collab-docs/deselect/{{doc.id}}">{{doc.type}}</a></td>
-                                  <td class="num-font"><a class="text-white" href="collab-docs/deselect/{{doc.id}}">{{doc.shared_by}}</a></td>
+                                  <td class="num-font"><a class="text-white" href="collab-docs/deselect/{{doc.id}}">{{doc.created_by}}</a></td>
                                   <td class="text-center"><a class="text-white" href="collab-docs/deselect/{{doc.id}}"><i class="fa fa-check-circle"></i></a></td>
                                   <td>
                                     <div class="card-options">
                                       <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
                                       <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <li>{% if doc.shared_by == request.user %} <a href="collab-docs/update/{{doc.id}}"><i class="fa fa-edit mr-2"></i>Rename</a> {% else %} {% endif %}</li>
+                                        <li>{% if doc.created_by == request.user %} <a href="collab-docs/update/{{doc.id}}"><i class="fa fa-edit mr-2"></i>Rename</a> {% else %} {% endif %}</li>
                                         <li><a href="{{doc.document.url}}" download><i class="fa fa-download mr-2"></i>Download</a></li>
                                       </ul>
                                     </div>
@@ -121,14 +116,13 @@
                                 <tr>
                                   <td><a href="collab-docs/select/{{doc.id}}">{{doc.name}}</a></td>
                                   <td class="num-font"><a href="collab-docs/select/{{doc.id}}">{{doc.created}}</a></td>
-                                  <td class="num-font"><a href="collab-docs/select/{{doc.id}}">{{doc.type}}</a></td>
-                                  <td class="num-font"><a href="collab-docs/select/{{doc.id}}">{{doc.shared_by}}</a></td>
+                                  <td class="num-font"><a href="collab-docs/select/{{doc.id}}">{{doc.created_by}}</a></td>
                                   <td class="text-center"></td>
                                   <td>
                                     <div class="card-options">
                                       <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
                                       <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <li>{% if doc.shared_by == request.user %} <a href="collab-docs/update/{{doc.id}}"><i class="fa fa-edit mr-2"></i>Rename</a> {% else %} {% endif %}</li>
+                                        <li>{% if doc.created_by == request.user %} <a href="collab-docs/update/{{doc.id}}"><i class="fa fa-edit mr-2"></i>Rename</a> {% else %} {% endif %}</li>
                                         <li><a href="{{doc.document.url}}" download><i class="fa fa-download mr-2"></i>Download</a></li>
                                       </ul>
                                     </div>
@@ -144,18 +138,18 @@
                     </div>
                   </div>
                 </div>
-                      {% if collab_docs_page_obj %}
+                      {% if folders_page_obj %}
                       <nav aria-label="...">
                         <ul class="pagination justify-content-center">
                           <li class="page-item"><a class="text-info page-link" href="{% my_url 1 'page' request.GET.urlencode %}" tabindex="-1" aria-disabled="true">First</a></li>
-                          {% if collab_docs_page_obj.has_previous %}
-                            <li class="page-item"><a class="text-info page-link" href="{% my_url collab_docs_page_obj.previous_page_number 'page' request.GET.urlencode %}">{{collab_docs_page_obj.previous_page_number}}</a></li>
+                          {% if folders_page_obj.has_previous %}
+                            <li class="page-item"><a class="text-info page-link" href="{% my_url folders_page_obj.previous_page_number 'page' request.GET.urlencode %}">{{folders_page_obj.previous_page_number}}</a></li>
                           {% endif %}
-                          <li class="page-item active" aria-current="page"><a class="bg-info page-link" href="{% my_url collab_docs_page_obj.number 'page' request.GET.urlencode %}">{{collab_docs_page_obj.number}}<span class="sr-only">(current)</span></a></li>
-                          {% if collab_docs_page_obj.has_next %}
-                            <li class="page-item"><a class="text-info page-link" href="{% my_url collab_docs_page_obj.next_page_number 'page' request.GET.urlencode %}">{{collab_docs_page_obj.next_page_number}}</a></li>
+                          <li class="page-item active" aria-current="page"><a class="bg-info page-link" href="{% my_url folders_page_obj.number 'page' request.GET.urlencode %}">{{folders_page_obj.number}}<span class="sr-only">(current)</span></a></li>
+                          {% if folders_page_obj.has_next %}
+                            <li class="page-item"><a class="text-info page-link" href="{% my_url folders_page_obj.next_page_number 'page' request.GET.urlencode %}">{{folders_page_obj.next_page_number}}</a></li>
                           {% endif %}
-                          <li class="page-item"><a class="text-info page-link" href="{% my_url collab_docs_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
+                          <li class="page-item"><a class="text-info page-link" href="{% my_url folders_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
                         </ul>
                       </nav>
                       {% endif %}

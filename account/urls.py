@@ -18,6 +18,11 @@ urlpatterns = [
 
     path('collab/view-initiated/<str:id1>/', views.showCollabInitiated, name='show_collab_initiated'),
     path('collab/view-initiated/<str:id1>/collab-docs', views.showCollabDocsInitiated, name='collab_docs_initiated'),
+    path('collab/view-initiated/<str:id1>/folders', views.showFoldersInitiated, name='folders_initiated'),
+
+    path('collab/view-initiated/<str:id1>/folders/<str:id2>', views.showCollabDocsInitiated, name='collab_docs_initiated'),
+
+
     path('collab/view-initiated/<str:id1>/tasks', views.showTasksInitiated, name='tasks_initiated'),
     path('collab/view-accepted/<str:id1>/tasks', views.showTasksAccepted, name='tasks_accepted'),
 

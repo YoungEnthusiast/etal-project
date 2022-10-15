@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
-from .models import Researcher, Collab, Flag, Report, Stranger, CollabDoc, CollabDoc, Task
+from .models import Researcher, Collab, Flag, Report, Stranger, CollabDoc, CollabDoc, Task, Folder
 from django.db.models import Q
 # from django.core.exceptions import ValidationError
 # import datetime
@@ -57,6 +57,11 @@ class FlagForm(forms.ModelForm):
     class Meta:
         model = Flag
         fields = ['reason']
+
+class FolderForm(forms.ModelForm):
+    class Meta:
+        model = Folder
+        fields = ['name']
 
 class TaskForm(forms.ModelForm):
     due_date = forms.DateField(label="Due Date", widget=NumberInput(attrs={'type': 'date'}))

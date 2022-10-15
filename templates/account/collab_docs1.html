@@ -38,14 +38,14 @@
                               <div class="modal-dialog">
                                   <div class="modal-content">
                                       <div class="modal-header">
-                                          <h4 class="modal-title text-info" id="inquiryModalLabel"><i class="fas fa-upload"></i> Upload</h4>
+                                          <h4 class="modal-title text-dark-green" id="inquiryModalLabel"><i class="fas fa-plus-circle"></i> Add Anticipatory Order</h4>
                                           <button type="button" class="close" data-dismiss="modal">
                                               <span>&times;</span>
                                           </button>
                                       </div>
                                       <div class="modal-body">
                                         <br>
-                                        <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                                        <form method="post" class="form-group col-lg-12 text-dark-green" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         <div class="form-row">
                                             <div class="form-group col-sm-12 mb-2">
@@ -58,7 +58,7 @@
                                             </div>
                                         </div>
 
-                                        <input type="submit" class="form-group col-md-12 btn btn-info" value="OK">
+                                        <input type="submit" class="form-group col-md-12 btn btn-cylinder" value="OK">
                                       </form>
                                       </div>
                                   </div>
@@ -68,6 +68,8 @@
 
                           </div>
                           <div class="col-md-4">
+                            <a href=""><button type="button" class="btn btn-outline-info col-md-12"><strong>Create</strong></button></a>
+
                           </div>
                           <div class="col-md-4">
                             <div class="float-right text-right">

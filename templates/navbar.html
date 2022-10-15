@@ -1,0 +1,18 @@
+<nav class="navbar">
+  <div class="main-menu">
+    <ul>
+      <li><a href="">Questions</a></li>
+    </ul>
+  </div>
+  <div class="user-menu">
+    <ul>
+      {% if user.is_authenticated %}
+      <li><a href="">Ask question</a></li>
+      <li><a href="">Logout</a></li>
+      {% else %}
+      <li><a href="">Login</a></li>
+      <li><a href="">Register</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

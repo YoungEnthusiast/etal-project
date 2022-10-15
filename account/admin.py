@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Researcher, Collab, Notification, Flag, Report, Stranger, CollabDoc, Task
+from .models import Researcher, Collab, Notification, Flag, Report, Stranger, CollabDoc, Task, Folder
 from .forms import CustomRegisterForm
 # from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
@@ -91,3 +91,12 @@ class TaskAdmin(admin.ModelAdmin):
     list_per_page = 100
 
 admin.site.register(Task, TaskAdmin)
+
+class FolderAdmin(admin.ModelAdmin):
+    list_display = ['created', 'name']
+    search_fields = []
+    # list_filter = ['status']
+    list_editable = []
+    list_per_page = 100
+
+admin.site.register(Folder, FolderAdmin)

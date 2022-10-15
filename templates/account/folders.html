@@ -1,0 +1,130 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Folders</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+{% include '_alerts.html' %}
+<div class=" app-content">
+					<div class="side-app">
+            <br>
+            <ul>
+              <li><a title="note" href="note"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-notes text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
+              <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
+            </ul>
+
+              {% include '_alerts.html' %}
+              <div class="container content-area">
+                <div class="horizontal-content">
+                  <div class="row">
+                    <div class="col-md-1">
+
+                      <div class="modal fade" id="add1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-info" id="inquiryModalLabel"><i class="fas fa-folder"></i> Add Folder</h4>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                  <br>
+                                  <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                                  {% csrf_token %}
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.name|as_crispy_field }}
+                                      </div>
+                                  </div>
+
+                                  <input type="submit" class="form-group col-md-12 btn btn-info" value="OK">
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-outline-info" data-toggle="modal" data-target="#add1"><strong>Create Folder</strong></button>
+
+                    </div>
+                    <div class="col-md-11">
+
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                      {% for folder in folders_page_obj %}
+                      <div class="col-xl-4 col-lg-4 col-md-12">
+
+                        <div class="card">
+
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-10">
+                                <a href="folders/{{folder.id}}"><h3 class=" mb-1"><span class="text-info">{{folder.name}}</span></h3></a>
+                              </div>
+                              <div class="col-md-2">
+                                <div class="float-right text-right">
+                                  <div class="card-options text-info">
+                                    <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
+
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                      {% if folder.created_by == request.user %}
+                                      <li><a href="notes/edit/{{note.id}}"><i class="fa fa-edit mr-2"></i>Edit</a></li>
+                                      <li><a href="notes/delete/{{note.id}}"><i class="fa fa-trash mr-2"></i>Delete</a></li>
+                                      {% endif %}
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12 text-center">
+                                <a href="folders/{{folder.id}}"><i class="fas fa-folder text-info fa-6x mr-2"></i></a>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-12">
+                                <a href="folders/{{folder.id}}"><span class="text-info"><i class="fa fa-calendar mr-1"></i>{{folder.created}}</span></a>
+                              </div>
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+                      {% endfor %}
+                      <!-- {% if notes_page_obj %}
+                      <nav aria-label="...">
+                        <ul class="pagination justify-content-center">
+                          <li class="page-item"><a class="text-info page-link" href="{% my_url 1 'page' request.GET.urlencode %}" tabindex="-1" aria-disabled="true">First</a></li>
+                          {% if notes_page_obj.has_previous %}
+                            <li class="page-item"><a class="text-info page-link" href="{% my_url notes_page_obj.previous_page_number 'page' request.GET.urlencode %}">{{notes_page_obj.previous_page_number}}</a></li>
+                          {% endif %}
+                          <li class="page-item active" aria-current="page"><a class="bg-info page-link" href="{% my_url notes_page_obj.number 'page' request.GET.urlencode %}">{{notes_page_obj.number}}<span class="sr-only">(current)</span></a></li>
+                          {% if notes_page_obj.has_next %}
+                            <li class="page-item"><a class="text-info page-link" href="{% my_url notes_page_obj.next_page_number 'page' request.GET.urlencode %}">{{notes_page_obj.next_page_number}}</a></li>
+                          {% endif %}
+                          <li class="page-item"><a class="text-info page-link" href="{% my_url notes_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
+                        </ul>
+                      </nav>
+                      {% endif %} -->
+                    </div>
+  								</div>
+  							</div>
+            </div>
+					</div>
+{% endblock content%}

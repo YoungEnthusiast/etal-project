@@ -1458,15 +1458,15 @@ body.dark-mode {
 
 .dark-mode .range.range-info input[type="range"]::-webkit-slider-thumb,
 .dark-mode .range.range-info input[type="range"]::-moz-slider-thumb {
-    background-color: #45aaf2;
+    background-color: #4072c4;
 }
 
 .dark-mode .range.range-info output {
-    background-color: #45aaf2;
+    background-color: #4072c4;
 }
 
 .dark-mode .range.range-info input[type="range"] {
-    outline-color: #45aaf2;
+    outline-color: #4072c4;
 }
 
 .dark-mode .range.range-warning input[type="range"]::-webkit-slider-thumb,
@@ -1608,7 +1608,7 @@ body.dark-mode {
 }
 
 .dark-mode .heading-info {
-    background-color: #45aaf2;
+    background-color: #4072c4;
     color: #fff;
 }
 
@@ -1778,7 +1778,7 @@ body.dark-mode {
 
 .dark-mode .badge-info {
     color: #fff;
-    background-color: #45aaf2;
+    background-color: #4072c4;
 }
 
 .dark-mode .badge-info[href]:hover,
@@ -2246,7 +2246,7 @@ body.dark-mode {
 }
 
 .dark-mode .bg-info {
-    background-color: #45aaf2 !important;
+    background-color: #4072c4 !important;
     color: #fff;
 }
 
@@ -2354,7 +2354,7 @@ body.dark-mode {
 }
 
 .dark-mode .border-info {
-    border-color: #45aaf2 !important;
+    border-color: #4072c4 !important;
 }
 
 .dark-mode .border-warning {
@@ -2391,7 +2391,7 @@ body.dark-mode {
 }
 
 .dark-mode .text-info {
-    color: #45aaf2 !important;
+    color: #4072c4 !important;
 }
 
 .dark-mode a.text-info:hover,
@@ -2930,7 +2930,7 @@ body.dark-mode {
 
 .dark-mode .avatar-azure {
     background-color: #c7e6fb;
-    color: #45aaf2;
+    color: #4072c4;
 }
 
 .dark-mode .avatar-lime {
@@ -3135,7 +3135,7 @@ body.dark-mode {
 }
 
 .dark-mode .tag-azure {
-    background-color: #45aaf2;
+    background-color: #4072c4;
     color: #fff;
 }
 
@@ -3150,7 +3150,7 @@ body.dark-mode {
 }
 
 .dark-mode .tag-info {
-    background-color: #45aaf2;
+    background-color: #4072c4;
     color: #fff;
 }
 
@@ -3903,7 +3903,7 @@ body.dark-mode {
 }
 
 .dark-mode .arrow-ribbon.bg-info:before {
-    border-left: 15px solid #45aaf2;
+    border-left: 15px solid #4072c4;
 }
 
 .dark-mode .arrow-ribbon.bg-warning:before {
