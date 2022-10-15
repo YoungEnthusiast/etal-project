@@ -173,7 +173,7 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
             form = forms.save(commit=False)
             form.user = request.user
             form.save()
-            return redirect("calendarapp:calendar")
+            # return redirect("calendarapp:schedules-initiated", id1)
         context = {"form": forms}
         return render(request, self.template_name, context)
 

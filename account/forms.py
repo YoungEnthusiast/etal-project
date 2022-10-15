@@ -77,7 +77,7 @@ class StrangerForm(forms.ModelForm):
 class CollabDocForm(forms.ModelForm):
     class Meta:
         model = CollabDoc
-        fields = ['name', 'document']
+        fields = ['document']
 
 class DocUpdateForm(forms.ModelForm):
     class Meta:

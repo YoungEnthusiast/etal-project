@@ -33,7 +33,7 @@
                             <div class="tile row bg-light">
                                 <div class="col-md-3">
                                     <div id="external-events">
-                                      <a class="btn btn-sm btn-info" href="{% url 'calendarapp:all-schedules-initiated' collab.id %}">VIEW ALL</a>
+                                      <a class="btn btn-sm btn-info" href="">VIEW ALL</a>
                                       <br>
                                       <br>
                                         <P class="mb-4 h4">Ongoing Schedules</P>
@@ -57,8 +57,8 @@
                                 <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
-                                            <div class="modal-header bg-primary">
-                                                <h5 class="modal-title text-white" id="exampleModalLongTitle">Add New Event</h5>
+                                            <div class="modal-header">
+                                                <h5 class="modal-title text-primary" id="exampleModalLongTitle">Add New Event</h5>
                                                 <button id="modalClose1" type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -136,7 +136,11 @@
               // },
 
               dateClick: function(info) {
-                window.open("{% url 'calendarapp:event_new' collab.id %}?startdate=" + encodeURIComponent(info.dateStr),"_parent");
+
+                console.log('clicked')
+
+                var modal = document.getElementById('eventModal')
+                modal.style.display = 'block'
               },
               // THIS KEY WON'T WORK IN PRODUCTION!!!
               // To make your own Google API key, follow the directions here:
@@ -145,7 +149,7 @@
 
               // bangladesh Holidays
               // events: 'bn.bd#holiday@group.v.calendar.google.com',
-  
+
 
 
 

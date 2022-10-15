@@ -1,7 +1,7 @@
 import json
 import urllib.request
 from django.conf import settings
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm, CollabDocForm, DocUpdateForm, TaskForm, TaskEditForm, TaskUpdateForm, FolderForm
 from .models import Collab, Researcher, Notification, Report, CollabDoc, Task, Folder
 from django.contrib import messages
@@ -248,24 +248,69 @@ def showCollabDocsInitiated(request, id1, id2):
         total_collab_docs = filtered_collab_docs.qs.count()
         context['total_collab_docs'] = total_collab_docs
         context['collab'] = collab
-        context['folder'] = folder
 
+        form = CollabDocForm()
         if request.method == 'POST':
-            name = request.POST.get("filename")
-            myfile = request.FILES.getlist("uploadfiles")
-            for f in myfile:
-                CollabDoc(name=name, document=f).save()
-            print(myfile)
+            form = CollabDocForm(request.POST, request.FILES, None)
+            if form.is_valid():
+                raw = form.cleaned_data.get('document')
+                document = str(raw)
 
-            return HttpResponse("Ok")
+                length = len(document)
+                sub3 = length-3
+                last3 = document[sub3:length+1]
+                lower_last3 = last3.lower()
+
+                sub4 = length-4
+
+                before_last4 = document[:sub4]
+
+
+
+
+
+                if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
+                    form.save(commit=False).type="Image"
+                elif lower_last3=="mp3" or lower_last3=="amr":
+                    form.save(commit=False).type="Audio"
+                elif lower_last3=="ocx" or lower_last3=="doc":
+                    form.save(commit=False).type="Word"
+                elif lower_last3=="mp4":
+                    form.save(commit=False).type="Video"
+                elif lower_last3=="csv":
+                    form.save(commit=False).type="CSV"
+                elif lower_last3=="lsx":
+                    form.save(commit=False).type="Excel"
+                elif lower_last3=="pdf":
+                    form.save(commit=False).type="PDF"
+                elif lower_last3=="svg":
+                    form.save(commit=False).type="SVG"
+                elif lower_last3=="zip":
+                    form.save(commit=False).type="Zip"
+                else:
+                    form.save(commit=False).type=last3.upper()
 
 
 
 
 
 
+                form.save(commit=False).shared_by=request.user
+                form.save(commit=False).collab=collab
+                form.save(commit=False).folder=folder
+                form.save(commit=False).name=before_last4
+                form.save()
+                # reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+                # reg.doc_collaborators.add(request.user)
+                # for person in collab.collaborators.all():
+                #     reg.doc_collaborators.add(person)
+                # reg.save()
 
-        # context['form'] = form
+                messages.info(request, "The document has been uploaded successfully")
+                return redirect('collab_docs_initiated', id1, id2)
+            else:
+                messages.error(request, "Please review form input fields below")
+        context['form'] = form
         return render(request, 'account/collab_docs.html', context)
 
 
