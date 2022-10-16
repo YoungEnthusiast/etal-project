@@ -77,7 +77,7 @@ class Collab(models.Model):
     field = models.CharField(max_length=255, null=True)
     expertise_required = models.CharField(max_length=255, null=True, verbose_name="Collaborator's Expertise")
     collaborators_no = models.CharField(max_length=255, null=True, verbose_name="Number of Collaborators")
-    funding = models.CharField(max_length=100, null=True, verbose_name="")
+    funding = models.CharField(max_length=100, null=True, verbose_name="Funding")
     model = models.CharField(max_length=14, choices=model_choices, null=True, verbose_name="Collaboration Model")
 
     interested_people = models.ManyToManyField(Researcher, blank=True, related_name="interested_people")

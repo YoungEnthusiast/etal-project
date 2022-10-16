@@ -13,17 +13,23 @@
 
 <div class=" app-content">
 					<div class="side-app">
-            <br>
-            <ul>
-              <li><a title="CollabDoc" href="folders"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
-              <li><a title="Video Meeting" href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
-              <li><a title="Scheduler" href="schedules"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
-              <li><a title="Whiteboard" href=""><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
-              <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
-              <li><a href="{% url 'chat' collab.id %}"><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
-              <li><a title="Research Note" href="notes"><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
-            </ul>
+            <div class="row bg-light">
+              <div class="col-md-6 ml-2">
+                <br>
+                <ul>
+                  <li><a title="CollabDocs" href="folders"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="Scheduler" href="schedules"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="ChatRoom" href="{% url 'chat' collab.id %}"><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="ResearchNotes" href="notes"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+                </ul>
+              </div>
+              <div class="col-md-5">
+                <br>
+
+              </div>
+            </div>
+            <hr class="bg-info">
 
               <div class="container content-area">
                 <div class="horizontal-content">
@@ -34,7 +40,7 @@
       									<div class="card-body">
       										<div class="mt-4 mb-4">
       											<h3 class="text-info">{{collab.title}}</h3>
-      											<h5 class="mb-3 mt-2">Abstract</h5>
+      											<h5 class="mb-3 mt-2">Research Description</h5>
       											<p>{{collab.abstract|linebreaks}}</p>
       										</div>
       										<div class="mt-4 product-spec">
@@ -45,33 +51,30 @@
       														<div class="col-sm-9 mb-2">{{collab.proposed_timeline}}</div>
       													</li>
       													<li class=" row border-bottom-0">
-      														<div class="col-sm-3 text-muted mb-2">Education</div>
+      														<div class="col-sm-3 text-muted mb-2">collaborator's Research Experience</div>
       														<div class="col-sm-3 mb-2">{{collab.education}}</div>
       													</li>
       													<li class="border-bottom-0 row">
-      														<div class="col-sm-3 text-muted mb-2">Field</div>
+      														<div class="col-sm-3 text-muted mb-2">Research Field</div>
       														<div class="col-sm-3 mb-2">{{collab.field}}</div>
       													</li>
       													<li class="border-bottom-0 row">
-      														<div class="col-sm-3 text-muted mb-2">Expertise Required</div>
+      														<div class="col-sm-3 text-muted mb-2">Collaborator's Expertise</div>
       														<div class="col-sm-3 mb-2">{{collab.expertise_required}}</div>
       													</li>
       													<li class="border-bottom-0 row">
-      														<div class="col-sm-3 text-muted mb-2">On Premises</div>
-      														<div class="col-sm-6 mb-2">{{collab.on_premises}}</div>
+      														<div class="col-sm-3 text-muted mb-2">Collaboration Model</div>
+      														<div class="col-sm-6 mb-2">{{collab.model}}</div>
       													</li>
       													<li class="border-bottom-0 row">
-      														<div class="col-sm-3 text-muted mb-2">funding</div>
+      														<div class="col-sm-3 text-muted mb-2">Funding</div>
       														<div class="col-sm-3 mb-2">{{collab.funding}}</div>
       													</li>
       													<li class="border-bottom-0 row">
-      														<div class="col-sm-3 text-muted mb-2">Number of Collaborators</div>
+      														<div class="col-sm-3 text-muted mb-2">Number of Collaborators Required</div>
       														<div class="col-sm-3 mb-2">{{collab.collaborators_no}}</div>
       													</li>
-      													<li class="border-bottom-0 row">
-      														<div class="col-sm-3 text-muted mb-2">Research Ownership</div>
-      														<div class="col-sm-3 mb-2">{{collab.ownership}}</div>
-      													</li>
+
       												</ul>
       											</div>
       										</div>

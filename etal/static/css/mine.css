@@ -20803,3 +20803,7 @@ blockquote {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.text-light-blue{
+  color: #03b6fc;
+}

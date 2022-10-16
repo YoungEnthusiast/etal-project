@@ -44,7 +44,7 @@ class CollabForm(forms.ModelForm):
 
     class Meta:
         model = Collab
-        fields = ['collaborators_type', 'collaborators', 'title', 'funding', 'abstract', 'education', 'proposed_timeline', 'field', 'expertise_required', 'collaborators_no']
+        fields = ['collaborators_type', 'collaborators', 'title', 'funding', 'model', 'abstract', 'education', 'proposed_timeline', 'field', 'expertise_required', 'collaborators_no']
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request") # store value of request
         super().__init__(*args, **kwargs)
