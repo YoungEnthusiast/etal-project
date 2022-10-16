@@ -10,7 +10,6 @@
 {% endblock title %}
 
 {% block content %}
-{% include '_alerts.html' %}
 <div class=" app-content">
 					<div class="side-app">
             <br>
@@ -45,15 +44,12 @@
                                       </div>
                                       <div class="modal-body">
                                         <br>
-                                        <form action="{% url 'collab_docs_initiated' collab.id folder.id %}" method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                                        <form action="{% url 'collab_docs_initiated' collab.id folder.id %}" method="post" class="form-inline col-lg-12 text-info" enctype="multipart/form-data">
                                         {% csrf_token %}
-                                        <div class="form-row">
-                                            <div class="form-group col-sm-12 mb-2">
-                                                <input type="text" name="filename">
+
                                                 <input type="file" multiple name="uploadfiles">
-                                                <button type="submit" name="button">Upload</button>
-                                            </div>
-                                        </div>
+                                                <button class="btn btn-info" type="submit" name="button">Upload</button>
+
 
                                         <!-- <input type="submit" class="form-group col-md-12 btn btn-info" value="OK"> -->
                                       </form>

@@ -222,7 +222,7 @@ def showFoldersInitiated(request, id1):
                 # reg.save()
 
                 messages.info(request, "The folder has been created successfully")
-                # return redirect('folders_initiated', id1)
+                return redirect('folders_initiated', id1)
             else:
                 messages.error(request, "Please review form input fields below")
         context['form'] = form
@@ -250,53 +250,22 @@ def showCollabDocsInitiated(request, id1, id2):
         context['collab'] = collab
         context['folder'] = folder
 
-
         if request.method == 'POST':
-            # name = request.POST.get("filename")
+            name = request.POST.get("filename")
             myfile = request.FILES.getlist("uploadfiles")
             for f in myfile:
-                document = str(f)
+                CollabDoc(name=name, document=f, collab=collab, folder=folder).save()
+            print(myfile)
 
-                length = len(document)
-                sub3 = length-3
-                last3 = document[sub3:length+1]
-                lower_last3 = last3.lower()
+            return HttpResponse("Ok")
 
-                sub4 = length-4
-
-                before_last4 = document[:sub4]
-
-                if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
-                    type="Image"
-                elif lower_last3=="mp3" or lower_last3=="amr":
-                    type="Audio"
-                elif lower_last3=="ocx" or lower_last3=="doc":
-                    type="Word"
-                elif lower_last3=="mp4":
-                    type="Video"
-                elif lower_last3=="csv":
-                    type="CSV"
-                elif lower_last3=="lsx":
-                    type="Excel"
-                elif lower_last3=="pdf":
-                    type="PDF"
-                elif lower_last3=="svg":
-                    type="SVG"
-                elif lower_last3=="zip":
-                    type="Zip"
-                else:
-                    type=last3.upper()
-
-
-                CollabDoc(name=before_last4, document=f, collab=collab, folder=folder, shared_by=request.user, type=type).save()
-            messages.info(request, "Uploaded successfully")
-
+        # context['form'] = form
         return render(request, 'account/collab_docs.html', context)
+
+
+
     else:
         return redirect('collab')
-
-
-
 
 
 def uploadDoc(request, id1, **kwargs):
