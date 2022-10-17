@@ -23,7 +23,6 @@ from django.template.loader import render_to_string
 from datetime import datetime
 from django.core.mail import send_mail
 from django.contrib.auth import logout
-import pytz
 
 def join(request):
     form = StrangerForm()
