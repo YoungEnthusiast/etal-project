@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 class Stranger(models.Model):
     first_username = models.EmailField(max_length=255, verbose_name="Enter institution email address")
@@ -162,7 +163,9 @@ class Folder(models.Model):
     created_by = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL)
     collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_folder")
     is_selected = models.ManyToManyField(Researcher, blank=True, related_name="is_selected_folder")
-    created = models.DateTimeField(auto_now_add=True)
+    # created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=timezone.now)
+
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -192,22 +195,6 @@ class CollabDoc(models.Model):
     def __str__(self):
         try:
             return str(self.name)
-        except:
-            return str(self.id)
-
-class ChatMessage(models.Model):
-    collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_chat")
-    sender = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="sender")
-    message = models.CharField(max_length=2000, null=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ('-created',)
-
-    def __str__(self):
-        try:
-            return str(self.sender)
         except:
             return str(self.id)
 
