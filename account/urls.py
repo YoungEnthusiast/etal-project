@@ -4,6 +4,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('create-account', views.join, name='join'),
+    path('settimezone', views.settimezone, name='settimezone')
     path('join/<str:username>', views.create, name='account'),
     path('where-next/', views.loginTo),
     path('profile/change-password', views.researcherChangePassword, name='researcher_change_password'),
@@ -19,6 +20,8 @@ urlpatterns = [
     path('collab/view-initiated/<str:id1>/', views.showCollabInitiated, name='show_collab_initiated'),
     # path('collab/view-initiated/<str:id1>/collab-docs', views.showCollabDocsInitiated, name='collab_docs_initiated'),
     path('collab/view-initiated/<str:id1>/folders', views.showFoldersInitiated, name='folders_initiated'),
+
+    path('collab/view/<str:id>/update', views.updateFolderInitiated, name='update_folder_initiated'),
 
     path('collab/view-initiated/<str:id1>/folders/<str:id2>', views.showCollabDocsInitiated, name='collab_docs_initiated'),
 

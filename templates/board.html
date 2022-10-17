@@ -329,6 +329,11 @@
 
 		<script src="{% static 'js/chart.js/jquery-1.6.3.min.js'  %}"></script>
 		<script src="{% static 'js/chart.js/jquery-1.9.1.min.js'  %}"></script>
+		<script>
+	    // Timezone settings
+	    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone; // e.g. "America/New_York"
+	    document.cookie = "django_timezone=" + timezone;
+		</script>
 
 	</body>
 </html>
