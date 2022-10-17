@@ -4,7 +4,6 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('create-account', views.join, name='join'),
-    path('settimezone', views.settimezone, name='settimezone')
     path('join/<str:username>', views.create, name='account'),
     path('where-next/', views.loginTo),
     path('profile/change-password', views.researcherChangePassword, name='researcher_change_password'),

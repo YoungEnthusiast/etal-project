@@ -25,16 +25,6 @@ from django.core.mail import send_mail
 from django.contrib.auth import logout
 import pytz
 
-def settimezone(request):
-    if request.method == 'POST':
-    #Sets the request session's timezone to the user selected timezone,
-    # so all datetime objects will be rendered in the user's desired timezone
-        request.session['django_timezone'] = request.POST['timezone']
-        return redirect(reverse("index"))
-    else:
-        return render(request, 'tzapp/settimezone.html', {'timezones': pytz.common_timezones})
-    return render(request, 'tzapp/settimezone.html', {'timezones': pytz.common_timezones})
-
 def join(request):
     form = StrangerForm()
     if request.method == 'POST':
