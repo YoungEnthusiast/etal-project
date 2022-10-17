@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.utils import timezone
 
 class Stranger(models.Model):
     first_username = models.EmailField(max_length=255, verbose_name="Enter institution email address")
@@ -164,7 +163,7 @@ class Folder(models.Model):
     collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_folder")
     is_selected = models.ManyToManyField(Researcher, blank=True, related_name="is_selected_folder")
     # created = models.DateTimeField(auto_now_add=True)
-    created = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(auto_now_add=True)
 
     updated = models.DateTimeField(auto_now=True)
 

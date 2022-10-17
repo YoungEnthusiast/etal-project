@@ -32,7 +32,7 @@ class Event(EventAbstract):
     link = models.CharField(max_length=200,  null=True, blank=True, verbose_name="")
     description = models.TextField(null=True, blank=True, verbose_name="")
     is_selected = models.ManyToManyField(Researcher, blank=True, related_name="is_selected_event")
-    start_time = models.DateTimeField(default=timezone.now)
+    start_time = models.DateTimeField(null=True, blank=True, verbose_name="Starting Time")
     reminder = models.DateTimeField(blank=True, null= True)
 
 
