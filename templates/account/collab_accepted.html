@@ -13,19 +13,24 @@
 
 <div class=" app-content">
 					<div class="side-app">
-            <br>
+            <div class="row bg-light">
+              <div class="col-md-6 ml-2">
+                <br>
+                <ul>
+                  <li><a title="CollabDocs" href="folders"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="Scheduler" href="schedules"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="ChatRoom" href="{% url 'chat' collab.id %}"><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="ResearchNotes" href="notes"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+                </ul>
+              </div>
+              <div class="col-md-5">
+                <br>
 
-            <ul>
-              <li><a title="CollabDoc" href="collab-docs"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
-              <li><a href="tasks"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
-              <li><a href="{% url 'chat' collab.id %}"><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
-            </ul>
-
-            <div class="content">
+              </div>
+            </div>
+            <hr class="bg-info">
+            {% include '_alerts.html' %}
               <div class="container content-area">
                 <div class="horizontal-content">
 
@@ -130,6 +135,5 @@
 
 
           </div>
-        </div>
 
 {% endblock content%}

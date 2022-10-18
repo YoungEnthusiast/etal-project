@@ -227,6 +227,42 @@ def showFoldersInitiated(request, id1):
                 messages.error(request, "Please review form input fields below")
         context['form'] = form
         return render(request, 'account/folders.html', context)
+
+    elif request.user in collab.collaborators.all():
+        context = {}
+        filtered_folders = FolderFilter(
+            request.GET,
+            queryset = Folder.objects.filter(collab_id=id1)
+        )
+        context['filtered_folders'] = filtered_folders
+        paginated_filtered_folders = Paginator(filtered_folders.qs, 99)
+        page_number = request.GET.get('page')
+        folders_page_obj = paginated_filtered_folders.get_page(page_number)
+        context['folders_page_obj'] = folders_page_obj
+        total_folders = filtered_folders.qs.count()
+        context['total_folders'] = total_folders
+        context['collab'] = collab
+
+        form = FolderForm()
+        if request.method == 'POST':
+            form = FolderForm(request.POST, request.FILES, None)
+            if form.is_valid():
+                form.save(commit=False).created_by=request.user
+                form.save(commit=False).collab=collab
+                form.save()
+                # reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+                # reg.doc_collaborators.add(request.user)
+                # for person in collab.collaborators.all():
+                #     reg.doc_collaborators.add(person)
+                # reg.save()
+
+                messages.info(request, "The folder has been created successfully")
+                # return redirect('folders_initiated', id1)
+            else:
+                messages.error(request, "Please review form input fields below")
+        context['form'] = form
+        return render(request, 'account/folders.html', context)
+
     else:
         return redirect('collab')
 
@@ -292,12 +328,66 @@ def showCollabDocsInitiated(request, id1, id2):
             messages.info(request, "Uploaded successfully")
 
         return render(request, 'account/collab_docs.html', context)
+    elif request.user in collab.collaborators.all():
+        context = {}
+        filtered_collab_docs = CollabDocFilter(
+            request.GET,
+            queryset = CollabDoc.objects.filter(collab_id=id1, folder_id=id2)
+        )
+        context['filtered_collab_docs'] = filtered_collab_docs
+        paginated_filtered_collab_docs = Paginator(filtered_collab_docs.qs, 99)
+        page_number = request.GET.get('page')
+        collab_docs_page_obj = paginated_filtered_collab_docs.get_page(page_number)
+        context['collab_docs_page_obj'] = collab_docs_page_obj
+        total_collab_docs = filtered_collab_docs.qs.count()
+        context['total_collab_docs'] = total_collab_docs
+        context['collab'] = collab
+        context['folder'] = folder
+
+
+        if request.method == 'POST':
+            # name = request.POST.get("filename")
+            myfile = request.FILES.getlist("uploadfiles")
+            for f in myfile:
+                document = str(f)
+
+                length = len(document)
+                sub3 = length-3
+                last3 = document[sub3:length+1]
+                lower_last3 = last3.lower()
+
+                sub4 = length-4
+
+                before_last4 = document[:sub4]
+
+                if lower_last3=="png" or lower_last3=="jpg" or lower_last3=="peg" or lower_last3=="gif" or lower_last3=="ico":
+                    type="Image"
+                elif lower_last3=="mp3" or lower_last3=="amr":
+                    type="Audio"
+                elif lower_last3=="ocx" or lower_last3=="doc":
+                    type="Word"
+                elif lower_last3=="mp4":
+                    type="Video"
+                elif lower_last3=="csv":
+                    type="CSV"
+                elif lower_last3=="lsx":
+                    type="Excel"
+                elif lower_last3=="pdf":
+                    type="PDF"
+                elif lower_last3=="svg":
+                    type="SVG"
+                elif lower_last3=="zip":
+                    type="Zip"
+                else:
+                    type=last3.upper()
+
+
+                CollabDoc(name=before_last4, document=f, collab=collab, folder=folder, shared_by=request.user, type=type).save()
+            messages.info(request, "Uploaded successfully")
+
+        return render(request, 'account/collab_docs.html', context)
     else:
         return redirect('collab')
-
-
-
-
 
 def uploadDoc(request, id1, **kwargs):
     collab = Collab.objects.get(id=id1)
@@ -669,8 +759,9 @@ def deleteCollab(request, id):
 #     return render(request, 'account/doc_confirm_delete.html', {'doc':doc})
 
 @login_required
-def deleteAllDocsInitiated(request, id1, **kwargs):
+def deleteAllDocsInitiated(request, id1, id2, **kwargs):
     collab = Collab.objects.get(id=id1)
+    folder = Folder.objects.get(id=id2)
     if collab.researcher == request.user:
         docs = CollabDoc.objects.filter(is_selected=request.user, shared_by=request.user, collab=collab)
         if docs.count() >= 1:
@@ -678,11 +769,23 @@ def deleteAllDocsInitiated(request, id1, **kwargs):
                 for each in docs:
                     each.delete()
                 messages.info(request, "Deleted successfully")
-                return redirect('collab_docs_initiated', id1)
+                return redirect('collab_docs_initiated', id1, id2)
         else:
-            return redirect('collab_docs_initiated', id1)
+            return redirect('collab_docs_initiated', id1, id2)
 
-        return render(request, 'account/docs_confirm_delete_initiated.html', {'docs':docs, 'collab':collab})
+        return render(request, 'account/docs_confirm_delete_initiated.html', {'docs':docs, 'folder':folder, 'collab':collab})
+    if request.user in collab.collaborators.all():
+        docs = CollabDoc.objects.filter(is_selected=request.user, shared_by=request.user, collab=collab)
+        if docs.count() >= 1:
+            if request.method =="POST":
+                for each in docs:
+                    each.delete()
+                messages.info(request, "Deleted successfully")
+                return redirect('collab_docs_accepted', id1, id2)
+        else:
+            return redirect('collab_docs_accepted', id1, id2)
+
+        return render(request, 'account/docs_confirm_delete_initiated.html', {'docs':docs, 'folder':folder, 'collab':collab})
     else:
         return redirect('collab')
 
@@ -848,35 +951,47 @@ def addTask(request, id1, **kwargs):
 
 
 @login_required
-def selectDocInitiated(request, id1, id2, **kwargs):
+def selectDocInitiated(request, id1, id2, id3, **kwargs):
     collab = Collab.objects.get(id=id1)
+    folder = Folder.objects.get(id=id2)
     if collab.researcher == request.user:
-        doc = CollabDoc.objects.get(id=id2)
+        doc = CollabDoc.objects.get(id=id3)
         doc.is_selected.add(request.user)
         doc.save()
-        return redirect('collab_docs_initiated', id1)
+        return redirect('collab_docs_initiated', id1, id2)
+    elif request.user in collab.collaborators.all():
+        doc = CollabDoc.objects.get(id=id3)
+        doc.is_selected.add(request.user)
+        doc.save()
+        return redirect('collab_docs_accepted', id1, id2)
     else:
         return redirect('collab')
 
-@login_required
-def selectDocAccepted(request, id1, id2, **kwargs):
-    collab = Collab.objects.get(id=id1)
-    if request.user in collab.collaborators.all():
-        doc = CollabDoc.objects.get(id=id2)
-        doc.is_selected.add(request.user)
-        doc.save()
-        return redirect('collab_docs_accepted', id1)
-    else:
-        return redirect('collab')
+# @login_required
+# def selectDocAccepted(request, id1, id2, **kwargs):
+#     collab = Collab.objects.get(id=id1)
+#     if request.user in collab.collaborators.all():
+#         doc = CollabDoc.objects.get(id=id2)
+#         doc.is_selected.add(request.user)
+#         doc.save()
+#         return redirect('collab_docs_accepted', id1)
+#     else:
+#         return redirect('collab')
 
 @login_required
-def deselectDocInitiated(request, id1, id2, **kwargs):
+def deselectDocInitiated(request, id1, id2, id3, **kwargs):
     collab = Collab.objects.get(id=id1)
+    folder = Folder.objects.get(id=id2)
     if collab.researcher == request.user:
-        doc = CollabDoc.objects.get(id=id2)
+        doc = CollabDoc.objects.get(id=id3)
         doc.is_selected.remove(request.user)
         doc.save()
-        return redirect('collab_docs_initiated', id1)
+        return redirect('collab_docs_initiated', id1, id2)
+    elif request.user in collab.collaborators.all():
+        doc = CollabDoc.objects.get(id=id3)
+        doc.is_selected.remove(request.user)
+        doc.save()
+        return redirect('collab_docs_accepted', id1, id2)
     else:
         return redirect('collab')
 
@@ -892,10 +1007,11 @@ def deselectDocAccepted(request, id1, id2, **kwargs):
         return redirect('collab')
 
 @login_required
-def updateDocInitiated(request, id1, id2, **kwargs):
+def updateDocInitiated(request, id1, id2, id3, **kwargs):
     collab = Collab.objects.get(id=id1)
+    folder = Folder.objects.get(id=id2)
     if collab.researcher == request.user:
-        doc = CollabDoc.objects.get(id=id2)
+        doc = CollabDoc.objects.get(id=id3)
         form = DocUpdateForm(instance=doc)
         if request.method=='POST':
             form = DocUpdateForm(request.POST, instance=doc)
@@ -906,8 +1022,22 @@ def updateDocInitiated(request, id1, id2, **kwargs):
                 else:
                     messages.info(request, "You are not authorised to rename the document")
 
-                return redirect('collab_docs_initiated', id1)
-        return render(request, 'account/update_doc.html', {'form': form, 'doc':doc, 'collab':collab})
+                return redirect('collab_docs_initiated', id1, id2)
+        return render(request, 'account/update_doc.html', {'form': form, 'doc':doc, 'folder':folder, 'collab':collab})
+    elif request.user in collab.collaborators.all():
+        doc = CollabDoc.objects.get(id=id3)
+        form = DocUpdateForm(instance=doc)
+        if request.method=='POST':
+            form = DocUpdateForm(request.POST, instance=doc)
+            if form.is_valid():
+                if doc.shared_by==request.user:
+                    form.save()
+                    messages.info(request, "The document has been renamed successfully")
+                else:
+                    messages.info(request, "You are not authorised to rename the document")
+
+                return redirect('collab_docs_accepted', id1, id2)
+        return render(request, 'account/update_doc.html', {'form': form, 'doc':doc, 'folder':folder, 'collab':collab})
     else:
         return redirect('collab')
 

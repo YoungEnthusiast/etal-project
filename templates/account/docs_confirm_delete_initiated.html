@@ -25,7 +25,7 @@
                 <form method="post">
                   {% csrf_token %}
                   {{ form|crispy }}
-                  <input type="submit" class="btn btn-danger" value="Yes, delete"> <a class="btn btn-outline-light" href="{% url 'collab_docs_initiated' collab.id  %}">No, cancel</a>
+                  <input type="submit" class="btn btn-danger" value="Yes, delete"> <a class="btn btn-outline-light" href="{% url 'collab_docs_initiated' collab.id folder.id %}">No, cancel</a>
                 </form>
                 <br>
             </div>
