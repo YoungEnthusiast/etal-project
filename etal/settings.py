@@ -254,7 +254,7 @@ AWS_LOCATION = config('AWS_LOCATION')
 AWS_S3_SIGNATURE_VERSION='s3v4'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'etal/static'),
 ]
 
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
