@@ -3,7 +3,6 @@
 {% load static %}
 {% load humanize %}
 {% load home_tags %}
-{% load tz %}
 {% block title %}
   <title>Folders</title>
   <meta name="description" content="">
@@ -11,7 +10,6 @@
 {% endblock title %}
 
 {% block content %}
-{% include '_alerts.html' %}
 <div class=" app-content">
 					<div class="side-app">
             <div class="row bg-light">
@@ -110,8 +108,8 @@
 
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                       {% if folder.created_by == request.user %}
-                                      <li><a href="notes/edit/{{note.id}}"><i class="fa fa-edit mr-2"></i>Edit</a></li>
-                                      <li><a href="notes/delete/{{note.id}}"><i class="fa fa-trash mr-2"></i>Delete</a></li>
+                                      <li><a href="folders/{{folder.id}}/update"><i class="fa fa-edit mr-2"></i>Rename</a></li>
+                                      <li><a href="folders/{{folder.id}}/delete"><i class="fa fa-trash mr-2"></i>Delete</a></li>
                                       {% endif %}
                                     </ul>
                                   </div>
@@ -126,9 +124,7 @@
 
                             <div class="row">
                               <div class="col-md-12">
-                                {% localtime on %}
-                                <a href="folders/{{folder.id}}"><span class="text-info"><i class="fa fa-calendar mr-1"></i>{{folder.created|localtime}}</span></a>
-                                {% endlocaltime %}
+                                <a href="folders/{{folder.id}}"><span class="text-info"><i class="fa fa-calendar mr-1"></i>{{folder.created}}</span></a>
                               </div>
                             </div>
 

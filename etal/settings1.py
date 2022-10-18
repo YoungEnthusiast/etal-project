@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'discover',
     'taggit',
     'haystack',
+    "whitenoise.runserver_nostatic",
 
     # 'notification',
 ]
@@ -94,6 +95,7 @@ HAYSTACK_CONNECTIONS = {
 SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -101,6 +103,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 ROOT_URLCONF = 'etal.urls'
 
@@ -182,7 +186,7 @@ USE_TZ = False
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static', '/var/www/etal.ac/static/')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static', '/var/www/static/')
 

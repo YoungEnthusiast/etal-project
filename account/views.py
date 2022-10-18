@@ -622,6 +622,33 @@ def updateCollab(request, id):
     return render(request, 'account/update_collab.html', {'form': form, 'collab':collab})
 
 @login_required
+def updateFolderInitiated(request, id1, id2):
+    collab = Collab.objects.get(id=id1)
+    folder = Folder.objects.get(id=id2)
+    if folder.created_by == request.user:
+        form = FolderForm(instance=folder)
+        if request.method=='POST':
+            form = FolderForm(request.POST, instance=folder)
+            if form.is_valid():
+                form.save()
+                messages.info(request, "The folder has been updated successfully")
+                return redirect('folders_initiated', id1)
+    else:
+        return redirect('collab')
+
+    return render(request, 'account/update_folder.html', {'form': form, 'collab':collab})
+
+def deleteFolderInitiated(request, id1, id2):
+    collab = Collab.objects.get(id=id1)
+    folder = Folder.objects.get(id=id2)
+    obj = get_object_or_404(Folder, id=id2)
+    if request.method =="POST":
+        obj.delete()
+        messages.info(request, "The folder has been deleted successfully")
+        return redirect('folders_initiated', id1)
+    return render(request, 'account/folder_confirm_delete_initiated.html', {'collab':collab, 'folder':folder})
+
+@login_required
 def deleteCollab(request, id):
     collab = Collab.objects.get(id=id)
     obj = get_object_or_404(Collab, id=id)
@@ -629,7 +656,7 @@ def deleteCollab(request, id):
         obj.delete()
         messages.info(request, "The collab has been deleted successfully")
         return redirect('collab')
-    return render(request, 'account/collab_confirm_delete.html', {'collab':collab})
+    return render(request, 'account/folder_confirm_delete_initiated.html', {'collab':collab})
 
 # @login_required
 # def deleteDoc(request, id):
