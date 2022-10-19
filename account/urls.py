@@ -38,7 +38,9 @@ urlpatterns = [
 
 
     path('collab/view-initiated/<str:id1>/tasks', views.showTasksInitiated, name='tasks_initiated'),
+    path('collab/view-initiated/<str:id1>/tasks/<str:id2>', views.showTaskInitiated, name='show_task_initiated'),
     path('collab/view-accepted/<str:id1>/tasks', views.showTasksAccepted, name='tasks_accepted'),
+    path('collab/view-accepted/<str:id1>/tasks/<str:id2>', views.showTaskInitiated, name='show_task_accepted'),
 
     path('collab/view-initiated/<str:id1>/folders/<str:id2>/update/<str:id3>', views.updateDocInitiated, name='update_doc_initiated'),
     path('collab/view-accepted/<str:id1>/folders/<str:id2>/update/<str:id3>', views.updateDocInitiated, name='update_doc_accepted'),

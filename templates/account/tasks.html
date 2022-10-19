@@ -12,16 +12,48 @@
 {% block content %}
 <div class=" app-content">
 					<div class="side-app">
-            <br>
-            <ul>
-              <li><a title="Task" href="task"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
-            </ul>
+            <div class="row bg-light">
+              <div class="col-md-3 ml-2">
+                <br>
+                <ul>
+                  {% if request.user == collab.researcher %}
+                  <li><a title="CollabDocs" href="{% url 'folders_initiated' collab.id %}"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+                  {% elif request.user in collab.collaborators.all %}
+                  <li><a title="CollabDocs" href="{% url 'folders_accepted' collab.id %}"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+                  {% endif %}
+                  <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-light-blue fa-2x mr-2"></i></a></li>
+                  <li><a title="Scheduler" href="schedules"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="ChatRoom" href="{% url 'chat' collab.id %}"><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="ResearchNotes" href="notes"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <br>
+                <ul>
+                  <li class="text-info h4">{{collab.title}}</li>
+                </ul>
+              </div>
+              <div class="col-md-2 text-right">
+                <br>
+                <ul>
+                  {% if collab.researcher.photograph %}
+                  <li><sup><a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"></a></sup></li>
+                  {% else %}
+                  <li><a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                  {% endif %}
+                  {% for person in collab.collaborators.all %}
+                    {% if person.photograph %}
+                      <li><sup><a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-task"></a></sup></li>
+                    {% else %}
+                      <li><a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                    {% endif %}
+                  {% endfor %}
+
+                </ul>
+              </div>
+            </div>
+
+            <hr class="bg-info">
               {% include '_alerts.html' %}
               <div class="container content-area">
                 <div class="horizontal-content">
@@ -59,7 +91,11 @@
                           <div class="card-body">
                             <div class="row">
                               <div class="col-md-10">
-                                <h3 class="mb-1"><span class="text-info">{{task.title}}</span></h3>
+                                {% if request.user == collab.researcher %}
+                                <a href="{% url 'show_task_initiated' collab.id task.id %}"><h3 class="mb-1"><span class="text-info">{{task.title}}</span></h3></a>
+                                {% elif request.user in collab.collaborators.all %}
+                                <a href="{% url 'show_task_accepted' collab.id task.id %}"><h3 class="mb-1"><span class="text-info">{{task.title}}</span></h3></a>
+                                {% endif %}
                               </div>
                               <div class="col-md-2">
                                 <div class="float-right text-right">
@@ -69,8 +105,9 @@
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                       {% if task.collab.researcher == request.user %}
                                       <li><a href="tasks/edit/{{task.id}}"><i class="fa fa-edit mr-2"></i>Edit</a></li>
+
                                       <li><a href="tasks/delete/{{task.id}}"><i class="fa fa-trash mr-2"></i>Delete</a></li>
-                                      {% elif request.user in task.collab.collaborators.all %}
+                                      {% elif request.user in task.assigned_to.all %}
                                       <li><a href="tasks/update/{{task.id}}"><i class="fa fa-edit mr-2"></i>Update</a></li>
                                       {% endif %}
                                       <li><a href="tasks/pin/{{task.id}}"><i class="fa fa-map-pin mr-2"></i>Pin</a></li>
@@ -138,7 +175,7 @@
                       <div class="col-xl-12 col-lg-4 col-md-12">
                         <div class="card">
                           {% if task.is_pinned %}
-                          <i class="fa fa-bookmark fa-2x text-success"></i>
+                          <i class="fa fa-bookmark text-success"></i>
                           {% else %}
                           {% endif %}
                           <div class="card-body">
@@ -159,7 +196,7 @@
                                 </tr>
                               </div>
                               <div class="col-md-7 text-right">
-                                <span class="text-success"><i class="fa fa-calendar mr-1"></i>{{task.completed_date}}</span>
+                                <span class="text-success"><i class="fa fa-calendar mr-1"></i>{{task.updated}}</span>
                               </div>
                             </div>
 
@@ -185,7 +222,7 @@
                       <div class="col-xl-12 col-lg-4 col-md-12">
                         <div class="card">
                           {% if task.is_pinned %}
-                          <i class="fa fa-bookmark fa-2x text-danger"></i>
+                          <i class="fa fa-bookmark text-danger"></i>
                           {% else %}
                           {% endif %}
                           <div class="card-body">
@@ -206,7 +243,7 @@
                                 </tr>
                               </div>
                               <div class="col-md-7 text-right">
-                                <span class="text-red"><i class="fa fa-calendar mr-1"></i>{{task.updated_date}}</span>
+                                <span class="text-red"><i class="fa fa-calendar mr-1"></i>{{task.updated}}</span>
                               </div>
                             </div>
 
@@ -216,11 +253,6 @@
                       {% endfor %}
                     </div>
                   </div>
-
-
-
-
-
   								</div>
   							</div>
             </div>

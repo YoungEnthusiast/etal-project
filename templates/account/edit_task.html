@@ -14,15 +14,6 @@
 <div class=" app-content">
 					<div class="side-app">
             <br>
-            <ul>
-              <li><a title="CollabDoc" href="collab-docs"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
-            </ul>
 
               <div class="container content-area">
                 <div class="horizontal-content">
@@ -30,7 +21,10 @@
 
 
                   <div class="row">
-                    <div class="col-md-12 col-xl-12 col-lg-12">
+                    <div class="col-md-12 col-xl-3 col-lg-12">
+
+                    </div>
+                    <div class="col-md-12 col-xl-6 col-lg-12">
                     <div class="card">
                       <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
                         <div class="card-header bg-white">
@@ -56,12 +50,20 @@
                         </div>
                         <div class="form-row">
                           <div class="form-group col-sm-12 mb-2">
+                                {{ form.status|as_crispy_field }}
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-sm-12 mb-2">
                                 {{ form.due_date|as_crispy_field }}
                           </div>
                         </div>
                         <div style="text-align:left" class="mt-1">
                         <input type="submit" value="Update" class="btn btn-dark-blue">
                     </form>
+                    </div>
+                    <div class="col-md-12 col-xl-3 col-lg-12">
+
                     </div>
                     </div>
                   </div>

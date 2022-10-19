@@ -1,0 +1,133 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Task Details</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+
+<div class=" app-content">
+					<div class="side-app">
+            <div class="row bg-light">
+              <div class="col-md-3 ml-2">
+                <br>
+                <ul>
+                  {% if request.user == collab.researcher %}
+                  <li><a title="CollabDocs" href="{% url 'folders_initiated' collab.id %}"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+                  {% elif request.user in collab.collaborators.all %}
+                  <li><a title="CollabDocs" href="{% url 'folders_accepted' collab.id %}"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+                  {% endif %}
+                  <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-light-blue fa-2x mr-2"></i></a></li>
+                  <li><a title="Scheduler" href="schedules"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="ChatRoom" href="{% url 'chat' collab.id %}"><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="ResearchNotes" href="notes"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <br>
+                <ul>
+                  <li class="text-info h4">{{collab.title}}</li>
+                </ul>
+              </div>
+              <div class="col-md-2 text-right">
+                <br>
+                <ul>
+                  {% if collab.researcher.photograph %}
+                  <li><sup><a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"></a></sup></li>
+                  {% else %}
+                  <li><a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                  {% endif %}
+                  {% for person in collab.collaborators.all %}
+                    {% if person.photograph %}
+                      <li><sup><a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-task"></a></sup></li>
+                    {% else %}
+                      <li><a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                    {% endif %}
+                  {% endfor %}
+
+                </ul>
+              </div>
+            </div>
+
+            <hr class="bg-info">
+              {% include '_alerts.html' %}
+              <div class="container content-area">
+                <div class="horizontal-content">
+
+                  <div class="row">
+      							<div class="col-xl-5 col-lg-12 col-md-12">
+      								<div class="card">
+      									<div class="card-body">
+      										<div class="mt-4 mb-4">
+      											<h3 class="text-info">{{task.title}}</h3>
+      											<p>{{task.description|linebreaks}}</p>
+      										</div>
+      									</div>
+      								</div>
+                      {% if request.user == collab.researcher %}
+                      <a class="text-white" href="{% url 'edit_task_initiated' collab.id task.id %}"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button></a>
+                      <a class="text-white pull-right" href="{% url 'delete_task_initiated' collab.id task.id %}"><button class="btn btn-red" type="button" name="button"><strong><i class="fas fa-trash fa-1x mr-1"></i>Delete</strong></button></a>
+                      {% elif request.user in collab.assigned_to.all %}
+                      <a class="text-white" href="{% url 'update_task_accepted' collab.id task.id %}"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-edit fa-1x mr-1"></i>Update</strong></button></a>
+                      {% endif %}
+                      <br>
+                      <br>
+                      {% if task.update_text != None %}
+                      <div class="card">
+      									<div class="card-body">
+      										<div class="mt-4 mb-4">
+      											<p>{{task.update_text|linebreaks}}</p>
+      										</div>
+      									</div>
+      								</div>
+                      Updated by {% for person in task.text_editor.all %}
+                        {% if person.photograph %}
+                          <a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
+                        {% else %}
+                          <a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                        {% endif %}
+                        <br>
+                      {% endfor %}
+                      {% endif %}
+                    </div>
+
+                    <div class="col-xl-4 col-md-12">
+                      Created on {{task.created}}
+                      <br>
+                      <br>
+                      Updated on {{task.updated}}
+                      <br>
+                      {% if task.assigned_to.all %}
+                      <br>
+                      <br>
+                      <h5>Assigned to <span class="badge badge-info badge-pill">{{counter}}</span></h5>
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            {% for person in task.assigned_to.all %}
+                              {% if person.photograph %}
+                                <a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
+                              {% else %}
+                                <a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                              {% endif %}
+                              <br>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                      {% endif %}
+                    </div>
+
+      						</div>
+      					</div>
+              </div>
+
+          </div>
+        </div>
+
+{% endblock content%}
