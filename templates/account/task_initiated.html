@@ -22,8 +22,17 @@
                   {% elif request.user in collab.collaborators.all %}
                   <li><a title="CollabDocs" href="{% url 'folders_accepted' collab.id %}"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
                   {% endif %}
-                  <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-light-blue fa-2x mr-2"></i></a></li>
-                  <li><a title="Scheduler" href="schedules"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
+                  {% if request.user == collab.researcher %}
+                  <li><a title="Tasks" href="{% url 'tasks_initiated' collab.id %}"><i class="fas fa-tasks text-light-blue fa-2x mr-2"></i></a></li>
+                  {% elif request.user in collab.collaborators.all %}
+                  <li><a title="Tasks" href="{% url 'tasks_accepted' collab.id %}"><i class="fas fa-tasks text-light-blue fa-2x mr-2"></i></a></li>
+                  {% endif %}
+                  {% if request.user == collab.researcher %}
+                  <li><a title="Scheduler" href="{% url 'calendarapp:schedules-initiated' collab.id %}"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
+                  {% elif request.user in collab.collaborators.all %}
+                  <li><a title="Scheduler" href="{% url 'calendarapp:schedules-accepted' collab.id %}"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
+
+                  {% endif %}
                   <li><a title="ChatRoom" href="{% url 'chat' collab.id %}"><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
                   <li><a title="ResearchNotes" href="notes"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
                 </ul>
@@ -70,29 +79,130 @@
       									</div>
       								</div>
                       {% if request.user == collab.researcher %}
-                      <a class="text-white" href="{% url 'edit_task_initiated' collab.id task.id %}"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button></a>
-                      <a class="text-white pull-right" href="{% url 'delete_task_initiated' collab.id task.id %}"><button class="btn btn-red" type="button" name="button"><strong><i class="fas fa-trash fa-1x mr-1"></i>Delete</strong></button></a>
+
+                      <div class="modal fade" id="add2" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-info" id="inquiryModalLabel"><i class="fas fa-edit"></i> Edit Task</h4>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                  <br>
+                                  <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                                  {% csrf_token %}
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form2.assigned_to|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form2.title|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form2.description|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form2.due_date|as_crispy_field }}
+                                      </div>
+                                  </div>
+
+                                  <input type="submit" class="form-group col-md-12 btn btn-info" value="OK">
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#add2"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button>
+                      <a class="text-white pull-right" href="{% url 'delete_task_initiated' collab.id task.id %}"><button class="btn btn-sm btn-red" type="button" name="button"><strong><i class="fas fa-trash fa-1x mr-1"></i>Delete</strong></button></a>
+                      <br>
+                      <br>
+
+
+                      <div class="modal fade" id="add1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-info" id="inquiryModalLabel"><i class="fas fa-clock"></i> Status</h4>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                  <br>
+                                  <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                                  {% csrf_token %}
+
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.status|as_crispy_field }}
+                                      </div>
+                                  </div>
+
+                                  <input type="submit" class="form-group col-md-12 btn btn-info" value="OK">
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#add1"><strong>Status</strong></button>
+
                       {% elif request.user in task.assigned_to.all %}
-                      <a class="text-white" href="{% url 'update_task_accepted' collab.id task.id %}"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-edit fa-1x mr-1"></i>Update</strong></button></a>
+
+                      <div class="modal fade" id="add3" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-info" id="inquiryModalLabel"><i class="fas fa-edit"></i> Update</h4>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                  <br>
+                                  <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                                  {% csrf_token %}
+
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form3.text|as_crispy_field }}
+                                      </div>
+                                  </div>
+
+                                  <input type="submit" class="form-group col-md-12 btn btn-info" value="OK">
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#add3"><strong><i class="fas fa-edit fa-1x mr-1"></i>Update</strong></button>
                       {% endif %}
                       <br>
                       <br>
-                      {% if task.update_text != None %}
+                      {% if counter2 >= 1 %}
                       <div class="card">
       									<div class="card-body">
       										<div class="mt-4 mb-4">
-      											<p>{{task.update_text|linebreaks}}</p>
+                            {% for each in task.update_text.all %}
+      											{{each.text|linebreaks}}
+                            {% if each.creator.photograph %}
+                              <a href="{% url 'show_user' each.creator.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
+                            {% else %}
+                              <a href="{% url 'show_user' each.creator.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                            {% endif %}
+                             {{each.created}}
+                            {% endfor %}
       										</div>
       									</div>
       								</div>
-                      Updated by {% for person in task.text_editor.all %}
-                        {% if person.photograph %}
-                          <a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
-                        {% else %}
-                          <a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
-                        {% endif %}
-                        <br>
-                      {% endfor %}
+
                       {% endif %}
                     </div>
 

@@ -185,8 +185,8 @@ class CollabDoc(models.Model):
     document = models.FileField(upload_to='collab_documents/', verbose_name="File")
     is_selected = models.ManyToManyField(Researcher, blank=True, related_name="is_selected")
     doc_collaborators = models.ManyToManyField(Researcher, blank=True, related_name="doc_collaborators")
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         ordering = ('-created',)
@@ -194,6 +194,21 @@ class CollabDoc(models.Model):
     def __str__(self):
         try:
             return str(self.name)
+        except:
+            return str(self.id)
+
+class TextUpdate(models.Model):
+    text = models.CharField(max_length=255, null=True, blank=True)
+    creator = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="creator")
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        try:
+            return str(self.text)
         except:
             return str(self.id)
 
@@ -207,12 +222,10 @@ class Task(models.Model):
     serial = models.CharField(max_length=4, null=True, blank=True)
     collab = models.ForeignKey(Collab, null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_task")
     is_pinned = models.BooleanField(max_length=5, default = False)
-
     assigned_to = models.ManyToManyField(Researcher, blank=True, verbose_name="Assign", related_name="assigned_to")
     title = models.CharField(max_length=30, null=True)
     description = models.CharField(max_length=150, null=True)
-    update_text = models.CharField(max_length=150, blank=True, verbose_name="Description", null=True)
-    text_editor = models.ManyToManyField(Researcher, blank=True, related_name="text_editor")
+    update_text = models.ManyToManyField(TextUpdate, blank=True, verbose_name="Description", related_name="update_text")
     is_selected = models.ManyToManyField(Researcher, blank=True, related_name="is_selected_task")
     due_date = models.DateField(blank=True, null=True, verbose_name="Due Date")
     updated_date = models.DateField(blank=True, null=True)

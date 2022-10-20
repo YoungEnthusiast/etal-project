@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
-from .models import Researcher, Collab, Flag, Report, Stranger, CollabDoc, CollabDoc, Task, Folder
+from .models import Researcher, Collab, Flag, Report, Stranger, CollabDoc, CollabDoc, Task, Folder, TextUpdate
 from django.db.models import Q
 # from django.core.exceptions import ValidationError
 # import datetime
@@ -88,9 +88,14 @@ class TaskEditForm(forms.ModelForm):
     due_date = forms.DateField(widget=NumberInput(attrs={'type': 'date'}))
     class Meta:
         model = Task
-        fields = ['assigned_to', 'title', 'status', 'description', 'due_date']
+        fields = ['assigned_to', 'title', 'description', 'due_date']
 
-class TaskUpdateForm(forms.ModelForm):
+class TextUpdateForm(forms.ModelForm):
+    class Meta:
+        model = TextUpdate
+        fields = ['text']
+
+class TaskStatusForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['update_text']
+        fields = ['status']

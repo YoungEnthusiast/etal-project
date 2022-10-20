@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Researcher, Collab, Notification, Flag, Report, Stranger, CollabDoc, Task, Folder
+from .models import Researcher, Collab, Notification, Flag, Report, Stranger, CollabDoc, Task, Folder, TextUpdate
 from .forms import CustomRegisterForm
 # from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
@@ -100,3 +100,12 @@ class FolderAdmin(admin.ModelAdmin):
     list_per_page = 100
 
 admin.site.register(Folder, FolderAdmin)
+
+class TextUpdateAdmin(admin.ModelAdmin):
+    list_display = ['text', 'creator']
+    search_fields = []
+    # list_filter = ['status']
+    list_editable = []
+    list_per_page = 100
+
+admin.site.register(TextUpdate, TextUpdateAdmin)

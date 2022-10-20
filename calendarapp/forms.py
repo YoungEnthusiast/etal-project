@@ -1,7 +1,6 @@
 from django.forms import ModelForm, DateInput
-from calendarapp.models import Event, EventMember
+from calendarapp.models import Event, EventMember, EventAvailable
 from django import forms
-
 
 class EventForm(ModelForm):
     class Meta:
@@ -91,3 +90,8 @@ class AddMemberForm(forms.ModelForm):
     class Meta:
         model = EventMember
         fields = ["user"]
+
+class AvailableForm(forms.ModelForm):
+    class Meta:
+        model = EventAvailable
+        fields = ['available']

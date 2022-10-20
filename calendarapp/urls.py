@@ -6,9 +6,10 @@ app_name = "calendarapp"
 
 
 urlpatterns = [
-    # path("calender/", views.CalendarViewNew.as_view(), name="calendar"),
     path('collab/view-initiated/<str:id1>/schedules/', views.CalendarViewNew.as_view(), name="schedules-initiated"),
+    path('collab/view-accepted/<str:id1>/schedules/', views.CalendarViewNew.as_view(), name="schedules-accepted"),
     path('collab/view-initiated/<str:id1>/all-schedules/', views.showAllEventsInitiated, name="all-schedules-initiated"),
+    path('collab/view-accepted/<str:id1>/all-schedules/', views.showAllEventsInitiated, name="all-schedules-initiated"),
     path('collab/view-initiated/<str:id1>/all-schedules/select/<str:id2>', views.selectEventInitiated, name='update_event_initiated'),
     path('collab/view-initiated/<str:id1>/all-schedules/deselect/<str:id2>', views.deselectEventInitiated, name='deselect_event_initiated'),
     path('collab/view-initiated/<str:id1>/all-schedules/delete-all', views.deleteAllEventsInitiated, name='delete_all_events_initiated'),

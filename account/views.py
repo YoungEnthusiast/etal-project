@@ -2,8 +2,8 @@ import json
 import urllib.request
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, StrangerForm, CollabDocForm, DocUpdateForm, TaskForm, TaskEditForm, TaskUpdateForm, FolderForm
-from .models import Collab, Researcher, Notification, Report, CollabDoc, Task, Folder
+from .forms import CustomRegisterForm, CollabForm, CustomRegisterFormResearcher, FlagForm, TaskStatusForm, StrangerForm, CollabDocForm, DocUpdateForm, TaskForm, TaskEditForm, FolderForm, TextUpdateForm
+from .models import Collab, Researcher, Notification, Report, CollabDoc, Task, Folder, TextUpdate
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.forms import PasswordChangeForm, AuthenticationForm
@@ -1085,7 +1085,29 @@ def showTaskInitiated(request, id1, id2, **kwargs):
         for person in task.assigned_to.all():
             counter += 1
 
-        context = {'collab': collab, 'counter':counter, 'task':task}
+        form = TaskStatusForm(instance=task)
+        if request.method=='POST':
+            form = TaskStatusForm(request.POST, instance=task)
+            if form.is_valid():
+                form.save()
+                messages.info(request, "The task has been updated successfully")
+
+                return redirect('tasks_initiated', id1)
+
+        form2 = TaskEditForm(instance=task)
+        if request.method=='POST':
+            form2 = TaskEditForm(request.POST, instance=task)
+            if form2.is_valid():
+                form2.save()
+                messages.info(request, "The task has been updated successfully")
+
+                return redirect('tasks_initiated', id1)
+
+        counter2 = 0
+        for each in task.update_text.all():
+            counter2 += 1
+
+        context = {'collab': collab, 'counter':counter, 'counter2':counter2, 'task':task, 'form':form, 'form2':form2}
 
         return render(request, 'account/task_initiated.html', context)
     elif request.user in collab.collaborators.all():
@@ -1093,7 +1115,28 @@ def showTaskInitiated(request, id1, id2, **kwargs):
         for person in task.assigned_to.all():
             counter += 1
 
-        context = {'collab': collab, 'counter':counter, 'task':task}
+        form3 = TextUpdateForm()
+        if request.method == 'POST':
+            form3 = TextUpdateForm(request.POST, request.FILES, None)
+            if form3.is_valid():
+                # text = form3.cleaned_data.get('text')
+                form3.save(commit=False).creator=request.user
+                form3.save()
+                reg1 = TextUpdate.objects.filter(creator=request.user)[0]
+                reg = Task.objects.get(id=id2)
+                reg.update_text.add(reg1)
+                reg.save()
+
+                messages.info(request, "The task has been updated successfully")
+                return redirect('tasks_accepted', id1)
+            else:
+                messages.error(request, "Please review form input fields below")
+
+        counter2 = 0
+        for each in task.update_text.all():
+            counter2 += 1
+
+        context = {'collab': collab, 'counter':counter, 'counter2':counter2, 'task':task, 'form3':form3}
 
         return render(request, 'account/task_initiated.html', context)
     else:

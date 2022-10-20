@@ -10,19 +10,20 @@
 {% endblock title %}
 
 {% block content %}
-{% include '_alerts.html' %}
+
 <div class=" app-content">
 					<div class="side-app">
             <br>
               <div class="container content-area">
                 <div class="horizontal-content">
+                  {% include '_alerts.html' %}
 
                   <div class="row">
                     {% for collab in initiated_collabs_page_obj %}
       							<div class="col-xl-4 col-lg-4 col-md-12">
       								<div class="card">
       									<div class="card-body">
-      										<a href="{% url 'show_collab' collab.id %}"><h3 class=" mb-1"><span class="text-info">{{collab.title|slice:":27"}}...</span></h3></a>
+      										<a href="{% url 'show_collab_initiated' collab.id %}"><h3 class=" mb-1"><span class="text-info">{{collab.title|slice:":27"}}...</span></h3></a>
                           <h5 class=" mb-1">{{collab.field}}</h5>
 
       										<p class="text-muted">{{collab.abstract|slice:":200"}}...</p>

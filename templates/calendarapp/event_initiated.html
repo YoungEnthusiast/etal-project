@@ -14,22 +14,12 @@
 <div class=" app-content">
 					<div class="side-app">
             <br>
-            <ul>
-              <li><a title="eventDoc" href="event-docs"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
-              <li><a title="Video Meeting" href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
-              <li><a title="Scheduler" href="schedules"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
-              <li><a title="Whiteboard" href=""><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
-              <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
-              <li><a href="{% url 'chat' collab.id %}"><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
-            </ul>
 
               <div class="container content-area">
                 <div class="horizontal-content">
-
+                  {% include '_alerts.html' %}
                   <div class="row">
-      							<div class="col-xl-9 col-lg-12 col-md-12">
+      							<div class="col-xl-7 col-lg-12 col-md-12">
       								<div class="card">
       									<div class="card-body">
       										<div class="mt-4 mb-4">
@@ -61,7 +51,11 @@
       													<li class="border-bottom-0 row">
       														<div class="col-sm-3 text-muted mb-2">Reminder</div>
       														<div class="col-sm-3 mb-2">{{event.reminder}}</div>
-      													</li>
+      													</li
+                                <br>
+                                <br>
+                                <br>
+                                Created on {{event.created_at}} 
                                 <div class="pull-right">
                                   <div class="">Created by</div>
                                   {% if event.user.photograph %}
@@ -77,11 +71,121 @@
       									</div>
       								</div>
                     {% if collab.researcher == request.user %}
-                      <a class="text-white" href="{{event.id}}/update"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-question-circle fa-1x mr-1"></i>Available</strong></button></a>
-                      <a class="text-white pull-right" href="{{event.id}}/delete"><button class="btn btn-red" type="button" name="button"><strong><i class="fas fa-trash fa-1x mr-1"></i>Delete</strong></button></a>
-                      <a class="text-white pull-right mr-1" href="{{event.id}}/update"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button></a>
+                    <div class="modal fade" id="add2" role="dialog">
+                      <div class="modal-dialog">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h4 class="modal-title text-info" id="inquiryModalLabel"><i class="fas fa-question-circle"></i> Available</h4>
+                                  <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                <br>
+                                <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="form-row">
+                                    <div class="form-group col-sm-12 mb-2">
+                                        {{ form2.available|as_crispy_field }}
+                                    </div>
+                                </div>
+
+                                <input type="submit" class="form-group col-md-12 btn btn-info" value="OK">
+                              </form>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#add2"><strong><i class="fas fa-question-circle fa-1x mr-1"></i>Available</strong></button>
+                      <a class="text-white pull-right" href="{{event.id}}/delete"><button class="btn btn-sm btn-red" type="button" name="button"><strong><i class="fas fa-trash fa-1x mr-1"></i>Delete</strong></button></a>
+
+                      <div class="modal fade" id="add1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-info" id="inquiryModalLabel"><i class="fas fa-edit"></i> Edit Event</h4>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                  <br>
+                                  <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                                  {% csrf_token %}
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.title|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.description|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.start_time|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.end_time|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.link|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.location|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.reminder|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <input type="submit" class="form-group col-md-12 btn btn-info" value="OK">
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-sm btn-info pull-right mr-1" data-toggle="modal" data-target="#add1"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button>
+                      <!-- <a class="text-white pull-right mr-1" href="{{event.id}}/update"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button></a> -->
                     {% else %}
-                    <a class="text-white" href="{{event.id}}/update"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-question-circle fa-1x mr-1"></i>Available</strong></button></a>
+
+                    <div class="modal fade" id="add2" role="dialog">
+                      <div class="modal-dialog">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h4 class="modal-title text-info" id="inquiryModalLabel"><i class="fas fa-question-circle"></i> Available</h4>
+                                  <button type="button" class="close" data-dismiss="modal">
+                                      <span>&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                <br>
+                                <form method="post" class="form-group col-lg-12 text-info" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="form-row">
+                                    <div class="form-group col-sm-12 mb-2">
+                                        {{ form2.available|as_crispy_field }}
+                                    </div>
+                                </div>
+
+                                <input type="submit" class="form-group col-md-12 btn btn-info" value="OK">
+                              </form>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#add2"><strong><i class="fas fa-question-circle fa-1x mr-1"></i>Available</strong></button>
+
                     {% endif %}
                     </div>
 

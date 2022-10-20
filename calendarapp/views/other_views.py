@@ -10,9 +10,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from account.models import Collab
-from calendarapp.models import EventMember, Event
+from calendarapp.models import EventMember, Event, EventAvailable
 from calendarapp.utils import Calendar
-from calendarapp.forms import EventForm, EventUpdateForm, AddMemberForm
+from calendarapp.forms import EventForm, EventUpdateForm, AddMemberForm, AvailableForm
 from django.contrib import messages
 from django.core.paginator import Paginator
 
@@ -28,14 +28,12 @@ def prev_month(d):
     month = "month=" + str(prev_month.year) + "-" + str(prev_month.month)
     return month
 
-
 def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]
     last = d.replace(day=days_in_month)
     next_month = last + timedelta(days=1)
     month = "month=" + str(next_month.year) + "-" + str(next_month.month)
     return month
-
 
 class CalendarView(LoginRequiredMixin, generic.ListView):
     login_url = "login"
@@ -118,7 +116,6 @@ def event_details(request, event_id):
     context = {"event": event, "eventmember": eventmember}
     return render(request, "event-details.html", context)
 
-
 def add_eventmember(request, event_id):
     forms = AddMemberForm()
     if request.method == "POST":
@@ -149,23 +146,45 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
 
     def get(self, request, id1, *args, **kwargs):
         collab = Collab.objects.get(id=id1)
-        forms = self.form_class()
-        events = Event.objects.get_all_events(user=request.user)
-        events_month = Event.objects.get_running_events(user=request.user)
-        event_list = []
-        # start: '2020-09-16T16:00:00'
-        for event in events:
-            event_list.append(
-                {
-                    "title": event.title,
-                    "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
-                    "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+        if request.user == collab.researcher:
+            forms = self.form_class()
+            events = Event.objects.filter(collab=collab)
+            events_month = Event.objects.filter(collab=collab, end_time__gte=datetime.now().date())
+            event_list = []
+            # start: '2020-09-16T16:00:00'
+            for event in events:
+                event_list.append(
+                    {
+                        "title": event.title,
+                        "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
+                        "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
 
-                }
-            )
-        context = {"form": forms, 'collab':collab, "events": event_list,
-                   "events_month": events_month}
-        return render(request, self.template_name, context)
+                    }
+                )
+            context = {"form": forms, 'collab':collab, "events": event_list,
+                       "events_month": events_month}
+            return render(request, self.template_name, context)
+        elif request.user in collab.collaborators.all():
+            forms = self.form_class()
+            events = Event.objects.filter(collab=collab)
+            events_month = Event.objects.filter(collab=collab, end_time__gte=datetime.now().date())
+            event_list = []
+            # start: '2020-09-16T16:00:00'
+            for event in events:
+                event_list.append(
+                    {
+                        "title": event.title,
+                        "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
+                        "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+
+                    }
+                )
+            context = {"form": forms, 'collab':collab, "events": event_list,
+                       "events_month": events_month}
+            return render(request, self.template_name, context)
+        else:
+            return redirect('collab')
+
 
     def post(self, request, id1, *args, **kwargs):
         collab = Collab.objects.get(id=id1)
@@ -247,7 +266,33 @@ def showEventInitiated(request, id1, id2, **kwargs):
     collab = Collab.objects.get(id=id1)
     event = Event.objects.get(id=id2)
     if event.collab.researcher == request.user:
-        context = {'collab': collab, 'event':event}
+
+        form = EventUpdateForm(instance=event)
+        if request.method=='POST':
+            form = EventUpdateForm(request.POST, instance=event)
+            if form.is_valid():
+                form.save()
+                messages.info(request, "The schedule has been updated successfully")
+                return redirect('calendarapp:show_event_initiated', id1, id2)
+
+        form2 = AvailableForm()
+        if request.method == 'POST':
+            form2 = AvailableForm(request.POST, request.FILES, None)
+            if form2.is_valid():
+                # text = form3.cleaned_data.get('text')
+                form2.save(commit=False).creator=request.user
+                form2.save()
+                reg1 = EventAvailable.objects.filter(creator=request.user)[0]
+                reg = Event.objects.get(id=id2)
+                reg.available_choice.add(reg1)
+                reg.save()
+
+                messages.info(request, "The schedule has been updated successfully")
+                return redirect('calendarapp:show_event_initiated', id1, id2)
+            else:
+                messages.error(request, "Please review form input fields below")
+
+        context = {'collab': collab, 'event':event, 'form':form, 'form2':form2}
 
         return render(request, 'calendarapp/event_initiated.html', context)
     else:
