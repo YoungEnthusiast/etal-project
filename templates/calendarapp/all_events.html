@@ -75,7 +75,7 @@
                                         <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
                                         <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                           <li><a href="{%url 'calendarapp:show_event_initiated' collab.id event.id %}"><i class="fa fa-eye mr-2"></i>View</a></li>
-                                          <li>{% if event.user == request.user %} <a href="all-schedules/update/{{event.id}}"><i class="fa fa-edit mr-2"></i>Edit</a> {% else %} {% endif %}</li>
+                                          <li>{% if event.user == request.user %} <a href="{% url 'calendarapp:update_event_initiated' collab.id event.id %}"><i class="fa fa-edit mr-2"></i>Edit</a> {% else %} {% endif %}</li>
                                         </ul>
                                       </div>
                                     </td>
@@ -95,7 +95,7 @@
                                         <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
                                         <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                           <li><a href="{%url 'calendarapp:show_event_initiated' collab.id event.id %}"><i class="fa fa-eye mr-2"></i>View</a></li>
-                                          <li>{% if event.user == request.user %} <a href="all-schedules/update/{{event.id}}"><i class="fa fa-edit mr-2"></i>Edit</a> {% else %} {% endif %}</li>
+                                          <li>{% if event.user == request.user %} <a href="{% url 'calendarapp:update_event_initiated' collab.id event.id %}"><i class="fa fa-edit mr-2"></i>Edit</a> {% else %} {% endif %}</li>
                                         </ul>
 
                                       </div>

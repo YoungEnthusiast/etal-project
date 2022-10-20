@@ -418,8 +418,6 @@ def uploadDoc(request, id1, **kwargs):
     else:
         return redirect('collab')
 
-
-
 @login_required
 def showTasksInitiated(request, id1):
     collab = Collab.objects.get(id=id1)
@@ -464,6 +462,22 @@ def showTasksInitiated(request, id1):
         context['total_tasks_stopped'] = total_tasks_stopped
 
         context['collab'] = collab
+
+        form = TaskForm()
+        if request.method == 'POST':
+            form = TaskForm(request.POST, request.FILES, None)
+            if form.is_valid():
+                form.save(commit=False).collab=collab
+                form.save()
+                reg = Task.objects.filter(collab=collab)[0]
+                reg.serial = reg.id
+                reg.save()
+
+                messages.info(request, "The task has been added successfully")
+                return redirect('tasks_initiated', id1)
+            else:
+                messages.error(request, "Please review form input fields below")
+        context['form'] = form
 
         return render(request, 'account/tasks.html', context)
     else:
@@ -848,7 +862,7 @@ def addTask(request, id1, **kwargs):
             if form.is_valid():
                 form.save(commit=False).collab=collab
                 form.save()
-                reg = Task.objects.all()[0]
+                reg = Task.objects.filter(collab=collab)[0]
                 reg.serial = reg.id
                 reg.save()
 

@@ -14,17 +14,49 @@
 {% block content %}
 <div class="app-content bg-white">
 					<div class="side-app">
-            {% include '_alerts.html' %}
-            <br>
-            <ul>
-              <li><a title="CollabDoc" href="collab-docs"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
-              <li><a title="Video Meeting" href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
-              <li><a title="Scheduler" href="scheduler"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
-              <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
-            </ul>
+            <div class="row bg-light">
+              <div class="col-md-3 ml-2">
+                <br>
+                <ul>
+                  {% if request.user == collab.researcher %}
+                  <li><a title="CollabDocs" href="{% url 'folders_initiated' collab.id %}"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+                  {% elif request.user in collab.collaborators.all %}
+                  <li><a title="CollabDocs" href="{% url 'folders_accepted' collab.id %}"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+                  {% endif %}
+                  <li><a title="Tasks" href="tasks"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="Scheduler" href="schedules"><i class="fas fa-calendar-check text-light-blue fa-2x mr-2"></i></a></li>
+                  <li><a title="ChatRoom" href="{% url 'chat' collab.id %}"><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="ResearchNotes" href="notes"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <br>
+                <ul>
+                  <li class="text-info h4">{{collab.title}}</li>
+                </ul>
+              </div>
+              <div class="col-md-2 text-right">
+                <br>
+                <ul>
+                  {% if collab.researcher.photograph %}
+                  <li><sup><a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"></a></sup></li>
+                  {% else %}
+                  <li><a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                  {% endif %}
+                  {% for person in collab.collaborators.all %}
+                    {% if person.photograph %}
+                      <li><sup><a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-task"></a></sup></li>
+                    {% else %}
+                      <li><a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                    {% endif %}
+                  {% endfor %}
+
+                </ul>
+              </div>
+            </div>
+
+            <hr class="bg-info">
+              {% include '_alerts.html' %}
 
               <div class="container content-area">
                 <div class="horizontal-content">
@@ -33,7 +65,7 @@
                             <div class="tile row bg-light">
                                 <div class="col-md-3">
                                     <div id="external-events">
-                                      <a class="btn btn-sm btn-info" href="">VIEW ALL</a>
+                                      <a class="btn btn-sm btn-info" href="{% url 'calendarapp:all-schedules-initiated' collab.id %}">VIEW ALL</a>
                                       <br>
                                       <br>
                                         <P class="mb-4 h4">Ongoing Schedules</P>
@@ -81,6 +113,18 @@
                                                     <div class="form-group">
                                                         <label for="message-text" class="col-form-label">End Date:</label>
                                                         {{ form.end_time }}
+                                                    </div>
+                                                    <div id="start" class="form-group">
+                                                        <label for="message-text" id="start" class="col-form-label">Location:</label>
+                                                        {{ form.location }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="message-text" class="col-form-label">Link:</label>
+                                                        {{ form.link }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="message-text" class="col-form-label">Reminder:</label>
+                                                        {{ form.reminder }}
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">

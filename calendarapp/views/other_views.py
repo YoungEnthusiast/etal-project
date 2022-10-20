@@ -167,14 +167,17 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
                    "events_month": events_month}
         return render(request, self.template_name, context)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, id1, *args, **kwargs):
+        collab = Collab.objects.get(id=id1)
         forms = self.form_class(request.POST)
         if forms.is_valid():
             form = forms.save(commit=False)
             form.user = request.user
+            form.collab = collab
             form.save()
-            # return redirect("calendarapp:schedules-initiated", id1)
+            return redirect("calendarapp:schedules-initiated", id1)
         context = {"form": forms}
+
         return render(request, self.template_name, context)
 
 @login_required
