@@ -245,6 +245,11 @@ def selectEventInitiated(request, id1, id2, **kwargs):
         event.is_selected.add(request.user)
         event.save()
         return redirect('calendarapp:all-schedules-initiated', id1)
+    elif request.user in collab.collaborators.all():
+        event = Event.objects.get(id=id2)
+        event.is_selected.add(request.user)
+        event.save()
+        return redirect('calendarapp:all-schedules-accepted', id1)
     else:
         return redirect('collab')
 
@@ -256,6 +261,11 @@ def deselectEventInitiated(request, id1, id2, **kwargs):
         event.is_selected.remove(request.user)
         event.save()
         return redirect('calendarapp:all-schedules-initiated', id1)
+    elif request.user in collab.collaborators.all():
+        event = Event.objects.get(id=id2)
+        event.is_selected.remove(request.user)
+        event.save()
+        return redirect('calendarapp:all-schedules-accepted', id1)
     else:
         return redirect('collab')
 
@@ -272,6 +282,18 @@ def deleteAllEventsInitiated(request, id1, **kwargs):
                 return redirect('calendarapp:all-schedules-initiated', id1)
         else:
             return redirect('calendarapp:all-schedules-initiated', id1)
+
+        return render(request, 'calendarapp/events_confirm_delete_initiated.html', {'events':events, 'collab':collab})
+    elif request.user in collab.collaborators.all():
+        events = Event.objects.filter(is_selected=request.user, user=request.user, collab=collab)
+        if events.count() >= 1:
+            if request.method =="POST":
+                for each in events:
+                    each.delete()
+                messages.info(request, "Deleted successfully")
+                return redirect('calendarapp:all-schedules-accepted', id1)
+        else:
+            return redirect('calendarapp:all-schedules-accepted', id1)
 
         return render(request, 'calendarapp/events_confirm_delete_initiated.html', {'events':events, 'collab':collab})
     else:
@@ -308,7 +330,11 @@ def showEventInitiated(request, id1, id2, **kwargs):
             else:
                 messages.error(request, "Please review form input fields below")
 
-        context = {'collab': collab, 'event':event, 'form':form, 'form2':form2}
+        counter2 = 0
+        for each in event.available_choice.all():
+            counter2 += 1
+
+        context = {'collab': collab, 'event':event, 'form':form, 'form2':form2, 'counter2':counter2}
 
         return render(request, 'calendarapp/event_initiated.html', context)
 
@@ -340,7 +366,11 @@ def showEventInitiated(request, id1, id2, **kwargs):
             else:
                 messages.error(request, "Please review form input fields below")
 
-        context = {'collab': collab, 'event':event, 'form':form, 'form2':form2}
+        counter2 = 0
+        for each in event.available_choice.all():
+            counter2 += 1
+
+        context = {'collab': collab, 'event':event, 'form':form, 'form2':form2, 'counter2':counter2}
 
         return render(request, 'calendarapp/event_initiated.html', context)
     else:
@@ -356,8 +386,16 @@ def updateEventInitiated(request, id1, id2):
             form = EventUpdateForm(request.POST, instance=event)
             if form.is_valid():
                 form.save()
-                messages.info(request, "The shedule has been updated successfully")
+                messages.info(request, "The schedule has been updated successfully")
                 return redirect('calendarapp:all-schedules-initiated', id1)
+    elif request.user in collab.collaborators.all():
+        form = EventUpdateForm(instance=event)
+        if request.method=='POST':
+            form = EventUpdateForm(request.POST, instance=event)
+            if form.is_valid():
+                form.save()
+                messages.info(request, "The schedule has been updated successfully")
+                return redirect('calendarapp:all-schedules-accepted', id1)
     else:
         return redirect('collab')
 
@@ -367,25 +405,23 @@ def updateEventInitiated(request, id1, id2):
 def deleteEventInitiated(request, id1, id2):
     collab = Collab.objects.get(id=id1)
     event = Event.objects.get(id=id2)
-    obj = get_object_or_404(Event, id=id2)
-    if request.method =="POST":
-        obj.delete()
-        messages.info(request, "The event has been deleted successfully")
-        return redirect('calendarapp:all-schedules-initiated', id1)
+    if collab.researcher == request.user:
+        obj = get_object_or_404(Event, id=id2)
+        if request.method =="POST":
+            obj.delete()
+            messages.info(request, "The event has been deleted successfully")
+            return redirect('calendarapp:all-schedules-initiated', id1)
+
+    elif request.user in collab.collaborators.all():
+        obj = get_object_or_404(Event, id=id2)
+        if request.method =="POST":
+            obj.delete()
+            messages.info(request, "The event has been deleted successfully")
+            return redirect('calendarapp:all-schedules-accepted', id1)
+    else:
+        return redirect('collab')
+
     return render(request, 'calendarapp/event_confirm_delete.html', {'collab':collab, 'event': event})
-
-@login_required
-def deleteEventInitiated(request, id1, id2):
-    collab = Collab.objects.get(id=id1)
-    event = Event.objects.get(id=id2)
-    obj = get_object_or_404(Event, id=id2)
-    if request.method =="POST":
-        obj.delete()
-        messages.info(request, "The event has been deleted successfully")
-        return redirect('calendarapp:all-schedules-initiated', id1)
-    return render(request, 'calendarapp/event_confirm_delete.html', {'collab':collab, 'event': event})
-
-
 
 @login_required
 def showEventInitiated2(request, id1, id2, **kwargs):

@@ -13,17 +13,56 @@
 {% include '_alerts.html' %}
 <div class=" app-content">
 					<div class="side-app">
-            <br>
-            <ul>
-              <li><a title="note" href="note"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-video text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-notes text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-tv text-info fa-2x mr-2"></i></a></li>
-              <li><a href=""><i class="fas fa-sticky-note text-info fa-2x mr-2"></i></a></li>
-            </ul>
+            <div class="row bg-light">
+              <div class="col-md-3 ml-2">
+                <br>
+                <ul>
+                  {% if request.user == collab.researcher %}
+                  <li><a title="CollabDocs" href="{% url 'folders_initiated' collab.id %}"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+                  {% elif request.user in collab.collaborators.all %}
+                  <li><a title="CollabDocs" href="{% url 'folders_accepted' collab.id %}"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+                  {% endif %}
+                  {% if request.user == collab.researcher %}
+                  <li><a title="Tasks" href="{% url 'tasks_initiated' collab.id %}"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
+                  {% elif request.user in collab.collaborators.all %}
+                  <li><a title="Tasks" href="{% url 'tasks_accepted' collab.id %}"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
+                  {% endif %}
+                  <li><a title="Scheduler" href="schedules"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="ChatRoom" href="{% url 'chat' collab.id %}"><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
+                  {% if request.user == collab.researcher %}
+                  <li><a title="ResearchNotes" href="{% url 'notes_initiated' collab.id %}"><i class="fas fa-clipboard text-light-blue fa-2x mr-2"></i></a></li>
+                  {% elif request.user in collab.collaborators.all %}
+                  <li><a title="ResearchNotes" href="{% url 'notes_accepted' collab.id %}"><i class="fas fa-clipboard text-light-blue fa-2x mr-2"></i></a></li>
+                  {% endif %}
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <br>
+                <ul>
+                  <li class="text-info h4">{{collab.title}}</li>
+                </ul>
+              </div>
+              <div class="col-md-2 text-right">
+                <br>
+                <ul>
+                  {% if collab.researcher.photograph %}
+                  <li><sup><a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"></a></sup></li>
+                  {% else %}
+                  <li><a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                  {% endif %}
+                  {% for person in collab.collaborators.all %}
+                    {% if person.photograph %}
+                      <li><sup><a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-task"></a></sup></li>
+                    {% else %}
+                      <li><a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                    {% endif %}
+                  {% endfor %}
 
+                </ul>
+              </div>
+            </div>
+
+            <hr class="bg-info">
               {% include '_alerts.html' %}
               <div class="container content-area">
                 <div class="horizontal-content">
@@ -56,13 +95,13 @@
                                     <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
 
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                      {% if note.collab.researcher == request.user %}
+                                      <li><a href="notes/pin/{{note.id}}"><i class="fa fa-eye mr-2"></i>Open</a></li>
+                                      <li><a href="notes/pin/{{note.id}}"><i class="fa fa-map-pin mr-2"></i>Pin</a></li>
+                                      <li><a href="notes/pin/{{note.id}}"><i class="fa fa-download mr-2"></i>Download</a></li>
+                                      {% if note.user == request.user %}
                                       <li><a href="notes/edit/{{note.id}}"><i class="fa fa-edit mr-2"></i>Edit</a></li>
                                       <li><a href="notes/delete/{{note.id}}"><i class="fa fa-trash mr-2"></i>Delete</a></li>
-                                      {% elif request.user in note.collab.collaborators.all %}
-                                      <li><a href="notes/update/{{note.id}}"><i class="fa fa-edit mr-2"></i>Update</a></li>
                                       {% endif %}
-                                      <li><a href="notes/pin/{{note.id}}"><i class="fa fa-map-pin mr-2"></i>Pin</a></li>
                                     </ul>
                                   </div>
                                 </div>
@@ -85,7 +124,7 @@
                                 </tr>
                               </div>
                               <div class="col-md-7 text-right">
-                                <span class="text-info"><i class="fa fa-calendar mr-1"></i>{{note.due_date}}</span>
+                                <span class="text-info"><i class="fa fa-calendar mr-1"></i>{{note.date_conducted}}</span>
                               </div>
                             </div>
 

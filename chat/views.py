@@ -20,7 +20,7 @@ class Room(LoginRequiredMixin, View):
             else:
                 room = ChatRoom(name=room_name)
                 room.save()
-            return render(request, 'chat/room.html', {'room_name': room_name, 'chats':chats})
+            return render(request, 'chat/room.html', {'room_name': room_name, 'chats':chats, 'collab':collab})
         else:
             return redirect('collab')
 

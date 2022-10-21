@@ -187,6 +187,29 @@
                     <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#add2"><strong><i class="fas fa-question-circle fa-1x mr-1"></i>Available</strong></button>
 
                     {% endif %}
+
+                    <br>
+                    <br>
+                    {% if counter2 >= 1 %}
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="mt-4 mb-4">
+                          {% for each in event.available_choice.all %}
+                          {{each.available|linebreaks}}
+                          {% if each.creator.photograph %}
+                            <a href="{% url 'show_user' each.creator.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
+                          {% else %}
+                            <a href="{% url 'show_user' each.creator.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                          {% endif %}
+                           {{each.created}}
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+
+                    {% endif %}
+
+
                     </div>
 
                     <div class="col-xl-3 col-md-12">

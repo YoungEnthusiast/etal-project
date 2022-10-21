@@ -4,7 +4,7 @@
 {% load humanize %}
 {% load home_tags %}
 {% block title %}
-  <title>Collab</title>
+  <title>Event</title>
   <meta name="description" content="">
 
 {% endblock title %}
@@ -20,13 +20,17 @@
           <div class="d-flex justify-content-center">
             <div class="text-center card bg-info text-white form-group col-md-9">
               <br>
-                {% if event.collab.researcher == request.user %}
+                {% if event.user == request.user %}
                 <h4 > <span class="text-red">CAUTION!</span> Deleting {{event.title}} will affect all the information associated with the event. Do you still wish to continue?</h4>
                 <br>
                 <form method="post">
                   {% csrf_token %}
                   {{ form|crispy }}
+                  {% if request.user == collab.researcher %}
                   <input type="submit" class="btn btn-danger" value="Yes, delete"> <a class="btn btn-outline-light" href="{% url 'calendarapp:show_event_initiated' collab.id event.id %}">No, cancel</a>
+                  {% elif request.user in collab.collaborators.all %}
+                  <input type="submit" class="btn btn-danger" value="Yes, delete"> <a class="btn btn-outline-light" href="{% url 'calendarapp:show_event_accepted' collab.id event.id %}">No, cancel</a>
+                  {% endif %}
                 </form>
                 {% else %}
                 <h2 class="text-center">Access Denied!</h2>

@@ -67,10 +67,13 @@
                                         <ul class="dropdown-menu dropdown-menu-right" role="menu">
 																					{% if request.user == collab.researcher %}
                                           <li><a href="{% url 'calendarapp:show_event_initiated' collab.id event.id %}"><i class="fa fa-eye mr-2"></i>View</a></li>
+																					<li>{% if event.user == request.user %} <a href="{% url 'calendarapp:update_event_initiated' collab.id event.id %}"><i class="fa fa-edit mr-2"></i>Edit</a> {% else %} {% endif %}</li>
 																					{% elif request.user in collab.collaborators.all %}
                                           <li><a href="{% url 'calendarapp:show_event_accepted' collab.id event.id %}"><i class="fa fa-eye mr-2"></i>View</a></li>
+																					<li>{% if event.user == request.user %} <a href="{% url 'calendarapp:update_event_accepted' collab.id event.id %}"><i class="fa fa-edit mr-2"></i>Edit</a> {% else %} {% endif %}</li>
+
 																					{% endif %}
-                                          <li>{% if event.user == request.user %} <a href="{% url 'calendarapp:update_event_initiated' collab.id event.id %}"><i class="fa fa-edit mr-2"></i>Edit</a> {% else %} {% endif %}</li>
+
                                         </ul>
                                       </div>
                                     </td>
@@ -88,13 +91,14 @@
                                     <td>
                                       <div class="card-options">
                                         <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
-                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+																				<ul class="dropdown-menu dropdown-menu-right" role="menu">
 																					{% if request.user == collab.researcher %}
                                           <li><a href="{% url 'calendarapp:show_event_initiated' collab.id event.id %}"><i class="fa fa-eye mr-2"></i>View</a></li>
+																					<li>{% if event.user == request.user %} <a href="{% url 'calendarapp:update_event_initiated' collab.id event.id %}"><i class="fa fa-edit mr-2"></i>Edit</a> {% else %} {% endif %}</li>
 																					{% elif request.user in collab.collaborators.all %}
                                           <li><a href="{% url 'calendarapp:show_event_accepted' collab.id event.id %}"><i class="fa fa-eye mr-2"></i>View</a></li>
+																					<li>{% if event.user == request.user %} <a href="{% url 'calendarapp:update_event_accepted' collab.id event.id %}"><i class="fa fa-edit mr-2"></i>Edit</a> {% else %} {% endif %}</li>
 																					{% endif %}
-                                          <li>{% if event.user == request.user %} <a href="{% url 'calendarapp:update_event_initiated' collab.id event.id %}"><i class="fa fa-edit mr-2"></i>Edit</a> {% else %} {% endif %}</li>
                                         </ul>
 
                                       </div>

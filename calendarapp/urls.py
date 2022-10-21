@@ -10,9 +10,12 @@ urlpatterns = [
     path('collab/view-accepted/<str:id1>/schedules/', views.CalendarViewNew.as_view(), name="schedules-accepted"),
     path('collab/view-initiated/<str:id1>/all-schedules/', views.showAllEventsInitiated, name="all-schedules-initiated"),
     path('collab/view-accepted/<str:id1>/all-schedules/', views.showAllEventsInitiated, name="all-schedules-accepted"),
-    path('collab/view-initiated/<str:id1>/all-schedules/select/<str:id2>', views.selectEventInitiated, name='update_event_initiated'),
+    path('collab/view-initiated/<str:id1>/all-schedules/select/<str:id2>', views.selectEventInitiated, name='select_event_initiated'),
     path('collab/view-initiated/<str:id1>/all-schedules/deselect/<str:id2>', views.deselectEventInitiated, name='deselect_event_initiated'),
+    path('collab/view-accepted/<str:id1>/all-schedules/select/<str:id2>', views.selectEventInitiated, name='select_event_accepted'),
+    path('collab/view-accepted/<str:id1>/all-schedules/deselect/<str:id2>', views.deselectEventInitiated, name='deselect_event_accepted'),
     path('collab/view-initiated/<str:id1>/all-schedules/delete-all', views.deleteAllEventsInitiated, name='delete_all_events_initiated'),
+    path('collab/view-accepted/<str:id1>/all-schedules/delete-all', views.deleteAllEventsInitiated, name='delete_all_events_accepted'),
 
     path('collab/view-initiated/schedules/<str:id1>/<str:id2>', views.showEventInitiated, name='show_event_initiated'),
     path('collab/view-accepted/schedules/<str:id1>/<str:id2>', views.showEventInitiated, name='show_event_accepted'),
@@ -21,7 +24,10 @@ urlpatterns = [
 
 
     path('collab/view-initiated/schedules/<str:id1>/<str:id2>/update', views.updateEventInitiated, name='update_event_initiated'),
+    path('collab/view-accepted/schedules/<str:id1>/<str:id2>/update', views.updateEventInitiated, name='update_event_accepted'),
+
     path('collab/view-initiated/schedules/<str:id1>/<str:id2>/delete', views.deleteEventInitiated, name='delete_event_initiated'),
+    path('collab/view-accepted/schedules/<str:id1>/<str:id2>/delete', views.deleteEventInitiated, name='delete_event_accepted'),
 
     path("collab/view-initiated/schedule/<str:id1>", views.create_event, name="event_new"),
 

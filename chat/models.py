@@ -35,8 +35,5 @@ class Chat(models.Model):
         except:
             return str(self.id)
 
-    def last_10_messages(self):
-        return Message.objects.order_by('-timestamp').all[:10]
-
 class ChatRoom(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
