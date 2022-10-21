@@ -27,7 +27,7 @@ class EventAvailable(models.Model):
         ('No', 'No'),
         ('Maybe', 'Maybe')
     ]
-    available = models.CharField(max_length=5, choices=AVAILABLE_CHOICES, default='Maybe', null=True)
+    available = models.CharField(max_length=5, choices=AVAILABLE_CHOICES, default='Yes', null=True)
     creator = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="event_creator")
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)

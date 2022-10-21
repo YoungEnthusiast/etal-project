@@ -55,7 +55,7 @@
                                 <br>
                                 <br>
                                 <br>
-                                Created on {{event.created_at}} 
+                                Created on {{event.created_at}}
                                 <div class="pull-right">
                                   <div class="">Created by</div>
                                   {% if event.user.photograph %}
@@ -70,7 +70,7 @@
       										</div>
       									</div>
       								</div>
-                    {% if collab.researcher == request.user %}
+                    {% if event.user == request.user %}
                     <div class="modal fade" id="add2" role="dialog">
                       <div class="modal-dialog">
                           <div class="modal-content">

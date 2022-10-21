@@ -69,11 +69,17 @@
                             <div class="tile row bg-light">
                                 <div class="col-md-3">
                                     <div id="external-events">
+                                      {% if request.user == collab.researcher %}
                                       <a class="btn btn-sm btn-info" href="{% url 'calendarapp:all-schedules-initiated' collab.id %}">VIEW ALL</a>
+                                      {% elif request.user in collab.collaborators.all %}
+                                      <a class="btn btn-sm btn-info" href="{% url 'calendarapp:all-schedules-accepted' collab.id %}">VIEW ALL</a>
+                                      {% endif %}
                                       <br>
+
                                       <br>
                                         <P class="mb-4 h4">Ongoing Schedules</P>
                                         {% for event in events_month %}
+                                        {% if request.user == collab.researcher %}
                                         <a href="{% url 'calendarapp:show_event_initiated' collab.id event.id %}">
                                           <div class="fc-event">
                                               <h5>{{ event.title }}</h5>
@@ -81,6 +87,15 @@
                                               <p>To: {{ event.end_time }}</p>
                                           </div>
                                         </a>
+                                        {% else %}
+                                        <a href="{% url 'calendarapp:show_event_accepted' collab.id event.id %}">
+                                          <div class="fc-event">
+                                              <h5>{{ event.title }}</h5>
+                                              <p>From: {{ event.start_time }}</p>
+                                              <p>To: {{ event.end_time }}</p>
+                                          </div>
+                                        </a>
+                                        {% endif %}
                                         {% empty %}
                                           <p>No Ongoing Schedule</p>
                                         {% endfor %}

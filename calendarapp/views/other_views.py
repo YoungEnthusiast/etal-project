@@ -218,6 +218,22 @@ def showAllEventsInitiated(request, id1):
         context['collab'] = collab
 
         return render(request, 'calendarapp/all_events.html', context)
+    elif request.user in collab.collaborators.all():
+        context = {}
+        filtered_all_events = InitiatedAllEventsFilter(
+            request.GET,
+            queryset = Event.objects.filter(collab__id=id1)
+        )
+        context['filtered_all_events'] = filtered_all_events
+        paginated_filtered_all_events = Paginator(filtered_all_events.qs, 99)
+        page_number = request.GET.get('page')
+        all_events_page_obj = paginated_filtered_all_events.get_page(page_number)
+        context['all_events_page_obj'] = all_events_page_obj
+        total_all_events = filtered_all_events.qs.count()
+        context['total_all_events'] = total_all_events
+        context['collab'] = collab
+
+        return render(request, 'calendarapp/all_events.html', context)
     else:
         return redirect('collab')
 
@@ -289,6 +305,38 @@ def showEventInitiated(request, id1, id2, **kwargs):
 
                 messages.info(request, "The schedule has been updated successfully")
                 return redirect('calendarapp:show_event_initiated', id1, id2)
+            else:
+                messages.error(request, "Please review form input fields below")
+
+        context = {'collab': collab, 'event':event, 'form':form, 'form2':form2}
+
+        return render(request, 'calendarapp/event_initiated.html', context)
+
+
+    elif request.user in collab.collaborators.all():
+
+        form = EventUpdateForm(instance=event)
+        if request.method=='POST':
+            form = EventUpdateForm(request.POST, instance=event)
+            if form.is_valid():
+                form.save()
+                messages.info(request, "The schedule has been updated successfully")
+                return redirect('calendarapp:show_event_accepted', id1, id2)
+
+        form2 = AvailableForm()
+        if request.method == 'POST':
+            form2 = AvailableForm(request.POST, request.FILES, None)
+            if form2.is_valid():
+                # text = form3.cleaned_data.get('text')
+                form2.save(commit=False).creator=request.user
+                form2.save()
+                reg1 = EventAvailable.objects.filter(creator=request.user)[0]
+                reg = Event.objects.get(id=id2)
+                reg.available_choice.add(reg1)
+                reg.save()
+
+                messages.info(request, "The schedule has been updated successfully")
+                return redirect('calendarapp:show_event_accepted', id1, id2)
             else:
                 messages.error(request, "Please review form input fields below")
 
