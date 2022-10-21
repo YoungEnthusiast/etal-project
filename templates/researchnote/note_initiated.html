@@ -78,9 +78,9 @@
       										</div>
       									</div>
       								</div>
-                      {% if request.user == collab.researcher %}
+                      {% if note.user == request.user %}
 
-                      <div class="modal fade" id="add2" role="dialog">
+                      <div class="modal fade" id="add1" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -95,46 +95,68 @@
                                   {% csrf_token %}
                                   <div class="form-row">
                                       <div class="form-group col-sm-12 mb-2">
-                                          {{ form2.assigned_to|as_crispy_field }}
+                                          {{ form.title|as_crispy_field }}
                                       </div>
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-sm-12 mb-2">
-                                          {{ form2.title|as_crispy_field }}
+                                          {{ form.aims|as_crispy_field }}
                                       </div>
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-sm-12 mb-2">
-                                          {{ form2.description|as_crispy_field }}
+                                          {{ form.date_conducted|as_crispy_field }}
                                       </div>
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-sm-12 mb-2">
-                                          {{ form2.due_date|as_crispy_field }}
+                                          {{ form.location|as_crispy_field }}
                                       </div>
                                   </div>
-
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.setup|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.method|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.result|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.observations|as_crispy_field }}
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form.document|as_crispy_field }}
+                                      </div>
+                                  </div>
                                   <input type="submit" class="form-group col-md-12 btn btn-info" value="OK">
                                 </form>
                                 </div>
                             </div>
                         </div>
                       </div>
-                      <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#add2"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button>
-                      <a class="text-white pull-right" href="{% url 'delete_task_initiated' collab.id task.id %}"><button class="btn btn-sm btn-red" type="button" name="button"><strong><i class="fas fa-trash fa-1x mr-1"></i>Delete</strong></button></a>
-                      <br>
-                      <br>
-
-
-                      {% elif request.user in task.assigned_to.all %}
-
+                      <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#add1"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button>
                       {% endif %}
 
                     </div>
 
                     <div class="col-xl-4 col-md-12">
                       Submitted on {{note.created}}
-                      by 
+                      <br>
+                      by {% if note.user.photograph %}
+                      <li><sup><a href="{% url 'show_user' note.user.username %}"><img href="" src="{{ note.user.photographURL }}" alt="Photograph" class="profile-col"></a></sup></li>
+                      {% else %}
+                      <li><a href="{% url 'show_user' note.user.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a></li>
+                      {% endif %}
 
                     </div>
 

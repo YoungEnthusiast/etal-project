@@ -86,7 +86,11 @@
                           <div class="card-body">
                             <div class="row">
                               <div class="col-md-10">
-                                <a href="{% url 'show_collab' collab.id %}"><h3 class=" mb-1"><span class="text-info">{{note.title|slice:":27"}}...</span></h3></a>
+                                {% if request.user == collab.researcher %}
+                                <a href="{% url 'show_note_initiated' collab.id note.id %}"><h3 class=" mb-1"><span class="text-info">{{note.title|slice:":27"}}...</span></h3></a>
+                                {% elif request.user in collab.collaborators.all %}
+                                <a href="{% url 'show_note_accepted' collab.id note.id %}"><h3 class=" mb-1"><span class="text-info">{{note.title|slice:":27"}}...</span></h3></a>
+                                {% endif %}
             										<p class="text-muted">{{note.method|slice:":200"}}...</p>
                               </div>
                               <div class="col-md-2">
@@ -95,7 +99,11 @@
                                     <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
 
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                      <li><a href="notes/pin/{{note.id}}"><i class="fa fa-eye mr-2"></i>Open</a></li>
+                                      {% if request.user == collab.researcher %}
+                                      <li><a href="{% url 'show_note_initiated' collab.id note.id %}"><i class="fa fa-eye mr-2"></i>Open</a></li>
+                                      {% elif request.user in collab.collaborators.all %}
+                                      <li><a href="{% url 'show_note_accepted' collab.id note.id %}"><i class="fa fa-eye mr-2"></i>Open</a></li>
+                                      {% endif %}
                                       <li><a href="notes/pin/{{note.id}}"><i class="fa fa-map-pin mr-2"></i>Pin</a></li>
                                       <li><a href="notes/pin/{{note.id}}"><i class="fa fa-download mr-2"></i>Download</a></li>
                                       {% if note.user == request.user %}
