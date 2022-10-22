@@ -28,7 +28,7 @@ class Researcher(AbstractUser):
     updated = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
-        ordering = ('-created',)
+        ordering = ('first_name',)
         verbose_name = "Researcher's Profile"
         verbose_name_plural = "Researcher's Profiles"
 

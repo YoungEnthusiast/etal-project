@@ -468,6 +468,7 @@ def showTasksInitiated(request, id1):
             form = TaskForm(request.POST, request.FILES, None)
             if form.is_valid():
                 form.save(commit=False).collab=collab
+                form.save(commit=False).poster=request.user
                 form.save()
                 reg = Task.objects.filter(collab=collab)[0]
                 reg.serial = reg.id

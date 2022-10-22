@@ -96,14 +96,37 @@
 								</div>
 
 								<div class="dropdown d-sm-flex d-none header-message">
-									<a class="nav-link icon" href="{% url 'researcher_profile' %}">
-										{% if user.photograph %}
-											<img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
-										{% else %}
-											<i class="fa fa-user-circle text-info fa-2x"></i>
-										{% endif %}
-									</a>
-								</div>
+										<a class="nav-link icon" data-toggle="dropdown">
+											{% if user.photograph %}
+												<img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
+											{% else %}
+												<i class="fa fa-user-circle text-info fa-4x"></i>
+											{% endif %}
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+											<a class="dropdown-item text-center" href="#">Signed in as {{user.username}}</a>
+											<div class="dropdown-divider"></div>
+											<!-- <a class="dropdown-item d-flex pb-4" href="#">
+												<span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-cylinder"><i class="fa fa-user"></i>
+												</span>
+												<div>
+													<span class="font-weight-bold"> User account was Updated</span>
+													<div class="small text-muted d-flex">
+														sfdsdfsfdfsdf ago
+														<div class="ml-auto">
+														<span class="badge badge-success">New</span>
+														</div>
+													</div>
+													<div class="progress progress-xs mt-1">
+														<div class="progress-bar bg-cylinder w-70"></div>
+													</div>
+												</div>
+											</a> -->
+											<div class="dropdown-divider"></div>
+											<div class="text-center dropdown-btn pb-3">
+											</div>
+										</div>
+									</div>
 								<button class="navbar-toggler navresponsive-toggler d-sm-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
 									aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
 									<span class="navbar-toggler-icon fa fa-th-list text-info"></span>
@@ -178,16 +201,44 @@
 
 							</div>
 
-							<div class="dropdown d-md-flex header-message">
-								<a class="nav-link icon" href="">
-									{% if user.photograph %}
-										<img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
-									{% else %}
-										<i class="fa fa-user-circle text-info fa-4x"></i>
-									{% endif %}
-								</a>
 
-							</div>
+
+							<div class="dropdown d-sm-flex d-none header-message">
+									<a class="nav-link icon" data-toggle="dropdown">
+										{% if user.photograph %}
+											<img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
+										{% else %}
+											<i class="fa fa-user-circle text-info fa-4x"></i>
+										{% endif %}
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+										<a class="dropdown-item text-center" href="#">Notifications</a>
+										<div class="dropdown-divider"></div>
+										<!-- <a class="dropdown-item d-flex pb-4" href="#">
+											<span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-cylinder"><i class="fa fa-user"></i>
+											</span>
+											<div>
+												<span class="font-weight-bold"> User account was Updated</span>
+												<div class="small text-muted d-flex">
+													sfdsdfsfdfsdf ago
+													<div class="ml-auto">
+													<span class="badge badge-success">New</span>
+													</div>
+												</div>
+												<div class="progress progress-xs mt-1">
+													<div class="progress-bar bg-cylinder w-70"></div>
+												</div>
+											</div>
+										</a> -->
+										<div class="dropdown-divider"></div>
+										<div class="text-center dropdown-btn pb-3">
+										</div>
+									</div>
+								</div>
+
+
+
+
 						</div>
 						{% else %}
 						<div class="d-flex order-lg-2 ml-auto">

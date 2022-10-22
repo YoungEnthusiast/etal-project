@@ -77,12 +77,9 @@
                                         <br>
                                         <form action="{% url 'collab_docs_initiated' collab.id folder.id %}" method="post" class="form-inline col-lg-12 text-info" enctype="multipart/form-data">
                                         {% csrf_token %}
+                                        <input type="file" multiple name="uploadfiles">
+                                        <button class="btn btn-info" type="submit" name="button">Upload</button>
 
-                                                <input type="file" multiple name="uploadfiles">
-                                                <button class="btn btn-info" type="submit" name="button">Upload</button>
-
-
-                                        <!-- <input type="submit" class="form-group col-md-12 btn btn-info" value="OK"> -->
                                       </form>
                                       </div>
                                   </div>
@@ -136,7 +133,9 @@
                                       <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
                                       <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                         <li>{% if doc.shared_by == request.user %} <a href="{{folder.id}}/update/{{doc.id}}"><i class="fa fa-edit mr-2"></i>Rename</a> {% else %} {% endif %}</li>
+                                        {% if doc.document %}
                                         <li><a href="{{doc.document.url}}" download><i class="fa fa-download mr-2"></i>Download</a></li>
+                                        {% endif %}
                                       </ul>
                                     </div>
                                   </td>

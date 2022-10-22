@@ -31,10 +31,13 @@
                   <li><a title="Scheduler" href="{% url 'calendarapp:schedules-initiated' collab.id %}"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
                   {% elif request.user in collab.collaborators.all %}
                   <li><a title="Scheduler" href="{% url 'calendarapp:schedules-accepted' collab.id %}"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
-
                   {% endif %}
                   <li><a title="ChatRoom" href="{% url 'chat' collab.id %}"><i class="fas fa-users text-info fa-2x mr-2"></i></a></li>
-                  <li><a title="ResearchNotes" href="notes"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+                  {% if request.user == collab.researcher %}
+                  <li><a title="ResearchNotes" href="{% url 'notes_initiated' collab.id %}"><i class="fas fa-clipboard text-light-blue fa-2x mr-2"></i></a></li>
+                  {% elif request.user in collab.collaborators.all %}
+                  <li><a title="ResearchNotes" href="{% url 'notes_accepted' collab.id %}"><i class="fas fa-clipboard text-light-blue fa-2x mr-2"></i></a></li>
+                  {% endif %}
                 </ul>
               </div>
               <div class="col-md-6">

@@ -24,6 +24,12 @@ urlpatterns = [
     path('collab/view-initiated/<str:id1>/notes/<str:id2>', views.showNoteInitiated, name='show_note_initiated'),
     path('collab/view-accepted/<str:id1>/notes/<str:id2>', views.showNoteInitiated, name='show_note_accepted'),
     path('collab/view-accepted/<str:id1>/notes', views.showNotesInitiated, name='notes_accepted'),
+
+    path('collab/view-initiated/<str:id1>/notes/delete/<str:id2>', views.deleteNoteInitiated, name='delete_note_initiated'),
+    path('collab/view-accepted/<str:id1>/notes/delete/<str:id2>', views.deleteNoteInitiated, name='delete_note_accepted'),
+
+    path('collab/view-initiated/<str:id1>/notes/pin/<str:id2>', views.pinNote, name='pin_note'),
+    path('collab/view-accepted/<str:id1>/notes/pin/<str:id2>', views.pinNote, name='pin_note'),
     #
     # path('collab/view-initiated/<str:id1>/collab-docs/select/<str:id2>', views.selectDocInitiated, name='select_doc_initiated'),
     # path('collab/view-initiated/<str:id1>/collab-docs/deselect/<str:id2>', views.deselectDocInitiated, name='deselect_doc_initiated'),

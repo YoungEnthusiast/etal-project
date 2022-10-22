@@ -20,10 +20,10 @@ class Note(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('-created',)
+        ordering = ('serial',)
 
     def __str__(self):
         try:
-            return str(self.content)
+            return str(self.title)
         except:
             return str(self.id)
