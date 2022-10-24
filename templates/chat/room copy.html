@@ -19,31 +19,52 @@
 
                 <div class="row">
     							<div class="col-xl-12 col-lg-12 col-md-12">
-                    <div class="container">
-                      <div id="chat-log">
-                        {% for chat in chats.all %}
-                          {% if chat.user.id == request.user.id %}
-                            <div class="message sender">
-                              <a href="{% url 'show_user' chat.user.username %}"><img href="" src="{{ chat.user.photographURL }}" alt="Photograph" class="profile-small"></a><strong class="text-light">Me:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-dark">{{chat.timestamp}}</i>
-                            </div>
-                          {% else %}
-                            <div class="message receiver">
-                              <a href="{% url 'show_user' chat.user.username %}"><img href="" src="{{ chat.user.photographURL }}" alt="Photograph" class="profile-small"></a><strong class="text-light">{{chat.user}}:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-dark">{{chat.timestamp}}</i>
-                            </div>
-                          {% endif %}
-                        {% endfor %}
+                    <div class="chat-wrapper">
+                      <div class="container">
+                        <div id="chat-log">
+                          {% for chat in chats.all %}
+                            {% if chat.user.id == request.user.id %}
+                              <div class="message sender">
+                                <a href="{% url 'show_user' chat.user.username %}"><img href="" src="{{ chat.user.photographURL }}" alt="Photograph" class="profile-small"></a><strong class="text-light">Me:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-dark">{{chat.timestamp}}</i>
+                              </div>
+                            {% else %}
+                              <div class="message receiver">
+                                <a href="{% url 'show_user' chat.user.username %}"><img href="" src="{{ chat.user.photographURL }}" alt="Photograph" class="profile-small"></a><strong class="text-light">{{chat.user}}:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-dark">{{chat.timestamp}}</i>
+                              </div>
+                            {% endif %}
+                          {% endfor %}
+                        </div>
+
                       </div>
 
+                      <div class="">
+    										<div class="msb-reply d-flex">
+    											<div class="input-group">
+    												<input id="chat-message-input" type="text" class="form-control" placeholder="Typing....">
+    												<div class="input-group-append ">
+    													<button id="chat-message-submit" type="button" class="btn btn-info">
+    														<i class="fas fa-paper-plane" aria-hidden="true"></i>
+    													</button>
+                              {{ room_name|json_script:"room-name" }}
+    												</div>
+    											</div>
+    										</div>
+    									</div>
                     </div>
-                      <br>
-                      <div class="container">
-                        <input id="chat-message-input" type="text" size="50">
-                        <input id="chat-message-submit" class="btn btn-sm btn-info" type="button" value="Send">
-                        {{ room_name|json_script:"room-name" }}
-                      </div>
+                    <br>
+
                       {{ request.user.id|json_script:"user_id" }}
                       <script>
-                          const chatLog = document.querySelector('#chat-log')
+                        window.onload=function () {
+                           var chatLog = document.getElementById("chat-log");
+                           window.scrollTo(0,chatLog.offsetHeight);
+                        }
+
+                          var chatLog = document.querySelector('#chat-log');
+                          window.scrollTo(0,chatLog.offsetHeight);
+
+
+
                           const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
                           if (!chatLog.hasChildNodes()){
@@ -80,6 +101,8 @@
                               if (document.querySelector('#emptyText')){
                                   document.querySelector('#emptyText').remove()
                               }
+                              window.scrollTo(0,chatLog.offsetHeight);
+
                           };
 
 

@@ -81,15 +81,30 @@
                       </div>
 
                     </div>
-                      <br>
-                      <div class="container">
-                        <input id="chat-message-input" type="text" size="50">
-                        <input id="chat-message-submit" class="btn btn-sm btn-info" type="button" value="Send">
-                        {{ room_name|json_script:"room-name" }}
+                        <div class="">
+                          <div class="msb-reply d-flex">
+                            <div class="input-group">
+                              <input id="chat-message-input" type="text" class="form-control" placeholder="Type your message">
+                              <div class="input-group-append ">
+                                <button id="chat-message-submit" type="button" class="btn btn-info">
+                                  <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                                </button>
+                                {{ room_name|json_script:"room-name" }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
+                      <br>
                       {{ request.user.id|json_script:"user_id" }}
                       <script>
-                          const chatLog = document.querySelector('#chat-log')
+                          window.onload=function () {
+                             var chatLog = document.getElementById("chat-log");
+                             window.scrollTo(0,chatLog.offsetHeight);
+                          }
+
+                          var chatLog = document.querySelector('#chat-log');
+                          window.scrollTo(0,chatLog.offsetHeight);
                           const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
                           if (!chatLog.hasChildNodes()){
@@ -126,6 +141,7 @@
                               if (document.querySelector('#emptyText')){
                                   document.querySelector('#emptyText').remove()
                               }
+                              window.scrollTo(0,chatLog.offsetHeight);
                           };
 
 

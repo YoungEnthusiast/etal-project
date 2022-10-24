@@ -23,9 +23,9 @@
                   <li><a title="CollabDocs" href="{% url 'folders_accepted' collab.id %}"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
                   {% endif %}
                   {% if request.user == collab.researcher %}
-                  <li><a title="Tasks" href="{% url 'tasks_initiated' collab.id %}"><i class="fas fa-tasks text-light-blue fa-2x mr-2"></i></a></li>
+                  <li><a title="Tasks" href="{% url 'tasks_initiated' collab.id %}"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
                   {% elif request.user in collab.collaborators.all %}
-                  <li><a title="Tasks" href="{% url 'tasks_accepted' collab.id %}"><i class="fas fa-tasks text-light-blue fa-2x mr-2"></i></a></li>
+                  <li><a title="Tasks" href="{% url 'tasks_accepted' collab.id %}"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
                   {% endif %}
                   {% if request.user == collab.researcher %}
                   <li><a title="Scheduler" href="{% url 'calendarapp:schedules-initiated' collab.id %}"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>

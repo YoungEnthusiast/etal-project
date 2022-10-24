@@ -20542,3 +20542,9 @@ div.content {
 li{
   display: inline
 }
+
+.chat-wrapper{
+  overflow:auto;
+  display:flex;
+  flex-direction:column-reverse;
+}

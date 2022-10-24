@@ -104,32 +104,28 @@
 											{% endif %}
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-											<a class="dropdown-item text-center" href="#"><strong class="text-info">Signed in as {{user.username}}</strong></a>
+											<a class="dropdown-item text-center" href="#">Signed in as {{user.username}}</a>
 											<div class="dropdown-divider"></div>
-											<a class="dropdown-item d-flex pb-1" href="#">
-
+											Upgrade
+											<a class="dropdown-item d-flex pb-4" href="#">
+												<span class="avatar avatar-md brround mr-3 align-self-center cover-image bg-cylinder"><i class="fa fa-user"></i>
+												</span>
 												<div>
+													<span class="font-weight-bold"> User account was Updated</span>
 													<div class="small text-muted d-flex">
-														<strong>Upgrade</strong> &nbsp
+														sfdsdfsfdfsdf ago
 														<div class="ml-auto">
-														<span class="badge badge-info"><i class="fa fa-shield-alt"></i></span>
+														<span class="badge badge-success">New</span>
 														</div>
 													</div>
-
-												</div>
-											</a>
-											<div class="dropdown-divider"></div>
-											<a class="dropdown-item d-flex pb-1" href="{% url 'logout' %}">
-												<div>
-													<div class="small text-muted d-flex">
-														<strong>Sign Out</strong> &nbsp
-														<div class="ml-auto">
-														<span class="badge badge-info"><i class="fa fa-sign-out-alt"></i></span>
-														</div>
+													<div class="progress progress-xs mt-1">
+														<div class="progress-bar bg-cylinder w-70"></div>
 													</div>
 												</div>
 											</a>
-
+											<div class="dropdown-divider"></div>
+											<div class="text-center dropdown-btn pb-3">
+											</div>
 										</div>
 									</div>
 								<button class="navbar-toggler navresponsive-toggler d-sm-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
@@ -293,16 +289,11 @@
 							<a class="side-menu__item bg-info" data-toggle="slide" href=""><i class="fas fa-tools fa-1x mr-1"></i></i><span class="side-menu__label">Collab Tools</span></a>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item" data-toggle="slide" href="#"><i class="fa fa-cubes fa-1x mr-1"></i><span class="side-menu__label">Subscription</span><i class="angle fas fa-angle-right"></i></a>
-							<ul class="slide-menu">
-								<li><a class="slide-item bg-info" href="{% url 'logout' %}">Billings/Plans</a></li>
-								<li><a class="slide-item bg-info" href="{% url 'logout' %}">Payment History</a></li>
-								<li><a class="slide-item bg-info" href="{% url 'logout' %}">Coupon</a></li>
-
-
-							</ul>
+							<a class="side-menu__item bg-info" data-toggle="slide" href=""><i class="fas fa-copy fa-1x mr-1"></i><span class="side-menu__label">Templates</span></a>
 						</li>
-
+						<li class="slide bg-info">
+							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'logout' %}"><i class="fa fa-boxes fa-1x mr-1"></i><span class="side-menu__label">Subscription and Plans</span></a>
+						</li>
 					</ul>
 				</aside>
 				<!--side-menu-->
