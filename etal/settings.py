@@ -66,8 +66,6 @@ INSTALLED_APPS = [
     'researchnote',
     'community',
     'discover',
-    'taggit',
-    'haystack',
 
     # 'notification',
 ]
