@@ -8,7 +8,7 @@ from taggit.models import Tag
 from .filters import PostFilter
 from .models import Post, Comment
 from .forms import EmailPostForm, CommentForm, SearchForm, PostForm
-from haystack.query import SearchQuerySet
+# from haystack.query import SearchQuerySet
 from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
