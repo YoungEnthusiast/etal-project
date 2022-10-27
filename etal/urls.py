@@ -12,6 +12,7 @@ urlpatterns = [
     path("", include("researchnote.urls")),
     path("", include("community.urls")),
     path("", include("discover.urls")),
+    path("", include("subscription.urls")),
 
 # ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ]

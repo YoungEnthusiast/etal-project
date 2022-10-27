@@ -1,0 +1,61 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Billing and Plans</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+<div class=" app-content">
+  <div class="side-app">
+    <br>
+    <div class="container content-area">
+      <div class="horizontal-content">
+        {% include '_alerts.html' %}
+
+        <div class="row">
+
+          <div class="col-xl-2 col-lg-4 col-md-12">
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-12">
+            <div class="card">
+              <div class="card-body text-center">
+                <h4 class="text-info">Free</h4>
+                <h6 class="mb-1">All the basics</h6>
+
+                <p class="text-muted "><font size="+3">$0</font> <sup class="h6">per year forever</sup></p>
+                <a href="" class="btn btn-outline-info btn-sm rounded-pill">Current plan</a>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-12">
+            <div class="card">
+              <div class="card-body text-center">
+                <h4 class="text-info">Premium</h4>
+                <h6 class="mb-1">Advanced tools for collaboration</h6>
+
+                <p class="text-muted "><font size="+3">$5</font> <sup class="h6">per month</sup></p>
+                <a href="" class="btn btn-info btn-sm">Upgrade to premium</a>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-2 col-lg-4 col-md-12">
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content%}

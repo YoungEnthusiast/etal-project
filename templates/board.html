@@ -25,8 +25,6 @@
 		<link rel="stylesheet" href="{% static 'css/plugin.css' %}">
 		<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
 		<link rel="stylesheet" href="{% static 'css/sidebar-old.css' %}">
-		<link rel="stylesheet" href="{% static 'css/sidebar2.css' %}">
-		<link rel="stylesheet" href="{% static 'css/side-bar.css' %}">
 		<link rel="stylesheet" href="{% static 'css/sidemenu-responsive-tabs.css' %}">
 		<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static 'css/color15.css">
 		<link rel="stylesheet" href="{% static 'css/demo.css' %}">
@@ -290,14 +288,11 @@
 							<a class="side-menu__item bg-info" data-toggle="slide" href=""><i class="fas fa-check-circle fa-1x mr-1"></i></i><span class="side-menu__label">Concluded Collabs</span></a>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href=""><i class="fas fa-tools fa-1x mr-1"></i></i><span class="side-menu__label">Collab Tools</span></a>
-						</li>
-						<li class="slide bg-info">
 							<a class="side-menu__item" data-toggle="slide" href="#"><i class="fa fa-cubes fa-1x mr-1"></i><span class="side-menu__label">Subscription</span><i class="angle fas fa-angle-right"></i></a>
 							<ul class="slide-menu">
-								<li><a class="slide-item bg-info" href="{% url 'logout' %}">Billings/Plans</a></li>
-								<li><a class="slide-item bg-info" href="{% url 'logout' %}">Payment History</a></li>
-								<li><a class="slide-item bg-info" href="{% url 'logout' %}">Coupon</a></li>
+								<li><a class="slide-item bg-info" href="{% url 'plans' %}">Billings/Plans</a></li>
+								<li><a class="slide-item bg-info" href="{% url 'plans' %}">Payment History</a></li>
+								<li><a class="slide-item bg-info" href="{% url 'plans' %}">Coupon</a></li>
 
 
 							</ul>
@@ -367,7 +362,6 @@
     <script src="{% static 'js/counterup.min.js' %}"></script>
     <script src="{% static 'js/waypoints.min.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>
-    <script src="{% static 'js/index5.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
 
 		<script src="{% static 'js/select2.js'  %}"></script>
