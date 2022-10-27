@@ -65,7 +65,6 @@ INSTALLED_APPS = [
     'calendarapp',
     'researchnote',
     'community',
-    'discover',
 
     # 'notification',
 ]
