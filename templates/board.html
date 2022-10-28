@@ -100,7 +100,7 @@
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
 											<a class="dropdown-item text-center" href="#"><strong class="text-info">Signed in as {{user.username}}</strong></a>
 											<div class="dropdown-divider"></div>
-											<a class="dropdown-item d-flex pb-1" href="#">
+											<a class="dropdown-item d-flex pb-1" href="{% url 'plans' %}">
 
 												<div>
 													<div class="small text-muted d-flex">
@@ -112,7 +112,6 @@
 
 												</div>
 											</a>
-											<div class="dropdown-divider"></div>
 											<a class="dropdown-item d-flex pb-1" href="{% url 'logout' %}">
 												<div>
 													<div class="small text-muted d-flex">

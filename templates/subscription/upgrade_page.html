@@ -1,0 +1,175 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Billing and Plans</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+<div class=" app-content">
+  <div class="side-app">
+    <br>
+    <div class="container content-area">
+      <div class="horizontal-content">
+        {% include '_alerts.html' %}
+
+        <div class="row">
+          <h4 class="mb-3 text-center">Upgrade your account from Et al. Free to Et al. Premium</h4>
+
+
+          <div class="col-xl-6 col-lg-4 col-md-12">
+
+            {% if user.photograph %}
+            <div class="row">
+              <div class="col-md-1 mr-1">
+                <img src="{{ user.photographURL }}" alt="Photograph" class="profile-sub"> {{user.username}}
+              </div>
+              <div class="col-md-1">
+                 {{user.username}} <br>Free
+              </div>
+              <div class="col-md-9">
+              </div>
+
+            </div>
+
+
+            {% else %}
+            <div class="row">
+              <div class="col-md-1 mr-1">
+                <i class="fa fa-user-circle text-info fa-3x"></i>
+              </div>
+              <div class="col-md-1">
+                 {{user.username}} <br>Free
+              </div>
+              <div class="col-md-9">
+              </div>
+
+            </div>
+
+            {% endif %}
+
+            UPGRADING TO
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h4 class="text-info">Premium</h4>
+                    <i class="far fa-check-circle text-info mr-1"></i>everything in Et al. Free plan <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>...<br>
+                    <i class="far fa-check-circle text-info mr-1"></i>...
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <p class="text-muted"><font size="+2">$5</font> /month</p>
+                  </div>
+
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-6 col-lg-4 col-md-12">
+            <br>
+            <br>
+            <br>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <form id="form">
+                  <div id="user-info">
+                    <div class="form-group">
+                      <button id="form-button" class="btn btn-info btn-sm btn-block" type="submit" onclick="payWithPaystack()"> <strong>Pay yearly</strong> </button>
+                    </div>
+                    <div class="form-group">
+                      <label hidden for="email-address">Email</label>
+                      <input hidden required class="form-control" readonly type="email" value="{{user.username}}" id="email-address" name="email" placeholder="Enter Email" required />
+                    </div>
+                    <div class="form-group">
+                      <label hidden for="amount">Amount</label>
+                      <input hidden required class="form-control" readonly type="tel" value="{{yearly}}" id="amount" required />
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+              <div class="form-group col-md-6">
+                <form id="form2">
+                  <div id="user-info">
+                    <div class="form-group">
+                      <button id="form-button" class="btn btn-info btn-sm btn-block" type="submit" onclick="payWithPaystack2()"> <strong>Pay monthly</strong> </button>
+                    </div>
+                    <div class="form-group">
+                      <label hidden for="email-address">Email</label>
+                      <input hidden required class="form-control" readonly type="email" value="{{user.username}}" id="email-address" name="email" placeholder="Enter Email" required />
+                    </div>
+                    <div class="form-group">
+                      <label hidden for="amount">Amount</label>
+                      <input hidden required class="form-control" readonly type="tel" value="{{monthly}}" id="amount2" required />
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+      const form = document.getElementById('form');
+      form.addEventListener("submit", payWithPaystack, false);
+      function payWithPaystack(e) {
+        e.preventDefault();
+        let handler = PaystackPop.setup({
+          key: '{{key}}',
+          email: document.getElementById('email-address').value,
+          amount: document.getElementById('amount').value * 100,
+          // currency: "USD",
+          onClose: function(){
+            alert('Window closed.');
+          },
+          callback: function(response){
+            let message = 'Thank you! You have completed your payment! Your Reference Number is: ' + response.reference;
+            alert(message);
+            window.location.href = ""
+          }
+        });
+        handler.openIframe();
+      }
+    </script>
+
+    <script>
+      const form2 = document.getElementById('form2');
+      form2.addEventListener("submit", payWithPaystack2, false);
+      function payWithPaystack2(e) {
+        e.preventDefault();
+        let handler = PaystackPop.setup({
+          key: '{{key}}',
+          email: document.getElementById('email-address').value,
+          amount: document.getElementById('amount2').value * 100,
+          // currency: "USD",
+          onClose: function(){
+            alert('Window closed.');
+          },
+          callback: function(response){
+            let message = 'Thank you! You have completed your payment! Your Reference Number is: ' + response.reference;
+            alert(message);
+            window.location.href = ""
+          }
+        });
+        handler.openIframe();
+      }
+    </script>
+
+{% endblock content%}
