@@ -105,6 +105,11 @@
                     {{ form.country|as_crispy_field }}
                 </div>
             </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12 mb-2">
+                  {{ form.about|as_crispy_field }}
+              </div>
+            </div>
             <a href="{% url 'researcher_change_password' %}"><strong class="text-info">Click here</strong></a> <span class="text-dark">to change your password</span>
             <div class="card-footer text-right bg-white">
               <input type="submit" class="form-group btn btn-cylinder" value="Update">

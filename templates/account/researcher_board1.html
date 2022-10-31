@@ -9,8 +9,6 @@
 
 {% block content %}
 
-
-
 <div class=" app-content">
 	<div class="side-app">
     <br>
@@ -103,30 +101,29 @@
           <div class="card-header">
             <h3 class="card-title text-info">Collaboration Analytics</h3>
             <div class="card-options d-none d-sm-block">
-
+              <div class="btn-group btn-sm">
+                <button type="button" class="btn btn-light btn-sm">
+                  <span class="">Day</span>
+                </button>
+                <button type="button" class="btn btn-light btn-sm">
+                  <span class="">Month</span>
+                </button>
+                <button type="button" class="btn btn-light btn-sm">
+                  <span class="">Year</span>
+                </button>
+              </div>
             </div>
           </div>
           <div class="card-body">
             <canvas id="customerChart" class="h-400"></canvas>
           </div>
         </div>
-        <div class="card overflow-hidden">
-          <div class="card-header">
-            <h3 class="card-title text-info">Collaboration Analytics</h3>
-            <div class="card-options d-none d-sm-block">
-
-            </div>
-          </div>
-          <div class="card-body">
-            <canvas id="customerChart2" class="h-400"></canvas>
-          </div>
-        </div>
       </div>
       <div class="col-xl-4 col-md-12 col-lg-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title text-info">Past Collaborators</h3>
-            <!-- <div class="card-options">
+            <h3 class="card-title text-info">Collaborators</h3>
+            <div class="card-options">
               <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
               <ul class="dropdown-menu dropdown-menu-right" role="menu">
                 <li><a href="#"><i class="fa fa-plus mr-2"></i>Add</a></li>
@@ -134,20 +131,20 @@
                 <li><a href="#"><i class="fa fa-eye mr-2"></i>View</a></li>
                 <li><a href="#"><i class="fa fa-settings mr-2"></i>More</a></li>
               </ul>
-            </div> -->
+            </div>
           </div>
           <div class="card-body p-0 ">
             <div class="list-group list-lg-group list-group-flush">
 
               {% for each in user.past_collaborators.all %}
               <a class="list-group-item list-group-item-action" href="#">
-                <div class="">
-                  {% if each.photograph %}
-                    <img href="" src="{{ each.photographURL }}" alt="Photograph" class="profile-sub">
-                  {% else %}
-                    <i class="fa fa-user-circle text-info fa-3x"></i>
-                  {% endif %}
+                <div class="media mt-0">
 
+                  {% if each.photograph %}
+                    <a href="{% url 'show_user' each.username %}"><img href="" src="{{ each.photographURL }}" alt="Photograph" class="profile-small"></a>
+                  {% else %}
+                    <a href="{% url 'show_user' each.username %}"><i class="fa fa-user-circle text-info fa-3x"></i></a>
+                  {% endif %}
 
                   <div class="media-body">
                     <div class="d-md-flex align-items-center">
@@ -171,12 +168,12 @@
           <div class="card-body pb-0">
             <div class="dash-widget text-center">
               <h6 class="text-muted">Followers</h6>
-              <h3 class="font-weight-extrabold num-font">{{followers}}</h3>
+              <h3 class="font-weight-extrabold num-font"> 2</h3>
 
             </div>
           </div>
           <div class="chart-wrapper chart-wraper-absolute">
-            <!-- <canvas id="AreaChart2" class="chart-dropshadow"></canvas> -->
+            <canvas id="AreaChart2" class="chart-dropshadow"></canvas>
           </div>
         </div>
       </div>
@@ -185,12 +182,12 @@
           <div class="card-body pb-0">
             <div class="dash-widget text-center">
               <h6 class="text-muted">Following</h6>
-              <h3 class="font-weight-extrabold num-font">{{followings}}</h3>
+              <h3 class="font-weight-extrabold num-font">2</h3>
 
             </div>
           </div>
           <div class="chart-wrapper chart-wraper-absolute">
-            <!-- <canvas id="AreaChart3" class="chart-dropshadow"></canvas> -->
+            <canvas id="AreaChart3" class="chart-dropshadow"></canvas>
           </div>
         </div>
       </div>
@@ -198,13 +195,13 @@
         <div class="card overflow-hidden">
           <div class="card-body pb-0">
             <div class="dash-widget text-center">
-              <h6 class="text-muted">Total</h6>
-              <h3 class="font-weight-extrabold num-font">{{total}}</h3>
+              <h6 class="text-muted">Unfollow</h6>
+              <h3 class="font-weight-extrabold num-font">0</h3>
 
             </div>
           </div>
           <div class="chart-wrapper chart-wraper-absolute">
-            <!-- <canvas id="AreaChart4" class="chart-dropshadow"></canvas> -->
+            <canvas id="AreaChart4" class="chart-dropshadow"></canvas>
           </div>
         </div>
       </div>
@@ -288,11 +285,19 @@
               <div class="row">
                 <div class="col-sm-6">
                   <h6 class="mb-2">Total Collaborators</h6>
-                  <h2 class="text-left fs-40 mb-3"><span class="num-font">{{total_collaborators}}</span></h2>
+                  <h2 class="text-left fs-40 mb-3"><span class="num-font">2</span></h2>
                 </div>
                 <div class="col-sm-6">
                   <div class="float-right text-right">
-                    
+                    <div class="card-options">
+                      <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
+                      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a href="#"><i class="fa fa-plus mr-2"></i>Add</a></li>
+                        <li><a href="#"><i class="fa fa-trash mr-2"></i>Remove</a></li>
+                        <li><a href="#"><i class="fa fa-eye mr-2"></i>View</a></li>
+                        <li><a href="#"><i class="fa fa-settings mr-2"></i>More</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -307,15 +312,15 @@
                         <strong class="h4 font-weight-bold num-font">2</strong>
                       </div>
                       <div class="float-right">
-                        <!-- <small class="text-muted h6">Total Males</small> -->
+                        <small class="text-muted h6">Total Males</small>
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="progress progress-sm mt-0 mb-2">
+                  <div class="progress progress-sm mt-0 mb-2">
                     <div class="progress-bar bg-info w-20" role="progressbar"></div>
-                  </div> -->
+                  </div>
                   <div class="text-muted">
-                    <!-- <i class="fa fa-caret-down text-danger"></i> % decrease -->
+                    <i class="fa fa-caret-down text-danger"></i> % decrease
                   </div>
                 </div>
               </div>
@@ -327,15 +332,15 @@
                         <strong class="h4 font-weight-bold num-font">0</strong>
                       </div>
                       <div class="float-right">
-                        <!-- <small class="text-muted h6">Total Females</small> -->
+                        <small class="text-muted h6">Total Females</small>
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="progress progress-sm mt-0 mb-2">
+                  <div class="progress progress-sm mt-0 mb-2">
                     <div class="progress-bar bg-info w-0" role="progressbar"></div>
-                  </div> -->
+                  </div>
                   <div class="text-muted">
-                    <!-- <i class="fa fa-caret-up text-success"></i> % increases -->
+                    <i class="fa fa-caret-up text-success"></i> % increases
                   </div>
                 </div>
               </div>
@@ -734,329 +739,5 @@
       </div>
     </div>
   </div>
-
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-
-  <script>
-    (function($) {
-        "use strict";
-
-        var initiated_created_list = {{ initiated_created_list|safe }}
-        var initiated_list = {{ initiated_list|safe }}
-
-        var accepted_created_list = {{ accepted_created_list|safe }}
-        var accepted_list = {{ accepted_list|safe }}
-
-    	 //bar chart
-        var ctx = document.getElementById( "customerChart" );
-        var myChart = new Chart( ctx, {
-            type: 'line',
-            data: {
-                labels: initiated_created_list,
-                datasets: [ {
-                    label: "Initiated Collabs",
-                    data: initiated_list,
-                    backgroundColor: 'transparent',
-                    borderColor: 'rgba(8, 158, 96,0.75)',
-                    borderWidth: 3,
-                    pointStyle: 'circle',
-                    pointRadius: 5,
-                    pointBorderColor: 'transparent',
-                    pointBackgroundColor: 'rgba(8, 158, 96,0.75)',
-                        },  ]
-            },
-            options: {
-    			responsive: true,
-    			maintainAspectRatio: false,
-    			barRoundness: 1,
-                scales: {
-                    yAxes: [ {
-                        ticks: {
-                            beginAtZero: true,
-    						fontColor: "#bbc1ca",
-    						},
-    						gridLines: {
-    						color:'rgba(187, 193, 202,0.3)',
-    					}
-                    }],
-
-    				xAxes: [{
-    					ticks: {
-    						display: true,
-    						fontColor: "#bbc1ca",
-    					},
-    					gridLines: {
-    						display: true,
-    						color:'rgba(187, 193, 202,0.3)',
-    					}
-    				}]
-                }
-            }
-        } );
-
-
-        //bar chart
-         var ctx = document.getElementById( "customerChart2" );
-         var myChart = new Chart( ctx, {
-             type: 'line',
-             data: {
-                 labels: accepted_created_list,
-                 datasets: [  {
-                     label: "Accepted Collabs",
-                     data: accepted_list,
-                     backgroundColor: 'transparent',
-                     borderColor: 'rgba(19, 150, 204,0.75)',
-                     borderWidth: 3,
-                     pointStyle: 'circle',
-                     pointRadius: 5,
-                     pointBorderColor: 'transparent',
-                     pointBackgroundColor: 'rgba(19, 150, 204,0.75)',
-                         } ]
-             },
-             options: {
-           responsive: true,
-           maintainAspectRatio: false,
-           barRoundness: 1,
-                 scales: {
-                     yAxes: [ {
-                         ticks: {
-                             beginAtZero: true,
-                 fontColor: "#bbc1ca",
-                 },
-                 gridLines: {
-                 color:'rgba(187, 193, 202,0.3)',
-               }
-                     }],
-
-             xAxes: [{
-               ticks: {
-                 display: true,
-                 fontColor: "#bbc1ca",
-               },
-               gridLines: {
-                 display: true,
-                 color:'rgba(187, 193, 202,0.3)',
-               }
-             }]
-                 }
-             }
-         } );
-
-
-
-    	/*-----AreaChart2-----*/
-        var ctx = document.getElementById( "AreaChart2" );
-    	ctx.height = 70;
-        var myChart = new Chart( ctx, {
-            type: 'line',
-            data: {
-                labels: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
-                type: 'line',
-                datasets: [ {
-                    data: [0, 0, 0, 2, 1, 0, 0],
-                    label: 'Total Income',
-                    backgroundColor: 'rgba(19, 150, 204,0.3)',
-    				pointBorderColor: 'transparent',
-    				pointBackgroundColor: 'transparent',
-                    borderColor: 'rgba(19, 150, 204)',
-                }, ]
-            },
-            options: {
-
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                responsive: true,
-                tooltips: {
-                    mode: 'index',
-                    titleFontSize: 12,
-                    titleFontColor: '#7886a0',
-                    bodyFontColor: '#7886a0',
-                    backgroundColor: '#fff',
-                    titleFontFamily: 'Montserrat',
-                    bodyFontFamily: 'Montserrat',
-                    cornerRadius: 3,
-                    intersect: false,
-                },
-                scales: {
-                    xAxes: [ {
-                        gridLines: {
-                            color: 'transparent',
-                            zeroLineColor: 'transparent'
-                        },
-                        ticks: {
-                            fontSize: 2,
-                            fontColor: 'transparent'
-                        }
-                    } ],
-                    yAxes: [ {
-                        display:false,
-                        ticks: {
-                            display: false,
-                        }
-                    } ]
-                },
-                title: {
-                    display: false,
-                },
-                elements: {
-                    line: {
-                        borderWidth: 1
-                    },
-                    point: {
-                        radius: 4,
-                        hitRadius: 10,
-                        hoverRadius: 4
-                    }
-                }
-            }
-        } );
-
-
-    		/*-----AreaChart4-----*/
-        var ctx = document.getElementById( "AreaChart4" );
-    	ctx.height = 70;
-        var myChart = new Chart( ctx, {
-            type: 'line',
-            data: {
-                labels: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
-                type: 'line',
-                datasets: [ {
-                    data: [],
-                    label: 'Total Balance',
-                    backgroundColor: 'rgba(19, 150, 204,0.3)',
-    				pointBorderColor: 'transparent',
-    				pointBackgroundColor: 'transparent',
-                    borderColor: 'rgba(19, 150, 204)',
-                }, ]
-            },
-            options: {
-
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                responsive: true,
-                tooltips: {
-                    mode: 'index',
-                    titleFontSize: 12,
-                    titleFontColor: '#7886a0',
-                    bodyFontColor: '#7886a0',
-                    backgroundColor: '#fff',
-                    titleFontFamily: 'Montserrat',
-                    bodyFontFamily: 'Montserrat',
-                    cornerRadius: 3,
-                    intersect: false,
-                },
-                scales: {
-                    xAxes: [ {
-                        gridLines: {
-                            color: 'transparent',
-                            zeroLineColor: 'transparent'
-                        },
-                        ticks: {
-                            fontSize: 2,
-                            fontColor: 'transparent'
-                        }
-                    } ],
-                    yAxes: [ {
-                        display:false,
-                        ticks: {
-                            display: false,
-                        }
-                    } ]
-                },
-                title: {
-                    display: false,
-                },
-                elements: {
-                    line: {
-                        borderWidth: 1
-                    },
-                    point: {
-                        radius: 4,
-                        hitRadius: 10,
-                        hoverRadius: 4
-                    }
-                }
-            }
-        } );
-
-
-    	/*-----AreaChart3-----*/
-        var ctx = document.getElementById( "AreaChart3" );
-    	ctx.height = 70;
-        var myChart = new Chart( ctx, {
-            type: 'line',
-            data: {
-                labels: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
-                type: 'line',
-                datasets: [ {
-                    data: [0, 50, 0],
-                    label: 'Total Earnings',
-                    backgroundColor: 'rgba(19, 150, 204,0.3)',
-    				pointBorderColor: 'transparent',
-    				pointBackgroundColor: 'transparent',
-                    borderColor: 'rgba(19, 150, 204)',
-                }, ]
-            },
-            options: {
-
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                responsive: true,
-                tooltips: {
-                    mode: 'index',
-                    titleFontSize: 12,
-                    titleFontColor: '#7886a0',
-                    bodyFontColor: '#7886a0',
-                    backgroundColor: '#fff',
-                    titleFontFamily: 'Montserrat',
-                    bodyFontFamily: 'Montserrat',
-                    cornerRadius: 3,
-                    intersect: false,
-                },
-                scales: {
-                    xAxes: [ {
-                        gridLines: {
-                            color: 'transparent',
-                            zeroLineColor: 'transparent'
-                        },
-                        ticks: {
-                            fontSize: 2,
-                            fontColor: 'transparent'
-                        }
-                    } ],
-                    yAxes: [ {
-                        display:false,
-                        ticks: {
-                            display: false,
-                        }
-                    } ]
-                },
-                title: {
-                    display: false,
-                },
-                elements: {
-                    line: {
-                        borderWidth: 1
-                    },
-                    point: {
-                        radius: 4,
-                        hitRadius: 10,
-                        hoverRadius: 4
-                    }
-                }
-            }
-        } );
-    })(jQuery);
-
-  </script>
-
-
 
 {% endblock content%}

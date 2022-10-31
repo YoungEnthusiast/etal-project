@@ -20397,6 +20397,12 @@ section {
   height: 24px
 }
 
+.profile-boa{
+  border-radius: 50%;
+  width: 12px;
+  height: 12px
+}
+
 .profile-not{
   border-radius: 50%;
   width: 30px;

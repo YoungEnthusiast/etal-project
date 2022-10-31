@@ -23,7 +23,7 @@ class CustomRegisterFormResearcher(UserChangeForm):
 
     class Meta:
         model = Researcher
-        fields = ['first_name', 'last_name', 'username', 'photograph', 'affiliation_name', 'affiliation_address', 'city', 'state', 'country']
+        fields = ['first_name', 'last_name', 'username', 'photograph', 'affiliation_name', 'about', 'affiliation_address', 'city', 'state', 'country']
 
 class CollabForm(forms.ModelForm):
     title = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Title'}))

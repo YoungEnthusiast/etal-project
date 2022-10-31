@@ -13,7 +13,7 @@ class Note(models.Model):
     method = models.TextField(null=True, blank=True, verbose_name="")
     result = models.TextField(null=True, blank=True, verbose_name="")
     observations = models.TextField(null=True, blank=True, verbose_name="")
-    document = models.FileField(upload_to='research_notes/', null=True, blank=True, verbose_name="File")
+    document = models.FileField(upload_to='research_notes/', null=True, blank=True, verbose_name="Attachment")
     is_pinned = models.BooleanField(max_length=5, null=True, blank=True, default = False)
     serial = models.CharField(max_length=4, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

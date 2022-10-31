@@ -21,9 +21,14 @@ class Researcher(AbstractUser):
     country = models.CharField(max_length=255, blank=True, null=True)
     email_confirmed = models.BooleanField(default=False)
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='Researcher', null=True)
-    # bell = models.ForeignKey('account.Notification', null=True, blank=True, on_delete=models.SET_NULL)
+    about = models.TextField(max_length=2000, null=True)
     bell_unreads = models.PositiveIntegerField(default=0)
+    views = models.PositiveIntegerField(default=0)
     envelope_unreads = models.PositiveIntegerField(default=0)
+    past_collaborators = models.ManyToManyField('account.Researcher', blank=True, related_name="past_collaborator")
+    followers = models.ManyToManyField('account.Researcher', blank=True, related_name="researcher_followers")
+    followings = models.ManyToManyField('account.Researcher', blank=True, related_name="researcher_followings")
+
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
 
@@ -85,6 +90,7 @@ class Collab(models.Model):
     flag = models.ForeignKey('account.Flag', null=True, blank=True, on_delete=models.SET_NULL, related_name="flag_collab")
     report = models.ForeignKey('account.Report', null=True, blank=True, on_delete=models.SET_NULL, related_name="collab_report")
     is_locked = models.BooleanField(max_length=5, default = False)
+    is_concluded = models.BooleanField(max_length=5, default = False)
     removed_people = models.ManyToManyField(Researcher, blank=True, related_name="removed_people")
     request_removed_people = models.ManyToManyField(Researcher, blank=True, related_name="request_removed_people")
     locked_date = models.DateTimeField(null=True, blank=True)

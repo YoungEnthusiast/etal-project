@@ -16,6 +16,7 @@
 					<div class="horizontal-content">
 
 						<div class="row">
+              {% include '_alerts.html' %}
               <div class="col-xl-4  col-md-12">
                 <div class="card box-widget widget-user">
                   <div class="widget-user-header bg-gradient-primary"></div>
@@ -27,9 +28,10 @@
                   <div class="card-body text-center">
                     <div class="pro-user">
                       <h3 class="pro-user-username text-info"><strong>{{researcher.first_name}} {{researcher.last_name}}</strong></h3>
-                      <!-- <h6 class="pro-user-desc text-muted">Web Developer</h6> -->
-                      <div class="badge bg-info text-white rounded-pill badge-marketing badge-sm"><strong>{{researcher.type}}</strong></div><br>
-                      <a href="#" class="btn btn-info btn-sm"><i class="si si-feed mr-1"></i>Follow</a>
+                      <div class="badge bg-info text-white rounded-pill badge-marketing badge-sm"><strong>{{researcher.type}}</strong></div>
+                      <br>
+                      <br>
+                      <a href="{% url 'follow' researcher.username %}" class="btn btn-info btn-sm mr-1">Follow</a><a href="{% url 'unfollow' researcher.username %}" class="btn btn-info btn-sm">Unfollow</a>
                       <div class="pro-user-icons">
                         <a href="#" class="facebook-bg mt-0"><i class="fab fa-facebook"></i></a>
                         <a href="#" class="twitter-bg"><i class="fab fa-twitter"></i></a>
@@ -43,12 +45,12 @@
                     <div class="row">
                       <div class="col-sm-6 border-right ">
                         <div class="description-block">
-                          <h5 class="description-header">689k</h5><span class="text-muted">Followers</span>
+                          <h5 class="description-header">{{followers}}</h5><span class="text-muted">Followers</span>
                         </div>
                       </div>
                       <div class="col-sm-6">
                         <div class="description-block">
-                          <h5 class="description-header">3,765</h5><span class="text-muted">Following</span>
+                          <h5 class="description-header">{{followings}}</h5><span class="text-muted">Following</span>
                         </div>
                       </div>
                     </div>
@@ -94,9 +96,7 @@
 										<div class="card-title">About</div>
 									</div>
 									<div class="card-body">
-										<h6>Biography</h6>
-										<p>Some texts Some texts Some texts Some texts Some texts Some texts Some texts Some texts Some texts Some texts</p>
-                    <p>Some texts Some texts Some texts Some texts Some texts Some texts Some texts Some texts Some texts Some texts</p>
+										{{researcher.about}}
 
 									</div>
 								</div>

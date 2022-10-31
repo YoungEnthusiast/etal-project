@@ -176,7 +176,7 @@
             </div>
           </div>
           <div class="chart-wrapper chart-wraper-absolute">
-            <!-- <canvas id="AreaChart2" class="chart-dropshadow"></canvas> -->
+            <canvas id="AreaChart2" class="chart-dropshadow"></canvas>
           </div>
         </div>
       </div>
@@ -190,7 +190,7 @@
             </div>
           </div>
           <div class="chart-wrapper chart-wraper-absolute">
-            <!-- <canvas id="AreaChart3" class="chart-dropshadow"></canvas> -->
+            <canvas id="AreaChart3" class="chart-dropshadow"></canvas>
           </div>
         </div>
       </div>
@@ -204,7 +204,7 @@
             </div>
           </div>
           <div class="chart-wrapper chart-wraper-absolute">
-            <!-- <canvas id="AreaChart4" class="chart-dropshadow"></canvas> -->
+            <canvas id="AreaChart4" class="chart-dropshadow"></canvas>
           </div>
         </div>
       </div>
@@ -288,11 +288,19 @@
               <div class="row">
                 <div class="col-sm-6">
                   <h6 class="mb-2">Total Collaborators</h6>
-                  <h2 class="text-left fs-40 mb-3"><span class="num-font">{{total_collaborators}}</span></h2>
+                  <h2 class="text-left fs-40 mb-3"><span class="num-font">2</span></h2>
                 </div>
                 <div class="col-sm-6">
                   <div class="float-right text-right">
-                    
+                    <div class="card-options">
+                      <span class="dropdown-toggle fs-16" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v" ></i></span>
+                      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a href="#"><i class="fa fa-plus mr-2"></i>Add</a></li>
+                        <li><a href="#"><i class="fa fa-trash mr-2"></i>Remove</a></li>
+                        <li><a href="#"><i class="fa fa-eye mr-2"></i>View</a></li>
+                        <li><a href="#"><i class="fa fa-settings mr-2"></i>More</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -307,15 +315,15 @@
                         <strong class="h4 font-weight-bold num-font">2</strong>
                       </div>
                       <div class="float-right">
-                        <!-- <small class="text-muted h6">Total Males</small> -->
+                        <small class="text-muted h6">Total Males</small>
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="progress progress-sm mt-0 mb-2">
+                  <div class="progress progress-sm mt-0 mb-2">
                     <div class="progress-bar bg-info w-20" role="progressbar"></div>
-                  </div> -->
+                  </div>
                   <div class="text-muted">
-                    <!-- <i class="fa fa-caret-down text-danger"></i> % decrease -->
+                    <i class="fa fa-caret-down text-danger"></i> % decrease
                   </div>
                 </div>
               </div>
@@ -327,15 +335,15 @@
                         <strong class="h4 font-weight-bold num-font">0</strong>
                       </div>
                       <div class="float-right">
-                        <!-- <small class="text-muted h6">Total Females</small> -->
+                        <small class="text-muted h6">Total Females</small>
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="progress progress-sm mt-0 mb-2">
+                  <div class="progress progress-sm mt-0 mb-2">
                     <div class="progress-bar bg-info w-0" role="progressbar"></div>
-                  </div> -->
+                  </div>
                   <div class="text-muted">
-                    <!-- <i class="fa fa-caret-up text-success"></i> % increases -->
+                    <i class="fa fa-caret-up text-success"></i> % increases
                   </div>
                 </div>
               </div>

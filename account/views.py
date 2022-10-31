@@ -94,11 +94,103 @@ def loginRequest(request):
     form = AuthenticationForm()
     return render(request = request, template_name = "account/login.html", context={"form":form})
 
-
 @login_required
 def showResearcherBoard(request):
+    initiateds = Collab.objects.filter(researcher=request.user, is_locked=True).count()
+    accepteds = Collab.objects.filter(collaborators=request.user).count()
 
-    return render(request, 'account/researcher_board.html', {})
+    all_concludeds = Collab.objects.filter(is_concluded=True)
+
+    concludeds = 0
+
+    for each in all_concludeds:
+        if each.researcher == request.user:
+            concludeds += 1
+        elif request.user in each.collaborators.all():
+            concludeds += 1
+    me = Researcher.objects.get(username=request.user.username)
+    current_views = me.views
+
+    all_collaborators = Collab.objects.filter(researcher=request.user).order_by('created')
+    for each in all_collaborators:
+        for another in each.collaborators.all():
+            me.past_collaborators.add(another)
+            me.save()
+
+    initiated_created_list = [""]
+    initiated_list = [0]
+
+    counter = 0
+
+    total_collaborators = 0
+
+    for one in all_collaborators:
+        if one.created.strftime('%d, %b %Y') not in initiated_created_list:
+            initiated_created_list.append(one.created.strftime('%d, %b %Y'))
+            initiated_list.append(1)
+        else:
+            current = initiated_list[-1]
+            initiated_list.pop()
+            current += 1
+
+            initiated_list.append(current)
+
+        total_collaborators += 1
+
+
+    accepteds2 = Collab.objects.filter(collaborators=request.user).order_by('created')
+
+    accepted_created_list = [""]
+    accepted_list = [0]
+
+    counter2 = 0
+
+    for two in accepteds2:
+        if two.created.strftime('%d, %b %Y') not in accepted_created_list:
+            accepted_created_list.append(two.created.strftime('%d, %b %Y'))
+            accepted_list.append(1)
+        else:
+            current2 = accepted_list[-1]
+            accepted_list.pop()
+            current2 += 1
+
+            accepted_list.append(current2)
+
+    followings = 0
+    for each2 in me.followings.all():
+        followings += 1
+
+    followers = 0
+    for each3 in me.followers.all():
+        followers += 1
+
+    total = followings + followers
+
+    return render(request, 'account/researcher_board.html', {'initiateds':initiateds,
+                    'accepteds':accepteds, 'concludeds':concludeds, 'current_views':current_views,
+                    'initiated_created_list':initiated_created_list, 'initiated_list':initiated_list,
+                    'accepted_created_list':accepted_created_list, 'accepted_list':accepted_list,
+                    'followings':followings, 'followers':followers, 'total':total, 'total_collaborators':total_collaborators})
+
+@login_required
+def follow(request, username):
+    researcher = Researcher.objects.get(username=username)
+    me = Researcher.objects.get(username=request.user.username)
+    researcher.followers.add(request.user)
+    me.followings.add(researcher)
+    messages.info(request, "You have followed successfully")
+
+    return redirect('show_user', username)
+
+@login_required
+def unFollow(request, username):
+    researcher = Researcher.objects.get(username=username)
+    me = Researcher.objects.get(username=request.user.username)
+    researcher.followers.remove(request.user)
+    me.followings.remove(researcher)
+    messages.info(request, "You have unfollowed successfully")
+
+    return redirect('show_user', username)
 
 @login_required
 def showCollabs(request):
@@ -614,7 +706,26 @@ def researcherChangePassword(request):
 @login_required
 def showUser(request, email, **kwargs):
     researcher = Researcher.objects.get(username=email)
-    context = {'researcher': researcher}
+
+    current_views = researcher.views
+    current_views += 1
+    researcher.views = current_views
+    researcher.save()
+
+    followings = 0
+    try:
+        for each in researcher.followings.all():
+            followings += 1
+    except:
+        pass
+
+    followers = 0
+    try:
+        for each2 in researcher.followers.all():
+            followers += 1
+    except:
+        pass
+    context = {'researcher': researcher, 'followings': followings, 'followers':followers}
     return render(request, 'account/user_profile.html', context)
 
 @login_required
@@ -1155,39 +1266,6 @@ def showCollabAccepted(request, id, **kwargs):
         return render(request, 'account/collab_accepted.html', context)
     else:
         return redirect('collab')
-
-
-# @login_required
-# @permission_required('users.view_admin')
-# def showQwikAdminBoard(request):
-#     people = Person.objects.all().count()
-#     qwikcustomers = Person.objects.filter(type="QwikCustomer").count()
-#     qwikvendors = Person.objects.filter(type="QwikVendor").count()
-#     qwikpartners = Person.objects.filter(type="QwikPartner").count()
-#     qwikadmins = Person.objects.filter(type="QwikA--").count()
-#
-#     perc_cust = round((qwikcustomers/people)*100,1)
-#     perc_vend = round((qwikvendors/people)*100,1)
-#     perc_part = round((qwikpartners/people)*100,1)
-#     perc_adm = round((qwikadmins/people)*100,1)
-#
-#     cust = round(perc_cust/100,2)
-#     vend = round(perc_vend/100,2)
-#     part = round(perc_part/100,2)
-#     adm = round(perc_adm/100,2)
-#
-#     return render(request, 'users/qwikadmin_board.html', {'qwikcustomers':qwikcustomers,
-#                                                           'perc_cust':perc_cust,
-#                                                           'qwikvendors':qwikvendors,
-#                                                           'perc_vend':perc_vend,
-#                                                           'qwikpartners':qwikpartners,
-#                                                           'perc_part':perc_part,
-#                                                           'qwikadmins':qwikadmins,
-#                                                           'perc_adm':perc_adm,
-#                                                           'cust':cust,
-#                                                           'vend':vend,
-#                                                           'part':part,
-#                                                           'adm':adm})
 
 @login_required
 def interestCollab(request, id):
