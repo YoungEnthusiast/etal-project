@@ -36,7 +36,12 @@
                       {% else %}
                       <a href="{% url 'follow' researcher.username %}" class="btn btn-info btn-sm mr-1">Follow</a>
                       {% endif %}
-
+                      <div class="pro-user-icons">
+                        <a href="#" class="facebook-bg mt-0"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="twitter-bg"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="google-bg"><i class="fab fa-google"></i></a>
+                        <a href="#" class="dribbble-bg"><i class="fab fa-dribbble"></i></a>
+                      </div>
                     </div>
 
                   </div>
@@ -66,39 +71,15 @@
                           <i class="si si-user" aria-hidden="true"></i>
                         </div>
                         <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">Full Name</h6><span class="d-block">{{researcher.first_name}} {{researcher.last_name}}</span>
+                          <h6 class="mediafont text-dark mb-1">Full Name</h6><span class="d-block">{{researcher.first_name}} {{researcher.last_name}}</span>
                         </div>
                       </div>
                       <div class="media mt-1 pb-2">
                         <div class="mediaicon">
-                          <i class="fa fa-envelope" aria-hidden="true"></i>
+                          <i class="si si-envelope" aria-hidden="true"></i>
                         </div>
                         <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">Email Address</h6><span class="d-block">{{researcher.username}}</span>
-                        </div>
-                      </div>
-                      <div class="media mt-1 pb-2">
-                        <div class="mediaicon">
-                          <i class="si si-location-pin" aria-hidden="true"></i>
-                        </div>
-                        <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">City</h6><span class="d-block">{{researcher.city}}</span>
-                        </div>
-                      </div>
-                      <div class="media mt-1 pb-2">
-                        <div class="mediaicon">
-                          <i class="si si-user" aria-hidden="true"></i>
-                        </div>
-                        <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">State</h6><span class="d-block">{{researcher.state}}</span>
-                        </div>
-                      </div>
-                      <div class="media mt-1 pb-2">
-                        <div class="mediaicon">
-                          <i class="fa fa-envelope" aria-hidden="true"></i>
-                        </div>
-                        <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">Country</h6><span class="d-block">{{researcher.country}}</span>
+                          <h6 class="mediafont text-dark mb-1">Email Address</h6><span class="d-block">{{researcher.username}}</span>
                         </div>
                       </div>
                       <div class="media mt-1 pb-2">
@@ -106,18 +87,9 @@
                           <i class="si si-location-pin" aria-hidden="true"></i>
                         </div>
                         <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">Affiliation Name</h6><span class="d-block">{{researcher.affiliation_name}}</span>
+                          <h6 class="mediafont text-dark mb-1">City</h6><span class="d-block">{{researcher.city}}</span>
                         </div>
                       </div>
-                      <div class="media mt-1 pb-2">
-                        <div class="mediaicon">
-                          <i class="si si-location-pin" aria-hidden="true"></i>
-                        </div>
-                        <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">Affiliation Address</h6><span class="d-block">{{researcher.affiliation_address}}</span>
-                        </div>
-                      </div>
-
                     </div>
                   </div>
                 </div>

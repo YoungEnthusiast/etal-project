@@ -109,6 +109,7 @@ def showResearcherBoard(request):
         elif request.user in each.collaborators.all():
             concludeds += 1
     me = Researcher.objects.get(username=request.user.username)
+
     current_views = me.views
 
     all_collaborators = Collab.objects.filter(researcher=request.user).order_by('created')
@@ -124,9 +125,11 @@ def showResearcherBoard(request):
 
     total_collaborators = 0
 
-    for one in all_collaborators:
-        if one.created.strftime('%d, %b %Y') not in initiated_created_list:
-            initiated_created_list.append(one.created.strftime('%d, %b %Y'))
+    all_collaborators_initiated = Collab.objects.filter(researcher=request.user, is_locked=True).order_by('locked_date')
+
+    for one in all_collaborators_initiated:
+        if one.locked_date.strftime('%b %Y') not in initiated_created_list:
+            initiated_created_list.append(one.locked_date.strftime('%b %Y'))
             initiated_list.append(1)
         else:
             current = initiated_list[-1]
@@ -146,8 +149,8 @@ def showResearcherBoard(request):
     counter2 = 0
 
     for two in accepteds2:
-        if two.created.strftime('%d, %b %Y') not in accepted_created_list:
-            accepted_created_list.append(two.created.strftime('%d, %b %Y'))
+        if two.created.strftime('%b %Y') not in accepted_created_list:
+            accepted_created_list.append(two.created.strftime('%b %Y'))
             accepted_list.append(1)
         else:
             current2 = accepted_list[-1]
@@ -663,6 +666,14 @@ def createCollab(request):
 
 @login_required
 def showResearcherProfile(request, **kwargs):
+    me = Researcher.objects.get(username=request.user.username)
+    followings = 0
+    for each2 in me.followings.all():
+        followings += 1
+
+    followers = 0
+    for each3 in me.followers.all():
+        followers += 1
     if request.method == "POST":
         form = CustomRegisterFormResearcher(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
@@ -676,7 +687,7 @@ def showResearcherProfile(request, **kwargs):
     else:
         form = CustomRegisterFormResearcher(instance=request.user)
 
-    return render(request, 'account/researcher_profile.html', {'form': form})
+    return render(request, 'account/researcher_profile.html', {'form': form, 'followers':followers, 'followings':followings})
 
 @login_required
 def researcherChangePassword(request):
@@ -725,6 +736,7 @@ def showUser(request, email, **kwargs):
             followers += 1
     except:
         pass
+
     context = {'researcher': researcher, 'followings': followings, 'followers':followers}
     return render(request, 'account/user_profile.html', context)
 

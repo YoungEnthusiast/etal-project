@@ -1,0 +1,93 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Payment History</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+<div class=" app-content">
+  <div class="side-app">
+    <br>
+    <div class="container content-area">
+      <div class="horizontal-content">
+        {% include '_alerts.html' %}
+
+        <div class="row">
+
+          <div class="col-xl-2 col-lg-4 col-md-12">
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-12">
+            <div class="card">
+              <div class="card-body text-center">
+                <h4 class="text-info">Current year bill</h4>
+                <strong class="">$0</strong>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-12">
+            <div class="card">
+              <div class="card-body text-center">
+                <h4 class="text-info">Next payment due</h4>
+                <strong class="">some date</strong>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-2 col-lg-4 col-md-12">
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="col-xl-2 col-lg-4 col-md-12">
+
+          </div>
+
+
+          <div class="col-xl-8 col-lg-4 col-md-12">
+            <div class="row">
+              <div class="col-md-6">
+                <h4>Current Plan</h4>
+              </div>
+              <div class="col-md-6 text-right">
+                <a href="{% url 'upgrade_page' %}" class="btn btn-info btn-sm">Upgrade</a>
+              </div>
+            </div>
+
+            <div class="card overflow-hidden">
+              <div class="card-header">
+                <h3 class="card-title text-info">Et al. Free for all researchers</h3>
+                <div class="card-options d-none d-sm-block">
+
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <i class="far fa-check-circle text-info mr-1"></i>Unimited collabs creation <br>
+                  </div>
+                  <div class="col-md-6">
+                    <h5 class="">Not included:</h5>
+                    <i class="far fa-times-circle text-red mr-1"></i>... <br>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content%}
