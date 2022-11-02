@@ -7,7 +7,6 @@ from django.db.models import Q
 from django.forms.widgets import NumberInput
 # from django.forms.widgets import TextInput
 
-
 class CustomRegisterForm(UserCreationForm):
     class Meta:
         model = Researcher
@@ -23,7 +22,11 @@ class CustomRegisterFormResearcher(UserChangeForm):
 
     class Meta:
         model = Researcher
-        fields = ['first_name', 'last_name', 'username', 'photograph', 'affiliation_name', 'about', 'affiliation_address', 'city', 'state', 'country']
+        fields = ['first_name', 'last_name', 'username', 'photograph', 'affiliation_name', 'about',
+                    'affiliation_address', 'city', 'state', 'country', 'specialization', 'expertise',
+                    'institution_name', 'institution_location', 'course', 'year', 'degree', 'award',
+                    'employer_name', 'employer_location', 'year_join', 'year_exit', 'position', 'award2',
+                    'publication_number', 'patent_number', 'chapter', 'textbooks', 'google', 'grants', 'award3']
 
 class CollabForm(forms.ModelForm):
     title = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Title'}))

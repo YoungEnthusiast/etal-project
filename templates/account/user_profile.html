@@ -57,50 +57,10 @@
                 </div>
                 <div class="card">
                   <div class="card-header">
-                    <div class="card-title">Personal Info</div>
+                    <div class="card-title">Profile</div>
                   </div>
                   <div class="card-body">
                     <div class="media-list">
-                      <div class="media mt-1 pb-2">
-                        <div class="mediaicon">
-                          <i class="si si-user" aria-hidden="true"></i>
-                        </div>
-                        <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">Full Name</h6><span class="d-block">{{researcher.first_name}} {{researcher.last_name}}</span>
-                        </div>
-                      </div>
-                      <div class="media mt-1 pb-2">
-                        <div class="mediaicon">
-                          <i class="fa fa-envelope" aria-hidden="true"></i>
-                        </div>
-                        <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">Email Address</h6><span class="d-block">{{researcher.username}}</span>
-                        </div>
-                      </div>
-                      <div class="media mt-1 pb-2">
-                        <div class="mediaicon">
-                          <i class="si si-location-pin" aria-hidden="true"></i>
-                        </div>
-                        <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">City</h6><span class="d-block">{{researcher.city}}</span>
-                        </div>
-                      </div>
-                      <div class="media mt-1 pb-2">
-                        <div class="mediaicon">
-                          <i class="si si-user" aria-hidden="true"></i>
-                        </div>
-                        <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">State</h6><span class="d-block">{{researcher.state}}</span>
-                        </div>
-                      </div>
-                      <div class="media mt-1 pb-2">
-                        <div class="mediaicon">
-                          <i class="fa fa-envelope" aria-hidden="true"></i>
-                        </div>
-                        <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">Country</h6><span class="d-block">{{researcher.country}}</span>
-                        </div>
-                      </div>
                       <div class="media mt-1 pb-2">
                         <div class="mediaicon">
                           <i class="si si-location-pin" aria-hidden="true"></i>
@@ -114,10 +74,73 @@
                           <i class="si si-location-pin" aria-hidden="true"></i>
                         </div>
                         <div class="media-body ml-5 mt-1">
-                          <h6 class="mediafont text-info mb-1">Affiliation Address</h6><span class="d-block">{{researcher.affiliation_address}}</span>
+                          <h6 class="mediafont text-info mb-1">Specialization/Field</h6><span class="d-block">{{researcher.specialization}}</span>
                         </div>
                       </div>
-
+                      <div class="media mt-1 pb-2">
+                        <div class="mediaicon">
+                          <i class="si si-location-pin" aria-hidden="true"></i>
+                        </div>
+                        <div class="media-body ml-5 mt-1">
+                          <h6 class="mediafont text-info mb-1">Expertise/Techniques</h6><span class="d-block">{{researcher.expertise}}</span>
+                        </div>
+                      </div>
+                      <div class="media mt-1 pb-2">
+                        <div class="mediaicon">
+                          <i class="si si-location-pin" aria-hidden="true"></i>
+                        </div>
+                        <div class="media-body ml-5 mt-1">
+                          <h6 class="mediafont text-info mb-1">Number of Publications</h6><span class="d-block">{{researcher.publication_number}}</span>
+                        </div>
+                      </div>
+                      <div class="media mt-1 pb-2">
+                        <div class="mediaicon">
+                          <i class="si si-location-pin" aria-hidden="true"></i>
+                        </div>
+                        <div class="media-body ml-5 mt-1">
+                          <h6 class="mediafont text-info mb-1">Number of Patents</h6><span class="d-block">{{researcher.patent_number}}</span>
+                        </div>
+                      </div>
+                      <div class="media mt-1 pb-2">
+                        <div class="mediaicon">
+                          <i class="si si-location-pin" aria-hidden="true"></i>
+                        </div>
+                        <div class="media-body ml-5 mt-1">
+                          <h6 class="mediafont text-info mb-1">Number of Book Chapters</h6><span class="d-block">{{researcher.chapter}}</span>
+                        </div>
+                      </div>
+                      <div class="media mt-1 pb-2">
+                        <div class="mediaicon">
+                          <i class="si si-location-pin" aria-hidden="true"></i>
+                        </div>
+                        <div class="media-body ml-5 mt-1">
+                          <h6 class="mediafont text-info mb-1">Number of Textbooks Written (List Titles)</h6><span class="d-block">{{researcher.textbooks}}</span>
+                        </div>
+                      </div>
+                      <div class="media mt-1 pb-2">
+                        <div class="mediaicon">
+                          <i class="si si-location-pin" aria-hidden="true"></i>
+                        </div>
+                        <div class="media-body ml-5 mt-1">
+                          <h6 class="mediafont text-info mb-1">Google Scholar Profile Link</h6><span class="d-block">{{researcher.google}}</span>
+                        </div>
+                      </div>
+                      <div class="media mt-1 pb-2">
+                        <div class="mediaicon">
+                          <i class="si si-location-pin" aria-hidden="true"></i>
+                        </div>
+                        <div class="media-body ml-5 mt-1">
+                          <h6 class="mediafont text-info mb-1">Number of Grants Awarded</h6><span class="d-block">{{researcher.grants}}</span>
+                        </div>
+                      </div>
+                      <div class="media mt-1 pb-2">
+                        <div class="mediaicon">
+                          <i class="si si-location-pin" aria-hidden="true"></i>
+                        </div>
+                        <div class="media-body ml-5 mt-1">
+                          <h6 class="mediafont text-info mb-1">Award</h6><span class="d-block">{{researcher.award3}}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
