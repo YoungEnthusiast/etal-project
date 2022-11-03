@@ -167,13 +167,13 @@ def showResearcherBoard(request):
     for each3 in me.followers.all():
         followers += 1
 
-    total = followings + followers
+    # total = followings + followers
 
     return render(request, 'account/researcher_board.html', {'initiateds':initiateds,
                     'accepteds':accepteds, 'concludeds':concludeds, 'current_views':current_views,
                     'initiated_created_list':initiated_created_list, 'initiated_list':initiated_list,
                     'accepted_created_list':accepted_created_list, 'accepted_list':accepted_list,
-                    'followings':followings, 'followers':followers, 'total':total, 'total_collaborators':total_collaborators})
+                    'followings':followings, 'followers':followers, 'total_collaborators':total_collaborators})
 
 @login_required
 def follow(request, username):
