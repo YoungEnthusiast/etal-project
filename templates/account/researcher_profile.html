@@ -52,6 +52,20 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-md-1">
+
+          </div>
+          <div class="col-md-10 text-center">
+            <a href="{% url 'researcher_change_password' %}"><strong class="text-info">Click here</strong></a> <span class="text-dark">to change your password</span>
+          </div>
+          <div class="col-md-1">
+
+          </div>
+        </div>
+
+
+
       </div>
 
       <div class="col-md-12 col-xl-8">
@@ -88,6 +102,21 @@
               <div class="form-group col-sm-12 mb-2">
                   {{ form.affiliation_address|as_crispy_field }}
               </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-12 mb-2">
+                    {{ form.year_join|as_crispy_field }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-12 mb-2">
+                    {{ form.position|as_crispy_field }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-12 mb-2">
+                    {{ form.award2|as_crispy_field }}
+                </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-sm-4 mb-2">
@@ -152,41 +181,6 @@
             </div>
             <div class="form-row">
               <div class="form-group col-sm-12 mb-2">
-                <h5 class="text-info">Current Work</h5>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-12 mb-2">
-                  {{ form.employer_name|as_crispy_field }}
-              </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.employer_location|as_crispy_field }}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.year_join|as_crispy_field }}
-                </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-12 mb-2">
-                  {{ form.year_exit|as_crispy_field }}
-              </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.position|as_crispy_field }}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.award2|as_crispy_field }}
-                </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-12 mb-2">
                 <h5 class="text-info">Research Experience</h5>
               </div>
             </div>
@@ -225,7 +219,6 @@
                     {{ form.award3|as_crispy_field }}
                 </div>
             </div>
-            <a href="{% url 'researcher_change_password' %}"><strong class="text-info">Click here</strong></a> <span class="text-dark">to change your password</span>
             <div class="card-footer text-right bg-white">
               <input type="submit" class="form-group btn btn-cylinder" value="Update">
             </div>

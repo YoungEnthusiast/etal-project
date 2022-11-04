@@ -26,7 +26,6 @@
 		<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
 		<link rel="stylesheet" href="{% static 'css/sidebar-old.css' %}">
 		<link rel="stylesheet" href="{% static 'css/sidemenu-responsive-tabs.css' %}">
-		<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static 'css/color15.css">
 		<link rel="stylesheet" href="{% static 'css/demo.css' %}">
 		<link rel="stylesheet" href="{% static 'css/mine.css' %}">
 		<link rel="stylesheet" href="{% static 'css/a.css' %}">
@@ -276,7 +275,7 @@
 							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'accepted_collabs' %}"><i class="fas fa-handshake fa-1x mr-1"></i></i><span class="side-menu__label">Accepted Collabs</span></a>
 						</li>
 						<li class="slide bg-info">
-							<a class="side-menu__item bg-info" data-toggle="slide" href=""><i class="fas fa-check-circle fa-1x mr-1"></i></i><span class="side-menu__label">Concluded Collabs</span></a>
+							<a class="side-menu__item bg-info" data-toggle="slide" href="{% url 'concluded_collabs' %}"><i class="fas fa-check-circle fa-1x mr-1"></i></i><span class="side-menu__label">Concluded Collabs</span></a>
 						</li>
 						<li class="slide bg-info">
 							<a class="side-menu__item" data-toggle="slide" href="#"><i class="fa fa-cubes fa-1x mr-1"></i><span class="side-menu__label">Subscription</span><i class="angle fas fa-angle-right"></i></a>

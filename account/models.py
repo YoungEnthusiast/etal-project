@@ -21,7 +21,7 @@ class Researcher(AbstractUser):
     country = models.CharField(max_length=255, blank=True, null=True)
     email_confirmed = models.BooleanField(default=False)
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='Researcher', null=True)
-    about = models.TextField(max_length=2000, null=True)
+    about = models.TextField(max_length=2000, blank=True, null=True)
 
     specialization = models.CharField(max_length=255, blank=True, null=True, verbose_name="Specialization/Field")
     expertise = models.CharField(max_length=500, blank=True, null=True, verbose_name="Expertise/Techniques (List equipment you have expertise in using)")
@@ -32,10 +32,10 @@ class Researcher(AbstractUser):
     degree = models.CharField(max_length=100, blank=True, null=True, verbose_name="Class of Degree")
     award = models.CharField(max_length=255, blank=True, null=True)
 
-    employer_name = models.CharField(max_length=55, blank=True, null=True, verbose_name="Employer's Name")
-    employer_location = models.CharField(max_length=255, blank=True, null=True, verbose_name="Employer's Location")
+    # employer_name = models.CharField(max_length=55, blank=True, null=True, verbose_name="Employer's Name")
+    # employer_location = models.CharField(max_length=255, blank=True, null=True, verbose_name="Employer's Location")
     year_join = models.CharField(max_length=55, blank=True, null=True, verbose_name="Year Joined")
-    year_exit = models.CharField(max_length=255, blank=True, null=True, verbose_name="Year Exited")
+    # year_exit = models.CharField(max_length=255, blank=True, null=True, verbose_name="Year Exited")
     position = models.CharField(max_length=55, blank=True, null=True, verbose_name="Position/Rank")
     award2 = models.CharField(max_length=255, blank=True, null=True, verbose_name="Award")
 
@@ -119,6 +119,7 @@ class Collab(models.Model):
     removed_people = models.ManyToManyField(Researcher, blank=True, related_name="removed_people")
     request_removed_people = models.ManyToManyField(Researcher, blank=True, related_name="request_removed_people")
     locked_date = models.DateTimeField(null=True, blank=True)
+    concluded_date = models.DateTimeField(null=True, blank=True)
     accepted_date = models.DateTimeField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

@@ -121,71 +121,45 @@ def showResearcherBoard(request):
             total_collaborators += 1
             me.save()
 
-    created_list = [""]
+    initiated_created_list = [""]
     initiated_list = [0]
+    accepted_created_list = [""]
     accepted_list = [0]
-    concluded_list = [0]
-    all_dates = []
 
-    all_collaborators_initiated = Collab.objects.filter(researcher=request.user, is_locked=True, is_concluded=False).order_by('created')
-    rev_all_collaborators_initiated = Collab.objects.filter(researcher=request.user, is_locked=True, is_concluded=False).order_by('-created')
-    initiateds2 = []
-    for any in all_collaborators_initiated:
-        initiateds2.append(any.created.strftime('%b %Y'))
-    all_collaborators_accepted = Collab.objects.filter(collaborators=request.user, is_concluded=False).order_by('created')
-    rev_accepteds2 = Collab.objects.filter(collaborators=request.user, is_concluded=False).order_by('-created')
-    accepteds2 = []
-    for any2 in all_collaborators_accepted:
-        accepteds2.append(any.created.strftime('%b %Y'))
+    all_collaborators_initiated = Collab.objects.filter(researcher=request.user, is_locked=True).order_by('created')
+    accepteds2 = Collab.objects.filter(collaborators=request.user).order_by('created')
 
-    all_collaborators_concluded = Collab.objects.filter(Q(researcher=request.user) | Q(collaborators=request.user), is_concluded=True).order_by('created')
-    rev_concluded = Collab.objects.filter(Q(researcher=request.user) | Q(collaborators=request.user), is_concluded=True).order_by('-created')
-    concludeds2 = []
-    for any3 in all_collaborators_concluded:
-        concludeds2.append(any.created.strftime('%b %Y'))
-
-
-    my_today = datetime.today()
-    min_date = min(rev_all_collaborators_initiated[0].created, rev_accepteds2[0].created, rev_concluded[0].created)
-    refined_min_date = min_date
+    today = datetime.today()
+    my_today = today.strftime('%b %Y')
+    min_date = min(all_collaborators_initiated[-1], accepteds2[-1])
+    refined_min_date = min_date.strftime('%b %Y')
 
     a = refined_min_date
     b = my_today
 
-    for dt in rrule(DAILY, dtstart=a, until=b):
-        if dt.strftime('%b %Y') not in all_dates:
-            all_dates.append(dt.strftime('%b %Y'))
+    for dt in rrule(MONTHLY, dtstart=a, until=b):
+        print(dt.strftime("%Y-%m-%d"))
 
-    for one in all_dates:
-        created_list.append(one)
-        initiated_list.append(0)
-        accepted_list.append(0)
-        concluded_list.append(0)
-        for one_2 in initiateds2:
-            if one != one_2:
-                pass
-            elif one == one_2:
-                current = initiated_list[-1]
-                initiated_list.pop()
-                current += 1
-                initiated_list.append(current)
+    for one in all_collaborators_initiated:
+        if one.created.strftime('%b %Y') not in initiated_created_list:
+            initiated_created_list.append(one.created.strftime('%b %Y'))
+            initiated_list.append(1)
+        else:
+            current = initiated_list[-1]
+            initiated_list.pop()
+            current += 1
+            initiated_list.append(current)
 
-        for one_3 in accepteds2:
-            if one != one_3:
-                pass
-            elif one == one_3:
-                current2 = accepted_list[-1]
-                accepted_list.pop()
-                current2 += 1
-                accepted_list.append(current2)
-        for one_4 in concludeds2:
-            if one != one_4:
-                pass
-            elif one == one_4:
-                current3 = concluded_list[-1]
-                concluded_list.pop()
-                current3 += 1
-                concluded_list.append(current3)
+    for two in accepteds2:
+        if two.created.strftime('%b %Y') not in accepted_created_list:
+            accepted_created_list.append(two.created.strftime('%b %Y'))
+            accepted_list.append(1)
+        else:
+            current2 = accepted_list[-1]
+            accepted_list.pop()
+            current2 += 1
+
+            accepted_list.append(current2)
 
     followings = 0
     for each2 in me.followings.all():
@@ -197,8 +171,8 @@ def showResearcherBoard(request):
 
     return render(request, 'account/researcher_board.html', {'initiateds':initiateds,
                     'accepteds':accepteds, 'concludeds':concludeds, 'current_views':current_views,
-                    'initiated_list':initiated_list, 'concluded_list':concluded_list,
-                    'created_list':created_list, 'accepted_list':accepted_list, 'all_concludeds':all_concludeds,
+                    'initiated_created_list':initiated_created_list, 'initiated_list':initiated_list,
+                    'created_list':created_list, 'accepted_list':accepted_list,
                     'followings':followings, 'followers':followers, 'total_collaborators':total_collaborators})
 
 @login_required
@@ -1343,17 +1317,6 @@ def lockCollab(request, id):
     else:
         return redirect('collab')
 
-@login_required
-def concludeCollab(request, id):
-    collab = Collab.objects.get(id=id)
-    if collab.researcher == request.user:
-        collab.is_concluded = True
-        collab.concluded_date = datetime.now()
-        collab.save()
-        messages.info(request, "The collab has been moved to concluded")
-        return redirect('collab')
-    else:
-        return redirect('collab')
 
 @login_required
 def unlockCollab(request, id):
@@ -1365,6 +1328,7 @@ def unlockCollab(request, id):
         return redirect('collab')
     else:
         return redirect('collab')
+
 
 @login_required
 def offerCollab(request, id, username):
@@ -1660,7 +1624,7 @@ def initiatedCollabs(request):
     context = {}
     filtered_initiated_collabs = InitiatedCollabFilter(
         request.GET,
-        queryset = Collab.objects.filter(researcher=request.user, is_locked = True, is_concluded=False)
+        queryset = Collab.objects.filter(researcher=request.user, is_locked = True)
     )
     context['filtered_initiated_collabs'] = filtered_initiated_collabs
     paginated_filtered_initiated_collabs = Paginator(filtered_initiated_collabs.qs, 100)
@@ -1673,40 +1637,11 @@ def initiatedCollabs(request):
     return render(request, 'account/initiated_collabs.html', context)
 
 @login_required
-def concludedCollabs(request):
-    context = {}
-    filtered_concluded_collabs = InitiatedCollabFilter(
-        request.GET,
-        queryset = Collab.objects.filter(researcher=request.user, is_concluded=True)
-    )
-    context['filtered_concluded_collabs'] = filtered_concluded_collabs
-    paginated_filtered_concluded_collabs = Paginator(filtered_concluded_collabs.qs, 100)
-    page_number = request.GET.get('page')
-    concluded_collabs_page_obj = paginated_filtered_concluded_collabs.get_page(page_number)
-    context['concluded_collabs_page_obj'] = concluded_collabs_page_obj
-    total_concluded_collabs = filtered_concluded_collabs.qs.count()
-    context['total_concluded_collabs'] = total_concluded_collabs
-
-    filtered_concluded2_collabs = InitiatedCollabFilter(
-        request.GET,
-        queryset = Collab.objects.filter(collaborators=request.user, is_concluded=True)
-    )
-    context['filtered_concluded2_collabs'] = filtered_concluded2_collabs
-    paginated_filtered_concluded2_collabs = Paginator(filtered_concluded2_collabs.qs, 100)
-    page_number = request.GET.get('page')
-    concluded2_collabs_page_obj = paginated_filtered_concluded2_collabs.get_page(page_number)
-    context['concluded2_collabs_page_obj'] = concluded2_collabs_page_obj
-    total_concluded2_collabs = filtered_concluded2_collabs.qs.count()
-    context['total_concluded2_collabs'] = total_concluded2_collabs
-
-    return render(request, 'account/concluded_collabs.html', context)
-
-@login_required
 def acceptedCollabs(request):
     context = {}
     filtered_accepted_collabs = InitiatedCollabFilter(
         request.GET,
-        queryset = Collab.objects.filter(collaborators=request.user, is_concluded=False)
+        queryset = Collab.objects.filter(collaborators=request.user)
     )
     context['filtered_accepted_collabs'] = filtered_accepted_collabs
     paginated_filtered_accepted_collabs = Paginator(filtered_accepted_collabs.qs, 100)

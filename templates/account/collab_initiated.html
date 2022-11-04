@@ -112,6 +112,12 @@
                       <br>
                       Locked on {{collab.locked_date}}
                       <a class="text-white" href="{% url 'unlock_collab' collab.id %}"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-unlock fa-1x mr-1"></i>Unlock</strong></button></a>
+                      <br>
+                      <br>
+                      <br>
+                      <br>
+                      <a class="text-white" href="{% url 'conclude_collab' collab.id %}"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-check-circle fa-1x mr-1"></i>Conclude</strong></button></a>
+
 
                     </div>
 

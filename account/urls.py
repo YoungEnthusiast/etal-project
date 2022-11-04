@@ -38,7 +38,6 @@ urlpatterns = [
     path('collab/view-accepted/<str:id1>/folders/<str:id2>/select/<str:id3>', views.selectDocInitiated, name='select_doc_accepted'),
     path('collab/view-accepted/<str:id1>/folders/<str:id2>/deselect/<str:id3>', views.deselectDocInitiated, name='deselect_doc_accepted'),
 
-
     path('collab/view-initiated/<str:id1>/tasks', views.showTasksInitiated, name='tasks_initiated'),
     path('collab/view-initiated/<str:id1>/tasks/<str:id2>', views.showTaskInitiated, name='show_task_initiated'),
     path('collab/view-accepted/<str:id1>/tasks', views.showTasksAccepted, name='tasks_accepted'),
@@ -73,10 +72,12 @@ urlpatterns = [
     path('collabs', views.collabs, name='collabs'),
     path('initiated-collabs', views.initiatedCollabs, name='initiated_collabs'),
     path('accepted-collabs', views.acceptedCollabs, name='accepted_collabs'),
+    path('concluded-collabs', views.concludedCollabs, name='concluded_collabs'),
     path('bell-notification', views.clearUnreads, name='bell_notification'),
     path('bell-notifications', views.showBellNotifications, name='bell_notifications'),
     path('collab/interested/<int:id>', views.interestCollab, name='interest_collab'),
     path('collab/locked/<int:id>', views.lockCollab, name='lock_collab'),
+    path('collab/concluded/<int:id>', views.concludeCollab, name='conclude_collab'),
     path('collab/unlocked/<int:id>', views.unlockCollab, name='unlock_collab'),
     path('collab/undo-interest/<int:id>', views.undoInterestCollab, name='undo_interest_collab'),
     path('logout/', views.logoutRequest, name='logout'),

@@ -19,14 +19,14 @@ class CustomRegisterForm(UserCreationForm):
         self.fields['password2'].label = "Password Confirmation"
 
 class CustomRegisterFormResearcher(UserChangeForm):
-
+    photograph = forms.ImageField(widget=forms.FileInput, required=False)    
     class Meta:
         model = Researcher
         fields = ['first_name', 'last_name', 'username', 'photograph', 'affiliation_name', 'about',
                     'affiliation_address', 'city', 'state', 'country', 'specialization', 'expertise',
                     'institution_name', 'institution_location', 'course', 'year', 'degree', 'award',
-                    'employer_name', 'employer_location', 'year_join', 'year_exit', 'position', 'award2',
-                    'publication_number', 'patent_number', 'chapter', 'textbooks', 'google', 'grants', 'award3']
+                    'year_join', 'position', 'award2', 'publication_number', 'patent_number', 'chapter',
+                    'textbooks', 'google', 'grants', 'award3']
 
 class CollabForm(forms.ModelForm):
     title = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Title'}))
