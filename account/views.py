@@ -156,8 +156,6 @@ def showResearcherBoard(request):
                 min_date = min(rev_all_collaborators_initiated[0].created)
             except:
                 pass
-
-    min_date = min(rev_all_collaborators_initiated[0].created, rev_accepteds2[0].created, rev_concluded[0].created)
     refined_min_date = min_date
 
     a = refined_min_date
