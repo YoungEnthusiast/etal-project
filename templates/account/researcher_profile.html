@@ -71,155 +71,166 @@
       <div class="col-md-12 col-xl-8">
         <div class="card">
           <form method="post" class="form-group col-md-12 text-dark" enctype="multipart/form-data">
-            <div class="card-header bg-white">
-              <h4 class="text-info">
-                <i class="fas fa-user-edit"></i> Profile</h4>
-            </div>
-            <br>
             {% csrf_token %}
-            <div class="form-row">
-                <div class="form-group col-sm-6 mb-2">
-                    {{ form.first_name|as_crispy_field }}
+            <div class="card mt-2">
+              <div class="row">
+                <div class="form-group col-sm-12 mt-2">
+                  <h4 class="text-info ml-4">Bio</h4>
                 </div>
-                <div class="form-group col-sm-6 mb-2">
-                    {{ form.last_name|as_crispy_field }}
+                <div class="col-md-1">
+
                 </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-6 mb-2">
-                  {{ form.username|as_crispy_field }}
-              </div>
-              <div class="form-group col-sm-6 mb-2">
-                  {{ form.photograph|as_crispy_field }}
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-12 mb-2">
-                  {{ form.affiliation_name|as_crispy_field }}
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-12 mb-2">
-                  {{ form.affiliation_address|as_crispy_field }}
-              </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.year_join|as_crispy_field }}
+                <div class="col-md-10">
+                  <div class="form-row">
+                    <div class="form-group col-sm-6 mb-2">
+                        {{ form.first_name|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-6 mb-2">
+                        {{ form.last_name|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.username|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-6 mb-2">
+                        {{ form.gender|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-6 mb-2">
+                        {{ form.photograph|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.about|as_crispy_field }}
+                    </div>
+                  </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.position|as_crispy_field }}
+                <div class="col-md-1">
+
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.award2|as_crispy_field }}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-4 mb-2">
-                    {{ form.city|as_crispy_field }}
-                </div>
-                <div class="form-group col-sm-4 mb-2">
-                    {{ form.state|as_crispy_field }}
-                </div>
-                <div class="form-group col-sm-4 mb-2">
-                    {{ form.country|as_crispy_field }}
-                </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-12 mb-2">
-                  {{ form.about|as_crispy_field }}
               </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.specialization|as_crispy_field }}
+            <!-- Affiliation -->
+            <div class="card mt-2">
+              <div class="row">
+                <div class="form-group col-sm-12 mt-2">
+                  <h4 class="text-info ml-4">Affiliation</h4>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.expertise|as_crispy_field }}
+                <div class="col-md-1">
+
                 </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-12 mb-2">
-                <h5 class="text-info">Highest Level of Education</h5>
+                <div class="col-md-10">
+                  <div class="form-row">
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.affiliation_name|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.affiliation_address|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-4 mb-2">
+                        {{ form.city|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-4 mb-2">
+                        {{ form.state|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-4 mb-2">
+                        {{ form.country|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.year_join|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.position|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.specialization|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.expertise|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.award2|as_crispy_field }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-1">
+
+                </div>
               </div>
             </div>
-            <div class="form-row">
-              <div class="form-group col-sm-12 mb-2">
-                  {{ form.institution_name|as_crispy_field }}
+
+            <div class="card mt-2">
+              <div class="row">
+                <div class="form-group col-sm-12 mt-2">
+                  <h4 class="text-info ml-4">Highest Level of Education</h4>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-10">
+                  <div class="form-row">
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.institution_name|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.institution_location|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.course|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.year|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.degree|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.award|as_crispy_field }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-1">
+
+                </div>
               </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.institution_location|as_crispy_field }}
+
+            <div class="card mt-2">
+              <div class="row">
+                <div class="form-group col-sm-12 mt-2">
+                  <h4 class="text-info ml-4">Research Experience</h4>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.course|as_crispy_field }}
+                <div class="col-md-1">
+
                 </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-12 mb-2">
-                  {{ form.year|as_crispy_field }}
+                <div class="col-md-10">
+                  <div class="form-row">
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.publication_number|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.patent_number|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.chapter|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.textbooks|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.google|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.grants|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.award3|as_crispy_field }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-1">
+
+                </div>
               </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.degree|as_crispy_field }}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.award|as_crispy_field }}
-                </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-12 mb-2">
-                <h5 class="text-info">Research Experience</h5>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-12 mb-2">
-                  {{ form.publication_number|as_crispy_field }}
-              </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.patent_number|as_crispy_field }}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.chapter|as_crispy_field }}
-                </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-12 mb-2">
-                  {{ form.textbooks|as_crispy_field }}
-              </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.google|as_crispy_field }}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.grants|as_crispy_field }}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-sm-12 mb-2">
-                    {{ form.award3|as_crispy_field }}
-                </div>
-            </div>
-            <div class="card-footer text-right bg-white">
+            <div class="text-right bg-white">
               <input type="submit" class="form-group btn btn-cylinder" value="Update">
             </div>
           </form>

@@ -115,11 +115,19 @@ def showResearcherBoard(request):
 
     all_collaborators = Collab.objects.filter(researcher=request.user).order_by('created')
     total_collaborators = 0
+    males = 0
+    females = 0
     for each in all_collaborators:
         for another in each.collaborators.all():
             me.past_collaborators.add(another)
             total_collaborators += 1
             me.save()
+
+            if another.gender == "Male":
+                males += 1
+            elif another.gender == "Female":
+                females += 1
+
 
     created_list = [""]
     initiated_list = [0]
@@ -136,14 +144,13 @@ def showResearcherBoard(request):
     rev_accepteds2 = Collab.objects.filter(collaborators=request.user, is_concluded=False).order_by('-created')
     accepteds2 = []
     for any2 in all_collaborators_accepted:
-        accepteds2.append(any.created.strftime('%b %Y'))
+        accepteds2.append(any2.created.strftime('%b %Y'))
 
     all_collaborators_concluded = Collab.objects.filter(Q(researcher=request.user) | Q(collaborators=request.user), is_concluded=True).order_by('created')
     rev_concluded = Collab.objects.filter(Q(researcher=request.user) | Q(collaborators=request.user), is_concluded=True).order_by('-created')
     concludeds2 = []
     for any3 in all_collaborators_concluded:
-        concludeds2.append(any.created.strftime('%b %Y'))
-
+        concludeds2.append(any3.created.strftime('%b %Y'))
 
     my_today = datetime.today()
     try:
@@ -155,7 +162,7 @@ def showResearcherBoard(request):
             try:
                 min_date = min(rev_all_collaborators_initiated[0].created)
             except:
-                pass
+                min_date = None
     refined_min_date = min_date
 
     a = refined_min_date
@@ -204,9 +211,9 @@ def showResearcherBoard(request):
     for each3 in me.followers.all():
         followers += 1
 
-    return render(request, 'account/researcher_board.html', {'initiateds':initiateds,
+    return render(request, 'account/researcher_board.html', {'initiateds':initiateds, 'males':males,
                     'accepteds':accepteds, 'concludeds':concludeds, 'current_views':current_views,
-                    'initiated_list':initiated_list, 'concluded_list':concluded_list,
+                    'initiated_list':initiated_list, 'concluded_list':concluded_list, 'females':females,
                     'created_list':created_list, 'accepted_list':accepted_list, 'all_concludeds':all_concludeds,
                     'followings':followings, 'followers':followers, 'total_collaborators':total_collaborators})
 

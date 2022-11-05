@@ -10,9 +10,15 @@ class Researcher(AbstractUser):
 		('Admin', 'Admin'),
         ('SuperAdmin', 'SuperAdmin'),
     ]
+    GENDER_CHOICES = [
+		('Male','Male'),
+		('Female', 'Female'),
+        ('Preferred not to mention', 'Preferred not to mention')
+	]
     username = models.EmailField(max_length=255, unique=True, null=True, blank=True, verbose_name="Email")
     first_name = models.CharField(max_length=45, null=True, blank=True, verbose_name="First Name")
     last_name = models.CharField(max_length=45, null=True, blank=True, verbose_name="Last Name")
+    gender = models.CharField(max_length=24, default='Preferred not to mention', choices=GENDER_CHOICES, blank=True, null=True)
     photograph = models.ImageField(upload_to='users_img/%Y/%m/%d', null=True, blank=True)
     affiliation_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Affiliation")
     affiliation_address = models.CharField(max_length=255, null=True, blank=True, verbose_name="Affiliation Address")
