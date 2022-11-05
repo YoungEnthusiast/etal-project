@@ -136,43 +136,24 @@ def showResearcherBoard(request):
     all_dates = []
 
     all_collaborators_initiated = Collab.objects.filter(researcher=request.user, is_locked=True, is_concluded=False).order_by('locked_date')
+    rev_all_collaborators_initiated = Collab.objects.filter(researcher=request.user, is_locked=True, is_concluded=False).order_by('-locked_date')
     initiateds2 = []
     for any in all_collaborators_initiated:
         initiateds2.append(any.created.strftime('%b %Y'))
     all_collaborators_accepted = Collab.objects.filter(collaborators=request.user, is_locked=True, is_concluded=False).order_by('locked_date')
+    rev_accepteds2 = Collab.objects.filter(collaborators=request.user, is_locked=True, is_concluded=False).order_by('-locked_date')
     accepteds2 = []
     for any2 in all_collaborators_accepted:
         accepteds2.append(any2.created.strftime('%b %Y'))
 
     all_collaborators_concluded = Collab.objects.filter(Q(researcher=request.user) | Q(collaborators=request.user), is_concluded=True).order_by('concluded_date')
+    rev_concluded = Collab.objects.filter(Q(researcher=request.user) | Q(collaborators=request.user), is_concluded=True).order_by('-concluded_date')
     concludeds2 = []
     for any3 in all_collaborators_concluded:
         concludeds2.append(any3.created.strftime('%b %Y'))
 
     my_today = datetime.today()
-    try:
-        min_date = min(all_collaborators_initiated[0].locked_date, all_collaborators_accepted[0].locked_date, all_collaborators_concluded[0].concluded_date)
-    except:
-        try:
-            min_date = min(all_collaborators_initiated[0].locked_date, all_collaborators_concluded[0].concluded_date)
-        except:
-            try:
-                min_date = min(all_collaborators_accepted[0].locked_date, all_collaborators_concluded[0].concluded_date)
-            except:
-                try:
-                    min_date = min(all_collaborators_initiated[0].locked_date, all_collaborators_accepted[0].locked_date)
-                except:
-                    try:
-                        min_date = min(all_collaborators_initiated[0].locked_date)
-                    except:
-                        try:
-                            min_date = min(all_collaborators_accepted[0].locked_date)
-                        except:
-                            try:
-                                min_date = min(all_collaborators_concluded[0].concluded_date)
-                            except:
-                                min_date = None
-
+    min_date = min_date = max(all_collaborators_initiated[0].locked_date, all_collaborators_accepted[0].locked_date, all_collaborators_concluded[0].concluded_date)
 
 
     refined_min_date = min_date
@@ -180,9 +161,12 @@ def showResearcherBoard(request):
     a = refined_min_date
     b = my_today
 
+    # for dt in rrule(DAILY, dtstart=a, until=b):
+    #     if dt.strftime('%b %Y') not in all_dates:
+    #         all_dates.append(dt.strftime('%b %Y'))
     for dt in rrule(DAILY, dtstart=a, until=b):
-        if dt.strftime('%b %Y') not in all_dates:
-            all_dates.append(dt.strftime('%b %Y'))
+        all_dates.append(dt.strftime('%b %Y'))
+
 
     for one in all_dates:
         created_list.append(one)
@@ -198,22 +182,22 @@ def showResearcherBoard(request):
                 current += 1
                 initiated_list.append(current)
 
-        for one_3 in accepteds2:
-            if one != one_3:
-                pass
-            elif one == one_3:
-                current2 = accepted_list[-1]
-                accepted_list.pop()
-                current2 += 1
-                accepted_list.append(current2)
-        for one_4 in concludeds2:
-            if one != one_4:
-                pass
-            elif one == one_4:
-                current3 = concluded_list[-1]
-                concluded_list.pop()
-                current3 += 1
-                concluded_list.append(current3)
+        # for one_3 in accepteds2:
+        #     if one != one_3:
+        #         pass
+        #     elif one == one_3:
+        #         current2 = accepted_list[-1]
+        #         accepted_list.pop()
+        #         current2 += 1
+        #         accepted_list.append(current2)
+        # for one_4 in concludeds2:
+        #     if one != one_4:
+        #         pass
+        #     elif one == one_4:
+        #         current3 = concluded_list[-1]
+        #         concluded_list.pop()
+        #         current3 += 1
+        #         concluded_list.append(current3)
 
     followings = 0
     for each2 in me.followings.all():
@@ -223,7 +207,7 @@ def showResearcherBoard(request):
     for each3 in me.followers.all():
         followers += 1
 
-    return render(request, 'account/researcher_board.html', {'initiateds':initiateds, 'males':males,
+    return render(request, 'account/researcher_board.html', {'min_date':min_date, 'initiateds':initiateds, 'males':males,
                     'accepteds':accepteds, 'concludeds':concludeds, 'current_views':current_views,
                     'initiated_list':initiated_list, 'concluded_list':concluded_list, 'females':females,
                     'created_list':created_list, 'accepted_list':accepted_list, 'all_concludeds':all_concludeds,

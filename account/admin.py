@@ -31,7 +31,7 @@ class ResearcherAdmin(UserAdmin):
 admin.site.register(Researcher, ResearcherAdmin)
 
 class CollabAdmin(admin.ModelAdmin):
-    list_display = ['title', 'abstract']
+    list_display = ['created', 'researcher', 'title', 'is_locked', 'locked_date', 'is_concluded', 'concluded_date']
     search_fields = ['title', 'abstract']
     # list_filter = ['status']
     # list_display_links = ['email']
