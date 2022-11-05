@@ -138,16 +138,16 @@ def showResearcherBoard(request):
     all_collaborators_initiated = Collab.objects.filter(researcher=request.user, is_locked=True, is_concluded=False).order_by('locked_date')
     initiateds2 = []
     for any in all_collaborators_initiated:
-        initiateds2.append(any.created.strftime('%b %Y'))
+        initiateds2.append(any.locked_date.strftime('%b %Y'))
     all_collaborators_accepted = Collab.objects.filter(collaborators=request.user, is_locked=True, is_concluded=False).order_by('locked_date')
     accepteds2 = []
     for any2 in all_collaborators_accepted:
-        accepteds2.append(any2.created.strftime('%b %Y'))
+        accepteds2.append(any2.locked_date.strftime('%b %Y'))
 
     all_collaborators_concluded = Collab.objects.filter(Q(researcher=request.user) | Q(collaborators=request.user), is_concluded=True).order_by('concluded_date')
     concludeds2 = []
     for any3 in all_collaborators_concluded:
-        concludeds2.append(any3.created.strftime('%b %Y'))
+        concludeds2.append(any3.concluded_date.strftime('%b %Y'))
 
     my_today = datetime.today()
     try:
