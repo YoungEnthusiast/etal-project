@@ -24,18 +24,8 @@
           <div class="col-xl-4 col-lg-4 col-md-12">
             <div class="card">
               <div class="card-body text-center">
-                <h4 class="text-info">Current bill</h4>
-                <strong class="">{{current_bill}}</strong>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xl-4 col-lg-4 col-md-12">
-            <div class="card">
-              <div class="card-body text-center">
-                <h4 class="text-info">Last payment date</h4>
-                <strong class="">{{last_payment}}</strong>
+                <h4 class="text-info">Current year bill</h4>
+                <strong class="">$0</strong>
 
               </div>
             </div>
@@ -45,24 +35,36 @@
             <div class="card">
               <div class="card-body text-center">
                 <h4 class="text-info">Next payment due</h4>
-                <strong class="">{{next_payment}}</strong>
+                <strong class="">some date</strong>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-12">
+            <div class="card">
+              <div class="card-body text-center">
+                <h4 class="text-info">Next payment due</h4>
+                <strong class="">some date</strong>
+
               </div>
             </div>
           </div>
 
         </div>
         <div class="row">
+          <div class="col-xl-2 col-lg-4 col-md-12">
+
+          </div>
 
 
-          <div class="col-xl-12 col-lg-4 col-md-12">
+          <div class="col-xl-8 col-lg-4 col-md-12">
             <div class="row">
               <div class="col-md-6">
                 <h4>Current Plan</h4>
               </div>
               <div class="col-md-6 text-right">
-                {% if subscription_type == "Yearly" and okay == "Yes" %}
-                <a href="{% url 'upgrade' %}" class="btn btn-info btn-sm">Upgrade</a>
-                {% endif %}
+                <a href="{% url 'upgrade_page' %}" class="btn btn-info btn-sm">Upgrade</a>
               </div>
             </div>
 

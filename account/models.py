@@ -93,9 +93,9 @@ class Collab(models.Model):
         ('6-10 years','6-10 years'),
         ('10+ years','10+ years'),
 	]
-    collaborators_choices = [
-		('Anyone', 'Anyone'),
-	]
+    # collaborators_choices = [
+	# 	('Anyone', 'Anyone'),
+	# ]
     model_choices = [
 		('On premise','On premise'),
         ('Remote','Remote'),
@@ -104,7 +104,7 @@ class Collab(models.Model):
         ('Others','Others'),
 	]
     researcher = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="researcher")
-    collaborators_type = models.CharField(max_length=11, default="Anyone", choices=collaborators_choices, null=True)
+    # collaborators_type = models.CharField(max_length=11, default="Anyone", choices=collaborators_choices, null=True)
     collaborators = models.ManyToManyField(Researcher, verbose_name="My Selection", blank=True, related_name="collaborator")
     title = models.CharField(max_length=255, null=True)
     abstract = models.TextField(max_length=2000, null=True, verbose_name="Reearch Description")

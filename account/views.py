@@ -24,6 +24,7 @@ from datetime import datetime, date
 from django.core.mail import send_mail
 from django.contrib.auth import logout
 from dateutil.rrule import rrule, DAILY
+from subscription.models import Subscription
 
 def join(request):
     form = StrangerForm()
@@ -100,7 +101,7 @@ def showResearcherBoard(request):
     initiateds = Collab.objects.filter(researcher=request.user, is_locked=True, is_concluded=False).count()
     accepteds = Collab.objects.filter(collaborators=request.user, is_locked=True, is_concluded=False).count()
 
-    all_concludeds = Collab.objects.filter(is_concluded=True)
+    all_concludeds = Collab.objects.filter(Q(researcher=request.user) | Q(collaborators=request.user), is_concluded=True)
 
     concludeds = 0
 
@@ -269,40 +270,60 @@ def showCollabs(request):
 @login_required
 def showFoldersInitiated(request, id1):
     collab = Collab.objects.get(id=id1)
+    today = datetime.now()
     if collab.researcher == request.user:
-        context = {}
-        filtered_folders = FolderFilter(
-            request.GET,
-            queryset = Folder.objects.filter(collab_id=id1)
-        )
-        context['filtered_folders'] = filtered_folders
-        paginated_filtered_folders = Paginator(filtered_folders.qs, 99)
-        page_number = request.GET.get('page')
-        folders_page_obj = paginated_filtered_folders.get_page(page_number)
-        context['folders_page_obj'] = folders_page_obj
-        total_folders = filtered_folders.qs.count()
-        context['total_folders'] = total_folders
-        context['collab'] = collab
+        try:
+            reg = Subscription.objects.filter(user=request.user)[0]
+            context = {}
+            filtered_folders = FolderFilter(
+                request.GET,
+                queryset = Folder.objects.filter(collab_id=id1, created__lte=reg.subscription_ends)
+                )
+            context['filtered_folders'] = filtered_folders
+            paginated_filtered_folders = Paginator(filtered_folders.qs, 99)
+            page_number = request.GET.get('page')
+            folders_page_obj = paginated_filtered_folders.get_page(page_number)
+            context['folders_page_obj'] = folders_page_obj
+            total_folders = filtered_folders.qs.count()
+            context['total_folders'] = total_folders
+            context['collab'] = collab
 
-        form = FolderForm()
-        if request.method == 'POST':
-            form = FolderForm(request.POST, request.FILES, None)
-            if form.is_valid():
-                form.save(commit=False).created_by=request.user
-                form.save(commit=False).collab=collab
-                form.save()
-                # reg = CollabDoc.objects.filter(shared_by=request.user)[0]
-                # reg.doc_collaborators.add(request.user)
-                # for person in collab.collaborators.all():
-                #     reg.doc_collaborators.add(person)
-                # reg.save()
+            if today <= reg.subscription_ends:
+                form = FolderForm()
+                if request.method == 'POST':
+                    form = FolderForm(request.POST, request.FILES, None)
+                    if form.is_valid():
+                        form.save(commit=False).created_by=request.user
+                        form.save(commit=False).collab=collab
+                        form.save()
+                        # reg = CollabDoc.objects.filter(shared_by=request.user)[0]
+                        # reg.doc_collaborators.add(request.user)
+                        # for person in collab.collaborators.all():
+                        #     reg.doc_collaborators.add(person)
+                        # reg.save()
 
-                messages.info(request, "The folder has been created successfully")
-                # return redirect('folders_initiated', id1)
+                        messages.info(request, "The folder has been created successfully")
+                        return redirect('folders_initiated', id1)
+                    else:
+                        messages.error(request, "Please review form input fields below")
+                context['form'] = form
+                return render(request, 'account/folders.html', context)
             else:
-                messages.error(request, "Please review form input fields below")
-        context['form'] = form
-        return render(request, 'account/folders.html', context)
+                context ={}
+                context['collab'] = collab
+                form = FolderForm()
+                messages.error(request, "Please subscribe to have access to collab tools")
+                return redirect('upgrade')
+                context['form'] = form
+                return render(request, 'account/folders.html', context)
+        except:
+            context ={}
+            context['collab'] = collab
+            form = FolderForm()
+            messages.error(request, "Please subscribe to have access to collab tools")
+            return redirect('upgrade')
+            context['form'] = form
+            return render(request, 'account/folders.html', context)
 
     elif request.user in collab.collaborators.all():
         context = {}
@@ -318,6 +339,8 @@ def showFoldersInitiated(request, id1):
         total_folders = filtered_folders.qs.count()
         context['total_folders'] = total_folders
         context['collab'] = collab
+
+
 
         form = FolderForm()
         if request.method == 'POST':

@@ -142,7 +142,7 @@
           callback: function(response){
             let message = 'Thank you! You have completed your payment! Your Reference Number is: ' + response.reference;
             alert(message);
-            window.location.href = ""
+            window.location.href = "{% url 'yearly' %}"
           }
         });
         handler.openIframe();
@@ -165,7 +165,7 @@
           callback: function(response){
             let message = 'Thank you! You have completed your payment! Your Reference Number is: ' + response.reference;
             alert(message);
-            window.location.href = ""
+            window.location.href = "{% url 'monthly' %}"
           }
         });
         handler.openIframe();

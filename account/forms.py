@@ -42,10 +42,10 @@ class CollabForm(forms.ModelForm):
     expertise_required = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':"Collaborator's Expertise"}))
     collaborators_no = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':"Number of Collaborators Required"}))
     funding = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':"Funding"}))
-    collaborators_choices = [
-		('Anyone', 'Anyone'),
-	]
-    collaborators_type = forms.ChoiceField(label="", choices=collaborators_choices, widget=forms.RadioSelect, required = False)
+    # collaborators_choices = [
+	# 	('Anyone', 'Anyone'),
+	# ]
+    # collaborators_type = forms.ChoiceField(label="", choices=collaborators_choices, widget=forms.RadioSelect, required = False)
     # collaborators = forms.ModelChoiceField(label="", queryset=ScenarioArea.objects.distinct('scenarioAreaName'), empty_label="Placeholder")
     # collaborators = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Select'}))
 
@@ -53,7 +53,7 @@ class CollabForm(forms.ModelForm):
 
     class Meta:
         model = Collab
-        fields = ['collaborators_type', 'collaborators', 'title', 'funding', 'model', 'abstract', 'education', 'proposed_timeline', 'field', 'expertise_required', 'collaborators_no']
+        fields = ['title', 'funding', 'model', 'abstract', 'education', 'proposed_timeline', 'field', 'expertise_required', 'collaborators_no']
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request") # store value of request
         super().__init__(*args, **kwargs)

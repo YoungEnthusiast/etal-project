@@ -3,6 +3,10 @@ from subscription import views
 
 urlpatterns = [
     path('billings-and-plans', views.plans, name='plans'),
-    path('upgrade', views.upgrade, name='upgrade_page'),
+    path('upgrade', views.upgrade, name='upgrade'),
     path('history', views.history, name='history'),
+    path('pay-monthly', views.monthly, name='monthly'),
+    path('pay-yearly', views.yearly, name='yearly'),
+
+
 ]
