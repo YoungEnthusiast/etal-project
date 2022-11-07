@@ -20,9 +20,9 @@
     <div class="row">
       <div class="col-xl-4  col-md-12">
         <div class="card box-widget widget-user">
-          <div class="widget-user-header bg-gradient-primary"></div>
+          <br>
           {% if user.photograph %}
-          <div class="text-center"><img alt="User Avatar" class="profile-big" src="{{user.photographURL}}"></div>
+          <div class="text-center"><img alt="Profile Picture" class="profile-big" src="{{user.photographURL}}"></div>
           {% else %}
           <div class="text-center"><i class="fa fa-user-circle text-info fa-5x"></i></div>
           {% endif %}
@@ -63,8 +63,6 @@
 
           </div>
         </div>
-
-
 
       </div>
 
