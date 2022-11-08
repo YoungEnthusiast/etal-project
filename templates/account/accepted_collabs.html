@@ -33,9 +33,9 @@
 
                             {% else %}
                               {% if collab.researcher.photograph %}
-                                <a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-small"></a>
+                                <a href="{% url 'show_user' collab.researcher.user_Id %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-small"></a>
                               {% else %}
-                                <a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-3x"></i></a>
+                                <a href="{% url 'show_user' collab.researcher.user_Id %}"><i class="fa fa-user-circle text-info fa-3x"></i></a>
                               {% endif %}
                             {% endif %}
 

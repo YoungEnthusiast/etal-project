@@ -15,7 +15,7 @@ class Researcher(AbstractUser):
 		('Female', 'Female'),
         ('Preferred not to mention', 'Preferred not to mention')
 	]
-    user_Id = models.IntegerField(blank=True, null=True)
+    user_Id = models.IntegerField(unique=True, blank=True, null=True)
     username = models.EmailField(max_length=255, unique=True, null=True, blank=True, verbose_name="Email")
     first_name = models.CharField(max_length=45, null=True, blank=True, verbose_name="First Name")
     last_name = models.CharField(max_length=45, null=True, blank=True, verbose_name="Last Name")

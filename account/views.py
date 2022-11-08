@@ -233,24 +233,24 @@ def showResearcherBoard(request):
                     'followings':followings, 'followers':followers, 'total_collaborators':total_collaborators})
 
 @login_required
-def follow(request, username):
-    researcher = Researcher.objects.get(username=username)
+def follow(request, user_Id):
+    researcher = Researcher.objects.get(user_Id=user_Id)
     me = Researcher.objects.get(username=request.user.username)
     researcher.followers.add(request.user)
     me.followings.add(researcher)
     messages.info(request, "You have followed successfully")
 
-    return redirect('show_user', username)
+    return redirect('show_user', user_Id)
 
 @login_required
-def unFollow(request, username):
-    researcher = Researcher.objects.get(username=username)
+def unFollow(request, user_Id):
+    researcher = Researcher.objects.get(user_Id=user_Id)
     me = Researcher.objects.get(username=request.user.username)
     researcher.followers.remove(request.user)
     me.followings.remove(researcher)
     messages.info(request, "You have unfollowed successfully")
 
-    return redirect('show_user', username)
+    return redirect('show_user', user_Id)
 
 @login_required
 def showCollabs(request):
@@ -796,8 +796,8 @@ def researcherChangePassword(request):
     return render(request, 'account/researcher_change_password.html', {'form': form})
 
 @login_required
-def showUser(request, email, **kwargs):
-    researcher = Researcher.objects.get(username=email)
+def showUser(request, user_Id, **kwargs):
+    researcher = Researcher.objects.get(user_Id=user_Id)
 
     current_views = researcher.views
     current_views += 1
@@ -1422,11 +1422,11 @@ def unlockCollab(request, id):
         return redirect('collab')
 
 @login_required
-def offerCollab(request, id, username):
+def offerCollab(request, id, user_Id):
     collab = Collab.objects.get(id=id)
     if collab.researcher == request.user:
         for person in collab.interested_people.all():
-            if person.username == username:
+            if person.user_Id == user_Id:
                 # collab.interested_people.remove(person)
                 collab.collaborators.add(person)
                 entry = Notification()
@@ -1454,16 +1454,16 @@ def offerCollab(request, id, username):
         return redirect('collab')
 
 @login_required
-def declineCollab(request, id, username):
+def declineCollab(request, id, user_Id):
     collab = Collab.objects.get(id=id)
 
     if collab.researcher == request.user:
         for person in collab.interested_people.all():
-            if person.username == username:
+            if person.user_Id == user_Id:
                 collab.interested_people.remove(person)
 
         for person in collab.collaborators.all():
-            if person.username == username:
+            if person.user_Id == user_Id:
                 collab.collaborators.remove(person)
 
                 entry = Notification()
@@ -1491,12 +1491,12 @@ def declineCollab(request, id, username):
         return redirect('collab')
 
 @login_required
-def requestRemoveCollab(request, id, username):
+def requestRemoveCollab(request, id, user_Id):
     collab = Collab.objects.get(id=id)
 
     if request.user in collab.collaborators.all():
         for person in collab.collaborators.all():
-            if person.username == username:
+            if person.user_Id == user_Id:
                 collab.request_removed_people.add(person)
 
                 entry = Notification()
@@ -1524,12 +1524,12 @@ def requestRemoveCollab(request, id, username):
         return redirect('collab')
 
 @login_required
-def removeCollab(request, id, username):
+def removeCollab(request, id, user_Id):
     collab = Collab.objects.get(id=id)
 
     if collab.researcher == request.user:
         for person in collab.collaborators.all():
-            if person.username == username:
+            if person.user_Id == user_Id:
                 collab.removed_people.add(person)
 
                 entry = Notification()
@@ -1557,12 +1557,12 @@ def removeCollab(request, id, username):
         return redirect('collab')
 
 @login_required
-def reportCollaborator(request, id, username):
+def reportCollaborator(request, id, user_Id):
     collab = Collab.objects.get(id=id)
 
     if collab.researcher == request.user:
         for person in collab.collaborators.all():
-            if person.username == username:
+            if person.user_Id == user_Id:
                 entry = Report()
                 entry.is_reported = True
                 entry.complainer = request.user
@@ -1584,9 +1584,7 @@ def reportResearcher(request, id):
         entry.complainer = request.user
         entry.collab = collab
         entry.receiver = collab.researcher
-
         entry.save()
-
         messages.info(request, "The reporting has been sent to the admins")
 
         return redirect('collab')
@@ -1594,19 +1592,19 @@ def reportResearcher(request, id):
         return redirect('collab')
 
 @login_required
-def leaveCollab(request, id, username):
+def leaveCollab(request, id, user_Id):
     collab = Collab.objects.get(id=id)
     if request.user in collab.collaborators.all():
         for person in collab.interested_people.all():
-            if person.username == username:
+            if person.user_Id == user_Id:
                 collab.interested_people.remove(person)
 
         for person in collab.collaborators.all():
-            if person.username == username:
+            if person.user_Id == user_Id:
                 collab.collaborators.remove(person)
 
         for person in collab.removed_people.all():
-            if person.username == username:
+            if person.user_Id == user_Id:
                 collab.rollab.removed_people.remove(person)
 
                 entry = Notification()
@@ -1632,19 +1630,19 @@ def leaveCollab(request, id, username):
         return redirect('collab')
 
 @login_required
-def acceptLeaveCollab(request, id, username):
+def acceptLeaveCollab(request, id, user_Id):
     collab = Collab.objects.get(id=id)
     if collab.researcher == request.user:
         for person in collab.interested_people.all():
-            if person.username == username:
+            if person.user_Id == user_Id:
                 collab.interested_people.remove(person)
 
         for person in collab.collaborators.all():
-            if person.username == username:
+            if person.user_Id == user_Id:
                 collab.collaborators.remove(person)
 
         for person in collab.request_removed_people.all():
-            if person.username == username:
+            if person.user_Id == user_Id:
                 collab.request_removed_people.remove(person)
 
                 entry = Notification()

@@ -32,9 +32,9 @@
                       <br>
                       <br>
                       {% if request.user in researcher.followers.all %}
-                      <a href="{% url 'unfollow' researcher.username %}" class="btn btn-info btn-sm">Unfollow</a>
+                      <a href="{% url 'unfollow' researcher.user_Id %}" class="btn btn-info btn-sm">Unfollow</a>
                       {% else %}
-                      <a href="{% url 'follow' researcher.username %}" class="btn btn-info btn-sm mr-1">Follow</a>
+                      <a href="{% url 'follow' researcher.user_Id %}" class="btn btn-info btn-sm mr-1">Follow</a>
                       {% endif %}
 
                     </div>

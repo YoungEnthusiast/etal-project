@@ -47,15 +47,15 @@
                 <br>
                 <ul>
                   {% if collab.researcher.photograph %}
-                  <li><sup><a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"></a></sup></li>
+                  <li><sup><a href="{% url 'show_user' collab.researcher.user_Id %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"></a></sup></li>
                   {% else %}
-                  <li><a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                  <li><a href="{% url 'show_user' collab.researcher.user_Id %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
                   {% endif %}
                   {% for person in collab.collaborators.all %}
                     {% if person.photograph %}
-                      <li><sup><a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-task"></a></sup></li>
+                      <li><sup><a href="{% url 'show_user' person.user_Id %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-task"></a></sup></li>
                     {% else %}
-                      <li><a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                      <li><a href="{% url 'show_user' person.user_Id %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
                     {% endif %}
                   {% endfor %}
 
@@ -192,9 +192,9 @@
                             {% for each in task.update_text.all %}
       											{{each.text|linebreaks}}
                             {% if each.creator.photograph %}
-                              <a href="{% url 'show_user' each.creator.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
+                              <a href="{% url 'show_user' each.creator.user_Id %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
                             {% else %}
-                              <a href="{% url 'show_user' each.creator.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                              <a href="{% url 'show_user' each.creator.user_Id %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
                             {% endif %}
                              {{each.created}}
                             {% endfor %}
@@ -220,9 +220,9 @@
                           <div class="row">
                             {% for person in task.assigned_to.all %}
                               {% if person.photograph %}
-                                <a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
+                                <a href="{% url 'show_user' person.user_Id %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
                               {% else %}
-                                <a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                                <a href="{% url 'show_user' person.user_Id %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
                               {% endif %}
                               <br>
                             {% endfor %}

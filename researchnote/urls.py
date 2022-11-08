@@ -2,24 +2,6 @@ from django.urls import path
 from researchnote import views
 
 urlpatterns = [
-    # path('create-account', views.join, name='join'),
-    # path('join/<str:username>', views.create, name='account'),
-    # path('where-next/', views.loginTo),
-    # path('profile/change-password', views.researcherChangePassword, name='researcher_change_password'),
-    # path('dashboard', views.showResearcherBoard, name='researcher_board'),
-    # path('profile', views.showResearcherProfile, name='researcher_profile'),
-    # path('collab', views.showCollabs, name='collab'),
-    # path('collab/create-collab', views.createCollab, name='create_collab'),
-    # path('collab/view-researcher/<str:email>/', views.showUser, name='show_user'),
-    # path('collab/view/<str:id>/', views.showCollab, name='show_collab'),
-    # path('collab/view/<str:id>/update', views.updateCollab, name='update_collab'),
-    # path('collab/view/<str:id>/delete', views.deleteCollab, name='delete_collab'),
-    #
-    # path('collab/view-initiated/<str:id1>/', views.showCollabInitiated, name='show_collab_initiated'),
-    # path('collab/view-initiated/<str:id1>/collab-docs', views.showCollabDocsInitiated, name='collab_docs_initiated'),
-    # path('collab/view-initiated/<str:id1>/tasks', views.showTasksInitiated, name='tasks_initiated'),
-    # path('collab/view-accepted/<str:id1>/tasks', views.showTasksAccepted, name='tasks_accepted'),
-
     path('collab/view-initiated/<str:id1>/notes', views.showNotesInitiated, name='notes_initiated'),
     path('collab/view-initiated/<str:id1>/notes/<str:id2>', views.showNoteInitiated, name='show_note_initiated'),
     path('collab/view-accepted/<str:id1>/notes/<str:id2>', views.showNoteInitiated, name='show_note_accepted'),

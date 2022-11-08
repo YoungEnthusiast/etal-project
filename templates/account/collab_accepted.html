@@ -93,9 +93,9 @@
                         <div class="card-body">
                           <div class="row">
                               {% if collab.researcher.photograph %}
-                                <strong>Initiator</strong> <a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-col"></a>
+                                <strong>Initiator</strong> <a href="{% url 'show_user' collab.researcher.user_Id %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-col"></a>
                               {% else %}
-                                <strong>Initiator</strong><a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                                <strong>Initiator</strong><a href="{% url 'show_user' collab.researcher.user_Id %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
                               {% endif %}
                               <br>
                           </div>
@@ -108,12 +108,12 @@
                           <div class="row">
                             {% for person in collab.collaborators.all %}
                               {% if person.photograph %}
-                                <a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
+                                <a href="{% url 'show_user' person.user_Id %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
                               {% else %}
-                                <a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                                <a href="{% url 'show_user' person.user_Id %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
                               {% endif %}
                               {% if person == request.user %}
-                              <strong><p><a class="text-info" href="left/{{person.username}}">Leave</a>/<a class="text-info" href="">Report</a></p></strong>
+                              <strong><p><a class="text-info" href="left/{{person.user_Id}}">Leave</a>/<a class="text-info" href="">Report</a></p></strong>
                               {% else %}
                               {% endif %}
                               <br>
