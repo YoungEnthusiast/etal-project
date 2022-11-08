@@ -5,12 +5,12 @@ from .forms import CustomRegisterForm
 from django.contrib.auth.admin import UserAdmin
 
 class ResearcherAdmin(UserAdmin):
-    list_display = ['created', 'username', 'first_name', 'last_name', 'email', 'type', 'is_staff', 'is_superuser']
+    list_display = ['created', 'user_Id', 'username', 'first_name', 'last_name', 'email', 'type', 'is_staff', 'is_superuser']
     list_display_links = ['username', 'first_name']
     search_fields = ['username']
     list_filter = ['is_staff', 'is_superuser', 'type']
     list_editable = ['is_staff', 'is_superuser']
-    list_per_page = 100
+    list_per_page = 1000
 
     add_form = CustomRegisterForm
     fieldsets = (

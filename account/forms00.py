@@ -67,13 +67,26 @@ class FolderForm(forms.ModelForm):
         fields = ['name']
 
 class TaskForm(forms.ModelForm):
+    # assigned_to = forms.ModelMultipleChoiceField(queryset=Researcher.objects.filter(username__in=Collab.objects.filter(researcher=self.request.user)))
+
+    # category = forms.ModelMultipleChoiceField(Category.objects.filter(id__in=Profile.category.all()), widget=forms.CheckboxSelectMultiple())
+
+
     due_date = forms.DateField(label="Due Date", widget=NumberInput(attrs={'type': 'date'}))
     class Meta:
         model = Task
         fields = ['assigned_to', 'title', 'description', 'due_date']
-    def __init__(self, those0, *args, **kwargs):
-        super(TaskForm, self).__init__(*args, **kwargs)
-        self.fields['assigned_to'].queryset = those0
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request") # store value of request
+        super().__init__(*args, **kwargs)
+
+    # def __init__(self, *args, **kwargs):
+    #     self.request = kwargs.pop("request") # store value of request
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['assigned_to'] = forms.ModelMultipleChoiceField(queryset=Researcher.objects.filter(username=self.request.user.username))
+
+
+
 
 class StrangerForm(forms.ModelForm):
     class Meta:

@@ -95,11 +95,6 @@
                                   {% csrf_token %}
                                   <div class="form-row">
                                       <div class="form-group col-sm-12 mb-2">
-                                          {{ form2.assigned_to|as_crispy_field }}
-                                      </div>
-                                  </div>
-                                  <div class="form-row">
-                                      <div class="form-group col-sm-12 mb-2">
                                           {{ form2.title|as_crispy_field }}
                                       </div>
                                   </div>
@@ -113,7 +108,11 @@
                                           {{ form2.due_date|as_crispy_field }}
                                       </div>
                                   </div>
-
+                                  <div class="form-row">
+                                      <div class="form-group col-sm-12 mb-2">
+                                          {{ form2.assigned_to|as_crispy_field }}
+                                      </div>
+                                  </div>
                                   <input type="submit" class="form-group col-md-12 btn btn-info" value="OK">
                                 </form>
                                 </div>

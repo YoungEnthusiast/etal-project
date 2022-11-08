@@ -15,6 +15,7 @@ class Researcher(AbstractUser):
 		('Female', 'Female'),
         ('Preferred not to mention', 'Preferred not to mention')
 	]
+    user_Id = models.IntegerField(blank=True, null=True)
     username = models.EmailField(max_length=255, unique=True, null=True, blank=True, verbose_name="Email")
     first_name = models.CharField(max_length=45, null=True, blank=True, verbose_name="First Name")
     last_name = models.CharField(max_length=45, null=True, blank=True, verbose_name="Last Name")
@@ -103,6 +104,12 @@ class Collab(models.Model):
         ('Remote (Field)','Remote (Field)'),
         ('Others','Others'),
 	]
+    funding_choices = [
+		('Institution Internal Funding','Institution Internal Funding'),
+
+        ('External Funding','External Funding'),
+        ('No funding','No funding'),
+	]
     researcher = models.ForeignKey(Researcher, null=True, blank=True, on_delete=models.SET_NULL, related_name="researcher")
     # collaborators_type = models.CharField(max_length=11, default="Anyone", choices=collaborators_choices, null=True)
     collaborators = models.ManyToManyField(Researcher, verbose_name="My Selection", blank=True, related_name="collaborator")
@@ -114,7 +121,7 @@ class Collab(models.Model):
     expertise_required = models.CharField(max_length=255, null=True, verbose_name="Collaborator's Expertise")
     collaborators_no = models.CharField(max_length=255, null=True, verbose_name="Number of Collaborators")
 
-    # funding = models.CharField(max_length=100, null=True, verbose_name="Funding")
+    funding = models.CharField(max_length=28, choices=funding_choices, default="No funding", null=True, verbose_name="Funding")
     model = models.CharField(max_length=14, choices=model_choices, null=True, verbose_name="Collaboration Model")
 
     interested_people = models.ManyToManyField(Researcher, blank=True, related_name="interested_people")

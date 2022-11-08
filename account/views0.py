@@ -59,10 +59,8 @@ def create(request, username):
     if request.method == "POST":
         form = CustomRegisterForm(request.POST, request.FILES)
         if form.is_valid():
-            x = datetime.now().year + datetime.now().month + datetime.now().day + datetime.now().hour + datetime.now().minute + datetime.now().second + 50*datetime.now().microsecond
             form.save(commit=False).username = username
             form.save(commit=False).email = username
-            form.save(commit=False).user_Id = x
             try:
                 is_exist = Researcher.objects.get(username=username)
                 messages.error(request, "A user with the email already exists")
@@ -637,11 +635,18 @@ def showTasksInitiated(request, id1):
 
         context['collab'] = collab
 
-        those0 = collab.collaborators.all()
+        collaborators_count = collab.collaborators.all().count()
+        for each in range(collaborators_count):
+            "those"+str(each) = collab.collaborators.all()
 
-        form = TaskForm(those0)
+        # for each in collab.collaborators.all():
+        #     those = each
+        #
+        #
+
+        form = TaskForm(those)
         if request.method == 'POST':
-            form = TaskForm(request.POST, request.FILES, None, those0)
+            form = TaskForm(request.POST, request.FILES, None, those)
             if form.is_valid():
                 form.save(commit=False).collab=collab
                 form.save(commit=False).poster=request.user
