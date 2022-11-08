@@ -13,7 +13,53 @@
 
 <div class=" app-content">
 					<div class="side-app">
-            <br>
+            <div class="row bg-light">
+              <div class="col-md-3 ml-2">
+                <br>
+                <ul>
+                  {% if request.user == collab.researcher %}
+                  <li><a title="CollabDocs" href="{% url 'folders_initiated' collab.id %}"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+                  {% elif request.user in collab.collaborators.all %}
+                  <li><a title="CollabDocs" href="{% url 'folders_accepted' collab.id %}"><i class="fas fa-folder-open text-info fa-2x mr-2"></i></a></li>
+                  {% endif %}
+                  {% if request.user == collab.researcher %}
+                  <li><a title="Tasks" href="{% url 'tasks_initiated' collab.id %}"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
+                  {% elif request.user in collab.collaborators.all %}
+                  <li><a title="Tasks" href="{% url 'tasks_accepted' collab.id %}"><i class="fas fa-tasks text-info fa-2x mr-2"></i></a></li>
+                  {% endif %}
+                  <li><a title="Scheduler" href="schedules"><i class="fas fa-calendar-check text-info fa-2x mr-2"></i></a></li>
+                  <li><a title="ChatRoom" href="{% url 'chat' collab.id %}"><i class="fas fa-users text-light-blue fa-2x mr-2"></i></a></li>
+                  <li><a title="ResearchNotes" href="notes"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <br>
+                <ul>
+                  <li class="text-info h4">{{collab.title}}</li>
+                </ul>
+              </div>
+              <div class="col-md-2 text-right">
+                <br>
+                <ul>
+                  {% if collab.researcher.photograph %}
+                  <li><sup><a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"></a></sup></li>
+                  {% else %}
+                  <li><a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                  {% endif %}
+                  {% for person in collab.collaborators.all %}
+                    {% if person.photograph %}
+                      <li><sup><a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-task"></a></sup></li>
+                    {% else %}
+                      <li><a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                    {% endif %}
+                  {% endfor %}
+
+                </ul>
+              </div>
+            </div>
+
+            <hr class="bg-info">
+              {% include '_alerts.html' %}
             <div class="container content-area">
               <div class="horizontal-content">
 
@@ -35,15 +81,30 @@
                       </div>
 
                     </div>
-                      <br>
-                      <div class="container">
-                        <input id="chat-message-input" type="text" size="50">
-                        <input id="chat-message-submit" class="btn btn-sm btn-info" type="button" value="Send">
-                        {{ room_name|json_script:"room-name" }}
+                        <div class="">
+                          <div class="msb-reply d-flex">
+                            <div class="input-group">
+                              <input id="chat-message-input" type="text" class="form-control" placeholder="Type your message">
+                              <div class="input-group-append ">
+                                <button id="chat-message-submit" type="button" class="btn btn-info">
+                                  <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                                </button>
+                                {{ room_name|json_script:"room-name" }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
+                      <br>
                       {{ request.user.id|json_script:"user_id" }}
                       <script>
-                          const chatLog = document.querySelector('#chat-log')
+                          window.onload=function () {
+                             var chatLog = document.getElementById("chat-log");
+                             window.scrollTo(0,chatLog.offsetHeight);
+                          }
+
+                          var chatLog = document.querySelector('#chat-log');
+                          window.scrollTo(0,chatLog.offsetHeight);
                           const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
                           if (!chatLog.hasChildNodes()){
@@ -55,9 +116,9 @@
                           }
 
                           const chatSocket = new WebSocket(
-                              'ws://'
+                              'wss://'
                               + window.location.host
-                              + '/ws/chat/'
+                              + ':8001/ws/chat/'
                               + roomName
                               + '/'
                           );
@@ -68,7 +129,12 @@
                               const userId = data['user_id']
                               const loggedInUserId = JSON.parse(document.getElementById('user_id').textContent)
                               console.log(loggedInUserId)
-                              messageElement.innerText = data.message
+                              if (userId === loggedInUserId) {
+                                  messageElement.innerText = "Me: " + data.message
+                              }
+                              else {
+                                  messageElement.innerText = "{{request.user}}" + ": " + data.message
+                              }
 
                               if (userId === loggedInUserId) {
                                   messageElement.classList.add('message', 'sender')
@@ -80,6 +146,7 @@
                               if (document.querySelector('#emptyText')){
                                   document.querySelector('#emptyText').remove()
                               }
+                              window.scrollTo(0,chatLog.offsetHeight);
                           };
 
 

@@ -20820,3 +20820,8 @@ blockquote {
 .text-light-blue{
   color: #03b6fc;
 }
+
+.my-frame {
+   border: 2px solid #4072c4;
+   background-color: white;
+ }

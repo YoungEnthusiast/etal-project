@@ -42,15 +42,15 @@
                 <br>
                 <ul>
                   {% if collab.researcher.photograph %}
-                  <li><sup><a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"></a></sup></li>
+                  <li><sup><a href="{% url 'show_user' collab.researcher.user_Id %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"></a></sup></li>
                   {% else %}
-                  <li><a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                  <li><a href="{% url 'show_user' collab.researcher.user_Id %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
                   {% endif %}
                   {% for person in collab.collaborators.all %}
                     {% if person.photograph %}
-                      <li><sup><a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-task"></a></sup></li>
+                      <li><sup><a href="{% url 'show_user' person.user_Id %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-task"></a></sup></li>
                     {% else %}
-                      <li><a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                      <li><a href="{% url 'show_user' person.user_Id %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
                     {% endif %}
                   {% endfor %}
 
@@ -65,22 +65,28 @@
 
                 <div class="row">
     							<div class="col-xl-12 col-lg-12 col-md-12">
-                    <div class="container">
+                    <div class="container my-frame">
                       <div id="chat-log">
                         {% for chat in chats.all %}
                           {% if chat.user.id == request.user.id %}
                             <div class="message sender">
-                              <a href="{% url 'show_user' chat.user.username %}"><img href="" src="{{ chat.user.photographURL }}" alt="Photograph" class="profile-small"></a><strong class="text-light">Me:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-dark">{{chat.timestamp}}</i>
+                              <a href="{% url 'show_user' chat.user.user_Id %}"><img href="" src="{{ chat.user.photographURL }}" alt="Photograph" class="profile-small"></a><strong class="text-light">Me</strong>
+                              <br>
+                              <span class="text-white">{{chat.content}}</span><br>
+                              <i class="text-dark">{{chat.timestamp}}</i>
                             </div>
                           {% else %}
                             <div class="message receiver">
-                              <a href="{% url 'show_user' chat.user.username %}"><img href="" src="{{ chat.user.photographURL }}" alt="Photograph" class="profile-small"></a><strong class="text-light">{{chat.user}}:</strong> <span class="text-white">{{chat.content}}</span> <i class="text-dark">{{chat.timestamp}}</i>
+                              <a href="{% url 'show_user' chat.user.user_Id %}"><img href="" src="{{ chat.user.photographURL }}" alt="Photograph" class="profile-small"></a><strong class="text-light">{{chat.user}}</strong>
+                              <br>
+                              <span class="text-white">{{chat.content}}</span><br>
+                              <i class="text-dark">{{chat.timestamp}}</i>
                             </div>
                           {% endif %}
                         {% endfor %}
                       </div>
-
                     </div>
+                    <br>
                         <div class="">
                           <div class="msb-reply d-flex">
                             <div class="input-group">
@@ -116,9 +122,9 @@
                           }
 
                           const chatSocket = new WebSocket(
-                              'wss://'
+                              'ws://'
                               + window.location.host
-                              + ':8001/ws/chat/'
+                              + '/ws/chat/'
                               + roomName
                               + '/'
                           );

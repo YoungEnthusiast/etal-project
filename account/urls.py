@@ -51,8 +51,6 @@ urlpatterns = [
     path('collab/view-initiated/<str:id1>/tasks/pin/<str:id2>', views.pinTask, name='pin_task'),
     path('collab/view-accepted/<str:id1>/tasks/pin/<str:id2>', views.pinTask, name='pin_task'),
 
-
-
     path('collab/view-initiated/<str:id1>/upload-doc', views.uploadDoc, name='upload_doc'),
     path('collab/view-accepted/<str:id1>/upload-doc', views.uploadDoc, name='upload_doc'),
     path('collab/view-initiated/<str:id1>/add-task', views.addTask, name='task'),
@@ -61,7 +59,6 @@ urlpatterns = [
     path('collab/view-initiated/<str:id>/reported/<str:user_Id>', views.reportCollaborator, name='report_collaborator'),
     path('collab/view-accepted/<str:id>/remove-requested/<str:user_Id>', views.requestRemoveCollab, name='request_remove_collab'),
     path('collab/view-accepted/<str:id>/', views.showCollabAccepted, name='show_collab_accepted'),
-
 
     path('collab/view-accepted/<str:id1>/collab-docs/delete-all', views.deleteAllDocsAccepted, name='delete_all_docs_accepted'),
     path('collab/view-accepted/<str:id>/reported', views.reportResearcher, name='report_researcher'),
