@@ -7,7 +7,7 @@ from django.forms.widgets import NumberInput, DateInput
 # from django.forms.widgets import TextInput
 
 class NoteEditForm(forms.ModelForm):
-    date_conducted = forms.DateTimeField(widget=NumberInput(attrs={'type': 'date'}))
+    date_conducted = forms.DateTimeField(widget=DateInput(attrs={"type": "datetime-local",}, format="%Y-%m-%dT%H:%M",))
     class Meta:
         model = Note
         fields = ['title', 'aims', 'date_conducted', 'location', 'setup', 'method', 'result', 'observations', 'document']

@@ -272,7 +272,7 @@ class Task(models.Model):
     title = models.CharField(max_length=30, null=True)
     description = models.CharField(max_length=150, null=True)
     update_text = models.ManyToManyField(TextUpdate, blank=True, verbose_name="Description", related_name="update_text")
-    is_selected = models.ManyToManyField(Researcher, blank=True, related_name="is_selected_task")
+    text_editor = models.ManyToManyField(Researcher, blank=True, related_name="text_editor")
     due_date = models.DateField(blank=True, null=True, verbose_name="Due Date")
     updated_date = models.DateField(blank=True, null=True)
     status = models.CharField(max_length=9, choices=STATUS_CHOICES, default='Ongoing', null=True)

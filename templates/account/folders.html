@@ -26,22 +26,26 @@
               <div class="col-md-6">
                 <br>
                 <ul>
-                  <li class="text-info h4">{{collab.title}}</li>
+                  {% if request.user == collab.researcher %}
+                  <a href="{% url 'show_collab_initiated' collab.id %}"><h4 class=" mb-1"><span class="text-info">{{collab.title}}</span></h4></a>
+                  {% elif request.user in collab.collaborators.all %}
+                  <a href="{% url 'show_collab_accepted' collab.id %}"><h4 class=" mb-1"><span class="text-info">{{collab.title}}</span></h4></a>
+                  {% endif %}             
                 </ul>
               </div>
               <div class="col-md-2 text-right">
                 <br>
                 <ul>
                   {% if collab.researcher.photograph %}
-                  <li><sup><a href="{% url 'show_user' collab.researcher.user_Id %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"></a></sup></li>
+                  <li><sup><a href="{% url 'show_user' collab.researcher.user_Id %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"><strong>{{collab.researcher.first_name|slice:":1"}}</strong> <strong>{{collab.researcher.last_name|slice:":1"}}</strong></a></sup></li>
                   {% else %}
-                  <li><a href="{% url 'show_user' collab.researcher.user_Id %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                  <li><a href="{% url 'show_user' collab.researcher.user_Id %}"><i class="fa fa-user-circle text-info fa-2x"></i><strong>{{collab.researcher.first_name|slice:":1"}}</strong> <strong>{{collab.researcher.last_name|slice:":1"}}</strong></a></li>
                   {% endif %}
                   {% for person in collab.collaborators.all %}
                     {% if person.photograph %}
-                      <li><sup><a href="{% url 'show_user' person.user_Id %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-task"></a></sup></li>
+                      <li><sup><a href="{% url 'show_user' person.user_Id %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-not"><strong>{{person.first_name|slice:":1"}}</strong> <strong>{{person.last_name|slice:":1"}}</strong></a></sup></li>
                     {% else %}
-                      <li><a href="{% url 'show_user' person.user_Id %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                      <li><a href="{% url 'show_user' person.user_Id %}"><i class="fa fa-user-circle text-info fa-2x"></i><sup><strong>{{person.first_name|slice:":1"}}</strong> <strong>{{person.last_name|slice:":1"}}</strong></sup></a></li>
                     {% endif %}
                   {% endfor %}
 

@@ -641,7 +641,7 @@ def showTasksInitiated(request, id1):
 
         form = TaskForm(those0)
         if request.method == 'POST':
-            form = TaskForm(request.POST, request.FILES, None, those0)
+            form = TaskForm(those0, request.POST, request.FILES, None)
             if form.is_valid():
                 form.save(commit=False).collab=collab
                 form.save(commit=False).poster=request.user
@@ -1210,9 +1210,9 @@ def updateTaskAccepted(request, id1, id2, **kwargs):
     collab = Collab.objects.get(id=id1)
     if request.user in collab.collaborators.all():
         task = Task.objects.get(id=id2)
-        form = TaskUpdateForm(instance=task)
+        form = TextUpdateForm(instance=task)
         if request.method=='POST':
-            form = TaskUpdateForm(request.POST, instance=task)
+            form = TextUpdateForm(request.POST, instance=task)
             if form.is_valid():
                 for person in task.text_editor.all():
                     task.text_editor.remove(person)

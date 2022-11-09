@@ -8,10 +8,12 @@ from django.utils.safestring import mark_safe
 import json
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from datetime import datetime
 
 class Room(LoginRequiredMixin, View):
     def get(self, request, room_name):
         collab = Collab.objects.get(id=room_name)
+        today = datetime.today()
         if collab.researcher == request.user or request.user in collab.collaborators.all():
             room = ChatRoom.objects.filter(name=room_name).first()
             chats = []
@@ -20,7 +22,7 @@ class Room(LoginRequiredMixin, View):
             else:
                 room = ChatRoom(name=room_name)
                 room.save()
-            return render(request, 'chat/room.html', {'room_name': room_name, 'chats':chats, 'collab':collab})
+            return render(request, 'chat/room.html', {'room_name': room_name, 'chats':chats, 'collab':collab, 'today':today})
         else:
             return redirect('collab')
 

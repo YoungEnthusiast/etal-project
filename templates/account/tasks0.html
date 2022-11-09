@@ -152,7 +152,11 @@
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                       {% if task.collab.researcher == request.user %}
                                       <li><a href="tasks/edit/{{task.id}}"><i class="fa fa-edit mr-2"></i>Edit</a></li>
+
                                       <li><a href="tasks/delete/{{task.id}}"><i class="fa fa-trash mr-2"></i>Delete</a></li>
+                                      {% elif request.user in task.assigned_to.all %}
+                                      <li><a href="tasks/update/{{task.id}}"><i class="fa fa-edit mr-2"></i>Update</a></li>
+                                      {% endif %}
                                       <li><a href="tasks/pin/{{task.id}}"><i class="fa fa-map-pin mr-2"></i>Pin</a></li>
                                     </ul>
                                   </div>

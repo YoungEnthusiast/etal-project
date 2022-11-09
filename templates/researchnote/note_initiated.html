@@ -43,22 +43,26 @@
               <div class="col-md-6">
                 <br>
                 <ul>
-                  <li class="text-info h4">{{collab.title}}</li>
+                  {% if request.user == collab.researcher %}
+                  <a href="{% url 'show_collab_initiated' collab.id %}"><h4 class=" mb-1"><span class="text-info">{{collab.title}}</span></h4></a>
+                  {% elif request.user in collab.collaborators.all %}
+                  <a href="{% url 'show_collab_accepted' collab.id %}"><h4 class=" mb-1"><span class="text-info">{{collab.title}}</span></h4></a>
+                  {% endif %}
                 </ul>
               </div>
               <div class="col-md-2 text-right">
                 <br>
                 <ul>
                   {% if collab.researcher.photograph %}
-                  <li><sup><a href="{% url 'show_user' collab.researcher.username %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"></a></sup></li>
+                  <li><sup><a href="{% url 'show_user' collab.researcher.user_Id %}"><img href="" src="{{ collab.researcher.photographURL }}" alt="Photograph" class="profile-not"><strong>{{collab.researcher.first_name|slice:":1"}}</strong> <strong>{{collab.researcher.last_name|slice:":1"}}</strong></a></sup></li>
                   {% else %}
-                  <li><a href="{% url 'show_user' collab.researcher.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                  <li><a href="{% url 'show_user' collab.researcher.user_Id %}"><i class="fa fa-user-circle text-info fa-2x"></i><strong>{{collab.researcher.first_name|slice:":1"}}</strong> <strong>{{collab.researcher.last_name|slice:":1"}}</strong></a></li>
                   {% endif %}
                   {% for person in collab.collaborators.all %}
                     {% if person.photograph %}
-                      <li><sup><a href="{% url 'show_user' person.username %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-task"></a></sup></li>
+                      <li><sup><a href="{% url 'show_user' person.user_Id %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-not"><strong>{{person.first_name|slice:":1"}}</strong> <strong>{{person.last_name|slice:":1"}}</strong></a></sup></li>
                     {% else %}
-                      <li><a href="{% url 'show_user' person.username %}"><i class="fa fa-user-circle text-info fa-2x"></i></a></li>
+                      <li><a href="{% url 'show_user' person.user_Id %}"><i class="fa fa-user-circle text-info fa-2x"></i><sup><strong>{{person.first_name|slice:":1"}}</strong> <strong>{{person.last_name|slice:":1"}}</strong></sup></a></li>
                     {% endif %}
                   {% endfor %}
 
@@ -77,13 +81,41 @@
       									<div class="card-body">
       										<div class="mt-4 mb-4">
       											<h3 class="text-info">{{note.title}}</h3>
-                            <p>{{note.aims|linebreaks}}</p>
-                            <p>{{note.date_conducted|linebreaks}}</p>
-                            <p>{{note.location|linebreaks}}</p>
-                            <p>{{note.setup|linebreaks}}</p>
-                            <p>{{note.method|linebreaks}}</p>
-                            <p>{{note.result|linebreaks}}</p>
-                            <p>{{note.observations|linebreaks}}</p>
+                            <div class="mt-4 product-spec">
+        											<div class="pro_detail">
+        												<ul class="list-unstyled mb-0">
+        													<li class="row border-bottom-0">
+        														<div class="col-sm-6 text-muted mb-2">Aims and Objective</div>
+        														<div class="col-sm-6 mb-2">{{note.aims|linebreaks}}</div>
+        													</li>
+        													<li class="border-bottom-0 row">
+        														<div class="col-sm-6 text-muted mb-2">Date Conducted</div>
+        														<div class="col-sm-6 mb-2">{{note.date_conducted|linebreaks}}</div>
+        													</li>
+                                  <li class="border-bottom-0 row">
+        														<div class="col-sm-6 text-muted mb-2">Location Name</div>
+        														<div class="col-sm-6 mb-2">{{note.location|linebreaks}}</div>
+        													</li>
+        													<li class="border-bottom-0 row">
+        														<div class="col-sm-6 text-muted mb-2">Experimental Setup</div>
+        														<div class="col-sm-6 mb-2">{{note.setup|linebreaks}}</div>
+        													</li>
+        													<li class="border-bottom-0 row">
+        														<div class="col-sm-6 text-muted mb-2">Method/Procedure</div>
+        														<div class="col-sm-6 mb-2">{{note.method|linebreaks}}</div>
+        													</li>
+        													<li class="border-bottom-0 row">
+        														<div class="col-sm-6 text-muted mb-2">Results</div>
+        														<div class="col-sm-6 mb-2">{{note.result}}</div>
+        													</li>
+        													<li class="border-bottom-0 row">
+        														<div class="col-sm-6 text-muted mb-2">Key Observations</div>
+        														<div class="col-sm-6 mb-2">{{note.observations}}</div>
+        													</li>
+
+        												</ul>
+        											</div>
+        										</div>
       										</div>
       									</div>
       								</div>
@@ -162,9 +194,9 @@
                       Submitted on {{note.created}}
                       <br>
                       by {% if note.user.photograph %}
-                      <li><sup><a href="{% url 'show_user' note.user.username %}"><img href="" src="{{ note.user.photographURL }}" alt="Photograph" class="profile-col"></a></sup></li>
+                      <li><sup><a href="{% url 'show_user' note.user.user_Id %}"><img href="" src="{{ note.user.photographURL }}" alt="Photograph" class="profile-col"></a></sup></li>
                       {% else %}
-                      <li><a href="{% url 'show_user' note.user.username %}"><i class="fa fa-user-circle text-info fa-5x"></i></a></li>
+                      <li><a href="{% url 'show_user' note.user.user_Id %}"><i class="fa fa-user-circle text-info fa-5x"></i></a></li>
                       {% endif %}
 
                     </div>
@@ -175,5 +207,6 @@
 
           </div>
         </div>
+        <br>
 
 {% endblock content%}

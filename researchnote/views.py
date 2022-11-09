@@ -87,7 +87,7 @@ def showNoteInitiated(request, id1, id2, **kwargs):
 
         form = NoteEditForm(instance=note)
         if request.method=='POST':
-            form = NoteEditForm(request.POST, instance=note)
+            form = NoteEditForm(request.POST, request.FILES, instance=note)
             if form.is_valid():
                 form.save()
                 messages.info(request, "The note has been updated successfully")
@@ -101,7 +101,7 @@ def showNoteInitiated(request, id1, id2, **kwargs):
 
         form = NoteEditForm(instance=note)
         if request.method=='POST':
-            form = NoteEditForm(request.POST, instance=note)
+            form = NoteEditForm(request.POST, request.FILES, instance=note)
             if form.is_valid():
                 form.save()
                 messages.info(request, "The note has been updated successfully")

@@ -94,7 +94,7 @@ class TaskEditForm(forms.ModelForm):
     due_date = forms.DateField(widget=NumberInput(attrs={'type': 'date'}))
     class Meta:
         model = Task
-        fields = ['assigned_to', 'title', 'description', 'due_date']
+        fields = ['assigned_to', 'title', 'status', 'description', 'due_date']
 
 class TextUpdateForm(forms.ModelForm):
     class Meta:
