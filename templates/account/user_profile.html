@@ -167,7 +167,7 @@
                         </div>
 
                         <div class="form-group col-sm-12 mb-2">
-                            <span class="text-info">About: </span>{{ researcher.about}}
+                            <span class="text-info">About: </span>{{ researcher.about|linebreaks}}
                         </div>
                       </div>
                     </div>
@@ -176,76 +176,6 @@
                     </div>
                   </div>
                 </div>
-
-
-
-
-
-
-
-                    <div class="form-group col-sm-12 mb-2">
-                        {{ form.year_join|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-sm-12 mb-2">
-                        {{ form.position|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-sm-12 mb-2">
-                        {{ form.specialization|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-sm-12 mb-2">
-                        {{ form.expertise|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-sm-12 mb-2">
-                        {{ form.award2|as_crispy_field }}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-1">
-
-                </div>
-              </div>
-            </div>
-
-
-
-
-            <div class="card mt-2">
-              <div class="row">
-                <div class="form-group col-sm-12 mt-2">
-                  <h4 class="text-info ml-4">Research Experience</h4>
-                </div>
-                <div class="col-md-1">
-
-                </div>
-                <div class="col-md-10">
-                  <div class="form-row">
-                    <div class="form-group col-sm-12 mb-2">
-                        {{ form.publication_number|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-sm-12 mb-2">
-                        {{ form.patent_number|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-sm-12 mb-2">
-                        {{ form.chapter|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-sm-12 mb-2">
-                        {{ form.textbooks|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-sm-12 mb-2">
-                        {{ form.google|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-sm-12 mb-2">
-                        {{ form.grants|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-sm-12 mb-2">
-                        {{ form.award3|as_crispy_field }}
-                    </div>
-                  </div>
-
-
-
-
-
 
                 <div class="card mt-2">
                   <div class="row">
@@ -258,27 +188,10 @@
                     <div class="col-md-10">
                       <div class="form-row">
                         <div class="form-group col-sm-12 mb-2">
-                            <span class="text-info">Institution: </span>{{ researcher.affiliation_name}}
+                            <span class="text-info">Affiliation: </span>{{ researcher.affiliation_name}}
                         </div>
                         <div class="form-group col-sm-12 mb-2">
-                            <span class="text-info">Institution Address: </span>{{ researcher.affiliation_address}}
-                        </div>
-                        <div class="form-group col-sm-4 mb-2">
-                            <span class="text-info">City: </span>{{ researcher.city}}
-                        </div>
-
-                        <div class="form-group col-sm-4 mb-2">
-                            <span class="text-info">: </span>{{ researcher.state}}
-                        </div>
-                        <div class="form-group col-sm-4 mb-2">
-                            <span class="text-info">Country: </span>{{ researcher.country}}
-                        </div>
-
-                        <div class="form-group col-sm-12 mb-2">
-                            <span class="text-info">Institution: </span>{{ researcher.affiliation_name}}
-                        </div>
-                        <div class="form-group col-sm-12 mb-2">
-                            <span class="text-info">Institution Address: </span>{{ researcher.affiliation_address}}
+                            <span class="text-info">Affiliation Address: </span>{{ researcher.affiliation_address}}
                         </div>
                         <div class="form-group col-sm-4 mb-2">
                             <span class="text-info">City: </span>{{ researcher.city}}
@@ -291,6 +204,23 @@
                             <span class="text-info">Country: </span>{{ researcher.country}}
                         </div>
 
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Year Joined: </span>{{ researcher.year_join}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Position/Rank: </span>{{ researcher.position}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Specialization/Field: </span>{{ researcher.specialization}}
+                        </div>
+
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Expertise/Techniques (List equipment you have expertise in using): </span>{{ researcher.expertise}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Award: </span>{{ researcher.award2}}
+                        </div>
+
                       </div>
                     </div>
                     <div class="col-md-1">
@@ -298,6 +228,80 @@
                     </div>
                   </div>
                 </div>
+                <div class="card mt-2">
+                  <div class="row">
+                    <div class="form-group col-sm-12 mt-2">
+                      <h4 class="text-info ml-4">Highest Level of Education</h4>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-10">
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Institution Name: </span>{{ researcher.institution_name}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Institution Location: </span>{{ researcher.institution_location}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Course of Study: </span>{{ researcher.course}}
+                        </div>
+
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Year of Graduation: </span>{{ researcher.year}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Class of Degree: </span>{{ researcher.degree}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Award: </span>{{ researcher.award}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="card mt-2">
+                  <div class="row">
+                    <div class="form-group col-sm-12 mt-2">
+                      <h4 class="text-info ml-4">Research Experience</h4>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-10">
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Number of Publications: </span>{{ researcher.publication_number}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Number of Patents: </span>{{ researcher.patent_number}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Number of Book Chapters: </span>{{ researcher.chapter}}
+                        </div>
+
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Number of Textbooks Written (List Titles): </span>{{ researcher.textbooks}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Google Scholar Profile Link: </span>{{ researcher.google}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Number of Grants Awarded: </span>{{ researcher.grants}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Award: </span>{{ researcher.award3}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>

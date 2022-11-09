@@ -31,7 +31,7 @@
                   <li><a title="ResearchNotes" href="notes"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
                 </ul>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-5">
                 <br>
                 <ul>
                   {% if request.user == collab.researcher %}
@@ -41,7 +41,7 @@
                   {% endif %}
                 </ul>
               </div>
-              <div class="col-md-2 text-right">
+              <div class="col-md-3 text-right">
                 <br>
                 <ul>
                   {% if collab.researcher.photograph %}
@@ -153,6 +153,7 @@
                                       {% if task.collab.researcher == request.user %}
                                       <li><a href="tasks/edit/{{task.id}}"><i class="fa fa-edit mr-2"></i>Edit</a></li>
                                       <li><a href="tasks/delete/{{task.id}}"><i class="fa fa-trash mr-2"></i>Delete</a></li>
+                                      {% endif %}
                                       <li><a href="tasks/pin/{{task.id}}"><i class="fa fa-map-pin mr-2"></i>Pin</a></li>
                                     </ul>
                                   </div>

@@ -23,17 +23,17 @@
                   <li><a title="ResearchNotes" href="notes"><i class="fas fa-clipboard text-info fa-2x mr-2"></i></a></li>
                 </ul>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-5">
                 <br>
                 <ul>
                   {% if request.user == collab.researcher %}
                   <a href="{% url 'show_collab_initiated' collab.id %}"><h4 class=" mb-1"><span class="text-info">{{collab.title}}</span></h4></a>
                   {% elif request.user in collab.collaborators.all %}
                   <a href="{% url 'show_collab_accepted' collab.id %}"><h4 class=" mb-1"><span class="text-info">{{collab.title}}</span></h4></a>
-                  {% endif %}             
+                  {% endif %}
                 </ul>
               </div>
-              <div class="col-md-2 text-right">
+              <div class="col-md-3 text-right">
                 <br>
                 <ul>
                   {% if collab.researcher.photograph %}

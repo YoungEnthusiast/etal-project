@@ -41,7 +41,7 @@
                   {% endif %}
                 </ul>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-5">
                 <br>
                 <ul>
                   {% if request.user == collab.researcher %}
@@ -51,7 +51,7 @@
                   {% endif %}
                 </ul>
               </div>
-              <div class="col-md-2 text-right">
+              <div class="col-md-3 text-right">
                 <br>
                 <ul>
                   {% if collab.researcher.photograph %}
@@ -121,7 +121,7 @@
                       <br>
                       {{ request.user.id|json_script:"user_id" }}
                       <script>
-                    
+
                           window.onload=function () {
                              var chatLog = document.getElementById("chat-log");
                              window.scrollTo(0,chatLog.offsetHeight);
