@@ -23,7 +23,7 @@
                   {% if researcher.photograph %}
                   <div class="text-center"><img alt="Profile Picture" class="profile-big" src="{{researcher.photographURL}}"></div>
                   {% else %}
-                  <div class="text-center"><i class="fa fa-user-circle text-info fa-5x"></i></div>
+                  <div class="text-center"><i class="fa fa-user-circle text-info fa-8x"></i></div>
                   {% endif %}
                   <div class="card-body text-center">
                     <div class="pro-user">
@@ -176,11 +176,133 @@
                     </div>
                   </div>
                 </div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+
+
+
+
+
+
+
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.year_join|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.position|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.specialization|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.expertise|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.award2|as_crispy_field }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="card mt-2">
+              <div class="row">
+                <div class="form-group col-sm-12 mt-2">
+                  <h4 class="text-info ml-4">Research Experience</h4>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-10">
+                  <div class="form-row">
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.publication_number|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.patent_number|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.chapter|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.textbooks|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.google|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.grants|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                        {{ form.award3|as_crispy_field }}
+                    </div>
+                  </div>
+
+
+
+
+
+
+                <div class="card mt-2">
+                  <div class="row">
+                    <div class="form-group col-sm-12 mt-2">
+                      <h4 class="text-info ml-4">Affiliation</h4>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-10">
+                      <div class="form-row">
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Institution: </span>{{ researcher.affiliation_name}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Institution Address: </span>{{ researcher.affiliation_address}}
+                        </div>
+                        <div class="form-group col-sm-4 mb-2">
+                            <span class="text-info">City: </span>{{ researcher.city}}
+                        </div>
+
+                        <div class="form-group col-sm-4 mb-2">
+                            <span class="text-info">: </span>{{ researcher.state}}
+                        </div>
+                        <div class="form-group col-sm-4 mb-2">
+                            <span class="text-info">Country: </span>{{ researcher.country}}
+                        </div>
+
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Institution: </span>{{ researcher.affiliation_name}}
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <span class="text-info">Institution Address: </span>{{ researcher.affiliation_address}}
+                        </div>
+                        <div class="form-group col-sm-4 mb-2">
+                            <span class="text-info">City: </span>{{ researcher.city}}
+                        </div>
+
+                        <div class="form-group col-sm-4 mb-2">
+                            <span class="text-info">State: </span>{{ researcher.state}}
+                        </div>
+                        <div class="form-group col-sm-4 mb-2">
+                            <span class="text-info">Country: </span>{{ researcher.country}}
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      <div>
+      </div>
+    </div>
+  <div>
 {% endblock content%}
