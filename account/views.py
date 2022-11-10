@@ -105,6 +105,10 @@ def showResearcherBoard(request):
 
     all_concludeds = Collab.objects.filter(Q(researcher=request.user) | Q(collaborators=request.user), is_concluded=True)
 
+    scrolls = all_concludeds.count()//5
+
+    d_scrolls = all_concludeds[:scrolls]
+
     concludeds = 0
 
     for each in all_concludeds:
@@ -176,8 +180,6 @@ def showResearcherBoard(request):
                             except:
                                 min_date = None
 
-
-
     refined_min_date = min_date
 
     a = refined_min_date
@@ -226,11 +228,17 @@ def showResearcherBoard(request):
     for each3 in me.followers.all():
         followers += 1
 
+    internal = Collab.objects.filter(researcher=request.user, funding="Institution Internal Funding").count()
+    external = Collab.objects.filter(researcher=request.user, funding="External Funding").count()
+    total_funding = internal + external
+
     return render(request, 'account/researcher_board.html', {'initiateds':initiateds, 'males':males,
                     'accepteds':accepteds, 'concludeds':concludeds, 'current_views':current_views,
                     'initiated_list':initiated_list, 'concluded_list':concluded_list, 'females':females,
                     'created_list':created_list, 'accepted_list':accepted_list, 'all_concludeds':all_concludeds,
-                    'followings':followings, 'followers':followers, 'total_collaborators':total_collaborators})
+                    'followings':followings, 'followers':followers, 'total_collaborators':total_collaborators,
+                    'internal':internal, 'external':external, 'total_funding':total_funding, 'scrolls':scrolls,
+                    'd_scrolls':d_scrolls})
 
 @login_required
 def follow(request, user_Id):
@@ -818,7 +826,32 @@ def showUser(request, user_Id, **kwargs):
     except:
         pass
 
-    context = {'researcher': researcher, 'followings': followings, 'followers':followers}
+    all_collaborators = Collab.objects.filter(researcher=researcher).order_by('created')
+    total_collaborators = 0
+    males = 0
+    females = 0
+    for each in all_collaborators:
+        for another in each.collaborators.all():
+            total_collaborators += 1
+
+            if another.gender == "Male":
+                males += 1
+            elif another.gender == "Female":
+                females += 1
+
+    all_concludeds = Collab.objects.filter(Q(researcher=researcher) | Q(collaborators=researcher), is_concluded=True)
+
+    scrolls = all_concludeds.count()//5
+
+    d_scrolls = all_concludeds[:scrolls]
+
+    internal = Collab.objects.filter(researcher=researcher, funding="Institution Internal Funding").count()
+    external = Collab.objects.filter(researcher=researcher, funding="External Funding").count()
+    total_funding = internal + external
+
+    context = {'researcher': researcher, 'followings': followings, 'followers':followers, 'total_collaborators':total_collaborators,
+                'males':males, 'females':females, 'internal':internal, 'external':external, 'total_funding':total_funding, 'scrolls':scrolls,
+                'd_scrolls':d_scrolls, 'all_concludeds':all_concludeds}
     return render(request, 'account/user_profile.html', context)
 
 @login_required

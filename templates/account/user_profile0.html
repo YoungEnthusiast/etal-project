@@ -58,110 +58,69 @@
                 <div class="card overflow-hidden">
                   <div class="card-body pb-0">
                     <div class="dash-widget text-center">
-                      {% for each in d_scrolls %}<i class="fas fa-scroll text-info fa-1x"></i>{% endfor %}<h6 class="text-muted">Scrolls</h6>
-                      <h3 class="font-weight-extrabold num-font">{{scrolls}}</h3>
+                      <i class="fas fa-scroll text-info fa-1x"></i><h6 class="text-muted">Scrolls</h6>
+                      <h3 class="font-weight-extrabold num-font">0</h3>
 
                     </div>
                   </div>
                 </div>
 
-                <div class="card overflow-hidden">
-                  <div class="card-body">
-                    <div class="card-widget">
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <h6 class="mb-2">Total Grants</h6>
-                          <h2 class="text-left fs-40 mb-3"><span class="num-font">{{total_funding}}</span></h2>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="float-right text-right">
 
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="mt-1 text-muted mb-4"></p>
+                
+
+                <div class="card-body">
+                  <div class="card-widget">
                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="card-widget">
-                          <div class="mb-3">
-                            <div class="clearfix">
-                              <div class="float-left">
-                                <strong class="h4 font-weight-bold num-font">{{internal}}</strong>
-                              </div>
-                              <div class="float-right">
-                                <small class="text-muted h6">Internal</small>
-                              </div>
-                            </div>
-                          </div>
-
-
-                        </div>
+                      <div class="col-sm-6">
+                        <h6 class="mb-2">Total Grants</h6>
+                        <h2 class="text-left fs-40 mb-3"><span class="num-font">0</span></h2>
                       </div>
-                      <div class="col-md-6">
-                        <div class="card-widget">
-                          <div class="mb-3">
-                            <div class="clearfix">
-                              <div class="float-left">
-                                <strong class="h4 font-weight-bold num-font">{{external}}</strong>
-                              </div>
-                              <div class="float-right">
-                                <small class="text-muted h6">External</small>
-                              </div>
-                            </div>
-                          </div>
+                      <div class="col-sm-6">
+                        <div class="float-right text-right">
 
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div class="card overflow-hidden">
-                  <div class="card-body">
-                    <div class="card-widget">
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <h6 class="mb-2">Total Collaborators</h6>
-                          <h2 class="text-left fs-40 mb-3"><span class="num-font">{{total_collaborators}}</span></h2>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="float-right text-right">
-
+                  <p class="mt-1 text-muted mb-4"></p>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="card-widget">
+                        <div class="mb-3">
+                          <div class="clearfix">
+                            <div class="float-left">
+                              <strong class="h4 font-weight-bold num-font">0</strong>
+                            </div>
+                            <div class="float-right">
+                              <small class="text-muted h6">Internal</small>
+                            </div>
                           </div>
+                        </div>
+                        <div class="progress progress-sm mt-0 mb-2">
+                          <div class="progress-bar bg-info w-0" role="progressbar"></div>
+                        </div>
+                        <div class="text-muted">
+                          <i class="fa fa-caret-up text-success"></i> % decrease
                         </div>
                       </div>
                     </div>
-                    <p class="mt-1 text-muted mb-4"></p>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="card-widget">
-                          <div class="mb-3">
-                            <div class="clearfix">
-                              <div class="float-left">
-                                <strong class="h4 font-weight-bold num-font">{{males}}</strong>
-                              </div>
-                              <div class="float-right">
-                                <small class="text-muted h6">Total Males</small>
-                              </div>
+                    <div class="col-md-6">
+                      <div class="card-widget">
+                        <div class="mb-3">
+                          <div class="clearfix">
+                            <div class="float-left">
+                              <strong class="h4 font-weight-bold num-font">0</strong>
+                            </div>
+                            <div class="float-right">
+                              <small class="text-muted h6">External</small>
                             </div>
                           </div>
-
                         </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="card-widget">
-                          <div class="mb-3">
-                            <div class="clearfix">
-                              <div class="float-left">
-                                <strong class="h4 font-weight-bold num-font">{{females}}</strong>
-                              </div>
-                              <div class="float-right">
-                                <small class="text-muted h6">Total Females</small>
-                              </div>
-                            </div>
-                          </div>
-
+                        <div class="progress progress-sm mt-0 mb-2">
+                          <div class="progress-bar bg-info w-0" role="progressbar"></div>
+                        </div>
+                        <div class="text-muted">
+                          <i class="fa fa-caret-down text-danger"></i> % increase
                         </div>
                       </div>
                     </div>
@@ -327,46 +286,6 @@
                     </div>
                   </div>
                 </div>
-
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="card">
-                      <div class="card-header">
-                        <div class="card-title text-info">Concluded Collabs</div>
-
-                      </div>
-                      <div class="card-body">
-                        <div class="table-responsive mb-0">
-                          <table class="table table-bordered table-hover mb-0 text-nowrap">
-                            <thead>
-                              <tr>
-                                <th>Date Initiated</th>
-                                <th>Title</th>
-                                <th>Field</th>
-                                <th>Initiator</th>
-                                <th>Collaborators</th>
-                                <th>Date Concluded</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {% for collab in all_concludeds %}
-                              <tr>
-                                <td>{{collab.locked_date}}</td>
-                                <td class="num-font">{{collab.title}}</td>
-                                <td class="num-font">{{collab.field}}</td>
-                                <td class="num-font">{{collab.researcher}}</td>
-                                <td class="num-font">{% for each in collab.collaborators.all %}{{each.first_name}} {{each.last_name}}<br>{% endfor %}</td>
-                                <td class="num-font">{{collab.concluded_date}}</td>
-                              </tr>
-                              {% endfor %}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
               </div>
             </div>

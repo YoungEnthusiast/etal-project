@@ -31,10 +31,12 @@
               </span>
               <div class="svg-icons text-right ml-auto">
                 <h5 class="text-muted">Initiated Collabs</h5>
-                <h2 class="mb-0 font-weight-extrabold num-font">{{initiateds}}</h2>
+                <h2 class="mb-0 font-weight-extrabold num-font">{{min_date}}{{initiateds}}</h2>
               </div>
             </div>
-
+            <div class="progress progress-md h-2">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-info w-20"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -50,7 +52,9 @@
                 <h2 class="mb-0 font-weight-extrabold num-font">{{accepteds}}</h2>
               </div>
             </div>
-
+            <div class="progress progress-md h-2">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-info w-50"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -66,7 +70,9 @@
                 <h2 class="mb-0 font-weight-extrabold num-font">{{concludeds}}</h2>
               </div>
             </div>
-
+            <div class="progress progress-md h-2">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-info w-00"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -82,7 +88,9 @@
                 <h2 class="mb-0 font-weight-extrabold num-font">{{current_views}}</h2>
               </div>
             </div>
-
+            <div class="progress progress-md h-2">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-info w-80"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -168,8 +176,8 @@
         <div class="card overflow-hidden">
           <div class="card-body pb-0">
             <div class="dash-widget text-center">
-              {% for each in d_scrolls %}<i class="fas fa-scroll text-info fa-1x"></i>{% endfor %}<h6 class="text-muted">Scrolls</h6>
-              <h3 class="font-weight-extrabold num-font">{{scrolls}}</h3>
+              <i class="fas fa-scroll text-info fa-1x"></i><h6 class="text-muted">Scrolls</h6>
+              <h3 class="font-weight-extrabold num-font">0</h3>
 
             </div>
           </div>
@@ -188,7 +196,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <h6 class="mb-2">Total Grants</h6>
-                  <h2 class="text-left fs-40 mb-3"><span class="num-font">{{total_funding}}</span></h2>
+                  <h2 class="text-left fs-40 mb-3"><span class="num-font">0</span></h2>
                 </div>
                 <div class="col-sm-6">
                   <div class="float-right text-right">
@@ -204,14 +212,19 @@
                   <div class="mb-3">
                     <div class="clearfix">
                       <div class="float-left">
-                        <strong class="h4 font-weight-bold num-font">{{internal}}</strong>
+                        <strong class="h4 font-weight-bold num-font">0</strong>
                       </div>
                       <div class="float-right">
                         <small class="text-muted h6">Internal</small>
                       </div>
                     </div>
                   </div>
-
+                  <div class="progress progress-sm mt-0 mb-2">
+                    <div class="progress-bar bg-info w-0" role="progressbar"></div>
+                  </div>
+                  <div class="text-muted">
+                    <i class="fa fa-caret-up text-success"></i> % decrease
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
@@ -219,14 +232,19 @@
                   <div class="mb-3">
                     <div class="clearfix">
                       <div class="float-left">
-                        <strong class="h4 font-weight-bold num-font">{{external}}</strong>
+                        <strong class="h4 font-weight-bold num-font">0</strong>
                       </div>
                       <div class="float-right">
                         <small class="text-muted h6">External</small>
                       </div>
                     </div>
                   </div>
-
+                  <div class="progress progress-sm mt-0 mb-2">
+                    <div class="progress-bar bg-info w-0" role="progressbar"></div>
+                  </div>
+                  <div class="text-muted">
+                    <i class="fa fa-caret-down text-danger"></i> % increase
+                  </div>
                 </div>
               </div>
             </div>
@@ -263,7 +281,12 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="progress progress-sm mt-0 mb-2">
+                    <div class="progress-bar bg-info w-0" role="progressbar"></div>
+                  </div>
+                  <div class="text-muted">
+                    <i class="fa fa-caret-down text-danger"></i> % decrease
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
@@ -278,7 +301,12 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="progress progress-sm mt-0 mb-2">
+                    <div class="progress-bar bg-info w-0" role="progressbar"></div>
+                  </div>
+                  <div class="text-muted">
+                    <i class="fa fa-caret-up text-success"></i> % increase
+                  </div>
                 </div>
               </div>
             </div>
