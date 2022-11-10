@@ -130,7 +130,7 @@
                             <td class="num-font">{{each.subscription_type}}</td>
                             <td class="num-font">{{each.current_bill|slice:":3"}}</td>
                             <td class="num-font">{{each.subscription_ends}}</td>
-                            <td class="num-font"></td>
+                            <td class="num-font"><a href="{% url 'receipt' each.id %}"><strong><i class="fa fa-print fa-2x text-info"></i></strong></a></td>
                           </tr>
                           {% endfor %}
                         </tbody>

@@ -118,7 +118,10 @@ def monthly(request):
     today = datetime.now()
     current_year = today.strftime("%Y")
     current_month = today.strftime("%m")
+    x = datetime.now().year + datetime.now().month + datetime.now().day + datetime.now().hour + datetime.now().minute + datetime.now().second + 99999*datetime.now().microsecond
+    y = "M" + str(x)
     new_entry = Subscription()
+    new_entry.payment_id = y
     new_entry.user = request.user
     new_entry.last_payment = today
     new_entry.subscription_type = "Monthly"
@@ -139,12 +142,16 @@ def yearly(request):
     today = datetime.now()
     current_year = int(today.strftime("%Y"))
 
+    x = datetime.now().year + datetime.now().month + datetime.now().day + datetime.now().hour + datetime.now().minute + datetime.now().second + 99999*datetime.now().microsecond
+    y = "Y" + str(x)
+
     if current_year/4 == 0:
         days = 366
     else:
         days = 365
 
     new_entry = Subscription()
+    new_entry.payment_id = y
     new_entry.user = request.user
     new_entry.last_payment = today
     new_entry.subscription_type = "Yearly"
@@ -152,3 +159,12 @@ def yearly(request):
     new_entry.subscription_ends = today + timedelta(days=days)
     new_entry.save()
     return redirect('history')
+
+@login_required
+def receipt(request, id, **kwargs):
+    payment = Subscription.objects.get(id=id)
+    if payment.user == request.user:
+        context = {'payment': payment}
+        return render(request, 'subscription/receipt.html', context)
+    else:
+        return redirect('collab')

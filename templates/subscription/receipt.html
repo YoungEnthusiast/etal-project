@@ -1,0 +1,87 @@
+{% extends 'board.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% load home_tags %}
+{% block title %}
+  <title>Payment History</title>
+  <meta name="description" content="">
+
+{% endblock title %}
+
+{% block content %}
+<div class=" app-content">
+  <div class="side-app">
+    <br>
+    <div class="container content-area">
+      <div class="horizontal-content">
+        {% include '_alerts.html' %}
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex">
+                  <a class="header-brand" href="index.html">
+                    <img alt="logo" class="logo" src="{% static 'img/logo.png' %}">
+                  </a>
+
+                  <div class="text-right ml-auto">
+                    <h2 class="mb-1"><span class="text-info">Receipt</span> {{payment.payment_id}}</h2>
+                    <p class="mb-1"><span class="font-weight-semibold">Date:</span> {{payment.created}}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <p class="h3 text-info">From:</p>
+                    <address>
+                      <br>
+                      <br>
+
+                    </address>
+                  </div>
+                  <div class="col-lg-4 text center">
+                    <img alt="Stamp" class="logo" src="{% static 'img/paid.png' %}">
+                  </div>
+                  <div class="col-lg-4 text-right">
+                    <p class="h3 text-info">To:</p>
+                    <address>
+                      {{payment.user.first_name}} {{payment.user.last_name}}<br>
+                      {{payment.user.username}}<br>
+                      {{payment.user.address}}<br>
+                      {{payment.user.city}}
+                      {{payment.user.state}}<br>
+                      {{payment.user.country}}
+                    </address>
+                  </div>
+                </div>
+                <div class="table-responsive push">
+                  <table class="table card-table table-vcenter text-nowrap">
+                    <tr class=" ">
+                      <th class="text-info"><strong>Subscription Type</strong></th>
+                      <th class="text-info"><strong>Current Bill</strong></th>
+                      <th class="text-info text-right"><strong>Due Date</strong></th>
+                    </tr>
+                    <tr>
+                      <td class="num-font">{{payment.subscription_type}}</td>
+                      <td class="num-font">{{payment.current_bill}}</td>
+                      <td class="num-font text-right">{{payment.subscription_ends}}</td>
+                    </tr>
+
+                  </table>
+                </div>
+              </div>
+              <div class="card-footer text-right">
+                <button type="button" class="btn btn-info mb-1" onClick="javascript:window.print();"><i class="fas fa-print fa-1x mr-1"></i> Print Receipt</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content%}
