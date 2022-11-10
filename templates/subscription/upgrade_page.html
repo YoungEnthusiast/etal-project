@@ -17,6 +17,8 @@
       <div class="horizontal-content">
         {% include '_alerts.html' %}
 
+        {% if subscription_type == None or okay == "No" %}
+
         <div class="row">
           <h4 class="mb-3 text-center">Upgrade your account from Et al. Free to Et al. Premium</h4>
 
@@ -42,11 +44,10 @@
               <div class="col-md-1 mr-1">
                 <i class="fa fa-user-circle text-info fa-3x"></i>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-10">
                  {{user.username}} <br>Free
               </div>
-              <div class="col-md-9">
-              </div>
+
 
             </div>
 
@@ -122,6 +123,224 @@
 
 
         </div>
+        {% elif subscription_type == "Monthly" and okay == "Yes" %}
+
+        <div class="row">
+          <h4 class="mb-3 text-center">Et al. Premium</h4>
+
+
+          <div class="col-xl-6 col-lg-4 col-md-12">
+
+            {% if user.photograph %}
+            <div class="row">
+              <div class="col-md-2">
+                <img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
+              </div>
+              <div class="col-md-10">
+                 {{user.username}} <br>Premium ({{subscription_type}})
+              </div>
+
+
+            </div>
+
+
+            {% else %}
+            <div class="row">
+              <div class="col-md-1 mr-1">
+                <i class="fa fa-user-circle text-info fa-3x"></i>
+              </div>
+              <div class="col-md-1">
+                 {{user.username}} <br>Premium ({{subscription_type}})
+              </div>
+              <div class="col-md-9">
+              </div>
+
+            </div>
+
+            {% endif %}
+
+
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4 class="text-info">Premium</h4>
+                    <i class="far fa-check-circle text-info mr-1"></i><font size="+2">$5</font>/User/Month<br>
+                    <i class="far fa-check-circle text-info mr-1"></i>All in <strong>Free,</strong> plus: <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Select your desired Collaborators. <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Manage your research documents, journals, textbooks etc your multiple Research Collaboration on <strong>CollabDoc.</strong> <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Schedule events with your Collaborators in multiple Research Collaboration on <strong>Scheduler.</strong> <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Assign, Monitor and Manage tasks among your Collaborators with <strong>Tasks.</strong> <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Communicate securely with your Collaborators both synchronously and asynchronously in <strong>ChatRoom.</strong> <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Organize, store and share your lab experiments, field works etc. in real-time with <strong>ResearchNote.</strong> <br>
+
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-6 col-lg-4 col-md-12">
+            <br>
+            <br>
+            <br>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <form id="form">
+                  <div id="user-info">
+                    <div class="form-group">
+                      <button id="form-button" class="btn btn-info btn-sm btn-block" type="submit" onclick="payWithPaystack()"> <strong>Pay yearly - <s class="text-red"><span class="text-white">$60</span></s> $50 (16% off)</strong> </button>
+                    </div>
+                    <div class="form-group">
+                      <label hidden for="email-address">Email</label>
+                      <input hidden required class="form-control" readonly type="email" value="{{user.username}}" id="email-address" name="email" placeholder="Enter Email" required />
+                    </div>
+                    <div class="form-group">
+                      <label hidden for="amount">Amount</label>
+                      <input hidden required class="form-control" readonly type="tel" value="{{yearly}}" id="amount" required />
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+              <div class="form-group col-md-6">
+                <form id="form2">
+                  <div id="user-info">
+                    <div class="form-group">
+                      <button id="form-button" class="btn btn-info btn-sm btn-block" type="submit" onclick="payWithPaystack2()"> <strong>Pay monthly - $5</strong> </button>
+                    </div>
+                    <div class="form-group">
+                      <label hidden for="email-address">Email</label>
+                      <input hidden required class="form-control" readonly type="email" value="{{user.username}}" id="email-address" name="email" placeholder="Enter Email" required />
+                    </div>
+                    <div class="form-group">
+                      <label hidden for="amount">Amount</label>
+                      <input hidden required class="form-control" readonly type="tel" value="{{monthly}}" id="amount2" required />
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+
+        {% elif subscription_type == "Yearly" and okay == "Yes" %}
+
+        <div class="row">
+          <h4 class="mb-3 text-center">Et al. Premium</h4>
+
+
+          <div class="col-xl-6 col-lg-4 col-md-12">
+
+            {% if user.photograph %}
+            <div class="row">
+              <div class="col-md-2">
+                <img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
+              </div>
+              <div class="col-md-10">
+                 {{user.username}} <br>Premium ({{subscription_type}})
+              </div>
+
+
+            </div>
+
+
+            {% else %}
+            <div class="row">
+              <div class="col-md-1 mr-1">
+                <i class="fa fa-user-circle text-info fa-3x"></i>
+              </div>
+              <div class="col-md-10">
+                 {{user.username}} <br>Premium ({{subscription_type}})
+              </div>
+
+            </div>
+
+            {% endif %}
+
+
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4 class="text-info">Premium</h4>
+                    <i class="far fa-check-circle text-info mr-1"></i><font size="+2">$50</font>(16% off)/User/Year <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>All in <strong>Free,</strong> plus: <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Select your desired Collaborators. <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Manage your research documents, journals, textbooks etc your multiple Research Collaboration on <strong>CollabDoc.</strong> <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Schedule events with your Collaborators in multiple Research Collaboration on <strong>Scheduler.</strong> <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Assign, Monitor and Manage tasks among your Collaborators with <strong>Tasks.</strong> <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Communicate securely with your Collaborators both synchronously and asynchronously in <strong>ChatRoom.</strong> <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Organize, store and share your lab experiments, field works etc. in real-time with <strong>ResearchNote.</strong> <br>
+
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-6 col-lg-4 col-md-12">
+            <br>
+            <br>
+            <br>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <form id="form">
+                  <div id="user-info">
+                    <div class="form-group">
+                      <button id="form-button" class="btn btn-info btn-sm btn-block" type="submit" onclick="payWithPaystack()"> <strong>Pay yearly - <s class="text-red"><span class="text-white">$60</span></s> $50 (16% off)</strong> </button>
+                    </div>
+                    <div class="form-group">
+                      <label hidden for="email-address">Email</label>
+                      <input hidden required class="form-control" readonly type="email" value="{{user.username}}" id="email-address" name="email" placeholder="Enter Email" required />
+                    </div>
+                    <div class="form-group">
+                      <label hidden for="amount">Amount</label>
+                      <input hidden required class="form-control" readonly type="tel" value="{{yearly}}" id="amount" required />
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+              <div class="form-group col-md-6">
+                <form id="form2">
+                  <div id="user-info">
+                    <div class="form-group">
+                      <button id="form-button" class="btn btn-info btn-sm btn-block" type="submit" onclick="payWithPaystack2()"> <strong>Pay monthly - $5</strong> </button>
+                    </div>
+                    <div class="form-group">
+                      <label hidden for="email-address">Email</label>
+                      <input hidden required class="form-control" readonly type="email" value="{{user.username}}" id="email-address" name="email" placeholder="Enter Email" required />
+                    </div>
+                    <div class="form-group">
+                      <label hidden for="amount">Amount</label>
+                      <input hidden required class="form-control" readonly type="tel" value="{{monthly}}" id="amount2" required />
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
+        {% endif %}
+
+
+
       </div>
     </div>
   </div>

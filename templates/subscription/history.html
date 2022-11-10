@@ -78,21 +78,21 @@
                 <div class="row">
                   <div class="col-md-6">
                     <i class="far fa-check-circle text-info mr-1"></i>$0/User/Month <br>
-                    <i class="far fa-check-circle text-info mr-1"></i>Initiate Unlimited Research Collaboration Request. <br>
-                    <i class="far fa-check-circle text-info mr-1"></i>Accept Unlimited Research Collaboration. <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Initiate Unlimited Research eachoration Request. <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Accept Unlimited Research eachoration. <br>
                     <i class="far fa-check-circle text-info mr-1"></i>Ask and Answer Research Questions on <strong>Community.</strong> <br>
-                    <i class="far fa-check-circle text-info mr-1"></i>Monitor your Research Collaboration progress on <strong>Dashboard.</strong> <br>
+                    <i class="far fa-check-circle text-info mr-1"></i>Monitor your Research eachoration progress on <strong>Dashboard.</strong> <br>
 
                   </div>
                   <div class="col-md-6">
                     <h5 class="">Not included:</h5>
                     <i class="far fa-times-circle text-red mr-1"></i><font size="+2">$5</font>/User/Month or <font size="+2">$50</font>(16% off)/User/Year <br>
                     <i class="far fa-times-circle text-red mr-1"></i>All in <strong>Free,</strong> plus: <br>
-                    <i class="far fa-times-circle text-red mr-1"></i>Select your desired Collaborators. <br>
-                    <i class="far fa-times-circle text-red mr-1"></i>Manage your research documents, journals, textbooks etc your multiple Research Collaboration on <strong>CollabDoc.</strong> <br>
-                    <i class="far fa-times-circle text-red mr-1"></i>Schedule events with your Collaborators in multiple Research Collaboration on <strong>Scheduler.</strong> <br>
-                    <i class="far fa-times-circle text-red mr-1"></i>Assign, Monitor and Manage tasks among your Collaborators with <strong>Tasks.</strong> <br>
-                    <i class="far fa-times-circle text-red mr-1"></i>Communicate securely with your Collaborators both synchronously and asynchronously in <strong>ChatRoom.</strong> <br>
+                    <i class="far fa-times-circle text-red mr-1"></i>Select your desired eachorators. <br>
+                    <i class="far fa-times-circle text-red mr-1"></i>Manage your research documents, journals, textbooks etc your multiple Research eachoration on <strong>eachDoc.</strong> <br>
+                    <i class="far fa-times-circle text-red mr-1"></i>Schedule events with your eachorators in multiple Research eachoration on <strong>Scheduler.</strong> <br>
+                    <i class="far fa-times-circle text-red mr-1"></i>Assign, Monitor and Manage tasks among your eachorators with <strong>Tasks.</strong> <br>
+                    <i class="far fa-times-circle text-red mr-1"></i>Communicate securely with your eachorators both synchronously and asynchronously in <strong>ChatRoom.</strong> <br>
                     <i class="far fa-times-circle text-red mr-1"></i>Organize, store and share your lab experiments, field works etc. in real-time with <strong>ResearchNote.</strong> <br>
 
                   </div>
@@ -102,8 +102,10 @@
             </div>
             {% endif %}
 
+            {% if subscriptions_page_obj %}
+
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-lg-12">
                 <div class="card">
                   <div class="card-header">
                     <div class="card-title text-info">History</div>
@@ -122,12 +124,13 @@
                           </tr>
                         </thead>
                         <tbody>
-                          {% for collab in all_concludeds %}
+                          {% for each in subscriptions_page_obj %}
                           <tr>
-                            <td>{{collab.locked_date}}</td>
-                            <td class="num-font">{{collab.title}}</td>
-                            <td class="num-font">{{collab.field}}</td>
-                            <td class="num-font">{{collab.researcher}}</td>
+                            <td>{{each.created}}</td>
+                            <td class="num-font">{{each.subscription_type}}</td>
+                            <td class="num-font">{{each.current_bill|slice:":3"}}</td>
+                            <td class="num-font">{{each.subscription_ends}}</td>
+                            <td class="num-font"></td>
                           </tr>
                           {% endfor %}
                         </tbody>
@@ -138,6 +141,7 @@
               </div>
             </div>
           </div>
+          {% endif %}
 
 
 

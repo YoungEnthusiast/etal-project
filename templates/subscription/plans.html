@@ -17,6 +17,8 @@
       <div class="horizontal-content">
         {% include '_alerts.html' %}
 
+        {% if subscription_type == None or okay == "No" %}
+
         <div class="row">
 
           <div class="col-xl-2 col-lg-4 col-md-12">
@@ -28,7 +30,7 @@
                 <h4 class="text-info">Free</h4>
                 <h6 class="mb-1">All the basics</h6>
 
-                <p class="text-muted "><font size="+3">$0</font> <sup class="h6">per year forever</sup></p>
+                <p class="text-muted "><font size="+2"><strong class="text-info">$0</strong></font> <sup class="h6">per year forever</sup></p>
                 <a href="" class="btn btn-outline-info btn-sm rounded-pill">Current plan</a>
 
               </div>
@@ -41,7 +43,7 @@
                 <h4 class="text-info">Premium</h4>
                 <h6 class="mb-1">Advanced tools for collaboration</h6>
 
-                <p class="text-muted "><font size="+3">$5</font> <sup class="h6">per month</sup></p>
+                <p class="text-muted "><font size="+2"><strong class="text-info">$5</strong></font> <sup class="h6">per month</sup> <sup class="h6">or</sup> <font size="+2"><strong class="text-info">$50</strong></font> <sup class="h6">per year</sup></p>
                 <a href="{% url 'upgrade' %}" class="btn btn-info btn-sm">Upgrade to premium</a>
 
               </div>
@@ -53,6 +55,88 @@
 
 
         </div>
+
+        {% elif subscription_type == "Monthly" and okay == "Yes" %}
+
+        <div class="row">
+
+          <div class="col-xl-2 col-lg-4 col-md-12">
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-12">
+            <div class="card">
+              <div class="card-body text-center">
+                <h4 class="text-info">Premium ({{subscription_type}})</h4>
+                <h6 class="mb-1">Advanced tools for collaboration</h6>
+
+                <p class=""><font size="+2"><strong class="text-info">{{current_bill|slice:":3"}}</strong></font> till {{next_payment}}</p>
+                <a href="" class="btn btn-outline-info btn-sm rounded-pill">Current plan</a>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-12">
+            <div class="card">
+              <div class="card-body text-center">
+                <br>
+                <br>
+                <a href="{% url 'upgrade' %}" class="btn btn-info">Renew</a>
+                <br>
+                <br>
+                <br>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-2 col-lg-4 col-md-12">
+          </div>
+
+
+        </div>
+
+        {% else %}
+        <div class="row">
+
+          <div class="col-xl-2 col-lg-4 col-md-12">
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-12">
+            <div class="card">
+              <div class="card-body text-center">
+                <h4 class="text-info">Premium ({{subscription_type}})</h4>
+                <h6 class="mb-1">Advanced tools for collaboration</h6>
+
+                <p class=""><font size="+2"><strong class="text-info">{{current_bill|slice:":3"}}</strong></font> till {{next_payment}}</p>
+                <a href="" class="btn btn-outline-info btn-sm rounded-pill">Current plan</a>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-12">
+            <div class="card">
+              <div class="card-body text-center">
+                <br>
+                <br>
+                <a href="{% url 'upgrade' %}" class="btn btn-info">Renew</a>
+                <br>
+                <br>
+                <br>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-2 col-lg-4 col-md-12">
+          </div>
+
+
+        </div>
+        {% endif %}
+
+
+
+
       </div>
     </div>
   </div>
