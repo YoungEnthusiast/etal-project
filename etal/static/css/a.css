@@ -6344,20 +6344,62 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6; } }
 
 
+        .text-black {
+          color: #000000;
+        }
+
+        .text-light-blue{
+          color: #03b6fc;
+        }
+
+        .my-frame {
+           border: 2px solid #4072c4;
+           background-color: white;
+         }
+         li{
+           display: inline
+         }
 
 
-    .text-black {
-      color: #000000;
-    }
+         .logo {
+             width: 100px;
+             height: 100px;
+           }
 
-    .text-light-blue{
-      color: #03b6fc;
-    }
+         .logo2 {
+             width: 100px;
+             height: 60px;
+             }
+         .logo3 {
+             width: 200px;
+             height: 230px;
+         }
 
-    .my-frame {
-       border: 2px solid #4072c4;
-       background-color: white;
-     }
-     li{
-       display: inline
-     }
+         .logo4 {
+             width: 35px;
+             height: 35px;
+         }
+
+         .logo5 {
+             width: 80px;
+             height: 140px;
+           }
+
+           .logo6 {
+               width: 80px;
+               height: 160px;
+             }
+
+             .logo7 {
+                 width: 463px;
+             }
+
+             .logo8 {
+                 width: 15px;
+                 height: 35px;
+             }
+
+             .logo9 {
+                 width: 60px;
+                 height: 120px;
+             }

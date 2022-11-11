@@ -82,7 +82,7 @@
       									</div>
       								</div>
       							</div>
-                    <div class="col-xl-4 col-md-12">
+                    <div class="col-xl-3 col-md-12">
                       Initiated on {{collab.created}}
                       <br>
                       <br>
@@ -100,7 +100,7 @@
                               {% if person in collab.removed_people.all %}
                               <strong><p>Removed/<a class="text-info" href="">Report</a></p></strong>
                               {% else %}
-                              <strong><p><a class="text-info" href="removed/{{person.user_Id}}">Remove</a>/<a class="text-info" href="">Report</a></p></strong>
+                              <strong><p><a class="text-info" href="removed/{{person.username}}">Remove</a>/<a class="text-info" href="">Report</a></p></strong>
                               {% endif %}
                               <br>
                             {% endfor %}

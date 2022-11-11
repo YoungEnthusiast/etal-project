@@ -16,6 +16,7 @@
             <br>
             <div class="container content-area">
               <div class="horizontal-content">
+                {% include '_alerts.html' %}
 
                 <div class="row">
     							<div class="col-xl-8 col-lg-12 col-md-12">
@@ -69,7 +70,7 @@
     								</div>
     							</div>
                   {% if collab.researcher == request.user %}
-                  <div class="col-xl-4 col-md-12">
+                  <div class="col-xl-3 col-md-12">
                     <a class="text-white" href="update"><button class="btn btn-info" type="button" name="button"><strong><i class="fas fa-edit fa-1x mr-1"></i>Edit</strong></button></a>
                     <a class="text-white" href="delete"><button class="btn btn-red" type="button" name="button"><strong><i class="fas fa-trash fa-1x mr-1"></i>Delete</strong></button></a>
                     <br>
@@ -86,9 +87,9 @@
                               <a href="{% url 'show_user' person.user_Id %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
                             {% endif %}
                             {% if person in collab.collaborators.all %}
-                            <strong><p>Offered/<a class="text-info" href="declined/{{person.user_Id}}">Decline</a></p></strong>
+                            <strong><p>Offered/<a class="text-info" href="declined/{{person.username}}">Decline</a></p></strong>
                             {% else %}
-                            <strong><p><a class="text-info" href="offered/{{person.user_Id}}">Offer</a>/<a class="text-info" href="declined/{{person.user_Id}}">Decline</a></p></strong>
+                            <strong><p><a class="text-info" href="offered/{{person.username}}">Offer</a>/<a class="text-info" href="declined/{{person.username}}">Decline</a></p></strong>
                             {% endif %}
                             <br>
                           {% endfor %}
