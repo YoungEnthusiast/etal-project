@@ -64,6 +64,7 @@ EMAIL_HOST_PASSWORD = 'Quayers8_'
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = 'Et al Tech. Ltd. <taoheed.yusuf@etal.ac>'
 
+WSGI_APPLICATION = 'etal.wsgi.application'
 ASGI_APPLICATION = 'etal.asgi.application'
 
 # CHANNEL_LAYERS = {
@@ -113,7 +114,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'etal.wsgi.application'
+
 
 
 # Database
