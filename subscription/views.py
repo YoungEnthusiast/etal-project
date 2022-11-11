@@ -161,8 +161,8 @@ def yearly(request):
     return redirect('history')
 
 @login_required
-def receipt(request, id, **kwargs):
-    payment = Subscription.objects.get(id=id)
+def receipt(request, payment_id, **kwargs):
+    payment = Subscription.objects.get(payment_id=payment_id)
     if payment.user == request.user:
         context = {'payment': payment}
         return render(request, 'subscription/receipt.html', context)
