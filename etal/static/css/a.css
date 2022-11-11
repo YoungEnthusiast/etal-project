@@ -6349,3 +6349,15 @@ a.text-dark:hover, a.text-dark:focus {
     .text-black {
       color: #000000;
     }
+
+    .text-light-blue{
+      color: #03b6fc;
+    }
+
+    .my-frame {
+       border: 2px solid #4072c4;
+       background-color: white;
+     }
+     li{
+       display: inline
+     }

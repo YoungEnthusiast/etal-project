@@ -1,3 +1,4 @@
+{% load humanize %}
 <blockquote id="{{response.id}}">
   <p class="response-body">{{response.body}}</p>
   <small class="response-author">by {{response.user.first_name}} {{response.user.first_name}}</small>
@@ -8,7 +9,7 @@
       <input type="hidden" name="question" value="{{question.id}}"/>
       <input type="hidden" name="parent" value="{{response.id}}"/>
       {{reply_form.body}}
-      <input type="submit" class="reply-form-submit-button" value="Reply"/>
+      <input type="submit" class="btn btn-sm btn-info" value="Reply"/>
     </form>
   </blockquote>
 

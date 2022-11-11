@@ -93,9 +93,9 @@
                           <div class="row">
                             {% for person in collab.collaborators.all %}
                               {% if person.photograph %}
-                                <a href="{% url 'show_user' person.user_Id %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
+                                <p><a href="{% url 'show_user' person.user_Id %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a></p>
                               {% else %}
-                                <a href="{% url 'show_user' person.user_Id %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
+                                <p><a href="{% url 'show_user' person.user_Id %}"><i class="fa fa-user-circle text-info fa-5x"></i></a></p>
                               {% endif %}
                               {% if person in collab.removed_people.all %}
                               <strong><p>Removed/<a class="text-info" href="">Report</a></p></strong>
