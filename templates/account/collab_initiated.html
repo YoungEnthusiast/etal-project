@@ -82,7 +82,7 @@
       									</div>
       								</div>
       							</div>
-                    <div class="col-xl-3 col-md-12">
+                    <div class="col-xl-4 col-md-12">
                       Initiated on {{collab.created}}
                       <br>
                       <br>
@@ -93,14 +93,14 @@
                           <div class="row">
                             {% for person in collab.collaborators.all %}
                               {% if person.photograph %}
-                                <p><a href="{% url 'show_user' person.user_Id %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a></p>
+                                <a href="{% url 'show_user' person.user_Id %}"><img href="" src="{{ person.photographURL }}" alt="Photograph" class="profile-col"></a>
                               {% else %}
-                                <p><a href="{% url 'show_user' person.user_Id %}"><i class="fa fa-user-circle text-info fa-5x"></i></a></p>
+                                <a href="{% url 'show_user' person.user_Id %}"><i class="fa fa-user-circle text-info fa-5x"></i></a>
                               {% endif %}
                               {% if person in collab.removed_people.all %}
-                              <strong><p>Removed/<a class="text-info" href="">Report</a></p></strong>
+                              <strong>Removed/<a class="text-info" href="">Report</a></strong>
                               {% else %}
-                              <strong><p><a class="text-info" href="removed/{{person.username}}">Remove</a>/<a class="text-info" href="">Report</a></p></strong>
+                              <strong><a class="text-info" href="removed/{{person.username}}">Remove</a>/<a class="text-info" href="">Report</a></strong>
                               {% endif %}
                               <br>
                             {% endfor %}
@@ -128,5 +128,6 @@
 
           </div>
         </div>
+        <br>
 
 {% endblock content%}
