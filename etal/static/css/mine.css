@@ -20384,6 +20384,12 @@ section {
   height: 40px
 }
 
+.profile-small2{
+  border-radius: 50%;
+  width: 70px;
+  height: 40px
+}
+
 .profile-sub{
   border-radius: 50%;
   width: 50px;

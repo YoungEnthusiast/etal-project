@@ -1,88 +1,82 @@
 {% load static %}
 <!-- Navbar-->
+
 <nav class="navbar navbar-marketing navbar-expand-lg bg-white fixed-top">
   <a href="{% url 'index' %}"><img src="{% static 'img/logo.png' %}" class="logo2" alt="Et al. Logo"></a>
 
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto me-lg-5">
-                <li class="nav-item"><a class="nav-link text-white" href="{% url 'index' %}">Home</a></li>
-                <li class="nav-item dropdown dropdown-xl no-caret">
-                    <a class="nav-link text-white dropdown-toggle" id="navbarDropdownDemos" href="" role="button" aria-haspopup="true" aria-expanded="false">
-                        About Us
-                    </a>
-                </li>
-                <li class="nav-item dropdown dropdown-xl no-caret">
-                    <a class="nav-link dropdown-toggle text-white" id="navbarDropdownPages" href="" role="button" aria-haspopup="true" aria-expanded="false">
-                        Gallery
-                    </a>
-                </li>
-                <li class="nav-item dropdown no-caret">
-                    <a class="text-white nav-link dropdown-toggle" id="navbarDropdownDocs" href="" role="button" aria-haspopup="true" aria-expanded="false">
-                        Contact Us
-                    </a>
-                </li>
-            </ul>
-            {% if user.is_authenticated and user.type == "QwikCustomer" %}
-              <a class="btn fw-500 ms-lg-4" href="">
-                {% if user.photograph %}
-                  <img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
-                {% else %}
-                  <i class="fa fa-user-circle text-cylinder fa-4x"></i>
-                {% endif %}
-                <strong class="text-cylinder">(Dashboard)<i class="ms-2" data-feather="arrow-right"></i></strong>
-              </a>
-              <a class="btn fw-500 ms-lg-4 btn-cylinder rounded-pill" href="{% url 'logout' %}">
-                <i class="fas fa-sign-out-alt"></i>&nbspSign Out
-              </a>
-
-              {% elif user.is_authenticated and user.type == "QwikA--" %}
-                <a class="btn fw-500 ms-lg-4" href="">
-                  {% if user.photograph %}
-                    <img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
-                  {% else %}
-                    <i class="fa fa-user-circle text-cylinder fa-4x"></i>
-                  {% endif %}
-                  <strong class="text-cylinder">(Dashboard)<i class="ms-2" data-feather="arrow-right"></i></strong>
-                </a>
-                <a class="btn fw-500 ms-lg-4 btn-cylinder rounded-pill" href="{% url 'logout' %}">
-                  <i class="fas fa-sign-out-alt"></i>&nbspSign Out
-                </a>
-                {% elif user.is_authenticated and user.type == "QwikVendor" %}
-                  <a class="btn fw-500 ms-lg-4" href="">
-                    {% if user.photograph %}
-                      <img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
-                    {% else %}
-                      <i class="fa fa-user-circle text-cylinder fa-4x"></i>
-                    {% endif %}
-                    <strong class="text-cylinder">(Dashboard)<i class="ms-2" data-feather="arrow-right"></i></strong>
-                  </a>
-                  <a class="btn fw-500 ms-lg-4 btn-cylinder rounded-pill" href="{% url 'logout' %}">
-                    <i class="fas fa-sign-out-alt"></i>&nbspSign Out
-                  </a>
-                  {% elif user.is_authenticated and user.type == "QwikPartner" %}
-                    <a class="btn fw-500 ms-lg-4" href="">
-                      {% if user.photograph %}
-                        <img src="{{ user.photographURL }}" alt="Photograph" class="profile-small">
-                      {% else %}
-                        <i class="fa fa-user-circle text-cylinder fa-4x"></i>
-                      {% endif %}
-                      <strong class="text-cylinder">(Dashboard)<i class="ms-2" data-feather="arrow-right"></i></strong>
-                    </a>
-                    <a class="btn fw-500 ms-lg-4 btn-cylinder rounded-pill" href="{% url 'logout' %}">
-                      <i class="fas fa-sign-out-alt"></i>&nbspSign Out
-                    </a>
-            {% else %}
-            <a class="btn fw-500 ms-lg-4" href="{% url 'join' %}">
-            <button class="btn btn-outline-white col-md-12"><strong class="text-dark">Join</strong></button>
-            </a>
-            <a class="btn fw-500 ms-lg-4" href="{% url 'login' %}">
-            <button class="btn btn-outline-info col-md-12"><strong>Login</strong></button>
-            </a>
 
 
-            {% endif %}
         </div>
     </div>
+    {% if user.is_authenticated and user.type == "Researcher" %}
+    <ul class="navbar-nav ms-auto me-lg-5">
+        <li class="nav-item dropdown dropdown-xl no-caret">
+            <a class="nav-link dropdown-toggle text-black" id="navbarDropdownPages" href="" role="button" aria-haspopup="true" aria-expanded="false">
+                <strong>Collab</strong>
+            </a>
+        </li>
+        <li class="nav-item dropdown no-caret">
+            <a class="text-black nav-link dropdown-toggle" id="navbarDropdownDocs" href="" role="button" aria-haspopup="true" aria-expanded="false">
+                <strong>Community</strong>
+            </a>
+        </li>
+    </ul>
+    <div class="d-flex order-lg-2 ml-auto">
+    <div class="dropdown d-sm-flex d-none header-message">
+        <a class="nav-link icon" data-toggle="dropdown">
+          {% if user.photograph %}
+            <img src="{{ user.photographURL }}" alt="Photograph" class="profile-small2">
+          {% else %}
+            <i class="fa fa-user-circle text-info fa-2x"></i>
+          {% endif %}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+          <a class="dropdown-item text-center" href="#"><strong class="text-info">Signed in as {{user.username}}</strong></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item d-flex pb-1" href="{% url 'plans' %}">
+
+            <div>
+              <div class="small text-muted d-flex">
+                <strong>Upgrade</strong> &nbsp
+                <div class="ml-auto">
+                <span class="badge badge-info"><i class="fa fa-shield-alt"></i></span>
+                </div>
+              </div>
+
+            </div>
+          </a>
+          <a class="dropdown-item d-flex pb-1" href="{% url 'logout' %}">
+            <div>
+              <div class="small text-muted d-flex">
+                <strong>Sign Out</strong> &nbsp
+                <div class="ml-auto">
+                <span class="badge badge-info"><i class="fa fa-sign-out-alt"></i></span>
+                </div>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+    {% elif user.is_authenticated == False %}
+    <a class="btn fw-500" href="{% url 'join' %}">
+    <button class="btn btn-outline-white col-md-12"><strong class="text-dark">Join</strong></button>
+    </a>
+    <a class="btn fw-500" href="{% url 'login' %}">
+    <button class="btn btn-outline-info col-md-12"><strong>Login</strong></button>
+    </a>
+    {% endif %}
 </nav>
+
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery-jvectormap-2.0.2.min.js' %}"></script>
+<script src="{% static 'js/jquery-jvectormap-world-mill-en.js' %}"></script>
+<script src="{% static 'js/jvectormap.js' %}"></script>
+<script src="{% static 'js/chart.js/jquery-1.6.3.min.js'  %}"></script>
