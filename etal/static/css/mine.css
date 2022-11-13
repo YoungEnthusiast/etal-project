@@ -19677,8 +19677,8 @@ body {
     padding-bottom: 0;
   }
   .navbar-marketing .navbar-nav {
-    padding-top: 1.75rem;
-    padding-bottom: 1.75rem;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
   }
   .navbar-marketing .navbar-nav .nav-item {
     margin-right: 1rem;
