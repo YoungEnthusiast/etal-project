@@ -75,7 +75,7 @@ $('.popover-dismiss').popover({
                       </div>
                     </div>
                     {% if user.is_authenticated and user.type == "QwikCustomer" %}
-                    <a class="btn btn-cylinder fw-500 me-2" href="">
+                    <a class="btn btn-cylinder fw-500 me-2" href="{% url 'products:product_list' %}">
                         Order gas
                         <i class="ms-2" data-feather="arrow-right"></i>
                     </a>
@@ -84,7 +84,7 @@ $('.popover-dismiss').popover({
                         Order gas
                         <i class="ms-2" data-feather="arrow-right"></i>
                     </a>
-                    <a class="btn btn-cylinder fw-500 me-2" href="{% url 'join' %}">
+                    <a class="btn btn-cylinder fw-500 me-2" href="{% url 'account' %}">
                         Join the train
                         <i class="ms-2" data-feather="arrow-right"></i>
                     </a>
@@ -277,12 +277,12 @@ $('.popover-dismiss').popover({
         </div>
         <div class="row gx-5 justify-content-center text-center">
             <div class="col-lg-8">
-                <a class="badge bg-cylinder rounded-pill badge-marketing mb-4" href="{% url 'join' %}">Get Started</a>
+                <a class="badge bg-cylinder rounded-pill badge-marketing mb-4" href="{% url 'account' %}">Get Started</a>
                 <br>
                 <h1 class="text-dark-green">Save time with QwikGas</h1>
                 <br>
                 {% if user.is_authenticated and user.type == "QwikCustomer" %}
-                <a class="btn btn-dark-green fw-500" href="">Order gas now!</a>
+                <a class="btn btn-dark-green fw-500" href="{% url 'products:product_list' %}">Order gas now!</a>
                 {% else %}
                 <a class="btn btn-dark-green fw-500" href="{% url 'login' %}">Order gas now!</a>
                 {% endif %}
