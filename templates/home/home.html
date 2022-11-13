@@ -34,7 +34,7 @@ $('.popover-dismiss').popover({
 
 <!-- Page Header-->
 <header class="page-header-ui page-header-ui-dark bg-white">
-    <div class="page-header-ui-content pt-5">
+    <div class="page-header-ui-content pt-1">
         <div class="container px-5">
             <div class="row gx-5 align-items-center">
                 <div class="col-lg-6" data-aos="fade-up">
@@ -93,37 +93,17 @@ $('.popover-dismiss').popover({
                           </div>
                         </div>
 
+                        <div class="carousel-item">
+                          <div class="carousel-caption-top0">
+                            <div class="card bg-info">
+                              <h1 class="page-header-ui-title">Research is <span class="text-black">borderless</span> when we Et al.</h1>
+                            </div>
+                            <h5 class="text-black mb-5">Collaboration platform for Academic Researchers
+                              with the tools they need in one place.
+                            </h5>
+                          </div>
+                        </div>
 
-                        <div class="carousel-item">
-                          <div class="carousel-caption-top0">
-                            <div class="card bg-info">
-                              <h1 class="page-header-ui-title"></h1>
-                            </div>
-                            <h5 class="text-black mb-5">Collaboration platform for Academic Researchers
-                              with the tools they need in one place.
-                            </h5>
-                          </div>
-                        </div>
-                        <div class="carousel-item">
-                          <div class="carousel-caption-top0">
-                            <div class="card bg-info">
-                              <h1 class="page-header-ui-title"></h1>
-                            </div>
-                            <h5 class="text-black mb-5">Collaboration platform for Academic Researchers
-                              with the tools they need in one place.
-                            </h5>
-                          </div>
-                        </div>
-                        <div class="carousel-item">
-                          <div class="carousel-caption-top0">
-                            <div class="card bg-info">
-                              <h1 class="page-header-ui-title"></h1>
-                            </div>
-                            <h5 class="text-black mb-5">Collaboration platform for Academic Researchers
-                              with the tools they need in one place.
-                            </h5>
-                          </div>
-                        </div>
                       </div>
                     </div>
 
@@ -138,26 +118,56 @@ $('.popover-dismiss').popover({
     </div>
 
 </header>
-<section class="bg-white py-10">
+
+<section class="bg-light py-10">
     <div class="container px-5">
-        <div class="row gx-5 text-center">
-            <div class="col-lg-6 mb-5 mb-lg-0">
-                <div class="icon-stack icon-stack-xl bg-info text-white mb-4"><i data-feather="chrome"></i></div>
-                <h3 class="text-info"><strong>Stress-free Solution</strong></h3>
-                <p class="mb-0 text-dark">Swift and stress-free access to fill gas cylinder from the comfort of your home.</p>
+        <div class="row gx-5 align-items-center justify-content-center">
+            <div class="col-md-9 col-lg-6 order-1 order-lg-0" data-aos="fade-right">
+                <div class="content-skewed content-skewed-right"><img class="content-skewed-item img-fluid shadow-lg rounded-3" src="{% static 'img/universal.jpg' %}" alt="Ideas are universal" /></div>
             </div>
-            <div class="col-lg-6 mb-5 mb-lg-0">
-                <div class="icon-stack icon-stack-xl bg-info text-white mb-4"><i data-feather="check"></i></div>
-                <h3 class="text-info"><strong>Click & Get</strong></h3>
-                <p class="mb-0 text-dark">Click and get clean filled gas cylinder in excellent condition at your doorway.</p>
+            <div class="col-lg-6 order-0 order-lg-1 mb-5 mb-lg-0" data-aos="fade-left">
+                <div class="mb-5">
+                  <h2 class="text-info"><strong>Ideas are universal, access is not.</strong></h2>
+                  <p class="lead text-dark">
+                    Et al. helps you achieve infinite possibilities to
+                    do what you love, wherever you might be and
+                    whatever your circumstance. Leverage the
+                    power of community to get the access you
+                    require.
+                  </p>
+                </div>
+
             </div>
         </div>
     </div>
-    <div class="svg-border-rounded text-info">
-        <!-- Rounded SVG Border-->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+</section>
+
+<section class="bg-light py-10">
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center justify-content-center">
+            <div class="col-md-9 col-lg-6 order-1 order-lg-0" data-aos="fade-right">
+              <div class="mb-5">
+                <h2 class="text-info"><strong>When we et al, we achieve more</strong></h2>
+                <p class="lead text-dark">
+                  Et al. is built with researchers in mind.
+                  Collaborate and manage your
+                  collaborations with subject experts
+                  from anywhere.
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-6 order-0 order-lg-1 mb-5 mb-lg-0" data-aos="fade-left">
+
+
+                <div class="content-skewed content-skewed-left"><img class="content-skewed-item img-fluid shadow-lg rounded-3" src="{% static 'img/when_we.jpg' %}" alt="When we etal." /></div>
+
+
+            </div>
+        </div>
     </div>
 </section>
+
+<!--
 <section class="bg-light py-10">
     <div class="container px-5">
         <div class="row gx-5 align-items-center justify-content-center">
@@ -329,7 +339,7 @@ $('.popover-dismiss').popover({
     </div>
     <div class="svg-border-rounded text-white">
         <!-- Rounded SVG Border-->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg> -->
     </div>
-</section>
+</section> -->
 {% endblock content%}
