@@ -7,6 +7,13 @@
 {% endblock title %}
 
 {% block content %}
+<!-- <script>
+
+    window.onload=function () {
+       window.location.href = "{% url 'index' %}"
+    }
+
+</script> -->
 
 <script type="text/javascript">
 function showIt(imgsrc)
@@ -26,13 +33,13 @@ $('.popover-dismiss').popover({
 </script>
 
 <!-- Page Header-->
-<header class="page-header-ui page-header-ui-dark bg-info">
+<header class="page-header-ui page-header-ui-dark bg-white">
     <div class="page-header-ui-content pt-5">
         <div class="container px-5">
             <div class="row gx-5 align-items-center">
                 <div class="col-lg-6" data-aos="fade-up">
                     <!-- <h1 class="page-header-ui-title">On-demand Cooking Gas Ordering</h1> -->
-                    <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                       <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -44,64 +51,92 @@ $('.popover-dismiss').popover({
                       <div class="carousel-inner">
                         <div class="carousel-item active">
                           <div class="carousel-caption-top0">
-                            <div class="card bg-primary">
-                              <h1 class="page-header-ui-title">Research is better when we Et al.</h1>
+                            <div class="card bg-info">
+                              <h1 class="page-header-ui-title">Research is <span class="text-success">better</span> when we Et al.</h1>
                             </div>
-                            <h1 class="page-header-ui-title">Research is better when we Et al.</h1>
-                            <p class="page-header-ui-text mb-5">Solving clean energy poverty among the under-served in emerging markets.</p>
+                            <h5 class="text-black mb-5">Collaboration platform for Academic Researchers
+                              with the tools they need in one place.
+                            </h5>
+                          </div>
+                        </div>
+
+                        <div class="carousel-item">
+                          <div class="carousel-caption-top0">
+                            <div class="card bg-info">
+                              <h1 class="page-header-ui-title">Research is <span class="text-red">impactful</span> when we Et al.</h1>
+                            </div>
+                            <h5 class="text-black mb-5">Collaboration platform for Academic Researchers
+                              with the tools they need in one place.
+                            </h5>
+                          </div>
+                        </div>
+
+                        <div class="carousel-item">
+                          <div class="carousel-caption-top0">
+                            <div class="card bg-info">
+                              <h1 class="page-header-ui-title">Research is <span class="text-purple">interesting</span> when we Et al.</h1>
+                            </div>
+                            <h5 class="text-black mb-5">Collaboration platform for Academic Researchers
+                              with the tools they need in one place.
+                            </h5>
+                          </div>
+                        </div>
+
+                        <div class="carousel-item">
+                          <div class="carousel-caption-top0">
+                            <div class="card bg-info">
+                              <h1 class="page-header-ui-title">Research is <span class="text-yellow">fun</span> when we Et al.</h1>
+                            </div>
+                            <h5 class="text-black mb-5">Collaboration platform for Academic Researchers
+                              with the tools they need in one place.
+                            </h5>
+                          </div>
+                        </div>
+
+
+                        <div class="carousel-item">
+                          <div class="carousel-caption-top0">
+                            <div class="card bg-info">
+                              <h1 class="page-header-ui-title"></h1>
+                            </div>
+                            <h5 class="text-black mb-5">Collaboration platform for Academic Researchers
+                              with the tools they need in one place.
+                            </h5>
                           </div>
                         </div>
                         <div class="carousel-item">
                           <div class="carousel-caption-top0">
-                            <p class="page-header-ui-text mb-5">Get clean energy trade credit to power your business.</p>
+                            <div class="card bg-info">
+                              <h1 class="page-header-ui-title"></h1>
+                            </div>
+                            <h5 class="text-black mb-5">Collaboration platform for Academic Researchers
+                              with the tools they need in one place.
+                            </h5>
                           </div>
                         </div>
                         <div class="carousel-item">
                           <div class="carousel-caption-top0">
-                            <p class="page-header-ui-text mb-5">Got no cylinder? No worries. QwikGas has got you covered.</p>
-                          </div>
-                        </div>
-                        <div class="carousel-item">
-                          <div class="carousel-caption-top0">
-                            <p class="page-header-ui-text mb-5">Opening a new restaurant outlet? QwikGas goes with you, so you can focus on things that matter.</p>
-                          </div>
-                        </div>
-                        <div class="carousel-item">
-                          <div class="carousel-caption-top0">
-                            <p class="page-header-ui-text mb-5">Enjoy the true VIP treatment you deserve. No subscription, no hidden fees.</p>
-                          </div>
-                        </div>
-                        <div class="carousel-item">
-                          <div class="carousel-caption-top0">
-                            <p class="page-header-ui-text mb-5">#1 B2B Cookstove-as-a-Service brand.</p>
+                            <div class="card bg-info">
+                              <h1 class="page-header-ui-title"></h1>
+                            </div>
+                            <h5 class="text-black mb-5">Collaboration platform for Academic Researchers
+                              with the tools they need in one place.
+                            </h5>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <a class="btn btn-cylinder fw-500 me-2" href="">
-                        Solving clean energy poverty among the under-served in emerging markets.Solving clean energy poverty among
-                        <br> the under-served in emerging markets. Solving clean energy poverty among the under-served in emerging markets.
-                        <i class="ms-2" data-feather="arrow-right"></i>
-                    </a>
-                    <a class="btn btn-cylinder fw-500 me-2" href="{% url 'login' %}">
-                        Order gas
-                        <i class="ms-2" data-feather="arrow-right"></i>
-                    </a>
-                    <a class="btn btn-cylinder fw-500 me-2" href="{% url 'join' %}">
-                        Join the train
-                        <i class="ms-2" data-feather="arrow-right"></i>
-                    </a>
-
                 </div>
-                <div class="col-lg-6 d-none d-lg-block" data-aos="fade-up" data-aos-delay="100"><img class="img-fluid" src="{% static 'img/how.svg' %}" /></div>
+                <div class="col-lg-6 d-none d-lg-block" data-aos="fade-up" data-aos-delay="100">
+                  <video width="700" height="500" loop="true" autoplay="autoplay" muted>
+                    <source src="{% static 'img/etal_video.mp4' %}" type="video/mp4">
+                  </video>
+                </div>
             </div>
         </div>
     </div>
-    <div class="svg-border-rounded text-white">
-        <!-- Rounded SVG Border-->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
-    </div>
+
 </header>
 <section class="bg-white py-10">
     <div class="container px-5">
