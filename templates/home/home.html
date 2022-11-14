@@ -38,15 +38,10 @@ $('.popover-dismiss').popover({
         <div class="container px-5">
             <div class="row gx-5 align-items-center">
                 <div class="col-lg-6" data-aos="fade-up">
-                    <!-- <h1 class="page-header-ui-title">On-demand Cooking Gas Ordering</h1> -->
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
                       <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+
                       </ol>
                       <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -108,7 +103,7 @@ $('.popover-dismiss').popover({
                     </div>
 
                 </div>
-                <div class="col-lg-6 d-none d-lg-block" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-6 d-none d-lg-block" data-aos="fade-up">
                   <video width="700" height="500" loop="true" autoplay="autoplay" muted>
                     <source src="{% static 'img/etal_video.mp4' %}" type="video/mp4">
                   </video>
@@ -167,7 +162,37 @@ $('.popover-dismiss').popover({
     </div>
 </section>
 
-<!--
+<section class="bg-light py-10">
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center justify-content-center">
+            <div class="col-md-12 col-lg-12 order-1 order-lg-0" data-aos="fade-up">
+              <div class="mb-1">
+                <h2 class="text-info"><strong>Your research collaboration tools on one platform</strong></h2>
+                <p style="text-align:justify" class="lead text-dark">
+                  Et al. promotes seamless cross-border research collaboration.
+                  Brainstorm ideas easily on Board. Stay in the know and keep the
+                  conversation going with <span class="text-info h4"><strong>Chat</strong></span>. Assign responsibility with <span class="text-info h4"><strong>Task</strong></span>.
+                  Report and keep track of research/experiment outcomes with <span class="text-info h4"><strong>ResearchNote</strong></span>. Share files and be on the same page with your
+                  collaborators with <span class="text-info h4"><strong>CollabDoc</strong></span>. Plan your research with <span class="text-info h4"><strong>Scheduler</strong></span>. Bring
+                  your collaborators together in a live conversation with <span class="text-info h4"><strong>Meeting</strong></span>. With Et al. research just got borderless.
+
+                </p>
+              </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<marquee behavior="scroll" direction="left" scrollamount="5">
+  <img src="{% static 'img/ChatRoom.jpg' %}" class="logo10" alt="">
+  <img src="{% static 'img/Tasks.jpg' %}" class="logo10" alt="">
+
+
+
+
+</marquee>
+
+
 <section class="bg-light py-10">
     <div class="container px-5">
         <div class="row gx-5 align-items-center justify-content-center">
@@ -338,8 +363,8 @@ $('.popover-dismiss').popover({
         </div>
     </div>
     <div class="svg-border-rounded text-white">
-        <!-- Rounded SVG Border-->
-        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg> -->
+        Rounded SVG Border
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
     </div>
-</section> -->
+</section>
 {% endblock content%}
