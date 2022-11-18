@@ -1,32 +1,31 @@
 {% load static %}
 <div id="layoutDefault_footer">
-  <section class="bg-white py-10">
+  <section class="bg-white py-1">
       <div class="container px-5 mt-5">
           <div class="row gx-5 align-items-center">
             <div class="col-lg-1">
 
             </div>
               <div class="col-lg-5">
-                  <h4 class="text-dark">Ready to get served?</h4>
-                  <p class="lead mb-5 mb-lg-0 text-gray-500">Get in touch or create an account.</p>
-                  <h6 class="text-dark-green">QwikGas</h6>
-                  <h6 class="text-cylinder">Gas made easy</h6>
+                  <!-- <h4 class="text-dark">Ready to get served?</h4>
+                  <p class="lead mb-5 mb-lg-0 text-gray-500">Get in touch or create an account.</p> -->
+                  <h6 class="text-info">Et al.</h6>
+                  <h6 class="text-cylinder"></h6>
                   <div class="">
-                      <a class="" href="https://wa.me/message/2JWR2UFJVHYVK1"><i class="fab fa-whatsapp text-whatsapp fa-1x"></i></a>
-                      <a class="" href="https://web.facebook.com/QwikGas-103130838914889"><i class="fab fa-facebook text-facebook fa-1x"></i></a>
-                      <a class="" href="https://www.instagram.com/qwikgasHQ/"><i class="fab fa-instagram fa-1x"></i></a>
-                      <a class="" href="https://www.linkedin.com/company/qwikgas/about/?viewAsMember=true"><i class="fab fa-linkedin fa-1x"></i></a>
-                      <a class="" href="#!"><i class="fab fa-twitter text-twitter fa-1x"></i></a>
+                      <a class="" href=""><i class="fab fa-whatsapp text-whatsapp fa-1x"></i></a>
+                      <a class="" href=""><i class="fab fa-facebook text-facebook fa-1x"></i></a>
+                      <a class="" href=""><i class="fab fa-linkedin text-info fa-1x"></i></a>
+                      <a class="" href=""><i class="fab fa-twitter text-twitter fa-1x"></i></a>
 
                   </div>
               </div>
               <div class="col-lg-5 text-lg-end">
-                  <a class="small text-arrow-icon"><a tabindex="0" class="btn btn-cylinder rounded-pill fw-500 me-1 my-2" role="button" data-html="true" data-toggle="popover" data-trigger="focus" title="Our Hot Lines" data-content="Mainland 1 [Oshodi-Isolo, Ikeja, Agege, Ilupeju, Mushin, Surulere] - 08179366466 <br><br> Mainland 2 [Ketu, Ikosi,  Alapere, Magodo, Maryland, Mile 12, Oregun, Ogudu, Ajelogo, Agboyi] - 08179366488 <br><br> Island [Lagos Island, Obalende, Ikoyi, Victoria Island, Lekki] - 08179366499">Contact Sales</a>
+                  <!-- <a class="small text-arrow-icon"><a tabindex="0" class="btn btn-cylinder rounded-pill fw-500 me-1 my-2" role="button" data-html="true" data-toggle="popover" data-trigger="focus" title="Our Hot Lines" data-content="Mainland 1 [Oshodi-Isolo, Ikeja, Agege, Ilupeju, Mushin, Surulere] - 08179366466 <br><br> Mainland 2 [Ketu, Ikosi,  Alapere, Magodo, Maryland, Mile 12, Oregun, Ogudu, Ajelogo, Agboyi] - 08179366488 <br><br> Island [Lagos Island, Obalende, Ikoyi, Victoria Island, Lekki] - 08179366499">Contact Sales</a>
                   {% if user.is_authenticated %}
                   {% else %}
                   <a class="btn btn-cylinder rounded-pill fw-500 me-1 my-2 shadow" href="{% url 'join' %}">Create Account</a>
                   <a class="btn btn-cylinder rounded-pill fw-500 my-2 shadow" href="">Household</a>
-                  {% endif %}
+                  {% endif %} -->
               </div>
               <div class="col-lg-1">
 
@@ -35,7 +34,7 @@
       </div>
   </section>
   <hr class="m-0" />
-    <footer class="footer pt-10 pb-5 mt-auto bg-white footer-light">
+    <footer class="footer pt-1 pb-5 mt-auto bg-white footer-light">
         <div class="container px-5">
             <div class="row gx-5">
                 <div class="col-lg-1">
@@ -47,85 +46,18 @@
 
                 </div>
             </div>
-            <hr class="my-5" />
+            <!-- <hr class="my-1" /> -->
             <div class="row gx-5 align-items-center">
-                <div class="col-md-3 small text-black">Copyright &copy; QwikGas <span class="year"></span></div>
-                <div class="col-md-9 text-md-end small">
-                  <a data-toggle="modal" data-target="#return" class="fw-500 me-2" href="#!">
-                      <span class="text-black">Return Policy</span>
-                  </a>
-                  <a data-toggle="modal" data-target="#terms1" class="fw-500 me-2" href="#!">
-                      <span class="text-black">Terms and Condition of Cylinder Use</span>
-                  </a>
+              <div class="col-md-4">
+
+              </div>
+                <div class="col-md-4 small text-black text-center">Copyright &copy; Et al.<span class="year"></span></div>
+                <div class="col-md-4 text-md-end small">
+
+
                   <a data-toggle="modal" data-target="#terms2" class="fw-500 me-2" href="#!">
                       <span class="text-black">Terms and Condition of Website Use</span>
                   </a>
-                  <!-- Return Policy -->
-                  <div class="modal fade" id="return" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-
-                          <h5 class="modal-title" id="exampleModalLabel">Return Policy</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                            <p style="text-align:left">QwikGas prefilled gas cylinder is sold with tamper-proof seal, which is a mark of quality and value for money. The seal is an assurance that the prefilled cylinder has passed the quality assurance check for accurate content and excellent cylinder condition. Do not take delivery of any QwikGas prefilled cylinder with broken seal.</p>
-                            <p style="text-align:left">QwikGas will only refund order that was appropriately invoiced and delivered, if the tamper-proof seal remains intact. This return policy is subject to the QwikGas Terms and Conditions of sale and Terms and Conditions of Cylinder use.</p>
-                            <p style="text-align:left">This return policy is subject to change at the discretion of QwikGas without prior notice.</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-dark-green" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Terms (Cylinder) -->
-                  <div class="modal fade" id="terms1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-
-                          <h5 class="modal-title" id="exampleModalLabel">Terms &amp; Condition of Cylinder Use</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                        <p style="text-align:left">The cylinder is owned and remains the sole property of QwikGas. QwikGas is a registered trademark and a brand of Viridescent Limited.</p>
-                        <p style="text-align:left">QwikGas cylinder has only been loaned to you to utilize the LPG content in a rightful and lawful manner.</p>
-                        <p style="text-align:left">Only the LPG content in the QwikGas cylinder has been sold to you and that you have paid for.</p>
-                        <p style="text-align:left">The Cylinder has been checked and certified by QwikGas to be in safe and proper working condition before issuance for delivery, inspect the cylinder and be satisfied that it has no defect before taking delivery.</p>
-                        <p style="text-align:left">Do not take delivery of any cylinder with defect or in an unsafe condition. QwikGas is not liable for any loss, damage or harm in any form and of any type arising from the use of QwikGas cylinder you take delivery of.</p>
-                        <p style="text-align:left">QwikGas cylinder must be returned not later than fifteen (15) days from the date of delivery of same cylinder. Failure to return cylinder by the due date may lead to pressing of charges against you and you would be demanded to pay compensation of N30,000.00 at the point of pressing of charges.</p>
-                        <p style="text-align:left">You agree not to tamper, erase, scratch or eliminate anything printed on the QwikGas cylinder including but not limited to the QwikGas cylinder tracking code, the QwikGas brand name and logo.</p>
-                        <p style="text-align:left">QwikGas cylinder must not be repainted. Repainting of the QwikGas cylinder shall be constituted a criminal sabotage and theft and shall be prosecuted as same.</p>
-                        <p style="text-align:left">QwikGas cylinder must not be defaced in anyway. Defacing of the QwikGas cylinder shall be constituted a criminal sabotage and theft and shall be prosecuted as same.</p>
-                        <p style="text-align:left">QwikGas cylinder must not be damaged in any form. Damaging of the QwikGas cylinder shall constitute a criminal sabotage and theft and shall be prosecuted as same. Unintentional minimal dent shall be exempted from this clause after due verification.</p>
-                        <p style="text-align:left">You agree not to use the QwikGas cylinder for any other purpose than the rightful and lawful use of its content originating from QwikGas.</p>
-                        <p style="text-align:left">You agree not to refill the QwikGas cylinder and nor use the QwikGas cylinder for decanting into another cylinder/container.</p>
-                        <p style="text-align:left">You agree to return the QwikGas cylinder upon emptying the LPG content originating from QwikGas.</p>
-                        <p style="text-align:left">You agree not to sell the QwikGas cylinder to yourself or any other party.</p>
-                        <p style="text-align:left">You agree not to take the QwikGas cylinder to other gas retail or refill company.</p>
-                        <p style="text-align:left">You agree not to keep the QwikGas cylinder as personal property.</p>
-                        <p style="text-align:left">You agree to safely and securely use the QwikGas cylinder.</p>
-                        <p style="text-align:left">You agree not to remold or reshape the QwikGas cylinder.</p>
-                        <p style="text-align:left">You agree not to transfer usage of the QwikGas cylinder to a third party.</p>
-                        <p style="text-align:left">You agree not to trade in or with the QwikGas cylinder.</p>
-                        <p style="text-align:left">You agree not to loan or borrow out the QwikGas cylinder to a third party.</p>
-                        <p style="text-align:left">You agree to abide by each and every part of these Terms and Conditions of the QwikGas cylinder use.</p>
-                        <p style="text-align:left">The breach of any part or the whole of these Terms and Conditions of QwikGas cylinder use shall constitute a criminal sabotage and you agree to be fully liable and prosecuted accordingly.</p>
-                        <p style="text-align:left">These Terms and Conditions of QwikGas cylinder use is subject to changes, modification and alternation at anytime without prior notification in any form.</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-dark-green" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
 
                   <!-- Terms(Website) -->
                   <div class="modal fade" id="terms2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -138,7 +70,7 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                          <p style="text-align:left"><b>1. Terms of website use</b></p>
+                          <!-- <p style="text-align:left"><b>1. Terms of website use</b></p>
                           <p style="text-align:left">This page and any other referenced documents (and as may be updated, modified or replace without prior notification at any time) describe the terms on which our website, www.qwikgas.ng is allowed usage of (could be used) either as a registered user or a visitor. By accessing and using our site, you accept these terms of use and agree to abide by them.</p>
                           <p style="text-align:left"><b>2. Privacy policy</b></p>
                           <p style="text-align:left">Kindly see our privacy policy.</p>
@@ -215,10 +147,10 @@
                           <p style="text-align:left"><b>18. Variations</b> </p>
                           <p style="text-align:left">We may revise these Terms of Use at any time by amending this page. You are expected to check this page regularly to take notice of any changes we have made, as they are binding on you. Some of the provisions contained in these Terms of Use may also be superseded by provisions or notices published elsewhere on our site.</p>
                           <p style="text-align:left"><b>19. Your concerns</b> </p>
-                          <p style="text-align:left">Refer any query or concern about content that features on our site via email to support@qwikgas.ai.</p>
+                          <p style="text-align:left">Refer any query or concern about content that features on our site via email to support@qwikgas.ai.</p> -->
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-dark-green" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
                         </div>
                       </div>
                     </div>
